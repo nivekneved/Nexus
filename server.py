@@ -901,7 +901,7 @@ def get_financial_security_status():
 @app.get("/terms")
 def view_commercial_terms():
     """Serves the official commercial terms of sale and EULA."""
-    terms_file = "COMMERCIAL_TERMS_OF_SALE.md"
+    terms_file = "COMMERCIAL_PLAYBOOK.md" if os.path.exists("COMMERCIAL_PLAYBOOK.md") else "COMMERCIAL_TERMS_OF_SALE.md"
     if not os.path.exists(terms_file):
         raise HTTPException(status_code=404, detail="Terms of sale not found")
     with open(terms_file, "r", encoding="utf-8") as f:
