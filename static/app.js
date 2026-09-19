@@ -56,48 +56,61 @@ document.addEventListener("DOMContentLoaded", () => {
   initRevenueScoutController();
   initPartnerAIController();
   initMeshController();
+  initOutreachCRMController();
 });
+
+// Global Page Navigator
+window.navigateToPage = function(targetTab) {
+  const navItems = document.querySelectorAll(".nav-item");
+  const panes = document.querySelectorAll(".tab-pane");
+
+  navItems.forEach(b => {
+    if (b.dataset.tab === targetTab) b.classList.add("active");
+    else b.classList.remove("active");
+  });
+
+  panes.forEach(p => {
+    if (p.id === `pane-${targetTab}`) p.classList.add("active");
+    else p.classList.remove("active");
+  });
+
+  const pageTitle = document.getElementById("pageTitle");
+  const titles = {
+    workforce: "Workforce",
+    terminal: "Activity",
+    dashboard: "Inbox",
+    ledger: "Trash & Undo",
+    simulator: "Tester",
+    addons: "Shield & Addons",
+    devops: "Operations",
+    autopilot: "Night Shift (24/7 Autopilot)",
+    revenue: "Revenue Scout & Monetization",
+    outreach: "Outreach History & CRM Ledger",
+    mesh: "Agent Mesh & Comms Hub"
+  };
+  if (pageTitle && titles[targetTab]) {
+    pageTitle.textContent = titles[targetTab];
+  }
+
+  if (targetTab === "outreach") fetchOutreachCRM();
+  if (targetTab === "workforce") {
+    fetchPartnerAIData();
+    fetchAgents();
+    fetchEmailAccounts();
+    fetchReceivables();
+    fetchLeadsPipeline();
+  }
+};
 
 // Tab Navigation
 function initTabs() {
   const navItems = document.querySelectorAll(".nav-item");
-  const panes = document.querySelectorAll(".tab-pane");
 
   navItems.forEach(btn => {
     btn.addEventListener("click", () => {
       const targetTab = btn.dataset.tab;
-      
-      navItems.forEach(b => b.classList.remove("active"));
-      panes.forEach(p => p.classList.remove("active"));
+      window.navigateToPage(targetTab);
 
-      btn.classList.add("active");
-      const activePane = document.getElementById(`pane-${targetTab}`);
-      if (activePane) activePane.classList.add("active");
-
-      const pageTitle = document.getElementById("pageTitle");
-      const titles = {
-        workforce: "Workforce",
-        terminal: "Activity",
-        dashboard: "Inbox",
-        ledger: "Trash & Undo",
-        simulator: "Tester",
-        addons: "Shield & Addons",
-        devops: "Operations",
-        autopilot: "Night Shift (24/7 Autopilot)",
-        revenue: "Revenue Scout & Monetization",
-        mesh: "Agent Mesh & Comms Hub"
-      };
-      if (pageTitle && titles[targetTab]) {
-        pageTitle.textContent = titles[targetTab];
-      }
-
-      if (targetTab === "workforce") {
-        fetchPartnerAIData();
-        fetchAgents();
-        fetchEmailAccounts();
-        fetchReceivables();
-        fetchLeadsPipeline();
-      }
       if (targetTab === "dashboard") {
         fetchEmailAccounts();
         fetchUnifiedFeed();
@@ -113,6 +126,7 @@ function initTabs() {
       }
     });
   });
+
 
   const btnViewFull = document.getElementById("btnViewFullTerminal");
   if (btnViewFull) {
@@ -3885,5 +3899,268 @@ async function deleteMeshContact(contactId, contactName) {
 
 window.handleDispatchMeshMessage = handleDispatchMeshMessage;
 window.handleSaveMeshContact = handleSaveMeshContact;
+
+// --- Outreach CRM & Delivery History Controller ---
+let allOutreachContacts = [];
+
+async function fetchOutreachCRM() {
+  try {
+    const res = await fetch("/api/outreach/history");
+    if (!res.ok) throw new Error("Failed to load outreach history");
+    const data = await res.json();
+    allOutreachContacts = data.contacts || [];
+
+    // Render Stats
+    const stats = data.stats || {};
+    const deliverabilityEl = document.getElementById("crmDeliverabilityRate");
+    const totalContactsEl = document.getElementById("crmTotalContacts");
+    const totalInteractionsEl = document.getElementById("crmTotalInteractions");
+    const bouncedCountEl = document.getElementById("crmBouncedCount");
+
+    if (deliverabilityEl) deliverabilityEl.textContent = `${stats.deliverable_rate_pct ?? 100}%`;
+    if (totalContactsEl) totalContactsEl.textContent = stats.total_contacts ?? 0;
+    if (totalInteractionsEl) totalInteractionsEl.textContent = stats.total_interactions ?? 0;
+    if (bouncedCountEl) bouncedCountEl.textContent = stats.bounced_count ?? 0;
+
+    renderOutreachTable(allOutreachContacts);
+  } catch (err) {
+    console.error("fetchOutreachCRM error:", err);
+    showToast(`CRM error: ${err.message}`, "error");
+  }
+}
+
+function renderOutreachTable(contacts) {
+  const tbody = document.getElementById("crmTableBody");
+  const countBadge = document.getElementById("crmTableCountBadge");
+  if (!tbody) return;
+
+  if (countBadge) countBadge.textContent = `${contacts.length} Records`;
+
+  if (contacts.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="padding: 24px; text-align: center; color: #94a3b8;">
+          No outreach interactions match the selected filter.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = contacts.map(c => {
+    const status = c.status || "SENT";
+    let badgeBg = "#ecfdf5";
+    let badgeColor = "#047857";
+    let badgeText = status;
+
+    if (status === "BOUNCED") {
+      badgeBg = "#fef2f2";
+      badgeColor = "#b91c1c";
+      badgeText = "⚠️ Bounced";
+    } else if (status.startsWith("BLOCKED")) {
+      badgeBg = "#fffbeb";
+      badgeColor = "#b45309";
+      badgeText = "🛡️ Blocked";
+    } else if (status === "SENT") {
+      badgeBg = "#ecfdf5";
+      badgeColor = "#047857";
+      badgeText = "✅ Sent";
+    } else if (status === "REPLIED") {
+      badgeBg = "#eff6ff";
+      badgeColor = "#1d4ed8";
+      badgeText = "💬 Replied";
+    }
+
+    const company = escapeHtml(c.company || "Unknown Entity");
+    const contactName = escapeHtml(c.contact_name || "Direct Contact");
+    const email = escapeHtml(c.email || "N/A");
+    const channel = escapeHtml(c.niche || "email");
+    const touches = c.total_touches || (c.interactions ? c.interactions.length : 1);
+    const lastContacted = escapeHtml(c.last_contacted || c.first_contacted || "Recent");
+
+    return `
+      <tr style="border-bottom: 1px solid var(--border-subtle); transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+        <td style="padding: 10px; font-weight: 700; color: #0f172a;">${company}</td>
+        <td style="padding: 10px; color: #334155;">${contactName}</td>
+        <td style="padding: 10px; font-family: monospace; font-size: 0.78rem; color: #475569;">
+          <div>${email}</div>
+          <span style="font-size: 0.7rem; color: #94a3b8;">Channel: ${channel}</span>
+        </td>
+        <td style="padding: 10px; text-align: center; font-weight: 700; color: #4f46e5;">${touches}</td>
+        <td style="padding: 10px; font-size: 0.76rem; color: #64748b;">${lastContacted}</td>
+        <td style="padding: 10px;">
+          <span class="badge" style="background: ${badgeBg}; color: ${badgeColor}; font-weight: 700; font-size: 0.72rem; padding: 3px 8px;">
+            ${badgeText}
+          </span>
+        </td>
+        <td style="padding: 10px; text-align: right;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openOutreachMessageDetail('${encodeURIComponent(c.email || '')}')" style="padding: 3px 8px; font-size: 0.74rem; font-weight: 600;">
+            👁️ Inspect Text
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function openOutreachMessageDetail(encodedEmail) {
+  const email = decodeURIComponent(encodedEmail);
+  const contact = allOutreachContacts.find(c => (c.email || "").toLowerCase() === email.toLowerCase());
+  if (!contact) {
+    showToast("Contact record not found", "error");
+    return;
+  }
+
+  const latestInteraction = (contact.interactions && contact.interactions.length > 0)
+    ? contact.interactions[contact.interactions.length - 1]
+    : {};
+
+  const recipEl = document.getElementById("outreachModalRecipient");
+  const statEl = document.getElementById("outreachModalStatus");
+  const dateEl = document.getElementById("outreachModalDate");
+  const sendEl = document.getElementById("outreachModalSender");
+  const subjEl = document.getElementById("outreachModalSubject");
+  const bodyEl = document.getElementById("outreachModalBody");
+  const msgIdEl = document.getElementById("outreachModalMsgId");
+
+  if (recipEl) recipEl.textContent = `${contact.contact_name || 'Contact'} (${contact.company || contact.email})`;
+  if (statEl) {
+    statEl.innerHTML = `
+      <span class="badge" style="font-weight: 700; font-size: 0.78rem; background: ${contact.status === 'BOUNCED' ? '#fee2e2; color: #b91c1c' : '#dcfce7; color: #15803d'};">
+        ${contact.status || 'SENT'}
+      </span>
+      ${contact.bounce_reason ? `<span style="font-size: 0.72rem; color: #b91c1c; margin-left: 6px;">(${escapeHtml(contact.bounce_reason)})</span>` : ''}
+    `;
+  }
+  if (dateEl) dateEl.textContent = contact.last_contacted || contact.first_contacted || "Recent";
+  if (sendEl) sendEl.textContent = latestInteraction.sender || "devenpawaray@gmail.com (SMTP)";
+  if (subjEl) subjEl.value = latestInteraction.subject || `Commercial Proposal for ${contact.company}`;
+  if (bodyEl) bodyEl.textContent = latestInteraction.body || "No raw pitch body recorded for this contact.";
+  if (msgIdEl) msgIdEl.textContent = latestInteraction.interaction_id || `ID: ${contact.id || ''}`;
+
+  window.navigateToPage("outreach-message");
+}
+
+async function handleSweepBouncesClick() {
+  const btn = document.getElementById("btnSweepInboxBounces");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "🧹 Sweeping Inbox...";
+  }
+
+  try {
+    const res = await fetch("/api/outreach/sweep-bounces", { method: "POST" });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || "Sweep failed");
+
+    showToast(`🧹 Cleaned inbox: ${data.swept_count} bounce notice(s) auto-quarantined into Trash/Bin`, "success");
+    await fetchOutreachCRM();
+  } catch (err) {
+    showToast(`Bounce sweep error: ${err.message}`, "error");
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "🧹 Sweep Inbox Bounces";
+    }
+  }
+}
+
+async function handleCheckDeliverability(e) {
+  if (e && typeof e.preventDefault === "function") e.preventDefault();
+  const input = document.getElementById("checkEmailInput");
+  const val = input.value.trim();
+  if (!val) return;
+
+  const btn = document.getElementById("btnRunMxCheck");
+  const resultBox = document.getElementById("deliverabilityResultBox");
+  const statusBadge = document.getElementById("mxStatusBadge");
+  const codeText = document.getElementById("mxCodeText");
+  const detailText = document.getElementById("mxDetailText");
+  const primaryHost = document.getElementById("mxPrimaryHost");
+
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "🔍 Checking MX...";
+  }
+
+  try {
+    const res = await fetch("/api/outreach/verify-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: val })
+    });
+    const data = await res.json();
+    const result = data.result || {};
+
+    resultBox.style.display = "block";
+    codeText.textContent = result.code || "UNKNOWN";
+
+    if (result.allowed) {
+      resultBox.style.background = "#f0fdf4";
+      resultBox.style.borderColor = "#86efac";
+      statusBadge.style.background = "#dcfce7";
+      statusBadge.style.color = "#15803d";
+      statusBadge.textContent = "✅ DELIVERABLE";
+      detailText.textContent = result.reason || "Domain has valid active MX mail exchangers. Safe to pitch.";
+      primaryHost.textContent = result.primary_mx ? `Primary MX Exchanger: ${result.primary_mx}` : "";
+    } else {
+      resultBox.style.background = "#fef2f2";
+      resultBox.style.borderColor = "#fca5a5";
+      statusBadge.style.background = "#fee2e2";
+      statusBadge.style.color = "#b91c1c";
+      statusBadge.textContent = "🚫 BLOCKED BY GUARDRAIL";
+      detailText.textContent = result.reason || "Domain has no valid MX records or is suppressed.";
+      primaryHost.textContent = "Outbound dispatch is automatically blocked to protect sender reputation.";
+    }
+  } catch (err) {
+    showToast(`Verification error: ${err.message}`, "error");
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "🔍 Run DNS MX Check";
+    }
+  }
+}
+
+function initOutreachCRMController() {
+  const searchInput = document.getElementById("crmSearchInput");
+  const statusFilter = document.getElementById("crmStatusFilter");
+  const btnRefresh = document.getElementById("btnRefreshOutreachCRM");
+  const btnSweep = document.getElementById("btnSweepInboxBounces");
+  const btnOpenCheck = document.getElementById("btnOpenDeliverabilityModal");
+
+  if (btnRefresh) btnRefresh.addEventListener("click", fetchOutreachCRM);
+  if (btnSweep) btnSweep.addEventListener("click", handleSweepBouncesClick);
+  if (btnOpenCheck) btnOpenCheck.addEventListener("click", () => window.navigateToPage("deliverability-checker"));
+
+  const applyFilters = () => {
+    const query = (searchInput ? searchInput.value : "").toLowerCase().trim();
+    const statusVal = statusFilter ? statusFilter.value : "ALL";
+
+    const filtered = allOutreachContacts.filter(c => {
+      const matchQuery = !query ||
+        (c.company || "").toLowerCase().includes(query) ||
+        (c.contact_name || "").toLowerCase().includes(query) ||
+        (c.email || "").toLowerCase().includes(query);
+
+      let matchStatus = true;
+      if (statusVal === "SENT") matchStatus = c.status === "SENT";
+      else if (statusVal === "BOUNCED") matchStatus = c.status === "BOUNCED";
+      else if (statusVal === "BLOCKED") matchStatus = (c.status || "").startsWith("BLOCKED");
+
+      return matchQuery && matchStatus;
+    });
+
+    renderOutreachTable(filtered);
+  };
+
+  if (searchInput) searchInput.addEventListener("input", applyFilters);
+  if (statusFilter) statusFilter.addEventListener("change", applyFilters);
+}
+
+window.openOutreachMessageDetail = openOutreachMessageDetail;
+window.handleCheckDeliverability = handleCheckDeliverability;
+window.fetchOutreachCRM = fetchOutreachCRM;
+
 
 

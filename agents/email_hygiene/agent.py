@@ -85,6 +85,7 @@ class EmailHygieneAgent(BaseAgent):
 
     def _ensure_accounts_initialized(self):
         """Bootstraps email_accounts.json if missing from current .env settings."""
+        from core.storage import safe_load_json, atomic_save_json
         if not os.path.exists(ACCOUNTS_FILE):
             load_dotenv(override=True)
             email_user = os.getenv("EMAIL_USER", "")
@@ -103,28 +104,72 @@ class EmailHygieneAgent(BaseAgent):
                     "last_scanned": None,
                     "last_status": "Ready"
                 }]
-                with open(ACCOUNTS_FILE, "w", encoding="utf-8") as f:
-                    json.dump(initial, f, indent=2)
+                atomic_save_json(ACCOUNTS_FILE, initial)
 
     def load_accounts(self) -> List[Dict[str, Any]]:
         """Returns the list of configured email accounts (max 5)."""
+        from core.storage import safe_load_json
         if not os.path.exists(ACCOUNTS_FILE):
             self._ensure_accounts_initialized()
-        try:
-            with open(ACCOUNTS_FILE, "r", encoding="utf-8") as f:
-                accounts = json.load(f)
-                return accounts[:5]
-        except Exception:
-            return []
+        accounts = safe_load_json(ACCOUNTS_FILE, default=[])
+        return accounts[:5]
 
     def save_accounts(self, accounts: List[Dict[str, Any]]) -> bool:
         """Saves up to 5 email accounts."""
+        from core.storage import atomic_save_json
         if len(accounts) > 5:
             raise ValueError("Maximum of 5 email accounts can be monitored simultaneously.")
-        with open(ACCOUNTS_FILE, "w", encoding="utf-8") as f:
-            json.dump(accounts[:5], f, indent=2, ensure_ascii=False)
+        atomic_save_json(ACCOUNTS_FILE, accounts[:5])
         self.stats["accounts_configured"] = len(accounts)
         return True
+
+    def _check_and_process_bounce(self, sender: str, subject: str, body: str) -> Tuple[bool, Optional[str]]:
+        """
+        Identifies non-delivery reports (NDRs) and bounce notices from mailer-daemons,
+        extracts the failed recipient address, updates contact history CRM and suppression registry,
+        and triggers auto-quarantine.
+        """
+        import re
+        sender_lower = sender.lower()
+        subject_lower = subject.lower()
+
+        is_bounce_sender = any(b in sender_lower for b in ["mailer-daemon@", "postmaster@", "mail delivery subsystem"])
+        is_bounce_subj = any(b in subject_lower for b in [
+            "delivery status notification (failure)",
+            "undelivered mail returned to sender",
+            "mail delivery failed",
+            "failure notice",
+            "returned mail: see transcript"
+        ])
+
+        if not (is_bounce_sender or is_bounce_subj):
+            return False, None
+
+        # Extract failed recipient email
+        failed_email = None
+        m = re.search(r"Final-Recipient:\s*rfc822;\s*([^\s<]+@[^\s>]+)", body, re.I)
+        if m:
+            failed_email = m.group(1).strip()
+        else:
+            m2 = re.search(r"(?:was not delivered to|failed to deliver to|recipient:\s*)<?([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)>?", body, re.I)
+            if m2:
+                failed_email = m2.group(1).strip()
+            else:
+                all_emails = re.findall(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", body)
+                for em in all_emails:
+                    em_lower = em.lower()
+                    if "google" not in em_lower and "gmail" not in em_lower and "mailer-daemon" not in em_lower and "postmaster" not in em_lower:
+                        failed_email = em
+                        break
+
+        if failed_email:
+            from core.contact_history_service import contact_history_service
+            from core.legal_guardrails import legal_guardrails
+            contact_history_service.mark_bounced(failed_email, reason=f"Auto-quarantined NDR: {subject}")
+            legal_guardrails.add_suppression(failed_email, reason=f"Bounced: {subject}", source="ndr_auto_quarantine")
+
+        return True, failed_email
+
 
     def add_or_update_account(self, account_data: Dict[str, Any]) -> Dict[str, Any]:
         """Adds or updates an account, auto-applying provider defaults."""
@@ -309,9 +354,36 @@ class EmailHygieneAgent(BaseAgent):
                     unsub = mail.get("unsubscribe_link", "")
 
                     payload = {"sender": sender, "subject": subject, "body": body}
+
+                    # 0. Delivery Status Notification / Bounce Interceptor Guardrail
+                    is_bounce, failed_email = self._check_and_process_bounce(sender, subject, body)
+                    if is_bounce:
+                        cycle_trashed += 1
+                        action = "BOUNCE_QUARANTINED"
+                        client.move_to_folder(uid, trash_f, dry_run=dry_run)
+                        self._record_in_ledger(
+                            uid, sender, subject, "Bounce Quarantine",
+                            f"Automated NDR quarantine for failed recipient: {failed_email or 'unknown'}",
+                            "TRASH", trash_f, account_email=acc_email
+                        )
+                        overall_emails.append({
+                            "account": acc_email,
+                            "uid": uid,
+                            "sender": sender,
+                            "subject": subject,
+                            "date": mail.get("date", ""),
+                            "verdict": "BOUNCE",
+                            "confidence": 100.0,
+                            "category": "Bounce Quarantine",
+                            "reason": f"Delivery failure for {failed_email}",
+                            "action": action,
+                            "unsubscribe_link": ""
+                        })
+                        continue
                     
                     # 1. Immunity Shield SubAgent check
                     immunity_res = self.run_subagent("email_immunity_shield", payload)
+
                     if immunity_res.get("success") and immunity_res.get("data", {}).get("is_immune"):
                         verdict = {
                             "is_spam": False,

@@ -44,23 +44,20 @@ class OvernightChronicle:
         self._load_state()
 
     def _load_state(self):
-        if os.path.exists(AUTOPILOT_STATE_FILE):
-            try:
-                with open(AUTOPILOT_STATE_FILE, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    self.interval_minutes = data.get("interval_minutes", 30)
-                    self.cycles_completed = data.get("cycles_completed", 0)
-                    self.last_cycle_at = data.get("last_cycle_at")
-                    # If it was active previously, we can resume
-                    if data.get("is_active", True):
-                        self.start(interval_minutes=self.interval_minutes)
-            except Exception:
-                pass
+        from core.storage import safe_load_json
+        data = safe_load_json(AUTOPILOT_STATE_FILE, default=None)
+        if data is not None:
+            self.interval_minutes = data.get("interval_minutes", 30)
+            self.cycles_completed = data.get("cycles_completed", 0)
+            self.last_cycle_at = data.get("last_cycle_at")
+            if data.get("is_active", True):
+                self.start(interval_minutes=self.interval_minutes)
         else:
             # Default to active autopilot on initial install
             self.start(interval_minutes=30)
 
     def _save_state(self):
+        from core.storage import atomic_save_json
         data = {
             "is_active": self.is_running,
             "interval_minutes": self.interval_minutes,
@@ -71,19 +68,13 @@ class OvernightChronicle:
             "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         try:
-            with open(AUTOPILOT_STATE_FILE, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2)
+            atomic_save_json(AUTOPILOT_STATE_FILE, data)
         except Exception:
             pass
 
     def load_events(self) -> List[Dict[str, Any]]:
-        if not os.path.exists(CHRONICLE_FILE):
-            return []
-        try:
-            with open(CHRONICLE_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []
+        from core.storage import safe_load_json
+        return safe_load_json(CHRONICLE_FILE, default=[])
 
     def record_event(
         self,
@@ -95,6 +86,7 @@ class OvernightChronicle:
         metrics: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """Records an autonomous action into the flight recorder with a SHA-256 signature."""
+        from core.storage import atomic_save_json
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         canonical = f"{now_str}:{agent_id}:{action}:{status}"
         event_hash = hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:16]
@@ -117,12 +109,12 @@ class OvernightChronicle:
         events = events[:250]
 
         try:
-            with open(CHRONICLE_FILE, "w", encoding="utf-8") as f:
-                json.dump(events, f, indent=2)
+            atomic_save_json(CHRONICLE_FILE, events)
         except Exception:
             pass
 
         return event
+
 
     def start(self, interval_minutes: int = 30):
         if self.is_running:

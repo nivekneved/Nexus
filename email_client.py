@@ -31,10 +31,36 @@ class EmailClient:
             self.mail = imaplib.IMAP4_SSL(self.host, self.port, timeout=8)
             self.mail.login(self.username, self.password)
             logger.info(f"Successfully connected and logged in as {self.username}")
+            self._auto_detect_special_folders()
             return True
         except Exception as e:
             logger.error(f"Failed to connect to IMAP server: {e}")
             raise
+
+    def _auto_detect_special_folders(self):
+        """Dynamically detects the exact Trash and Spam folders matching server locale/provider."""
+        try:
+            typ, folder_list = self.mail.list()
+            if typ != 'OK' or not folder_list:
+                return
+            for f in folder_list:
+                decoded = f.decode('utf-8', errors='replace')
+                # Check for RFC 6154 special-use flags
+                if r"\Trash" in decoded:
+                    # Extract folder name in quotes or at end
+                    parts = decoded.split(' "/" ')
+                    if len(parts) == 2:
+                        folder_name = parts[1].strip('"')
+                        self.trash_folder = folder_name
+                        logger.info(f"Auto-detected IMAP Trash folder: '{self.trash_folder}'")
+                elif r"\Junk" in decoded:
+                    parts = decoded.split(' "/" ')
+                    if len(parts) == 2:
+                        folder_name = parts[1].strip('"')
+                        self.review_folder = folder_name
+                        logger.info(f"Auto-detected IMAP Junk folder: '{self.review_folder}'")
+        except Exception as e:
+            logger.debug(f"Error auto-detecting special folders: {e}")
 
     def disconnect(self):
         """Gracefully logs out and closes the IMAP connection."""
@@ -160,21 +186,31 @@ class EmailClient:
             logger.info(f"[DRY-RUN] Would move email UID {uid} to '{target_folder}'")
             return True
 
-        try:
-            # Copy to target folder
-            res, _ = self.mail.uid('COPY', uid.encode('utf-8'), target_folder)
-            if res == 'OK':
-                # Mark original as deleted in source folder
-                self.mail.uid('STORE', uid.encode('utf-8'), '+FLAGS', '(\\Deleted)')
-                self.mail.expunge()
-                logger.info(f"Successfully moved email UID {uid} to '{target_folder}'")
-                return True
-            else:
-                logger.error(f"Failed to copy email UID {uid} to '{target_folder}'")
-                return False
-        except Exception as e:
-            logger.error(f"Error moving email UID {uid} to {target_folder}: {e}")
-            return False
+        candidates = [target_folder]
+        if "trash" in target_folder.lower() or "bin" in target_folder.lower():
+            candidates = [target_folder, self.trash_folder, "[Gmail]/Bin", "[Gmail]/Trash", "Trash", "Deleted Items", "Deleted Messages"]
+        elif "spam" in target_folder.lower() or "junk" in target_folder.lower():
+            candidates = [target_folder, self.review_folder, "[Gmail]/Spam", "Junk", "Bulk"]
+
+        # Deduplicate candidates while preserving order
+        unique_candidates = []
+        for c in candidates:
+            if c and c not in unique_candidates:
+                unique_candidates.append(c)
+
+        for folder in unique_candidates:
+            try:
+                res, _ = self.mail.uid('COPY', uid.encode('utf-8'), folder)
+                if res == 'OK':
+                    self.mail.uid('STORE', uid.encode('utf-8'), '+FLAGS', '(\\Deleted)')
+                    self.mail.expunge()
+                    logger.info(f"Successfully moved email UID {uid} to '{folder}'")
+                    return True
+            except Exception:
+                continue
+
+        logger.error(f"Failed to move email UID {uid} across candidate folders: {unique_candidates}")
+        return False
 
     def restore_email(self, uid: str, from_folder: str, to_folder: str = "INBOX") -> bool:
         """

@@ -166,19 +166,18 @@ class LeadFinderAgent(BaseAgent):
                     )
                 }
             ]
-            try:
-                with open(LEADS_FILE, "w", encoding="utf-8") as f:
-                    json.dump(seeds, f, indent=2)
-            except Exception:
-                pass
+            from core.storage import atomic_save_json
+            atomic_save_json(LEADS_FILE, seeds)
+
+    def _save_pipeline(self, pipeline: List[Dict[str, Any]]):
+        from core.storage import atomic_save_json
+        atomic_save_json(LEADS_FILE, pipeline)
 
     def get_pipeline(self) -> List[Dict[str, Any]]:
+        from core.storage import safe_load_json
         self._ensure_seed_pipeline()
-        try:
-            with open(LEADS_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []
+        return safe_load_json(LEADS_FILE, default=[])
+
 
     def _count_leads(self) -> int:
         return len(self.get_pipeline())
@@ -323,11 +322,8 @@ class LeadFinderAgent(BaseAgent):
                 added.append(new_lead)
 
         if added:
-            try:
-                with open(LEADS_FILE, "w", encoding="utf-8") as f:
-                    json.dump(pipeline, f, indent=2)
-            except Exception:
-                pass
+            self._save_pipeline(pipeline)
+
 
         self.stats["leads_scored"] = len(pipeline)
         self.stats["high_fit_leads"] = sum(1 for l in pipeline if l.get("fit_score", 0) >= 80)
@@ -440,12 +436,7 @@ class LeadFinderAgent(BaseAgent):
 
         lead["pitch_draft"] = pitch
         lead["status"] = "PITCH_READY"
-
-        try:
-            with open(LEADS_FILE, "w", encoding="utf-8") as f:
-                json.dump(pipeline, f, indent=2)
-        except Exception:
-            pass
+        self._save_pipeline(pipeline)
 
         self.stats["pitches_generated"] += 1
         return {"success": True, "lead_id": lead_id, "pitch": pitch, "lead": lead}
@@ -459,18 +450,11 @@ class LeadFinderAgent(BaseAgent):
     ) -> Dict[str, Any]:
         """
         Transmits cold outreach email pitch directly to the prospect's email using SMTP.
-        Updates lead status to PITCHED and logs dispatch timestamp.
+        Protected by Legal & Deliverability Guardrails, auto-updates pipeline and CRM history.
         """
         from core.inbox_feed_service import inbox_feed_service
 
-        pipeline = []
-        if os.path.exists(LEADS_FILE):
-            try:
-                with open(LEADS_FILE, "r", encoding="utf-8") as f:
-                    pipeline = json.load(f)
-            except Exception:
-                pipeline = []
-
+        pipeline = self.get_pipeline()
         lead = next((l for l in pipeline if l.get("id") == lead_id), None)
         if not lead:
             raise ValueError(f"Lead {lead_id} not found in pipeline")
@@ -483,47 +467,56 @@ class LeadFinderAgent(BaseAgent):
         if not pitch_text:
             craft_res = self.craft_pitch(lead_id)
             pitch_text = craft_res.get("pitch")
-            # reload lead state
+            pipeline = self.get_pipeline()
             lead = next((l for l in pipeline if l.get("id") == lead_id), lead)
 
         email_subject = subject or f"Strategic operations & automation for {lead.get('company')}"
 
-        # Dispatch via SMTP
-        smtp_res = inbox_feed_service.send_outbound_email(
-            to_email=recipient_email,
-            subject=email_subject,
-            body=pitch_text,
-            account_id=account_id,
-            from_name="Deven Pawaray"
-        )
-
-        # Update lead state
-        lead["status"] = "PITCHED"
-        lead["pitch_sent_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        lead["pitch_sent_via"] = "email"
-        lead["pitch_sent_to"] = recipient_email
-        lead["pitch_subject"] = email_subject
-        lead["pitch_account"] = smtp_res.get("sender")
-
         try:
-            with open(LEADS_FILE, "w", encoding="utf-8") as f:
-                json.dump(pipeline, f, indent=2)
-        except Exception as e:
-            pass
+            # Dispatch via SMTP with legal guardrails & CRM auto-logging
+            smtp_res = inbox_feed_service.send_outbound_email(
+                to_email=recipient_email,
+                subject=email_subject,
+                body=pitch_text,
+                account_id=account_id,
+                from_name="Deven Pawaray",
+                company=lead.get("company", ""),
+                contact_name=lead.get("contact_name", ""),
+                lead_id=lead_id
+            )
 
-        if "pitches_dispatched" not in self.stats:
-            self.stats["pitches_dispatched"] = 0
-        self.stats["pitches_dispatched"] += 1
+            # Update lead state on success
+            lead["status"] = "PITCHED"
+            lead["pitch_sent_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            lead["pitch_sent_via"] = "email"
+            lead["pitch_sent_to"] = recipient_email
+            lead["pitch_subject"] = email_subject
+            lead["pitch_account"] = smtp_res.get("sender")
+            lead["pitch_error"] = None
+            self._save_pipeline(pipeline)
 
-        return {
-            "success": True,
-            "lead_id": lead_id,
-            "recipient": recipient_email,
-            "subject": email_subject,
-            "sent_at": lead["pitch_sent_at"],
-            "sender": smtp_res.get("sender"),
-            "lead": lead
-        }
+            if "pitches_dispatched" not in self.stats:
+                self.stats["pitches_dispatched"] = 0
+            self.stats["pitches_dispatched"] += 1
+
+            return {
+                "success": True,
+                "lead_id": lead_id,
+                "recipient": recipient_email,
+                "subject": email_subject,
+                "sent_at": lead["pitch_sent_at"],
+                "sender": smtp_res.get("sender"),
+                "lead": lead
+            }
+        except ValueError as ve:
+            # Caught by legal / MX / suppression guardrail
+            err_msg = str(ve)
+            lead["status"] = "UNVERIFIED_DOMAIN" if "MX" in err_msg or "domain" in err_msg.lower() else "BLOCKED_GUARDRAIL"
+            lead["pitch_error"] = err_msg
+            lead["pitch_blocked_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self._save_pipeline(pipeline)
+            raise ve
+
 
     def get_stats(self) -> List[Dict[str, Any]]:
         return [

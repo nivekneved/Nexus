@@ -27,6 +27,7 @@ trash_ledger.json
 processed_juice_refs.json
 financial_audit.log
 leads_pipeline.json
+contact_history.json
 mesh_messages.json
 mesh_contacts.json
 support_tickets.json

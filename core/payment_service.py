@@ -219,21 +219,16 @@ class PaymentService:
 
     # Persistence & Invoices Ledger
     def load_invoices(self) -> List[Dict[str, Any]]:
-        if not os.path.exists(INVOICES_FILE):
-            return []
-        try:
-            with open(INVOICES_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []
+        from core.storage import safe_load_json
+        return safe_load_json(INVOICES_FILE, default=[])
 
     def save_invoices(self, invoices: List[Dict[str, Any]]) -> bool:
+        from core.storage import atomic_save_json
         try:
-            with open(INVOICES_FILE, "w", encoding="utf-8") as f:
-                json.dump(invoices, f, indent=2)
-            return True
+            return atomic_save_json(INVOICES_FILE, invoices)
         except Exception:
             return False
+
 
     def create_invoice(
         self,

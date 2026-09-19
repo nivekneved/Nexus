@@ -35,8 +35,11 @@ from core.inbox_feed_service import inbox_feed_service
 from core.mauritius_sales_engine import mauritius_sales_engine
 from core.overnight_chronicle import overnight_chronicle
 from core.executive_partner import executive_partner
+from core.contact_history_service import contact_history_service
+from core.legal_guardrails import legal_guardrails
 
 app = FastAPI(title="Nexus AI Workforce Hub")
+
 
 # Safeguards 1, 13, 14, 15: Security Shield Middleware (Rate Limiting & Security Headers)
 @app.middleware("http")
@@ -224,6 +227,18 @@ class DispatchLeadEmailRequest(BaseModel):
     account_id: Optional[str] = None
     custom_pitch: Optional[str] = None
     subject: Optional[str] = None
+
+class VerifyEmailRequest(BaseModel):
+    email: str
+
+class SuppressRequest(BaseModel):
+    target: str
+    reason: Optional[str] = "Manual suppression / opt-out"
+
+class SweepBouncesRequest(BaseModel):
+    account_id: Optional[str] = None
+    dry_run: Optional[bool] = False
+
 
 
 
@@ -998,6 +1013,121 @@ def dispatch_lead_pitch_email(lead_id: str, req: Optional[DispatchLeadEmailReque
     except Exception as e:
         logger.error(f"Error dispatching lead email pitch: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# --- Contact History & Outreach CRM Endpoints ---
+
+@app.get("/api/outreach/history")
+def get_outreach_history():
+    """Returns complete ledger of all contacted prospects, channels, messages, and delivery states."""
+    contacts = contact_history_service.get_all_contacts()
+    return {
+        "success": True,
+        "total_contacts": len(contacts),
+        "contacts": contacts,
+        "stats": contact_history_service.get_stats()
+    }
+
+@app.get("/api/outreach/stats")
+def get_outreach_stats():
+    """Returns aggregated delivery rate, sent count, bounced count, and touches."""
+    return {
+        "success": True,
+        "stats": contact_history_service.get_stats()
+    }
+
+@app.get("/api/outreach/contact/{email:path}")
+def get_outreach_contact_detail(email: str):
+    """Returns interaction history and sent messages for a specific contact."""
+    contact = contact_history_service.get_contact_by_email(email)
+    if not contact:
+        raise HTTPException(status_code=404, detail="Contact not found")
+    return {"success": True, "contact": contact}
+
+@app.post("/api/outreach/verify-email")
+def verify_outreach_email(req: VerifyEmailRequest):
+    """Executes pre-flight DNS MX deliverability and suppression check."""
+    res = legal_guardrails.pre_flight_check(req.email)
+    return {"success": True, "result": res}
+
+@app.get("/api/outreach/suppression-list")
+def get_outreach_suppressions():
+    """Returns all permanently suppressed emails and non-existent domains."""
+    return {"success": True, "data": legal_guardrails.get_suppression_data()}
+
+@app.post("/api/outreach/suppress")
+def add_outreach_suppression(req: SuppressRequest):
+    """Permanently suppresses an address or domain from outreach."""
+    legal_guardrails.add_suppression(req.target, req.reason or "Manual block", source="admin_ui")
+    return {"success": True, "suppressed": req.target}
+
+@app.post("/api/outreach/unsuppress")
+def remove_outreach_suppression(req: SuppressRequest):
+    """Removes an address or domain from the suppression registry."""
+    ok = legal_guardrails.remove_suppression(req.target)
+    return {"success": ok, "unsuppressed": req.target}
+
+@app.post("/api/outreach/sweep-bounces")
+def sweep_inbox_bounces(req: Optional[SweepBouncesRequest] = None):
+    """Scans configured inboxes for mailer-daemon bounce notices, updates CRM & suppression, and auto-quarantines them."""
+    accounts = inbox_feed_service.load_accounts()
+    target_acc = None
+    if req and req.account_id:
+        target_acc = next((a for a in accounts if a.get("id") == req.account_id), None)
+    if not target_acc:
+        target_acc = next((a for a in accounts if a.get("is_enabled", True) and a.get("password")), None)
+
+    if not target_acc:
+        raise HTTPException(status_code=400, detail="No active email account with credentials found.")
+
+    dry_run = req.dry_run if req else False
+    client = EmailClient(
+        host=target_acc.get("imap_server", "imap.gmail.com"),
+        port=int(target_acc.get("imap_port", 993)),
+        username=target_acc.get("email"),
+        password=target_acc.get("password")
+    )
+
+    swept = []
+    try:
+        client.connect()
+        client.mail.select("INBOX")
+        typ, msg_ids = client.mail.search(None, '(OR FROM "mailer-daemon" SUBJECT "Delivery Status Notification")')
+        if typ == "OK" and msg_ids[0]:
+            ids = msg_ids[0].split()
+            for mid in ids:
+                fetch_typ, fetch_data = client.mail.fetch(mid, "(RFC822.HEADER BODY[TEXT])")
+                if fetch_typ == "OK":
+                    raw_body = fetch_data[1][1].decode("utf-8", errors="ignore") if len(fetch_data) > 1 else ""
+                    import re
+                    failed_email = None
+                    m = re.search(r"Final-Recipient:\s*rfc822;\s*([^\s<]+@[^\s>]+)", raw_body, re.I)
+                    if m:
+                        failed_email = m.group(1).strip()
+                    else:
+                        m2 = re.search(r"(?:was not delivered to|failed to deliver to|recipient:\s*)<?([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)>?", raw_body, re.I)
+                        if m2:
+                            failed_email = m2.group(1).strip()
+
+                    if failed_email:
+                        contact_history_service.mark_bounced(failed_email, reason="Inbox NDR Sweep")
+                        legal_guardrails.add_suppression(failed_email, reason="Bounced NDR", source="inbox_sweep")
+
+                    trash_f = target_acc.get("trash_folder", "[Gmail]/Trash")
+                    client.move_to_folder(mid.decode(), trash_f, dry_run=dry_run)
+                    swept.append({"mid": mid.decode(), "failed_email": failed_email})
+    finally:
+        client.disconnect()
+
+
+    return {
+        "success": True,
+        "swept_count": len(swept),
+        "account": target_acc.get("email"),
+        "swept_details": swept,
+        "dry_run": dry_run
+    }
+
 
 
 # --- Mauritius Local WhatsApp Sales Engine Endpoints ---

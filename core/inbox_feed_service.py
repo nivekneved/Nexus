@@ -333,12 +333,44 @@ Respond ONLY with valid JSON matching:
         account_id: Optional[str] = None,
         from_name: str = "Deven Pawaray",
         reply_to: Optional[str] = None,
-        html_body: Optional[str] = None
+        html_body: Optional[str] = None,
+        bypass_guardrails: bool = False,
+        company: str = "",
+        contact_name: str = "",
+        lead_id: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Sends an outbound email using the specified account from email_accounts.json.
-        Defaults to the primary enabled account if not specified.
+        Guarded by legal_guardrails (Suppression, MX verification, Anti-harassment, Rate limits)
+        and automatically logged to contact_history_service CRM.
         """
+        from core.legal_guardrails import legal_guardrails
+        from core.contact_history_service import contact_history_service
+
+        # 1. Pre-Flight Guardrail Check
+        if not bypass_guardrails:
+            check_res = legal_guardrails.pre_flight_check(to_email)
+            if not check_res.get("allowed"):
+                reason = check_res.get("reason", "Outbound dispatch blocked by safety guardrail")
+                # Record blocked attempt in contact history
+                contact_history_service.record_outreach(
+                    recipient_email=to_email,
+                    company=company or to_email.split("@")[-1],
+                    contact_name=contact_name or to_email.split("@")[0],
+                    channel="email",
+                    subject=subject,
+                    body=body,
+                    status=f"BLOCKED_{check_res.get('code', 'GUARDRAIL')}",
+                    lead_id=lead_id,
+                    metadata={"block_reason": reason, "guardrail_code": check_res.get("code")}
+                )
+                logger.warning(f"[OutboundGuard] Dispatch to {to_email} blocked: {reason}")
+                raise ValueError(f"Outbound Email Blocked by Guardrail: {reason}")
+
+        # 2. Append CAN-SPAM / Legal Opt-Out Footer
+        compliant_body = legal_guardrails.append_opt_out_footer(body, to_email)
+
+        # 3. Resolve Account Credentials
         accounts = self.load_accounts()
         selected_acc = None
         if account_id:
@@ -368,12 +400,29 @@ Respond ONLY with valid JSON matching:
         res = client.send_email(
             to_email=to_email,
             subject=subject,
-            body=body,
+            body=compliant_body,
             from_name=from_name,
             reply_to=reply_to,
             html_body=html_body
         )
+
+        # 4. Record successful dispatch in Quota & Contact History CRM
+        legal_guardrails.record_dispatch_quota()
+        contact_history_service.record_outreach(
+            recipient_email=to_email,
+            company=company or to_email.split("@")[-1],
+            contact_name=contact_name or to_email.split("@")[0],
+            channel="email",
+            subject=subject,
+            body=compliant_body,
+            sender=selected_acc.get("email", "devenpawaray@gmail.com"),
+            status="SENT",
+            lead_id=lead_id,
+            metadata={"message_id": res.get("message_id")}
+        )
+
         return res
 
 inbox_feed_service = InboxFeedService()
+
 
