@@ -363,6 +363,7 @@
       
       <header class="top-header">
         <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <button id="btnMobileNavToggle" class="btn btn-secondary btn-sm mobile-only" aria-label="Toggle Navigation Menu" style="display: none; font-size: 1.2rem; padding: 6px 12px; cursor: pointer;">☰</button>
           <h1 class="page-title" id="pageTitle" style="margin: 0;">CEO Cockpit</h1>
           
           <!-- View Mode Switcher -->
@@ -3063,8 +3064,10 @@
 
   </div>
 
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
   <div class="toast-container" id="toastContainer"></div>
 
-  <script src="/static/app.js?v=3.1.0" defer></script>
+  <script src="/static/dal.js" defer></script>
+  <script src="/static/app.js?v=3.2.0" defer></script>
 </body>
 </html>

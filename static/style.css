@@ -1179,3 +1179,104 @@ input:checked + .slider:before {
   background: var(--bg-app);
 }
 
+/* =================================================== */
+/* 📱 RESPONSIVE & MOBILE FIRST HARDENING              */
+/* =================================================== */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 32px;
+  overflow-y: auto;
+  max-width: 100%;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 998;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.sidebar-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .mobile-only {
+    display: inline-flex !important;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 290px;
+    z-index: 999;
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-modal);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    padding: 16px;
+    width: 100%;
+  }
+
+  .top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .agents-grid,
+  .dept-business-grid,
+  .grid-2col,
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Touch targets minimum 44-48px for AAA accessibility */
+  .nav-item {
+    min-height: 48px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+
+  .btn,
+  .btn-sm {
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+
+  .view-mode-btn {
+    min-height: 42px;
+    padding: 8px 14px;
+  }
+
+  .table-responsive {
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+}
+
+

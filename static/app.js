@@ -5470,6 +5470,30 @@ function initSidebarControllers() {
   }
 
   // Collapsible Accordions for navigation menu sections
+
+  // Mobile off-canvas drawer controls
+  const btnMobileToggle = document.getElementById("btnMobileNavToggle");
+  const overlay = document.getElementById("sidebarOverlay");
+  if (btnMobileToggle && sidebar) {
+    btnMobileToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("mobile-open");
+      if (overlay) overlay.classList.toggle("active", sidebar.classList.contains("mobile-open"));
+    });
+  }
+  if (overlay && sidebar) {
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("mobile-open");
+      overlay.classList.remove("active");
+    });
+  }
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.addEventListener("click", () => {
+      if (window.innerWidth <= 768 && sidebar) {
+        sidebar.classList.remove("mobile-open");
+        if (overlay) overlay.classList.remove("active");
+      }
+    });
+  });
   const accordions = [
     { headerId: "navExecHeader", groupId: "navGroupExec", chevronId: "execChevron" },
     { headerId: "navRevenueHeader", groupId: "navGroupRevenue", chevronId: "revenueChevron" },

@@ -117,6 +117,11 @@ class RootHousekeeper:
         return summary
 
 
+def run_housekeeping(root_dir: str = ".") -> Dict[str, Any]:
+    """Execute full 5-tier housekeeping sweep."""
+    return RootHousekeeper(root_dir).execute_full_hygiene_sweep()
+
+
 root_housekeeper = RootHousekeeper()
 
 if __name__ == "__main__":
