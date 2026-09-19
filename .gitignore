@@ -21,11 +21,40 @@ email_accounts.json
 *.log
 *.token
 
-# Financial & Private Ledgers
+# Financial, Customer & Private Ledgers — NEVER COMMIT
 invoices.json
 trash_ledger.json
 processed_juice_refs.json
 financial_audit.log
+leads_pipeline.json
+mesh_messages.json
+mesh_contacts.json
+support_tickets.json
+supabase/.temp/
+*.sql
+*.bak
+
+# Dynamic Agent Runtime State & Briefs
+autopilot_state.json
+daily_newsletter_digest.json
+daily_newsletter_digest.md
+infra_finance_audit.json
+latest_standup_brief.json
+latest_tech_dossier.json
+latest_tech_dossier.md
+mobile_notifications.json
+overnight_activity.json
+repo_radar_alerts.json
+subscriptions_catalog.json
+addons_state.json
+localization_audit.json
+partner_decisions.json
+partner_directives.json
+spec_audit_reports.json
+revenue_blueprints.json
+projects.json
+
+
 
 
 # Python bytecode & cache
