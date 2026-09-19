@@ -214,7 +214,7 @@ In addition to the autonomous agent engine, the software fleet includes **3 live
 | Turnkey Product | Live Production Demo | Target Market | Commercial Pricing | Key Differentiators |
 | :--- | :--- | :--- | :--- | :--- |
 | **Enn Rev Enn Sourir™ NGO & CSR Portal** | [ennrevennsourir.vercel.app](https://ennrevennsourir.vercel.app) | Corporate CSR Funds (MCB, Rogers, IBL), Mauritian NGOs & Foundations | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack Setup / Rs 10,000/mo) | 100% transparent hospital payouts, MRA Section 50L 15% tax deduction receipts, MCB Juice & Card donation, BDO audit transparency |
-| **Medical 360™ Clinic & Hospital Suite** | [medical360.vercel.app](https://medical360.vercel.app) | Private Clinics, Polyclinics, Diagnostic Labs, Medical Specialists | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack Setup / Rs 10,000/mo) | 360° healthcare suite: doctor directory by specialty, Blood Bank registry, diagnostic lab test reservations, 24/7 triage, pharmacy catalog |
+| **Medical 360™ Clinic & Hospital Suite** | [med360.mu/preview](https://www.med360.mu/preview) | Private Clinics, Polyclinics, Diagnostic Labs, Medical Specialists | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack Setup / Rs 10,000/mo) | 360° healthcare suite: doctor directory by specialty, Blood Bank registry, diagnostic lab test reservations, 24/7 triage, pharmacy catalog |
 | **i-Travellix™ Luxury Travel SaaS** | [i-travellix.vercel.app](https://i-travellix.vercel.app) | Inbound Tour Operators, DMCs, Travel Agencies | **Rs 50k Front + Rs 50k Back** (Rs 100,000 Full-Stack Setup / Rs 12,000/mo) | Live GDS flight search (Air Mauritius, Emirates), 5-star resort catalog, catamaran bookings, instant Juice / multi-currency checkout |
 
 ---

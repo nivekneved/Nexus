@@ -183,7 +183,7 @@ class RevenueExecutionClonerSubAgent(BaseSubAgent):
             ],
             "live_proof_assets": [
                 "https://ennrevennsourir.vercel.app",
-                "https://medical360.vercel.app",
+                "https://www.med360.mu/preview",
                 "https://i-travellix.vercel.app"
             ],
             "projected_inflow": "Rs 45,000 - Rs 95,000 MUR ($1,000 - $2,000 USD)"

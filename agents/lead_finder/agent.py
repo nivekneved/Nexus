@@ -58,7 +58,7 @@ class LeadFinderAgent(BaseAgent):
             },
             "medical360_portal": {
                 "name": "🩺 Medical 360™ Complete Hospital & Clinic Operations Portal (Rs 45k Front + Rs 45k Back = Rs 90,000)",
-                "offer": "360° Healthcare Web Portal & Clinic Operations Suite (https://medical360.vercel.app)",
+                "offer": "360° Healthcare Web Portal & Clinic Operations Suite (https://www.med360.mu/preview)",
                 "price": "Rs 45,000 Frontend + Rs 45,000 Backend (Rs 90,000 Full-Stack)",
                 "currency": "MUR",
                 "target_clients": [
@@ -368,7 +368,7 @@ class LeadFinderAgent(BaseAgent):
                 f"Pour un centre de santé ou une clinique privée à Maurice, la gestion des plannings de consultation, "
                 f"des analyses et des urgences par téléphone sature souvent le secrétariat.\n\n"
                 f"Nous avons conçu un portail web médical 360° complet et prêt à l'emploi :\n"
-                f"👉 Démo en direct : https://medical360.vercel.app\n\n"
+                f"👉 Démo en direct : https://www.med360.mu/preview\n\n"
                 f"🩺 *Fonctionnalités incluses*:\n"
                 f"• Annuaire complet des médecins par spécialité avec réservation en ligne\n"
                 f"• Module de recherche et gestion de Banque de Sang (urgences)\n"

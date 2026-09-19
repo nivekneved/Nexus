@@ -258,7 +258,7 @@ class ExecutiveAIPartner:
             "",
             "💰 *Commercial Funnels Active (Market-Protected Pricing):*",
             "• Enn Rev Enn Sourir NGO: https://ennrevennsourir.vercel.app (Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack)",
-            "• Medical 360 Clinic: https://medical360.vercel.app (Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack)",
+            "• Medical 360 Clinic: https://www.med360.mu/preview (Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack)",
             "• i-Travellix Enterprise: https://i-travellix.vercel.app (Rs 200k Front + Rs 300k Back = Rs 500k Web | + Rs 100k iOS & Rs 100k Android = Rs 700k Ecosystem)",
             f"• Payment Channel: MCB Juice {self.principal_phone}",
             "",

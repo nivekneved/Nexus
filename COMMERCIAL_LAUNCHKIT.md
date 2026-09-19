@@ -163,7 +163,7 @@ Seriez-vous ouvert à un échange de 10 minutes cette semaine ?
 ---
 
 #### Flagship 2: Medical 360™ Complete Hospital & Clinic Operations Suite
-- **Live Demo**: 👉 [https://medical360.vercel.app](https://medical360.vercel.app) *(med360.mu SOLD REFERENCE)*
+- **Live Demo**: 👉 [https://www.med360.mu/preview](https://www.med360.mu/preview) *(Live Production Preview)*
 - **Target Buyers**: Private Clinics, Polyclinics, Diagnostic Laboratories, Dental Clinics, Specialist Doctors (Ébène, Grand Baie, Rose-Hill, Curepipe, Port Louis).
 - **Pricing Architecture (Market Protection)**:
   - **Frontend** (Patient portal, doctor directory by specialty, 24/7 online consultation & lab booking): **Rs 45,000**
@@ -178,7 +178,7 @@ C'est Deven de Nexus AI Solutions à Maurice (+230 58169420).
 Pour un centre médical ou une clinique privée à Maurice, offrir une prise en charge numérique fluide est essentiel pour désengorger le standard téléphonique et attirer de nouveaux patients.
 
 Notre suite médicale web 360° a déjà fait ses preuves en production (référence vendue : med360.mu) :
-👉 Démo en direct : https://medical360.vercel.app
+👉 Démo en direct : https://www.med360.mu/preview
 
 Inclus et prêt à être installé sous votre marque :
 🩺 Annuaire interactif des praticiens par spécialité

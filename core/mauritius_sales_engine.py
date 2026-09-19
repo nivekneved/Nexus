@@ -105,19 +105,19 @@ class MauritiusSalesEngine:
                 "title": "Medical 360™ Complete Hospital & Clinic Operations Suite",
                 "status_badge": "🔥 LIVE-TESTED & SOLD (med360.mu)",
                 "locations": "Private Clinics, Polyclinics, Diagnostic Labs & Specialists across Mauritius",
-                "offer": "360° Healthcare Web Portal & Clinic Operations Suite (Live Reference: med360.mu / https://medical360.vercel.app)",
+                "offer": "360° Healthcare Web Portal & Clinic Operations Suite (Live Reference: med360.mu / https://www.med360.mu/preview)",
                 "setup_fee": 90000,
                 "currency": "MUR",
                 "retainer_fee": "Rs 10,000 / mo (or Rs 45,000 Front + Rs 45,000 Back = Rs 90,000 Full-Stack)",
-                "demo_url": "https://medical360.vercel.app",
-                "sold_reference": "med360.mu / medical360.vercel.app (Live-Tested & Sold)",
+                "demo_url": "https://www.med360.mu/preview",
+                "sold_reference": "https://www.med360.mu/preview (Live-Tested & Deployed)",
                 "value_prop": "Production-proven healthcare operations suite deployed at med360.mu. Practitioner directory by specialty, 24/7 online consultation booking, blood bank donor registry, and diagnostic lab booking.",
                 "sample_pitch_fr": (
                     "Bonjour Dr! 👋\n\n"
                     "C'est Deven de Nexus AI Solutions à Maurice (+230 58169420).\n\n"
                     "Pour un cabinet ou une clinique médicale à Maurice, offrir une prise en charge numérique fluide est essentiel pour désengorger le secrétariat et attirer de nouveaux patients.\n\n"
                     "Notre plateforme médicale 360° a déjà fait ses preuves en production (référence vendue : med360.mu) :\n"
-                    "👉 Démo en direct : https://medical360.vercel.app (med360.mu)\n\n"
+                    "👉 Démo en direct : https://www.med360.mu/preview\n\n"
                     "Inclus et prêt à être installé sous votre enseigne :\n"
                     "🩺 Annuaire interactif des praticiens par spécialité\n"
                     "📅 Prise de rendez-vous consultations en ligne 24/7\n"
@@ -262,7 +262,7 @@ Respond ONLY with the exact text message to be sent back to the customer.
                 "2️⃣ Réserver un bilan sanguin ou analyse de laboratoire\n"
                 "3️⃣ Consulter la disponibilité de notre banque de sang\n"
                 "4️⃣ Urgence médicale immédiate\n\n"
-                "Répondez avec le numéro de votre choix ou visitez https://medical360.vercel.app pour réserver directement en ligne."
+                "Répondez avec le numéro de votre choix ou visitez https://www.med360.mu/preview pour réserver directement en ligne."
             )
         elif sector_id == "itravellix_saas":
             fallback = (

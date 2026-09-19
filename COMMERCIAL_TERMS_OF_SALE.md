@@ -22,7 +22,7 @@ By purchasing, downloading, accessing, or deploying any software asset, turnkey 
 ## 3. Strict Non-Refundable Digital Goods Policy
 1. **Nature of Deliverables:** All products and services delivered consist of irrevocable digital assets, source code repositories, API credentials, and technical engineering setups.
 2. **Finality of Sale:** **ALL SALES ARE FINAL AND STRICTLY NON-REFUNDABLE.** Once source code access, Vercel deployments, or license credentials have been transferred, no chargebacks, payment reversals, or partial refund claims will be honored.
-3. **Customer Due Diligence:** Live interactive demonstrations of all portals and AI engines are made publicly available prior to purchase (`https://ennrevennsourir.vercel.app`, `https://medical360.vercel.app`, `https://i-travellix.vercel.app`). Customer acknowledges having thoroughly evaluated the software prior to completing payment.
+3. **Customer Due Diligence:** Live interactive demonstrations of all portals and AI engines are made publicly available prior to purchase (`https://ennrevennsourir.vercel.app`, `https://www.med360.mu/preview`, `https://i-travellix.vercel.app`). Customer acknowledges having thoroughly evaluated the software prior to completing payment.
 
 ---
 

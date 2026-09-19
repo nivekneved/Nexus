@@ -147,7 +147,7 @@ All notable changes, architectural decisions, and feature additions to the **Nex
   - Setup Pricing: **Rs 45,000 Setup** (or Rs 8,000/mo retainer) via MCB Juice to `+230 58169420`.
   - Key Value: 100% transparent hospital payouts, MRA Section 50L 15% tax deduction receipts, patient medical dossiers, and donor sponsorship.
 - **`Medical 360™ Complete Hospital & Clinic Operations Suite`**:
-  - Live production URL: `https://medical360.vercel.app`.
+  - Live production URL: `https://www.med360.mu/preview`.
   - Target Market: Private clinics, polyclinics, diagnostic labs, and medical centers across Mauritius.
   - Setup Pricing: **Rs 45,000 Setup** (or Rs 5,000/mo retainer) via MCB Juice to `+230 58169420`.
   - Key Value: 360° healthcare suite with specialist doctor directory & 24/7 online booking, Blood Bank registry, diagnostic lab test reservations, and pharmacy catalog.

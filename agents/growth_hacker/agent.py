@@ -68,7 +68,7 @@ class GrowthHackerAgent(BaseAgent):
                     ],
                     "live_proof_assets": [
                         "https://ennrevennsourir.vercel.app",
-                        "https://medical360.vercel.app"
+                        "https://www.med360.mu/preview"
                     ],
                     "projected_inflow": "Rs 90,000 MUR (Clears Overdraft 180%)"
                 },
