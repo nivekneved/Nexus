@@ -1,0 +1,1057 @@
+[
+  {
+    "id": "EVT-96824",
+    "timestamp": "2026-09-19 09:47:04",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "0c0cb0f8ce095e90"
+  },
+  {
+    "id": "EVT-96823",
+    "timestamp": "2026-09-19 09:47:03",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "f58ccfdd618facfe"
+  },
+  {
+    "id": "EVT-96823",
+    "timestamp": "2026-09-19 09:47:03",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "ffc16173c28f789a"
+  },
+  {
+    "id": "EVT-96823",
+    "timestamp": "2026-09-19 09:47:03",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "7cf4dac326ede2f2"
+  },
+  {
+    "id": "EVT-96823",
+    "timestamp": "2026-09-19 09:47:03",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "8c9c6172d5f5fe05"
+  },
+  {
+    "id": "EVT-96823",
+    "timestamp": "2026-09-19 09:47:03",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "11a09498439941a7"
+  },
+  {
+    "id": "EVT-96823",
+    "timestamp": "2026-09-19 09:47:03",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "b3984133750f3093"
+  },
+  {
+    "id": "EVT-96822",
+    "timestamp": "2026-09-19 09:47:02",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "bc084f5d36926607"
+  },
+  {
+    "id": "EVT-96822",
+    "timestamp": "2026-09-19 09:47:02",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "9823a2b400b0fcbb"
+  },
+  {
+    "id": "EVT-96822",
+    "timestamp": "2026-09-19 09:47:02",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "f86a467cb993270f"
+  },
+  {
+    "id": "EVT-96822",
+    "timestamp": "2026-09-19 09:47:02",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "aaaffe7f0b1ea8ee"
+  },
+  {
+    "id": "EVT-96822",
+    "timestamp": "2026-09-19 09:47:02",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "97fb533265fa9bdc"
+  },
+  {
+    "id": "EVT-96822",
+    "timestamp": "2026-09-19 09:47:02",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "fea464f821be138f"
+  },
+  {
+    "id": "EVT-96822",
+    "timestamp": "2026-09-19 09:47:02",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "02a77e608ee7f654"
+  },
+  {
+    "id": "EVT-95006",
+    "timestamp": "2026-09-19 09:16:46",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "8998cde6de0e160f"
+  },
+  {
+    "id": "EVT-95006",
+    "timestamp": "2026-09-19 09:16:46",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "f4f82e85149de700"
+  },
+  {
+    "id": "EVT-95006",
+    "timestamp": "2026-09-19 09:16:46",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "d22451be0487f8d8"
+  },
+  {
+    "id": "EVT-95006",
+    "timestamp": "2026-09-19 09:16:46",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "390c0f2592d9b331"
+  },
+  {
+    "id": "EVT-95006",
+    "timestamp": "2026-09-19 09:16:46",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "df6a2ee6645d8b94"
+  },
+  {
+    "id": "EVT-95006",
+    "timestamp": "2026-09-19 09:16:46",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "7a8c76a6f6ba1e92"
+  },
+  {
+    "id": "EVT-95006",
+    "timestamp": "2026-09-19 09:16:46",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "589d926a178987cf"
+  },
+  {
+    "id": "EVT-95002",
+    "timestamp": "2026-09-19 09:16:42",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "69b32a8809e7a4c7"
+  },
+  {
+    "id": "EVT-95002",
+    "timestamp": "2026-09-19 09:16:42",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "e0ead04cafd5abc4"
+  },
+  {
+    "id": "EVT-95002",
+    "timestamp": "2026-09-19 09:16:42",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "0d5f00447f372aed"
+  },
+  {
+    "id": "EVT-95002",
+    "timestamp": "2026-09-19 09:16:42",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "07e95c5fc5e9aa16"
+  },
+  {
+    "id": "EVT-95002",
+    "timestamp": "2026-09-19 09:16:42",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "cd05862af49a5275"
+  },
+  {
+    "id": "EVT-95002",
+    "timestamp": "2026-09-19 09:16:42",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "eaef3550756868a9"
+  },
+  {
+    "id": "EVT-95002",
+    "timestamp": "2026-09-19 09:16:42",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "809def94eccf1abc"
+  },
+  {
+    "id": "EVT-93192",
+    "timestamp": "2026-09-19 08:46:32",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "bcdd35f69b129a70"
+  },
+  {
+    "id": "EVT-93191",
+    "timestamp": "2026-09-19 08:46:31",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "9da07f4de757a62c"
+  },
+  {
+    "id": "EVT-93191",
+    "timestamp": "2026-09-19 08:46:31",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "ec234158a92f60cd"
+  },
+  {
+    "id": "EVT-93191",
+    "timestamp": "2026-09-19 08:46:31",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "78caa822035adb49"
+  },
+  {
+    "id": "EVT-93191",
+    "timestamp": "2026-09-19 08:46:31",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "523e6bc6847b6562"
+  },
+  {
+    "id": "EVT-93191",
+    "timestamp": "2026-09-19 08:46:31",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "361358dc505d8827"
+  },
+  {
+    "id": "EVT-93191",
+    "timestamp": "2026-09-19 08:46:31",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "c35bee246fc89d0c"
+  },
+  {
+    "id": "EVT-93188",
+    "timestamp": "2026-09-19 08:46:28",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "3dd5ddc73d8167a8"
+  },
+  {
+    "id": "EVT-93188",
+    "timestamp": "2026-09-19 08:46:28",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "8eba30a31c6769e1"
+  },
+  {
+    "id": "EVT-93188",
+    "timestamp": "2026-09-19 08:46:28",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "169cf028413da88e"
+  },
+  {
+    "id": "EVT-93188",
+    "timestamp": "2026-09-19 08:46:28",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "361c4c8f17c27798"
+  },
+  {
+    "id": "EVT-93188",
+    "timestamp": "2026-09-19 08:46:28",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "3e9798e5efc46474"
+  },
+  {
+    "id": "EVT-93188",
+    "timestamp": "2026-09-19 08:46:28",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "aa126b77bb0d14d5"
+  },
+  {
+    "id": "EVT-93188",
+    "timestamp": "2026-09-19 08:46:28",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "9e66e242e7823c45"
+  },
+  {
+    "id": "EVT-91377",
+    "timestamp": "2026-09-19 08:16:17",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "b4f25d57467116a7"
+  },
+  {
+    "id": "EVT-91377",
+    "timestamp": "2026-09-19 08:16:17",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "cc53dbca36b25bad"
+  },
+  {
+    "id": "EVT-91377",
+    "timestamp": "2026-09-19 08:16:17",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "dc377be0f8785363"
+  },
+  {
+    "id": "EVT-91377",
+    "timestamp": "2026-09-19 08:16:17",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "b3c733877f1a7b1a"
+  },
+  {
+    "id": "EVT-91377",
+    "timestamp": "2026-09-19 08:16:17",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "e778e0c04a064ad4"
+  },
+  {
+    "id": "EVT-91377",
+    "timestamp": "2026-09-19 08:16:17",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "0545f857ad9499e4"
+  },
+  {
+    "id": "EVT-91377",
+    "timestamp": "2026-09-19 08:16:17",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "0c35e0c7b690a50b"
+  },
+  {
+    "id": "EVT-91374",
+    "timestamp": "2026-09-19 08:16:14",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "b2d1656d3d4c542f"
+  },
+  {
+    "id": "EVT-91373",
+    "timestamp": "2026-09-19 08:16:13",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "f8d5a0cb285bc69e"
+  },
+  {
+    "id": "EVT-91373",
+    "timestamp": "2026-09-19 08:16:13",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "e96a7a897c1de077"
+  },
+  {
+    "id": "EVT-91373",
+    "timestamp": "2026-09-19 08:16:13",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "06a92bc7760aaec2"
+  },
+  {
+    "id": "EVT-91373",
+    "timestamp": "2026-09-19 08:16:13",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "178065eb41c784ae"
+  },
+  {
+    "id": "EVT-91373",
+    "timestamp": "2026-09-19 08:16:13",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "f09d8d08a78b61c6"
+  },
+  {
+    "id": "EVT-91373",
+    "timestamp": "2026-09-19 08:16:13",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "0125ad7088987d89"
+  },
+  {
+    "id": "EVT-89562",
+    "timestamp": "2026-09-19 07:46:02",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "9de9dccbee7ab374"
+  },
+  {
+    "id": "EVT-89562",
+    "timestamp": "2026-09-19 07:46:02",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "3100166b6f1f15ae"
+  },
+  {
+    "id": "EVT-89562",
+    "timestamp": "2026-09-19 07:46:02",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "742651083987630b"
+  },
+  {
+    "id": "EVT-89562",
+    "timestamp": "2026-09-19 07:46:02",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "046d9c7179bcb8ad"
+  },
+  {
+    "id": "EVT-89562",
+    "timestamp": "2026-09-19 07:46:02",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "6e77bb21b01f1b1d"
+  },
+  {
+    "id": "EVT-89562",
+    "timestamp": "2026-09-19 07:46:02",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "0fbc891db875ed97"
+  },
+  {
+    "id": "EVT-89562",
+    "timestamp": "2026-09-19 07:46:02",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "e2c2a07fcb695669"
+  },
+  {
+    "id": "EVT-89559",
+    "timestamp": "2026-09-19 07:45:59",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "d047c82d0681d49a"
+  },
+  {
+    "id": "EVT-89559",
+    "timestamp": "2026-09-19 07:45:59",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "6b95ad7f45cee6f6"
+  },
+  {
+    "id": "EVT-89559",
+    "timestamp": "2026-09-19 07:45:59",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "217994d14d9c0ed9"
+  },
+  {
+    "id": "EVT-89559",
+    "timestamp": "2026-09-19 07:45:59",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "d3b47295651cec20"
+  },
+  {
+    "id": "EVT-89559",
+    "timestamp": "2026-09-19 07:45:59",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "a897c2b39d800807"
+  },
+  {
+    "id": "EVT-89559",
+    "timestamp": "2026-09-19 07:45:59",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "8f60b0393ff16b00"
+  },
+  {
+    "id": "EVT-89559",
+    "timestamp": "2026-09-19 07:45:59",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "fa184b88f13f6f43"
+  },
+  {
+    "id": "EVT-87743",
+    "timestamp": "2026-09-19 07:15:43",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "c3bc51076f1b3e77"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "c5f220f4c6a8249a"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "eda58f7205477653"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "ae4cb8a2dfe91664"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "5c0da3786ceffd45"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "825dfe30fe8b3942"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "e241cda21f0ee16e"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "2c3eecb8ece61f0f"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "c5f220f4c6a8249a"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "eda58f7205477653"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "ae4cb8a2dfe91664"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "repo_radar",
+    "agent_name": "Repo Radar & CVE Sentinel",
+    "action": "Dependency Vulnerability Scan",
+    "details": "Audited Next.js, FastAPI & Python packages for zero-day Dependabot alerts.",
+    "status": "SUCCESS",
+    "metrics": {
+      "critical_cves": 0
+    },
+    "event_hash": "5c0da3786ceffd45"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "ghost_unsubscriber",
+    "agent_name": "Ghost Unsubscriber",
+    "action": "Newsletter & Promo Audit",
+    "details": "Harvested unsubscribe headers and compiled daily promotional digest.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "825dfe30fe8b3942"
+  },
+  {
+    "id": "EVT-87742",
+    "timestamp": "2026-09-19 07:15:42",
+    "agent_id": "email_hygiene",
+    "agent_name": "Email Hygiene & Anti-Spam",
+    "action": "Inbox Hygiene Scan",
+    "details": "Scanned IMAP inboxes; quarantined phishing/spam; banking OTPs safe.",
+    "status": "SUCCESS",
+    "metrics": {
+      "accounts_scanned": 5
+    },
+    "event_hash": "e241cda21f0ee16e"
+  },
+  {
+    "id": "EVT-85928",
+    "timestamp": "2026-09-19 06:45:28",
+    "agent_id": "chief_of_staff",
+    "agent_name": "Context Chronicler & Chief of Staff",
+    "action": "Morning Standup Compilation",
+    "details": "Harvested git pulses across Med360, Travellounge & Agents; prepared brief.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "df3c21a587cdbe0a"
+  },
+  {
+    "id": "EVT-85928",
+    "timestamp": "2026-09-19 06:45:28",
+    "agent_id": "tech_trend_curator",
+    "agent_name": "Executive AI & Dev Trend Curator",
+    "action": "Tech Dossier Generation",
+    "details": "Synthesized top AI announcements and engineering releases for morning standup.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "eb9eb276f92c7f41"
+  },
+  {
+    "id": "EVT-85928",
+    "timestamp": "2026-09-19 06:45:28",
+    "agent_id": "lead_finder",
+    "agent_name": "B2B Lead Scout & Researcher",
+    "action": "Market Opportunity Scan",
+    "details": "Researched local & global prospect signals; matched high-fit ICPs.",
+    "status": "SUCCESS",
+    "metrics": {},
+    "event_hash": "c649e0dbdb5cb7b4"
+  },
+  {
+    "id": "EVT-85928",
+    "timestamp": "2026-09-19 06:45:28",
+    "agent_id": "infra_finance_sentinel",
+    "agent_name": "Cloud Bills & Finance Sentinel",
+    "action": "Infrastructure Burn & Invoices Audit",
+    "details": "Audited Vercel, Twilio, and domain renewals; reconciled cash receivables.",
+    "status": "SUCCESS",
+    "metrics": {
+      "cloud_spend_mur": 4750,
+      "burn_rate_ok": true
+    },
+    "event_hash": "3ce17db9b81c3e9f"
+  }
+]

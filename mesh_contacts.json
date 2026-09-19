@@ -1,0 +1,89 @@
+[
+  {
+    "id": "agent_claude_arch",
+    "name": "Claude Code Sentinel",
+    "handle": "@claude-code-architect",
+    "framework": "Claude 3.7 Sonnet (Anthropic)",
+    "endpoint": "http://127.0.0.1:9100/a2a/webhook",
+    "trust_level": "VERIFIED_PEER",
+    "capabilities": [
+      "Code Review",
+      "Zero-Regression",
+      "Refactoring",
+      "Spec Audit"
+    ],
+    "status": "online",
+    "latency_ms": 54,
+    "last_ping": "2026-09-19 11:42:12",
+    "notes": "Primary external engineering agent for autonomous code audits and sanity checks."
+  },
+  {
+    "id": "agent_gemini_market",
+    "name": "Gemini Trend & Market Scout",
+    "handle": "@gemini-trend-curator",
+    "framework": "Gemini 2.5 Flash (DeepMind)",
+    "endpoint": "http://127.0.0.1:9101/a2a/webhook",
+    "trust_level": "AUTONOMOUS_DELEGATE",
+    "capabilities": [
+      "Market Dossiers",
+      "Tech Trends",
+      "Competitor Intel",
+      "AI Playbooks"
+    ],
+    "status": "online",
+    "latency_ms": 28,
+    "last_ping": "2026-09-19 11:08:44",
+    "notes": "Curates real-time tech intelligence and autonomous monetization opportunities."
+  },
+  {
+    "id": "agent_apollo_leads",
+    "name": "Apollo B2B Enrichment Swarm",
+    "handle": "@apollo-lead-scraper",
+    "framework": "CrewAI / LangChain Multi-Agent",
+    "endpoint": "https://api.swarm-mesh.net/v1/inbound",
+    "trust_level": "SUPERVISED",
+    "capabilities": [
+      "Lead Discovery",
+      "Email Verification",
+      "LinkedIn Prospecting"
+    ],
+    "status": "idle",
+    "latency_ms": 115,
+    "last_ping": "2026-09-19 10:50:00",
+    "notes": "Collaborative external agent for sourcing high-intent agency client leads."
+  },
+  {
+    "id": "agent_stripe_escrow",
+    "name": "Stripe Dispute & Escrow Arbitrator",
+    "handle": "@stripe-escrow-agent",
+    "framework": "LangGraph Autonomous Worker",
+    "endpoint": "http://127.0.0.1:9102/a2a/webhook",
+    "trust_level": "RESTRICTED",
+    "capabilities": [
+      "Invoice Sync",
+      "Payment Escrow",
+      "Dispute Defense"
+    ],
+    "status": "online",
+    "latency_ms": 65,
+    "last_ping": "2026-09-19 10:55:20",
+    "notes": "Coordinates autonomous milestone invoice disbursements and receivables alerts."
+  },
+  {
+    "id": "agent_remote_nexus_twin",
+    "name": "Remote Nexus Cloud Node",
+    "handle": "@nexus-cloud-sentinel",
+    "framework": "Nexus Sovereign Digital Twin v2.5",
+    "endpoint": "https://sentinel.nexusworkforce.ai/api/mesh/inbound",
+    "trust_level": "FULL_AUTONOMOUS_TWIN",
+    "capabilities": [
+      "Failover Sentinel",
+      "Cloud Bill Audit",
+      "Offsite Backup"
+    ],
+    "status": "online",
+    "latency_ms": 89,
+    "last_ping": "2026-09-19 11:02:18",
+    "notes": "Remote twin node running in sovereign European cloud for 24/7 offsite failover."
+  }
+]

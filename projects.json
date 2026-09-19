@@ -1,0 +1,33 @@
+{
+  "_comment": "Edit this file to match YOUR actual deployed projects. The morning dossier and overnight chronicle will read from here.",
+  "projects": [
+    {
+      "id": "med360",
+      "name": "Medical 360 Healthcare Portal",
+      "url": "https://medical360.vercel.app",
+      "type": "web",
+      "status": "live"
+    },
+    {
+      "id": "ennrevennsourir",
+      "name": "Enn Rev Enn Sourir NGO Portal",
+      "url": "https://ennrevennsourir.vercel.app",
+      "type": "web",
+      "status": "live"
+    },
+    {
+      "id": "itravellix",
+      "name": "i-Travellix Luxury Travel SaaS",
+      "url": "https://i-travellix.vercel.app",
+      "type": "web",
+      "status": "live"
+    },
+    {
+      "id": "nexus",
+      "name": "Nexus Autonomous Engine",
+      "url": "http://localhost:8000",
+      "type": "local",
+      "status": "live"
+    }
+  ]
+}

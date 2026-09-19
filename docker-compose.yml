@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  nexus-workforce:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nexus_autonomous_workforce
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8000
+      - HOST=0.0.0.0
+    env_file:
+      - .env
+    volumes:
+      # Persist configuration and operational ledgers across restarts
+      - ./addons_state.json:/app/addons_state.json
+      - ./email_accounts.json:/app/email_accounts.json
+      - ./support_tickets.json:/app/support_tickets.json
+      - ./subscriptions_catalog.json:/app/subscriptions_catalog.json
+      - ./backups:/app/backups
+      - ./static:/app/static
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/security/shield"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

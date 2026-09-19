@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-09-19 17:51:44",
+  "critical_cves": [
+    {
+      "repo": "eco-travellounge.mu/mobile-app",
+      "package": "axios",
+      "severity": "CRITICAL",
+      "cve": "CVE-2024-39338",
+      "fixed_in": "1.7.4",
+      "description": "Server-Side Request Forgery vulnerability in Axios HTTP adapter",
+      "recommendation": "Upgrade axios to >= 1.7.4 in package.json"
+    }
+  ],
+  "framework_updates": [
+    {
+      "framework": "Next.js",
+      "latest_version": "15.0.0",
+      "type": "MAJOR_RELEASE",
+      "breaking_changes": [
+        "React 19 RC support is now default",
+        "Async Request APIs: headers(), cookies(), params are now async promises",
+        "`fetch` requests are no longer cached by default"
+      ],
+      "impact": "Requires awaiting `await params` in Server Components.",
+      "action_required": "Review dynamic routes in eco-travellounge.mu before upgrading."
+    },
+    {
+      "framework": "Flutter",
+      "latest_version": "3.24.0",
+      "type": "STABLE_UPDATE",
+      "breaking_changes": [
+        "iOS 18 Swift Package Manager support enabled",
+        "Deprecated Android v1 embedding completely removed"
+      ],
+      "impact": "Ensures seamless compatibility with Xcode 16.",
+      "action_required": "No immediate code breakage; update Xcode podfile."
+    }
+  ],
+  "pending_prs": [
+    {
+      "repo": "eco-travellounge.mu/mobile-app",
+      "pr_number": "#42",
+      "title": "feat: Apple TestFlight & QR fallback link integration",
+      "author": "deven",
+      "status": "Awaiting QA Confirmation",
+      "days_open": 1
+    },
+    {
+      "repo": "Agents",
+      "pr_number": "#18",
+      "title": "feat: 25-Safeguard Defense Shield & Universal Addon Architecture",
+      "author": "deven",
+      "status": "Ready for Merge",
+      "days_open": 0
+    }
+  ]
+}

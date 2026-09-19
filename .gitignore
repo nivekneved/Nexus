@@ -1,0 +1,56 @@
+# ──────────────────────────────────────────────
+# NEXUS WORKFORCE — .gitignore
+# ──────────────────────────────────────────────
+
+# Environment secrets — NEVER COMMIT
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Runtime-generated data (auto-created by agents)
+data/
+logs/
+backups/
+scratch/
+*.tmp
+
+# Live config & credentials — NEVER COMMIT
+email_accounts.json
+*.log
+*.token
+
+# Financial & Private Ledgers
+invoices.json
+trash_ledger.json
+processed_juice_refs.json
+financial_audit.log
+
+
+# Python bytecode & cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# SQLite database (runtime state)
+*.db
+*.sqlite3
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+*.suo
+*.user

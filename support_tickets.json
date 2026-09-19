@@ -1,0 +1,46 @@
+[
+  {
+    "id": "tkt_1789825907",
+    "client": "Marcus Sterling (Enterprise Tier)",
+    "client_tier": "Enterprise",
+    "subject": "System integration webhook verification needed",
+    "body": "Our production webhook is down and failing requests. Urgent assistance required.",
+    "timestamp": "2026-09-19 17:51:47",
+    "priority": "P1",
+    "sentiment": "Urgent",
+    "draft_preview": "Hello Marcus Sterling (Enterprise Tier),\n\nThank you for contacting us regarding 'System integration webhook verification needed'. Our engineering and support sentinels have received your request with high priority. We are actively investigating the telemetry logs and will provide a full resolution update shortly.\n\nWarm regards,\nNexus Support Operations (Brand Tone: Empathetic, clear, and reassuring)"
+  },
+  {
+    "id": "tkt_1789822581",
+    "client": "Marcus Sterling (Enterprise Tier)",
+    "client_tier": "Enterprise",
+    "subject": "System integration webhook verification needed",
+    "body": "Our production webhook is down and failing requests. Urgent assistance required.",
+    "timestamp": "2026-09-19 16:56:21",
+    "priority": "P1",
+    "sentiment": "Urgent",
+    "draft_preview": "Hello Marcus Sterling (Enterprise Tier),\n\nThank you for contacting us regarding 'System integration webhook verification needed'. Our engineering and support sentinels have received your request with high priority. We are actively investigating the telemetry logs and will provide a full resolution update shortly.\n\nWarm regards,\nNexus Support Operations (Brand Tone: Empathetic, clear, and reassuring)"
+  },
+  {
+    "id": "tkt_1789820301",
+    "client": "Marcus Sterling (Enterprise Tier)",
+    "client_tier": "Enterprise",
+    "subject": "System integration webhook verification needed",
+    "body": "Our production webhook is down and failing requests. Urgent assistance required.",
+    "timestamp": "2026-09-19 16:18:21",
+    "priority": "P1",
+    "sentiment": "Urgent",
+    "draft_preview": "Hello Marcus Sterling (Enterprise Tier),\n\nThank you for contacting us regarding 'System integration webhook verification needed'. Our engineering and support sentinels have received your request with high priority. We are actively investigating the telemetry logs and will provide a full resolution update shortly.\n\nWarm regards,\nNexus Support Operations (Brand Tone: Empathetic, clear, and reassuring)"
+  },
+  {
+    "id": "tkt_1789798266",
+    "client": "Marcus Sterling (Enterprise Tier)",
+    "client_tier": "Enterprise",
+    "subject": "System integration webhook verification needed",
+    "body": "Our production webhook is down and failing requests. Urgent assistance required.",
+    "timestamp": "2026-09-19 10:11:06",
+    "priority": "P1",
+    "sentiment": "Urgent",
+    "draft_preview": "Hello Marcus Sterling (Enterprise Tier),\n\nThank you for contacting us regarding 'System integration webhook verification needed'. Our engineering and support sentinels have received your request with high priority. We are actively investigating the telemetry logs and will provide a full resolution update shortly.\n\nWarm regards,\nNexus Support Operations (Brand Tone: Empathetic, clear, and reassuring)"
+  }
+]

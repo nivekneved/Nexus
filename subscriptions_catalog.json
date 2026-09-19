@@ -1,0 +1,54 @@
+[
+  {
+    "id": "sub_1",
+    "sender_raw": "Substack Weekly <digest@substack.com>",
+    "sender_email": "digest@substack.com",
+    "sender_name": "Substack Weekly",
+    "frequency_count": 55,
+    "status": "ACTIVE",
+    "unsub_http": "https://substack.com/unsubscribe",
+    "unsub_mailto": "mailto:unsub@substack.com",
+    "first_detected": "2026-09-10 10:00:00",
+    "last_received": "2026-09-19 17:51:44",
+    "last_subject": "Engineering management essays"
+  },
+  {
+    "id": "sub_2",
+    "sender_raw": "Product Hunt Daily <daily@producthunt.com>",
+    "sender_email": "daily@producthunt.com",
+    "sender_name": "Product Hunt",
+    "frequency_count": 7,
+    "status": "ACTIVE",
+    "unsub_http": "https://producthunt.com/me/subscriptions",
+    "unsub_mailto": null,
+    "first_detected": "2026-09-08 09:15:00",
+    "last_received": "2026-09-18 09:30:00",
+    "last_subject": "Top 10 tools launched today"
+  },
+  {
+    "id": "sub_3",
+    "sender_raw": "Cloud SaaS Deals <promotions@saasgrowth.io>",
+    "sender_email": "promotions@saasgrowth.io",
+    "sender_name": "Cloud SaaS Deals",
+    "frequency_count": 4,
+    "status": "ACTIVE",
+    "unsub_http": "https://saasgrowth.io/optout",
+    "unsub_mailto": null,
+    "first_detected": "2026-09-12 11:45:00",
+    "last_received": "2026-09-17 16:20:00",
+    "last_subject": "Exclusive 50% discount on dev cloud hosting"
+  },
+  {
+    "id": "sub_4",
+    "sender_raw": "Tech Radar Pro <news@techradarpro.com>",
+    "sender_email": "news@techradarpro.com",
+    "sender_name": "Tech Radar Pro",
+    "frequency_count": 50,
+    "status": "ACTIVE",
+    "unsub_http": "https://techradarpro.com/unsubscribe?id=8291",
+    "unsub_mailto": null,
+    "first_detected": "2026-09-18 22:42:35",
+    "last_received": "2026-09-19 17:51:44",
+    "last_subject": "Top dev tools for September"
+  }
+]

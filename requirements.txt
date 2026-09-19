@@ -1,0 +1,19 @@
+# Nexus Autonomous AI Workforce Suite - Dependencies
+
+# AI Reasoning Core (Google Gemini API SDK)
+google-genai>=0.1.1
+
+# Environment Variable & Secret Management
+python-dotenv>=1.0.0
+
+# Autonomous Cron & Background Task Scheduling
+schedule>=1.2.0
+
+# Telemetry & Terminal Instrumentation
+rich>=13.0.0
+
+# Commercial Web API & Real-time Command Center
+fastapi>=0.115.0
+uvicorn>=0.30.0
+httpx>=0.27.0
+pydantic>=2.0.0

@@ -1,0 +1,186 @@
+{
+  "timestamp": "2026-09-19 17:51:45",
+  "cloud_billing": {
+    "monthly_budget_usd": 180.0,
+    "total_spend_usd": 105.7,
+    "burn_rate_pct": 58.7,
+    "is_over_budget": false,
+    "breakdown": [
+      {
+        "provider": "Vercel Pro",
+        "service": "Frontend Edge Hosting",
+        "current_usd": 20.0,
+        "status": "NORMAL"
+      },
+      {
+        "provider": "Google Cloud Platform",
+        "service": "Gemini 2.5 API & Firebase",
+        "current_usd": 14.5,
+        "status": "NORMAL"
+      },
+      {
+        "provider": "Hetzner Cloud",
+        "service": "Backend Dedicated Docker Host",
+        "current_usd": 38.0,
+        "status": "NORMAL"
+      },
+      {
+        "provider": "Cloudflare Pro",
+        "service": "DNS & Enterprise WAF",
+        "current_usd": 25.0,
+        "status": "NORMAL"
+      },
+      {
+        "provider": "Twilio / WhatsApp Comms",
+        "service": "SMS & WhatsApp API (+230 58169420)",
+        "current_usd": 8.2,
+        "status": "NORMAL"
+      }
+    ]
+  },
+  "domains": {
+    "total_domains_tracked": 3,
+    "urgent_expiries_count": 0,
+    "domains": [
+      {
+        "domain": "eco-travellounge.mu",
+        "registrar": "Mauritius Telecom NIC / Cloudflare",
+        "expires_in_days": 182,
+        "auto_renew": true,
+        "ssl_status": "Valid (Let's Encrypt / Cloudflare)",
+        "status": "HEALTHY"
+      },
+      {
+        "domain": "travellounge.mu",
+        "registrar": "Mauritius Telecom NIC",
+        "expires_in_days": 28,
+        "auto_renew": true,
+        "ssl_status": "Valid",
+        "status": "ATTENTION_SOON"
+      },
+      {
+        "domain": "nexus-workforce.io",
+        "registrar": "Namecheap",
+        "expires_in_days": 310,
+        "auto_renew": true,
+        "ssl_status": "Valid",
+        "status": "HEALTHY"
+      }
+    ]
+  },
+  "invoices": {
+    "total_invoices_tracked": 3,
+    "overdue_count": 0,
+    "invoices": [
+      {
+        "invoice_id": "INV-20260919-1446",
+        "client": "Mauritius Enterprise Ltd",
+        "project": "Enterprise AI Workforce Deployment (Milestone 1)",
+        "amount_mur": "Rs 55,000.00",
+        "amount_usd": null,
+        "due_date": "On Receipt",
+        "status": "PENDING",
+        "reminder_draft": "Bonjour Team Mauritius Enterprise Ltd! 👋\n\nHope you are having a productive week. Just a quick friendly follow-up regarding invoice *INV-20260919-1446* for *Enterprise AI Workforce Deployment (Milestone 1)*.\n\n💵 *Amount Due*: MUR 55,000.00\n📱 *MCB Juice Transfer*: +230 58169420 (Deven Pawaray)\n🏦 *MCB Account*: 000443260370\n📝 *Payment Ref*: INV-20260919-1446\n\nKindly let me know once transferred so I can reconcile the receipt. Thank you! - Deven",
+        "whatsapp_link": "https://wa.me/?text=Bonjour%20Team%20Mauritius%20Enterprise%20Ltd%21%20%F0%9F%91%8B%0A%0AHope%20you%20are%20having%20a%20productive%20week.%20Just%20a%20quick%20friendly%20follow-up%20regarding%20invoice%20%2AINV-20260919-1446%2A%20for%20%2AEnterprise%20AI%20Workforce%20Deployment%20%28Milestone%201%29%2A.%0A%0A%F0%9F%92%B5%20%2AAmount%20Due%2A%3A%20MUR%2055%2C000.00%0A%F0%9F%93%B1%20%2AMCB%20Juice%20Transfer%2A%3A%20%2B230%2058169420%20%28Deven%20Pawaray%29%0A%F0%9F%8F%A6%20%2AMCB%20Account%2A%3A%20000443260370%0A%F0%9F%93%9D%20%2APayment%20Ref%2A%3A%20INV-20260919-1446%0A%0AKindly%20let%20me%20know%20once%20transferred%20so%20I%20can%20reconcile%20the%20receipt.%20Thank%20you%21%20-%20Deven"
+      },
+      {
+        "invoice_id": "INV-20260919-1445",
+        "client": "Silicon Valley Client",
+        "project": "Nexus AI Workforce Commercial License",
+        "amount_mur": null,
+        "amount_usd": "$249.00",
+        "due_date": "On Receipt",
+        "status": "PENDING",
+        "reminder_draft": "Hello Silicon Valley Client! 👋\n\nFollowing up on invoice *INV-20260919-1445* for *Nexus AI Workforce Commercial License*.\n\n💵 *Amount Due*: USD 249.00\n💳 *1-Click Card / PayPal Checkout*: https://www.paypal.com/checkoutnow?token=2GK120136H3727435\n\nThank you for your business! - Deven Pawaray",
+        "whatsapp_link": "https://wa.me/?text=Hello%20Silicon%20Valley%20Client%21%20%F0%9F%91%8B%0A%0AFollowing%20up%20on%20invoice%20%2AINV-20260919-1445%2A%20for%20%2ANexus%20AI%20Workforce%20Commercial%20License%2A.%0A%0A%F0%9F%92%B5%20%2AAmount%20Due%2A%3A%20USD%20249.00%0A%F0%9F%92%B3%20%2A1-Click%20Card%20/%20PayPal%20Checkout%2A%3A%20https%3A//www.paypal.com/checkoutnow%3Ftoken%3D2GK120136H3727435%0A%0AThank%20you%20for%20your%20business%21%20-%20Deven%20Pawaray"
+      },
+      {
+        "invoice_id": "INV-20260919-9417",
+        "client": "CognitiveOps AI",
+        "project": "Medical 360™ Turnkey Clinic Operations Portal (Frontend Deployment)",
+        "amount_mur": "Rs 45,000.00",
+        "amount_usd": null,
+        "due_date": "On Receipt",
+        "status": "PAID",
+        "reminder_draft": "Bonjour Team CognitiveOps AI! 👋\n\nHope you are having a productive week. Just a quick friendly follow-up regarding invoice *INV-20260919-9417* for *Medical 360™ Turnkey Clinic Operations Portal (Frontend Deployment)*.\n\n💵 *Amount Due*: MUR 45,000.00\n📱 *MCB Juice Transfer*: +230 58169420 (Deven Pawaray)\n🏦 *MCB Account*: 000443260370\n📝 *Payment Ref*: INV-20260919-9417\n\nKindly let me know once transferred so I can reconcile the receipt. Thank you! - Deven",
+        "whatsapp_link": "https://wa.me/?text=Bonjour%20Team%20CognitiveOps%20AI%21%20%F0%9F%91%8B%0A%0AHope%20you%20are%20having%20a%20productive%20week.%20Just%20a%20quick%20friendly%20follow-up%20regarding%20invoice%20%2AINV-20260919-9417%2A%20for%20%2AMedical%20360%E2%84%A2%20Turnkey%20Clinic%20Operations%20Portal%20%28Frontend%20Deployment%29%2A.%0A%0A%F0%9F%92%B5%20%2AAmount%20Due%2A%3A%20MUR%2045%2C000.00%0A%F0%9F%93%B1%20%2AMCB%20Juice%20Transfer%2A%3A%20%2B230%2058169420%20%28Deven%20Pawaray%29%0A%F0%9F%8F%A6%20%2AMCB%20Account%2A%3A%20000443260370%0A%F0%9F%93%9D%20%2APayment%20Ref%2A%3A%20INV-20260919-9417%0A%0AKindly%20let%20me%20know%20once%20transferred%20so%20I%20can%20reconcile%20the%20receipt.%20Thank%20you%21%20-%20Deven"
+      }
+    ]
+  },
+  "payments": {
+    "total_invoices": 3,
+    "pending_invoices": 2,
+    "paid_invoices": 1,
+    "total_usd_collected": 0,
+    "recent_invoices": [
+      {
+        "id": "INV-20260919-1446",
+        "client_name": "Mauritius Enterprise Ltd",
+        "client_email": "accounts@mrucorp.mu",
+        "amount": 55000.0,
+        "currency": "MUR",
+        "description": "Enterprise AI Workforce Deployment (Milestone 1)",
+        "method": "mcb_wire",
+        "created_at": "2026-09-19 16:37:26",
+        "status": "PENDING",
+        "payment_url": null,
+        "bank_details": {
+          "beneficiary_name": "Deven Pawaray",
+          "account_number": "000443260370",
+          "iban": "MU57MCBL0944000443260370000MUR",
+          "swift": "MCBLMUMU",
+          "juice_mobile": "+230 58169420",
+          "instructions_text": "--- BANK WIRE / JUICE PAYMENT INSTRUCTIONS ---\nBeneficiary: Deven Pawaray\nBank: Mauritius Commercial Bank (MCB)\nAccount Number: 000443260370\nIBAN: MU57MCBL0944000443260370000MUR\nSWIFT / BIC: MCBLMUMU\nAmount Due: MUR 55,000.00\nPayment Reference: INV-20260919-1446\nLocal Juice Pay: +230 58169420 / Ref: INV-20260919-1446\n----------------------------------------------"
+        },
+        "paypal_order_id": null,
+        "prev_hash": "dcff1a8e3420be2767b81befe8e2ff5fa9d1f7d0c1ec70ab10df432f7ed27d72",
+        "security_signature": "54f21ff1f0cb435c204629ecf3500f8d76d40ed4e4c99c5c87b29f59b54467d3",
+        "block_hash": "279b2e41fdb4d90017d87505f44294c49a6c792f8a08fe3057610770c6bc36b1"
+      },
+      {
+        "id": "INV-20260919-1445",
+        "client_name": "Silicon Valley Client",
+        "client_email": "founder@svstartup.io",
+        "amount": 249.0,
+        "currency": "USD",
+        "description": "Nexus AI Workforce Commercial License",
+        "method": "paypal",
+        "created_at": "2026-09-19 16:37:25",
+        "status": "PENDING",
+        "payment_url": "https://www.paypal.com/checkoutnow?token=2GK120136H3727435",
+        "bank_details": null,
+        "paypal_order_id": "2GK120136H3727435",
+        "prev_hash": "894651807646e3f37d288966aee82ea40aa779b0b594498720d73ba7e43c8238",
+        "security_signature": "e6b584122575e2dd32d1b40472352031bb8f992140ee177d774721fefc9adac1",
+        "block_hash": "dcff1a8e3420be2767b81befe8e2ff5fa9d1f7d0c1ec70ab10df432f7ed27d72"
+      },
+      {
+        "id": "INV-20260919-9417",
+        "client_name": "CognitiveOps AI",
+        "client_email": "client@example.com",
+        "amount": 45000.0,
+        "currency": "MUR",
+        "description": "Medical 360™ Turnkey Clinic Operations Portal (Frontend Deployment)",
+        "method": "mcb_wire",
+        "created_at": "2026-09-19 16:03:37",
+        "status": "PAID",
+        "payment_url": null,
+        "bank_details": {
+          "beneficiary_name": "Deven Pawaray",
+          "account_number": "000443260370",
+          "iban": "MU57MCBL0944000443260370000MUR",
+          "swift": "MCBLMUMU",
+          "juice_mobile": "+230 58169420",
+          "instructions_text": "--- BANK WIRE / JUICE PAYMENT INSTRUCTIONS ---\nBeneficiary: Deven Pawaray\nBank: Mauritius Commercial Bank (MCB)\nAccount Number: 000443260370\nIBAN: MU57MCBL0944000443260370000MUR\nSWIFT / BIC: MCBLMUMU\nAmount Due: MUR 45,000.00\nPayment Reference: INV-20260919-9417\nLocal Juice Pay: +230 58169420 / Ref: INV-20260919-9417\n----------------------------------------------"
+        },
+        "paypal_order_id": null,
+        "prev_hash": "GENESIS_BLOCK_NEXUS_2026",
+        "security_signature": "549f58f6d9b6c0113df0fa7a95e6930ced8e307b4b2a3a9a99c7089132cde5b0",
+        "block_hash": "894651807646e3f37d288966aee82ea40aa779b0b594498720d73ba7e43c8238",
+        "reconciliation_token": "7F77393D7876571EFAF26537",
+        "juice_ref": "JUICEDEVEN9417",
+        "updated_at": "2026-09-19 16:03:38"
+      }
+    ]
+  }
+}

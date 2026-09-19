@@ -1,0 +1,43 @@
+{
+  "primary_focus": "Sovereign Digital Twin — Founder Peace of Mind & Turnkey Sales",
+  "debt_collections_active": false,
+  "outstanding_debt_mur": 0.0,
+  "target_niches": [
+    "itravellix_saas",
+    "ennrevennsourir_ngo",
+    "medical360_portal"
+  ],
+  "proven_track_record": [
+    {
+      "app": "travellounge.mu",
+      "status": "LIVE_TESTED_AND_SOLD",
+      "type": "Turnkey Travel Booking Engine"
+    },
+    {
+      "app": "ennrevennsourir.vercel.app",
+      "status": "LIVE_TESTED_AND_SOLD",
+      "type": "Transparent NGO & Medical Crowdfunding Suite"
+    },
+    {
+      "app": "med360.mu",
+      "status": "LIVE_TESTED_AND_SOLD",
+      "type": "360° Hospital & Private Clinic Management Portal"
+    }
+  ],
+  "monthly_revenue_target_mur": 150000.0,
+  "max_cloud_budget_usd": 180.0,
+  "risk_tolerance": "CALCULATED_PROTECTIVE",
+  "payment_destination": "MCB Juice (+230 58169420)",
+  "active_directives": [
+    "CORE PURPOSE: Act as Deven's faithful digital twin, carrying the operational and inbox burden so Deven can take time off in complete peace of mind.",
+    "ZERO collections / debt recovery - nobody owes us anything; focus 100% on closing new app sales.",
+    "PROTECT THE MARKET: Do NOT underprice enterprise assets. Decouple into Rs 45,000 Frontend + Rs 45,000 Backend/Admin (Total Full-Stack: Rs 90,000 MUR).",
+    "Leverage proven track record in all pitches: travellounge.mu (SOLD), ennrevennsourir (SOLD), and med360.mu (SOLD).",
+    "Pitch Medical 360: Rs 45,000 Patient Portal Frontend + Rs 45,000 Clinic/Lab/Admin Backend (Rs 90,000 Full-Stack Setup).",
+    "Pitch Enn Rev Enn Sourir NGO: Rs 45,000 Crowdfunding Frontend + Rs 45,000 MRA Audit & Hospital Backend (Rs 90,000 Full-Stack Setup).",
+    "Pitch i-Travellix / TravelLounge Enterprise Suite: Rs 200,000 Frontend Web + Rs 300,000 Backend GDS (Rs 500,000 Web Turnkey) + Rs 100,000 iOS App + Rs 100,000 Android App (Total Full Ecosystem: Rs 700,000 MUR / ~$15,000 USD).",
+    "Offer Sovereign Digital Twin Lifetime Licenses for $249 USD via instant PayPal checkout.",
+    "Maintain zero-spam inbox sanctuary across all configured inboxes."
+  ],
+  "updated_at": "2026-09-18 22:17:04"
+}
