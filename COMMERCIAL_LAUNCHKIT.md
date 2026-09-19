@@ -18,6 +18,7 @@
 │ • Enn Rev Enn Sourir™ NGO: Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack│
 │ • Medical 360™ Clinic:    Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack│
 │ • i-Travellix™ Enterprise: Rs 100k Front + Rs 100k Back = Rs 200k (+ Apps = Rs 250k)│
+│ • WhatsApp Flight Addon™:  Rs 30,000 Turnkey Addon (https://whatsapp-flight-addon.vercel.app)│
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ 🌍 OPTION B (Global Digital Twin License @ $249 / ~Rs 11,500): 10-12 Sales   │
 │ 🇲🇺 OPTION C (Local Mauritius Turnkey Suites @ Rs 90k - Rs 200k): 1-2 Sales   │
