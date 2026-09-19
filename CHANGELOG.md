@@ -3,6 +3,72 @@
 
 ---
 
+## [v3.2.0] - 2026-09-19 (Enterprise Multi-Format Backup & Disaster Recovery Engine, Collapsible Accordion Navigation & Loss-Free Git Bundles)
+
+### 🛡️ Enterprise Multi-Format Backup & Disaster Recovery Engine (`core/backup_service.py`, `restore.py`, `restore.bat`, `server.py`)
+- **Loss-Free Git Branches Bundling**:
+  - Automatically packages all local and remote branches and tags into a standalone cryptographic `all_branches.bundle` (via `git bundle create`).
+  - Allows 100% loss-free cloning and branch checkout on any offline or disaster-recovery machine.
+  - Generates comprehensive `branch_metadata.json` capturing current branch, commit SHAs, tags, and environment specifications.
+- **Dynamic 30-Store JSON Discovery & ANSI SQL Export**:
+  - Dynamically discovers and backs up all 30 active JSON production databases without hardcoded limits.
+  - Ingests all tables into a live relational SQLite database (`nexus_workforce.db`) and dumps a standard ANSI SQL script (`data_dump.sql` & `schema.sql`) for portable PostgreSQL/MySQL compatibility.
+  - Packs complete application source bundle (`apps_source_bundle.zip`) with intelligent `.git` and cache exclusions.
+  - Generates SHA-256 cryptographic manifest (`MANIFEST.json`) verifying 100% integrity across every file.
+- **Modular 1-Click Restore System**:
+  - `restore.py` upgraded with modular restore flags (`restore_db`, `restore_source_code`, `restore_git_branches`).
+  - Added Windows 1-click launcher `restore.bat` for instant interactive or automatic disaster recovery.
+  - Backend REST API endpoints:
+    - `GET /api/backup/list`: Lists all available backups with timestamps, total file counts, sizes, and integrity status.
+    - `POST /api/backup/create`: Triggers asynchronous enterprise snapshots with Git bundles and SQL dumps.
+    - `POST /api/backup/restore`: Executes 1-click rollback in database, source, or full mode.
+    - `GET /api/backup/manifest/{backup_id}`: Serves the parsed cryptographic SHA-256 manifest.
+
+### 🧭 Collapsible Accordion Navigation & Backup Dashboard UX (`static/`)
+- **Modern Sidebar Experience**:
+  - Added custom styled scrollbar (`overflow-y: auto`, smooth scrolling, subtle glassmorphic track and thumb).
+  - 1-click sidebar collapse/expand toggle button (`#btnToggleSidebar`) with layout persistence in `localStorage`.
+  - Collapsible accordion sections for all 5 tiers (Executive Suite, Revenue & Growth, Operations, System & Recovery, Developer Telemetry) with animated chevron rotations.
+- **Dedicated Backup & Disaster Recovery Dashboard**:
+  - Hero header with instant snapshot creation button and live status badge.
+  - 4 real-time KPI metrics cards: Total Snapshots, Latest Snapshot Timestamp, Git Branches Preserved, and Cryptographic SHA-256 Integrity.
+  - Interactive Snapshots History Table featuring 1-click database restore, full system rollback, and SHA-256 manifest inspection modal.
+
+---
+
+## [v3.1.0] - 2026-09-19 (Dedicated 11-Agent Fleets, Dynamic Partner Economics, Influencer Usher & Hidden Bot Boards Hub)
+
+### 🤖 Dedicated 11-Agent Product Fleets & Partner Economics (`core/dedicated_fleets.py`, `server.py`, `static/`)
+- **Dedicated 11-Agent Fleets**:
+  - **Division Alpha**: Medical 360™ Turnkey Clinic Suite (11 specialized agents: Scout, Pain Auditor, Proposal Crafter, WhatsApp Dispatcher, Demo Host, Compliance Sentinel, Turnkey Closer, MCB Juice Reconciler, Provisioner, Maintenance Sentinel, and Expansion Scout).
+  - **Division Beta**: Enn Rev Enn Sourir™ NGO & CSR Portal (11 specialized agents: Foundation Scout, MRA 15% Tax Auditor, Impact Crafter, WhatsApp Concierge, Platform Walkthrough Host, Integrity Watchdog, Retainer Closer, Crowdfund Reconciler, Campaign Provisioner, Maintenance Sentinel, and Patron Expander).
+  - Coordinated wave dispatch endpoint (`POST /api/fleets/{product_id}/dispatch-wave`).
+- **Dynamic Real-Time Partner Economics Engine**:
+  - `get_partner_economics_summary()` dynamically synchronizes with `leads_pipeline.json` and `contact_history.json`.
+  - Automatically models base prices, 1/5th (20%) annual maintenance SLA contracts (Rs 9,000/yr), Year 1 win values, and real-time CRM statuses across all 25 leads and 17 contacts.
+  - Generates aggregate projections: Rs 797,500 setup pipeline, Rs 159,500 recurring ARR, and Rs 1,276,000 3-year LTV.
+
+### 📣 Marketing & Social Media Influencer Usher (Employee #18) (`agents/influencer_usher/`, `static/`)
+- **4 Autonomous SubAgents**:
+  - **Influencer Matcher**: Ranks vetted profiles (@MedMauritiusDoc, @TechVisionMU, @CSRAfricaHub, @IndieHackerMU, @AIStartupAfrica) by engagement-to-cost ratio.
+  - **Social Signal Radar**: Live tracking across Chirper, X/Twitter, and LinkedIn with sentiment analysis and instant "Ride Trend" action.
+  - **Viral Campaign Studio**: Multi-format copy generation (X threads, Instagram captions, LinkedIn executive posts, and WhatsApp pitches) with 1-click clipboard copy and wa.me dispatch.
+  - **3-Touch Lead Nurture Sequencer**: Automated Day 1, Day 3, and Day 7 follow-up sequence generator with objection handling and Juice QR payment links.
+- **REST Endpoints**: `/api/influencer/matches`, `/api/influencer/signals`, `/api/influencer/campaign`, `/api/influencer/nurture`, and `/api/influencer/campaigns`.
+
+### 🕸️ Hidden Bot Boards & Wild Web Agentic Directory (`core/hidden_boards_service.py`, `static/`)
+- **12 Connected Bot Message Boards**:
+  - Direct integration with Moltbook, NEAR AI, Morpheus, Chirper, Bittensor, Git Spontaneous Boards, AgentVerse, Swarms, AutoGen Studio, LangGraph, Hugging Face Hub, and Flowcase.
+- **Collective Protocol Telemetry**:
+  - Scrapes immediate money opportunities, bounties, and RFPs from machine chatter.
+  - 1-click simultaneous offer broadcast reaching 148,000+ autonomous AI agents.
+
+### 👔 CEO Executive Cockpit & Logical Navigation System (`static/style.css`, `static/index.html`, `static/app.js`)
+- Re-architected navigation into 4 logical tiers: Executive Suite, Revenue & Growth, Operations & 24/7, and Collapsible Developer Telemetry.
+- Added first-class dedicated views for `pane-partner-fleets`, `pane-influencers`, and `pane-boards`.
+
+---
+
 ## [v3.0.0] - 2026-09-19 (Sovereign Legal Guardrails, Crash-Proof Storage, Automated NDR Interception & Outreach CRM Cockpit)
 
 ### ⚖️ Sovereign Legal Guardrail & Deliverability Engine (`core/legal_guardrails.py`, `core/email_verifier.py`)

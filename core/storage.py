@@ -26,6 +26,13 @@ def _get_lock_for_path(filepath: str | Path) -> threading.RLock:
         return _FILE_LOCKS[canonical]
 
 
+def _get_bak_path(p: Path) -> Path:
+    """Returns the path to the .bak file inside a dedicated .shadow_bak folder to keep directories tidy."""
+    bak_dir = p.parent / ".shadow_bak"
+    bak_dir.mkdir(parents=True, exist_ok=True)
+    return bak_dir / f"{p.name}.bak"
+
+
 def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
     """
     Safely loads JSON from disk.
@@ -36,16 +43,18 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
     lock = _get_lock_for_path(p)
 
     with lock:
+        # Check both primary shadow_bak path and legacy in-place .bak
+        bak_candidates = [_get_bak_path(p), p.with_suffix(p.suffix + ".bak")]
         if not p.exists() or p.stat().st_size == 0:
-            bak = p.with_suffix(p.suffix + ".bak")
-            if bak.exists() and bak.stat().st_size > 0:
-                try:
-                    with open(bak, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                    logger.warning(f"[Storage] Auto-recovered {p.name} from backup {bak.name}")
-                    return data
-                except Exception as e:
-                    logger.error(f"[Storage] Backup load failed for {bak}: {e}")
+            for bak in bak_candidates:
+                if bak.exists() and bak.stat().st_size > 0:
+                    try:
+                        with open(bak, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                        logger.warning(f"[Storage] Auto-recovered {p.name} from backup {bak.name}")
+                        return data
+                    except Exception as e:
+                        logger.error(f"[Storage] Backup load failed for {bak}: {e}")
             return default if default is not None else []
 
         try:
@@ -53,17 +62,17 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
                 return json.load(f)
         except (json.JSONDecodeError, OSError) as e:
             logger.warning(f"[Storage] Corrupt JSON detected in {p}: {e}. Attempting .bak recovery...")
-            bak = p.with_suffix(p.suffix + ".bak")
-            if bak.exists() and bak.stat().st_size > 0:
-                try:
-                    with open(bak, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                    logger.info(f"[Storage] Successfully restored {p.name} from {bak.name}")
-                    # restore main file from backup
-                    atomic_save_json(p, data)
-                    return data
-                except Exception as be:
-                    logger.error(f"[Storage] Failed to recover {p} from backup: {be}")
+            bak_candidates = [_get_bak_path(p), p.with_suffix(p.suffix + ".bak")]
+            for bak in bak_candidates:
+                if bak.exists() and bak.stat().st_size > 0:
+                    try:
+                        with open(bak, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                        logger.info(f"[Storage] Successfully restored {p.name} from {bak.name}")
+                        atomic_save_json(p, data)
+                        return data
+                    except Exception as be:
+                        logger.error(f"[Storage] Failed to recover {p} from backup {bak}: {be}")
             return default if default is not None else []
 
 
@@ -72,7 +81,7 @@ def atomic_save_json(filepath: str | Path, data: Any, indent: int = 2) -> bool:
     Atomically persists data to disk:
     1. Writes to temporary file in the same directory.
     2. Flushes and syncs to disk (fsync).
-    3. Updates .bak fallback snapshot.
+    3. Updates .bak fallback snapshot in .shadow_bak/.
     4. Performs atomic os.replace() to prevent any 0-byte state during power loss/crash.
     """
     p = Path(filepath)
@@ -80,7 +89,7 @@ def atomic_save_json(filepath: str | Path, data: Any, indent: int = 2) -> bool:
     lock = _get_lock_for_path(p)
 
     tmp_path = p.with_suffix(p.suffix + f".tmp_{threading.get_ident()}")
-    bak_path = p.with_suffix(p.suffix + ".bak")
+    bak_path = _get_bak_path(p)
 
     with lock:
         try:
@@ -89,10 +98,9 @@ def atomic_save_json(filepath: str | Path, data: Any, indent: int = 2) -> bool:
                 f.flush()
                 os.fsync(f.fileno())
 
-            # Update .bak before replacing if current file is valid
+            # Update .bak in .shadow_bak before replacing if current file is valid
             if p.exists() and p.stat().st_size > 0:
                 try:
-                    # quick copy for fallback
                     import shutil
                     shutil.copy2(p, bak_path)
                 except Exception:

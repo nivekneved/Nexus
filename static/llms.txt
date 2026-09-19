@@ -1,0 +1,41 @@
+# Nexus AI Autonomous Workforce Hub
+
+> Nexus is a production-grade, locally deployed autonomous AI workforce designed for solo founders, developers, and SMEs. It deploys 18 specialized autonomous AI employees, 55 single-task subagents, 25 safety guardrails, and 92 modular addons.
+
+## System Overview
+- **Name**: Nexus AI Autonomous Workforce Hub
+- **Principal & Creator**: Deven Pawaray (Port Louis, Mauritius | devenpawaray@gmail.com | +230 58169420)
+- **Architecture**: Sovereign Local-First Python FastAPI Core, Vanilla Glassmorphic Dashboard, SQLite Relational Database, and ANSI SQL DDL.
+- **Official URL**: https://nexus-workforce.vercel.app
+- **Licensing Model**: One-time Founder License ($249 USD / Rs 45,000 MUR) with zero monthly SaaS fees, 100% data sovereignty, and offline resilience.
+
+## Core Workforce Divisions & Specialized Fleets
+
+### 1. Division Alpha: Medical 360™ Turnkey Clinic Suite
+- Automated clinic management suite for private doctors and clinics across Mauritius.
+- 11 specialized autonomous agents: Scout, Pain Auditor, Proposal Crafter, WhatsApp Dispatcher, Demo Host, Compliance Sentinel, Turnkey Closer, MCB Juice Reconciler, Provisioner, Maintenance Sentinel, and Expansion Scout.
+- Pricing: Rs 45,000 MUR one-time setup + Rs 9,000/yr (20%) maintenance contract.
+
+### 2. Division Beta: Enn Rev Enn Sourir™ NGO & CSR Portal
+- Turnkey NGO donation, CSR grant compliance (MRA 15% tax deduction), and patron retention platform.
+- 11 specialized autonomous agents: Foundation Scout, MRA Tax Auditor, Impact Crafter, WhatsApp Concierge, Platform Walkthrough Host, Integrity Watchdog, Retainer Closer, Crowdfund Reconciler, Campaign Provisioner, Maintenance Sentinel, and Patron Expander.
+- Pricing: Rs 45,000 MUR one-time setup + Rs 9,000/yr (20%) maintenance contract.
+
+### 3. Core Enterprise Capabilities
+- **24/7 Autopilot Night Shift**: Continuous execution every 30 minutes for email hygiene, invoice payment reconciliation, Git breaking-change alerts, and competitor tracking.
+- **Priority Inbox & Dual-Account IMAP**: Sovereign local email triage with automated spam scoring, VIP tagging, and one-click draft replies.
+- **MCB Juice Payment Reconciliation**: Automated verification of mobile peer-to-peer bank transfers via regex extraction and cryptographically signed tamper-proof receipts.
+- **Multi-Format Disaster Recovery**: 100% loss-free Git branches bundling (`all_branches.bundle`), 30-store JSON database backup, live SQLite database ingestion, and ANSI SQL dump generation with SHA-256 manifest verification.
+- **Wild Web Agentic Directory & Bot Boards**: Native telemetry connecting with 12 decentralized bot message boards reaching 148,000+ autonomous AI agents.
+
+## Technical Specifications
+- **Backend**: Python 3.10+, FastAPI, Uvicorn, SQLite3, HTTPX, Pydantic v2.
+- **Frontend**: Vanilla JavaScript (ES6+), Modern Semantic HTML5, Glassmorphic CSS.
+- **Security & Guardrails**: 25 autonomous safety safeguards including financial transaction velocity limits, spam classification, rate-limiting shield, and sovereign legal disclaimers.
+- **Hosting**: Local self-hosted desktop or cloud deployment (Vercel, VPS, Docker).
+
+## Contact & Acquisition
+- **Founder**: Deven Pawaray
+- **Email**: devenpawaray@gmail.com
+- **Phone / WhatsApp**: +230 58169420
+- **Location**: Port Louis, Mauritius

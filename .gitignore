@@ -13,6 +13,8 @@
 data/
 logs/
 backups/
+.shadow_bak/
+reports/
 scratch/
 *.tmp
 
@@ -54,6 +56,10 @@ partner_directives.json
 spec_audit_reports.json
 revenue_blueprints.json
 projects.json
+hidden_boards_feed.json
+hidden_boards_state.json
+influencer_campaigns.json
+social_signals.json
 
 
 

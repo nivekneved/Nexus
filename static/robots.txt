@@ -1,0 +1,43 @@
+# ==============================================================================
+# Nexus AI Autonomous Workforce — Robots.txt & AI Crawler Directives
+# Optimized for Web Indexing and AI Conversational Search Engines
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Allow: /license
+Allow: /llms.txt
+Allow: /static/
+Disallow: /api/
+Disallow: /backups/
+
+# AI Search & Retrieval Engines (Full Indexing Allowed for Grounding)
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+
+# LLM Content Reference
+# For complete machine-readable AI documentation:
+# https://nexus-workforce.vercel.app/llms.txt
+
+Sitemap: https://nexus-workforce.vercel.app/sitemap.xml

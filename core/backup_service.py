@@ -10,6 +10,8 @@ import shutil
 import sqlite3
 import zipfile
 import hashlib
+import subprocess
+import uuid
 from datetime import datetime
 from typing import Dict, Any, List
 
@@ -279,6 +281,57 @@ CREATE TABLE IF NOT EXISTS addons_state (
     is_active INTEGER DEFAULT 1,
     updated_at TEXT
 );
+
+CREATE TABLE IF NOT EXISTS mesh_contacts (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    handle TEXT,
+    framework TEXT,
+    endpoint TEXT,
+    auth_type TEXT,
+    trust_level TEXT,
+    status TEXT,
+    latency_ms INTEGER,
+    capabilities_json TEXT,
+    notes TEXT,
+    last_ping TEXT
+);
+
+CREATE TABLE IF NOT EXISTS mesh_messages (
+    id TEXT PRIMARY KEY,
+    timestamp TEXT,
+    direction TEXT,
+    from_agent TEXT,
+    to_agent TEXT,
+    intent TEXT,
+    priority TEXT,
+    protocol_mode TEXT,
+    status TEXT,
+    payload_json TEXT
+);
+
+CREATE TABLE IF NOT EXISTS hidden_boards (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    category TEXT,
+    protocol TEXT,
+    agent_population INTEGER,
+    status TEXT,
+    latency_ms INTEGER,
+    capabilities_json TEXT,
+    notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS influencer_campaigns (
+    id TEXT PRIMARY KEY,
+    product_id TEXT,
+    product_name TEXT,
+    platform TEXT,
+    headline TEXT,
+    content TEXT,
+    hashtags_json TEXT,
+    created_at TEXT
+);
 """.format(timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     with open(schema_sql_path, "w", encoding="utf-8") as f:
@@ -298,17 +351,27 @@ CREATE TABLE IF NOT EXISTS addons_state (
         with open(inv_file, "r", encoding="utf-8") as f:
             invoices = json.load(f)
             for inv in invoices:
+                juice_ref = inv.get("juice_reference") or inv.get("bank_details")
+                if isinstance(juice_ref, (dict, list)):
+                    juice_ref = json.dumps(juice_ref)
+                sig = inv.get("security_signature") or inv.get("signature")
+                if isinstance(sig, (dict, list)):
+                    sig = json.dumps(sig)
+                prev_h = inv.get("prev_hash") or inv.get("previous_hash")
+                if isinstance(prev_h, (dict, list)):
+                    prev_h = json.dumps(prev_h)
+
                 cur.execute("""
                     INSERT OR REPLACE INTO invoices 
                     (id, client_name, client_email, amount, currency, description, method, status, payment_url, juice_reference, signature, previous_hash, created_at)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     inv.get("id"), inv.get("client_name"), inv.get("client_email"),
-                    inv.get("amount", 0.0), inv.get("currency", "MUR"), inv.get("description"),
+                    float(inv.get("amount", 0.0) or 0.0), inv.get("currency", "MUR"), inv.get("description"),
                     inv.get("method", "paypal"), inv.get("status", "PENDING"), inv.get("payment_url"),
-                    inv.get("juice_reference") or inv.get("bank_details"),
-                    inv.get("security_signature") or inv.get("signature"),
-                    inv.get("prev_hash") or inv.get("previous_hash"),
+                    juice_ref,
+                    sig,
+                    prev_h,
                     inv.get("created_at", datetime.now().isoformat())
                 ))
 
@@ -451,6 +514,78 @@ CREATE TABLE IF NOT EXISTS addons_state (
                     VALUES (?, ?, ?)
                 """, (aid, 1 if state else 0, now_iso))
 
+    # Insert Mesh Contacts
+    mesh_c_file = os.path.join(json_dir, "mesh_contacts.json")
+    if os.path.exists(mesh_c_file):
+        with open(mesh_c_file, "r", encoding="utf-8") as f:
+            mesh_contacts = json.load(f)
+            for mc in mesh_contacts:
+                cur.execute("""
+                    INSERT OR REPLACE INTO mesh_contacts
+                    (id, name, handle, framework, endpoint, auth_type, trust_level, status, latency_ms, capabilities_json, notes, last_ping)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    mc.get("id"), mc.get("name"), mc.get("handle"), mc.get("framework"),
+                    mc.get("endpoint"), mc.get("auth_type"), mc.get("trust_level"),
+                    mc.get("status"), mc.get("latency_ms", 25),
+                    json.dumps(mc.get("capabilities", [])), mc.get("notes"),
+                    mc.get("last_ping")
+                ))
+
+    # Insert Mesh Messages
+    mesh_m_file = os.path.join(json_dir, "mesh_messages.json")
+    if os.path.exists(mesh_m_file):
+        with open(mesh_m_file, "r", encoding="utf-8") as f:
+            mesh_msgs = json.load(f)
+            for mm in mesh_msgs:
+                cur.execute("""
+                    INSERT OR REPLACE INTO mesh_messages
+                    (id, timestamp, direction, from_agent, to_agent, intent, priority, protocol_mode, status, payload_json)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    mm.get("id"), mm.get("timestamp"), mm.get("direction"),
+                    mm.get("from_agent"), mm.get("to_agent"), mm.get("intent"),
+                    mm.get("priority"), mm.get("protocol_mode"), mm.get("status"),
+                    json.dumps(mm.get("payload", {}))
+                ))
+
+    # Insert Hidden Boards
+    boards_file = os.path.join(json_dir, "hidden_boards_state.json")
+    if os.path.exists(boards_file):
+        with open(boards_file, "r", encoding="utf-8") as f:
+            boards_data = json.load(f)
+            boards_list = boards_data.get("boards", []) if isinstance(boards_data, dict) else boards_data
+            for hb in boards_list:
+                cur.execute("""
+                    INSERT OR REPLACE INTO hidden_boards
+                    (id, name, category, protocol, agent_population, status, latency_ms, capabilities_json, notes)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    hb.get("id"), hb.get("name"), hb.get("category"), hb.get("protocol"),
+                    hb.get("agent_population", 0), hb.get("status"), hb.get("latency_ms", 20),
+                    json.dumps(hb.get("capabilities", [])), hb.get("notes")
+                ))
+
+    # Insert Influencer Campaigns
+    camp_file = os.path.join(json_dir, "influencer_campaigns.json")
+    if os.path.exists(camp_file):
+        with open(camp_file, "r", encoding="utf-8") as f:
+            camps = json.load(f)
+            for cp in camps:
+                cnt = cp.get("content")
+                if isinstance(cnt, (dict, list)):
+                    cnt = json.dumps(cnt)
+                cur.execute("""
+                    INSERT OR REPLACE INTO influencer_campaigns
+                    (id, product_id, product_name, platform, headline, content, hashtags_json, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    cp.get("id") or cp.get("campaign_id"), cp.get("product_id"),
+                    cp.get("product_name") or cp.get("product"), cp.get("platform"),
+                    cp.get("headline"), cnt,
+                    json.dumps(cp.get("hashtags", [])), cp.get("created_at")
+                ))
+
     conn.commit()
 
     # Generate complete SQL data dump (.sql text file)
@@ -513,22 +648,13 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
     os.makedirs(sql_dir, exist_ok=True)
     os.makedirs(apps_dir, exist_ok=True)
 
-    # 1. Copy all active JSON databases
-    json_candidates = [
-        "addons_state.json", "autopilot_state.json", "daily_newsletter_digest.json",
-        "email_accounts.json", "infra_finance_audit.json", "invoices.json",
-        "latest_standup_brief.json", "latest_tech_dossier.json", "leads_pipeline.json",
-        "localization_audit.json", "mobile_notifications.json", "overnight_activity.json",
-        "partner_decisions.json", "partner_directives.json", "repo_radar_alerts.json",
-        "revenue_blueprints.json", "spec_audit_reports.json", "subscriptions_catalog.json",
-        "mesh_contacts.json", "mesh_messages.json", "processed_juice_refs.json"
-    ]
-
+    # 1. Discover and copy all active JSON databases dynamically
     copied_json_files = []
-    for jf in json_candidates:
-        if os.path.exists(jf):
-            shutil.copy2(jf, os.path.join(json_dir, jf))
-            copied_json_files.append(jf)
+    exclude_root_jsons = {"package.json", "package-lock.json", "tsconfig.json", "manifest.json"}
+    for f in os.listdir("."):
+        if f.endswith(".json") and f.lower() not in exclude_root_jsons and os.path.isfile(f):
+            shutil.copy2(f, os.path.join(json_dir, f))
+            copied_json_files.append(f)
 
     # Also backup .env if exists (for restore)
     if os.path.exists(".env"):
@@ -541,19 +667,44 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
     # 3. Generate SQL Database (SQLite) and SQL DDL + Dump
     generate_sql_database_and_dumps(json_dir, sql_dir)
 
-    # 4. Package Apps Branches & Source
+    # 4. Package Apps Branches & Complete Git Bundle
     source_zip_path = os.path.join(apps_dir, "apps_source_bundle.zip")
     package_apps_source_bundle(source_zip_path)
+
+    # Create full Git bundle of all branches and tags
+    git_bundle_path = os.path.join(apps_dir, "all_branches.bundle")
+    git_branches_list = []
+    current_branch = "unknown"
+    latest_commit_hash = "unknown"
+    git_tags_list = []
+    try:
+        subprocess.run(["git", "bundle", "create", git_bundle_path, "--all"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        br_out = subprocess.check_output(["git", "branch", "-a"], text=True, errors="ignore").strip().splitlines()
+        git_branches_list = [b.replace("*", "").strip() for b in br_out if b.strip()]
+        curr_br = subprocess.check_output(["git", "branch", "--show-current"], text=True, errors="ignore").strip()
+        if curr_br:
+            current_branch = curr_br
+        rev_out = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True, errors="ignore").strip()
+        if rev_out:
+            latest_commit_hash = rev_out
+        tags_out = subprocess.check_output(["git", "tag"], text=True, errors="ignore").strip().splitlines()
+        git_tags_list = [t.strip() for t in tags_out if t.strip()]
+    except Exception as e:
+        git_branches_list = ["main"]
 
     # Save branch and environment metadata
     branch_meta = {
         "backup_date": now.strftime("%Y-%m-%d %H:%M:%S"),
         "principal": "Deven Pawaray (devenpawaray@gmail.com | +230 58169420)",
         "managing_partner": "Nexus AI (Executive Managing Partner)",
-        "active_branches": ["main", "commercial-v2.7.0"],
+        "current_branch": current_branch,
+        "active_branches": git_branches_list if git_branches_list else ["main"],
+        "tags": git_tags_list,
+        "head_commit": latest_commit_hash,
+        "git_bundle": "all_branches.bundle" if os.path.exists(git_bundle_path) else None,
         "fleet_scale": {
-            "primary_agents": 16,
-            "single_task_subagents": 51,
+            "primary_agents": 18,
+            "single_task_subagents": 55,
             "safeguards": 25,
             "total_addons": 92
         },
@@ -583,6 +734,9 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
         "total_files": total_files,
         "total_bytes": total_bytes,
         "json_files_count": len(copied_json_files),
+        "active_branch": current_branch,
+        "all_branches": git_branches_list,
+        "has_git_bundle": os.path.exists(git_bundle_path),
         "checksums_sha256": checksums,
         "restore_guide": {
             "easy_1_click_restore": "Run 'python restore.py' or double-click 'restore.bat'",
@@ -598,6 +752,7 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
     return {
         "success": True,
         "backup_name": backup_name,
+        "backup_id": backup_name,
         "backup_path": backup_root,
         "created_at": now.strftime("%Y-%m-%d %H:%M:%S"),
         "total_files": total_files,
@@ -605,9 +760,96 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
         "json_databases_saved": len(copied_json_files),
         "sql_database_saved": os.path.join(sql_dir, "nexus_workforce.db"),
         "sql_dump_saved": os.path.join(sql_dir, "data_dump.sql"),
+        "git_bundle_saved": git_bundle_path if os.path.exists(git_bundle_path) else None,
+        "active_branches": git_branches_list,
         "schemas_generated": os.listdir(schemas_dir),
         "source_zip": source_zip_path
     }
+
+
+def list_backups_metadata() -> List[Dict[str, Any]]:
+    """Lists all available enterprise backups with status, file count, and sizes."""
+    backups_dir = "backups"
+    if not os.path.exists(backups_dir):
+        return []
+
+    entries = []
+    for d in os.listdir(backups_dir):
+        dp = os.path.join(backups_dir, d)
+        if not os.path.isdir(dp) or not (d.startswith("backup_") or d.startswith("snap_")):
+            continue
+
+        manifest_path = os.path.join(dp, "MANIFEST.json")
+        entry = {
+            "backup_id": d,
+            "path": dp,
+            "created_at": None,
+            "total_files": 0,
+            "total_bytes": 0,
+            "json_files_count": 0,
+            "has_sql_db": os.path.exists(os.path.join(dp, "sql_database", "nexus_workforce.db")),
+            "has_sql_dump": os.path.exists(os.path.join(dp, "sql_database", "data_dump.sql")),
+            "has_git_bundle": os.path.exists(os.path.join(dp, "apps_branches", "all_branches.bundle")),
+            "has_source_zip": os.path.exists(os.path.join(dp, "apps_branches", "apps_source_bundle.zip")),
+            "branches": [],
+            "status": "Verified"
+        }
+
+        if os.path.exists(manifest_path):
+            try:
+                with open(manifest_path, "r", encoding="utf-8") as f:
+                    mf = json.load(f)
+                entry["created_at"] = mf.get("created_at")
+                entry["total_files"] = mf.get("total_files", 0)
+                entry["total_bytes"] = mf.get("total_bytes", 0)
+                entry["json_files_count"] = mf.get("json_files_count", 0)
+                entry["branches"] = mf.get("all_branches", [])
+            except Exception:
+                pass
+
+        if not entry["created_at"]:
+            # Derive from folder mtime or folder name
+            try:
+                parts = d.split("_")
+                if len(parts) >= 3:
+                    date_str = parts[1]
+                    time_str = parts[2]
+                    entry["created_at"] = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]} {time_str[:2]}:{time_str[2:4]}:{time_str[4:6]}"
+            except Exception:
+                entry["created_at"] = datetime.fromtimestamp(os.path.getmtime(dp)).strftime("%Y-%m-%d %H:%M:%S")
+
+        # Fallback count files if manifest missing
+        if entry["total_files"] == 0:
+            count = 0
+            size = 0
+            for r, _, files in os.walk(dp):
+                count += len(files)
+                for f in files:
+                    size += os.path.getsize(os.path.join(r, f))
+            entry["total_files"] = count
+            entry["total_bytes"] = size
+
+        entries.append(entry)
+
+    def sort_key(x):
+        parts = x["backup_id"].split("_")
+        if len(parts) >= 3:
+            return parts[1] + parts[2]
+        return x.get("created_at") or x["backup_id"]
+    entries.sort(key=sort_key, reverse=True)
+    return entries
+
+
+def get_backup_manifest(backup_id: str) -> Optional[Dict[str, Any]]:
+    """Returns the parsed manifest for a given backup."""
+    manifest_path = os.path.join("backups", backup_id, "MANIFEST.json")
+    if not os.path.exists(manifest_path):
+        return None
+    try:
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        return {"error": str(e)}
 
 
 if __name__ == "__main__":
@@ -620,3 +862,4 @@ if __name__ == "__main__":
     print(f"📜 SQL Dump: {result['sql_dump_saved']}")
     print(f"📐 Schemas: {len(result['schemas_generated'])} JSON Schemas")
     print(f"🗜️ App Source: {result['source_zip']}")
+

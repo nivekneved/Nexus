@@ -284,6 +284,23 @@ class OvernightChronicle:
         except Exception as e:
             results["chief_of_staff"] = str(e)
 
+        # 8. Root Housekeeper & File Hygiene Sweep
+        try:
+            from core.root_housekeeper import root_housekeeper
+            from core.addon_registry import addon_registry
+            if addon_registry.is_active("root_housekeeper"):
+                h_res = root_housekeeper.execute_full_hygiene_sweep()
+                results["root_housekeeper"] = h_res
+                self.record_event(
+                    agent_id="root_housekeeper",
+                    agent_name="Root Housekeeper & Hygiene Agent",
+                    action="Root Hygiene Sweep",
+                    details=f"Vaulted backups, rotated logs, pruned transients. Root cleanliness: {h_res.get('cleanliness_score', 100)}%.",
+                    status="SUCCESS"
+                )
+        except Exception as e:
+            results["root_housekeeper"] = str(e)
+
         duration = round(time.time() - start_time, 2)
         self.last_cycle_at = now_str
         self.cycles_completed += 1
