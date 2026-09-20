@@ -33,6 +33,30 @@ class LeadFinderAgent(BaseAgent):
             "MAX_LEADS_PER_CYCLE": 5
         }
         self.niche_presets = {
+            "whatsapp_flight_addon": {
+                "name": "✈️ WhatsApp Flight Addon™ Conversational Booking & Status Bot",
+                "offer": "Turnkey WhatsApp Flight Status, PNR & Booking Engine (https://whatsapp-flight-addon.vercel.app)",
+                "price": "Rs 25,000 Setup + Rs 5,000/mo (or Rs 45,000 Full Buyout)",
+                "currency": "MUR",
+                "target_clients": [
+                    {"company": "Air Mauritius Digital Sales", "contact_name": "Laurent L'Entêté", "contact_role": "Head of Commercial & Digital", "email": "commercial@airmauritius.com", "location": "Port Louis, Mauritius"},
+                    {"company": "Rogers Aviation Mauritius", "contact_name": "Alexandre de Chazal", "contact_role": "General Manager Travel & Cargo", "email": "travel@rogers-aviation.com", "location": "Port Louis, Mauritius"},
+                    {"company": "BlueSky Travel Agency", "contact_name": "Karine Hardy", "contact_role": "Corporate Travel Director", "email": "corporate@bluesky.mu", "location": "Ébène Cybercity, Mauritius"},
+                    {"company": "Silver Wings Travels", "contact_name": "Sameer Kazi", "contact_role": "Managing Director", "email": "info@silverwingstravels.com", "location": "Port Louis, Mauritius"}
+                ]
+            },
+            "whatsapp_restaurant_sme": {
+                "name": "🍽️ WhatsApp Restaurant, Cafe & SME Retail Booking Bot",
+                "offer": "24/7 Automated WhatsApp Table Reservations, Daily Menu & Takeaway Orders with MCB Juice Clearing",
+                "price": "Rs 15,000 Setup + Rs 3,000/mo (or Rs 25,000 Flat Lifetime)",
+                "currency": "MUR",
+                "target_clients": [
+                    {"company": "Le Capitaine Restaurant Grand Baie", "contact_name": "Didier Rousset", "contact_role": "General Manager & Proprietor", "email": "reservation@lecapitaine.mu", "location": "Grand Baie, Mauritius"},
+                    {"company": "L'Atelier Gourmand Mauritius", "contact_name": "Mathieu Bernard", "contact_role": "Executive Chef & Owner", "email": "contact@lateliergourmand.mu", "location": "Port Louis, Mauritius"},
+                    {"company": "La Table du Château", "contact_name": "Fabien Morel", "contact_role": "Operations & Events Manager", "email": "table@chateau-labourdonnais.com", "location": "Mapou, Mauritius"},
+                    {"company": "Luigi's Italian Pizzeria & Pasta Bar", "contact_name": "Luigi Rossi", "contact_role": "Owner & Managing Director", "email": "luigi@luigispizza.mu", "location": "Grand Baie, Mauritius"}
+                ]
+            },
             "itravellix_saas": {
                 "name": "🌟 i-Travellix™ Enterprise Travel Platform (Rs 100k Front + Rs 100k Back = Rs 200k Web | + Rs 25k iOS + Rs 25k Android = Rs 250k)",
                 "offer": "Complete White-Label Next.js Booking Platform + Native iOS & Android Apps (https://i-travellix.vercel.app)",

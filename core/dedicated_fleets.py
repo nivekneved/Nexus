@@ -107,6 +107,52 @@ PRODUCT_ECONOMICS = [
             {"company": "Nexus Partner Network", "contact": "Kevin Adlib", "status": "ACTIVE_PARTNER"},
             {"company": "Verve Scale Labs", "contact": "Chloe Chen", "status": "QUEUED"}
         ]
+    },
+    {
+        "product_id": "whatsapp_flight_addon",
+        "name": "WhatsApp Flight Addon™",
+        "icon": "✈️",
+        "sector": "Airlines, DMCs, Travel Agencies & Flight Portals",
+        "demo_url": "https://whatsapp-flight-addon.vercel.app",
+        "leads_count": 4,
+        "contacted_count": 0,
+        "base_price_mur": 25000,
+        "maintenance_fee_ratio": "1/5 (20%)",
+        "yearly_maintenance_mur": 5000,
+        "year1_contract_per_win": 30000,
+        "three_year_ltv_per_win": 40000,
+        "pipeline_setup_potential": 100000,
+        "pipeline_yearly_maintenance_arr": 20000,
+        "total_year1_pipeline_potential": 120000,
+        "target_companies": [
+            {"company": "Air Mauritius Digital Sales", "contact": "Laurent L'Entêté", "status": "DISCOVERED"},
+            {"company": "Rogers Aviation Mauritius", "contact": "Alexandre de Chazal", "status": "DISCOVERED"},
+            {"company": "BlueSky Travel Agency", "contact": "Karine Hardy", "status": "DISCOVERED"},
+            {"company": "Silver Wings Travels", "contact": "Sameer Kazi", "status": "DISCOVERED"}
+        ]
+    },
+    {
+        "product_id": "whatsapp_restaurant_sme",
+        "name": "WhatsApp Restaurant & SME Booking",
+        "icon": "🍽️",
+        "sector": "Restaurants, Cafes, Spas, Salons & SME Retailers",
+        "demo_url": "https://whatsapp-flight-addon.vercel.app",
+        "leads_count": 4,
+        "contacted_count": 0,
+        "base_price_mur": 15000,
+        "maintenance_fee_ratio": "1/5 (20%)",
+        "yearly_maintenance_mur": 3000,
+        "year1_contract_per_win": 18000,
+        "three_year_ltv_per_win": 24000,
+        "pipeline_setup_potential": 60000,
+        "pipeline_yearly_maintenance_arr": 12000,
+        "total_year1_pipeline_potential": 72000,
+        "target_companies": [
+            {"company": "Le Capitaine Restaurant Grand Baie", "contact": "Didier Rousset", "status": "DISCOVERED"},
+            {"company": "L'Atelier Gourmand Mauritius", "contact": "Mathieu Bernard", "status": "DISCOVERED"},
+            {"company": "La Table du Château", "contact": "Fabien Morel", "status": "DISCOVERED"},
+            {"company": "Luigi's Italian Pizzeria & Pasta Bar", "contact": "Luigi Rossi", "status": "DISCOVERED"}
+        ]
     }
 ]
 
@@ -356,6 +402,8 @@ def get_partner_economics_summary() -> Dict[str, Any]:
         
         # Categorize leads & contacts per product
         niche_to_prod = {
+            "whatsapp_flight_addon": "whatsapp_flight_addon",
+            "whatsapp_restaurant_sme": "whatsapp_restaurant_sme",
             "medical360_portal": "medical360",
             "ennrevennsourir_ngo": "enn_rev_enn_sourir",
             "itravellix_saas": "itravellix_saas",

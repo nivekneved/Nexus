@@ -2895,7 +2895,11 @@ if (mruSimSectorEl) {
     const input = document.getElementById("mruSimInput");
     if (!input) return;
     const s = e.target.value;
-    if (s === "ennrevennsourir_ngo") {
+    if (s === "whatsapp_flight_addon") {
+      input.value = "Bonjour, pouvez-vous vérifier le statut de mon vol MK014 et m'indiquer la franchise bagages ?";
+    } else if (s === "whatsapp_restaurant_sme") {
+      input.value = "Bonjour, je voudrais réserver une table pour 4 personnes ce vendredi à 19h30, avez-vous le menu ?";
+    } else if (s === "ennrevennsourir_ngo") {
       input.value = "Bonjour, comment puis-je faire un don pour un enfant ou parrainer une chirurgie ?";
     } else if (s === "medical360_portal") {
       input.value = "Bonjour docteur, je souhaite prendre rendez-vous avec un cardiologue pour jeudi.";

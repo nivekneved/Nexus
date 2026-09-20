@@ -30,6 +30,71 @@ class MauritiusSalesEngine:
     def get_sectors(self) -> List[Dict[str, Any]]:
         return [
             {
+                "id": "whatsapp_flight_addon",
+                "icon": "✈️",
+                "is_flagship": True,
+                "title": "WhatsApp Flight Addon™ Conversational Booking & Status Bot",
+                "status_badge": "🚀 MAIN PRODUCT • LIVE DEMO",
+                "locations": "Mauritius & Global Airlines, DMCs, Travel Agents & Booking Portals",
+                "offer": "Conversational WhatsApp AI Flight Bot: Live GDS Flight Search, PNR Tracking, Baggage Policy & Instant Booking (Live Demo: https://whatsapp-flight-addon.vercel.app)",
+                "setup_fee": 25000,
+                "currency": "MUR",
+                "retainer_fee": "Rs 5,000 / mo (or Rs 45,000 Full-Stack White-Label Buyout)",
+                "demo_url": "https://whatsapp-flight-addon.vercel.app",
+                "sold_reference": "whatsapp-flight-addon.vercel.app (Flagship Main Product)",
+                "value_prop": "Turnkey conversational WhatsApp flight bot. Allows travelers to search flights, check live PNR status, view baggage allowances, and request booking changes directly on WhatsApp 24/7 without opening slow websites. Seamless MCB Juice and card payments.",
+                "sample_pitch_fr": (
+                    "Bonjour! 👋\n\n"
+                    "Je m'appelle Deven (+230 58169420), ingénieur logiciel à Maurice.\n\n"
+                    "Plus de 70% des voyageurs préfèrent recevoir leurs billets, statuts de vol et alertes bagages directement sur WhatsApp plutôt que de télécharger une énième application ou chercher dans leurs emails.\n\n"
+                    "Nous avons conçu notre produit phare : **WhatsApp Flight Addon™** :\n"
+                    "👉 Démo interactive en direct : https://whatsapp-flight-addon.vercel.app\n\n"
+                    "Fonctionnalités prêtes à être connectées à votre agence ou compagnie :\n"
+                    "✈️ Recherche de vols en temps réel (Air Mauritius, Emirates, Air France, etc.)\n"
+                    "🎫 Consultation instantanée du statut PNR & e-ticket par message WhatsApp\n"
+                    "🧳 FAQ intelligente 24/7 sur les franchises bagages & formalités visa\n"
+                    "💳 Règlement d'acomptes ou suppléments via MCB Juice (+230 58169420) & Cartes\n"
+                    "🤖 Prise en charge automatique des requêtes nocturnes avec bascule conseiller\n\n"
+                    "💰 Tarification Découplée Clé-en-main :\n"
+                    "• Configuration & intégration WhatsApp Business API : Rs 25,000 MUR\n"
+                    "• Forfait maintenance & surveillance 24/7 : Rs 5,000 / mois\n"
+                    "• Rachat de licence complète code source propriétaire : Rs 45,000 MUR\n\n"
+                    "Seriez-vous disponible pour une démonstration de 5 minutes sur votre téléphone cette semaine ?"
+                )
+            },
+            {
+                "id": "whatsapp_restaurant_sme",
+                "icon": "🍽️",
+                "is_flagship": True,
+                "title": "WhatsApp Restaurant, Cafe & SME Retail Booking Bot",
+                "status_badge": "🔥 HIGH-DEMAND LOCAL B2B",
+                "locations": "Mauritius Restaurants, Cafes, Spas, Salons & SME Retailers",
+                "offer": "24/7 Automated WhatsApp Table Reservation, Menu Inquiry & Takeaway Order Bot with Instant Juice Clearing",
+                "setup_fee": 15000,
+                "currency": "MUR",
+                "retainer_fee": "Rs 3,000 / mo (or Rs 25,000 Flat Lifetime Setup)",
+                "demo_url": "https://whatsapp-flight-addon.vercel.app",
+                "sold_reference": "WhatsApp Commerce Engine (Conversational Booking & Juice Clearing)",
+                "value_prop": "Turnkey WhatsApp booking & ordering bot for restaurants and small businesses. Customers reserve tables, browse daily lunch menus, or order takeaway directly in WhatsApp without needing an app. Instant deposit and bill settlement via MCB Juice (+230 58169420).",
+                "sample_pitch_fr": (
+                    "Bonjour! 👋\n\n"
+                    "Je m'appelle Deven (+230 58169420), ingénieur logiciel à Maurice.\n\n"
+                    "Combien de clients perd votre restaurant ou commerce aux heures de service parce que votre ligne téléphonique est occupée ou que les messages WhatsApp restent sans réponse ?\n\n"
+                    "Nous avons conçu une solution ultra-simple pour les restaurants et commerçants mauriciens :\n"
+                    "👉 **Réservation & Commande 100% automatisée sur WhatsApp** :\n\n"
+                    "🍽️ Réservation instantanée de table 24/7 avec confirmation automatique du créneau\n"
+                    "📋 Envoi interactif de votre Menu du Jour et suggestions du chef\n"
+                    "🥡 Prise de commande à emporter (Takeaway / Click & Collect) sans commission tierce de 30%\n"
+                    "📱 Règlement sécurisé des acomptes via MCB Juice (+230 58169420) & Cartes\n"
+                    "💬 Réduction de 80% du temps passé par vos serveurs au téléphone\n\n"
+                    "💰 Offre Spéciale PME / Restauration :\n"
+                    "• Installation & configuration complète de votre bot WhatsApp : Rs 15,000 MUR\n"
+                    "• Maintenance & mise à jour mensuelle de vos menus : Rs 3,000 / mois\n"
+                    "*(Pack Clé-en-main sans abonnement mensuel disponible à Rs 25,000 MUR)*\n\n"
+                    "Puis-je vous envoyer une simulation sur votre WhatsApp pour tester vous-même ?"
+                )
+            },
+            {
                 "id": "itravellix_saas",
                 "icon": "🌟",
                 "is_flagship": True,
@@ -246,7 +311,28 @@ Respond ONLY with the exact text message to be sent back to the customer.
                 pass
 
         # Fallback realistic demonstration reply
-        if sector_id == "ennrevennsourir_ngo":
+        if sector_id == "whatsapp_flight_addon":
+            fallback = (
+                "Bonjour! ✈️ Bienvenue sur le service WhatsApp Flight Addon™.\n\n"
+                "Comment puis-je vous assister aujourd'hui ?\n"
+                "1️⃣ Vérifier le statut d'un vol en temps réel (ex: MK014)\n"
+                "2️⃣ Consulter votre réservation & e-ticket via référence PNR\n"
+                "3️⃣ Vérifier les franchises bagages & règles de cabine\n"
+                "4️⃣ Demander une modification ou surclassement de siège\n\n"
+                "👉 Démo interactive en direct : https://whatsapp-flight-addon.vercel.app\n"
+                "Indiquez votre numéro de vol ou référence PNR pour démarrer !"
+            )
+        elif sector_id == "whatsapp_restaurant_sme":
+            fallback = (
+                "Bonjour et bienvenue! 🍽️✨\n\n"
+                "Nous avons bien reçu votre demande de réservation :\n"
+                "1️⃣ Réserver une table (déjeuner / dîner en terrasse)\n"
+                "2️⃣ Consulter notre Menu du Jour & suggestions du Chef\n"
+                "3️⃣ Commander à emporter (Takeaway / Click & Collect)\n"
+                "4️⃣ Régler votre acompte sécurisé via MCB Juice (+230 58169420)\n\n"
+                "Indiquez la date, l'heure et le nombre de convives pour confirmer votre table en 30 secondes !"
+            )
+        elif sector_id == "ennrevennsourir_ngo":
             fallback = (
                 "Bonjour! ❤️ Merci pour votre générosité et votre soutien envers les enfants malades.\n\n"
                 "Chaque roupie donnée est versée à 100% directement aux hôpitaux partenaires et vous donne droit à 15% de déduction d'impôt MRA (Section 50L).\n\n"
