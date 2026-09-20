@@ -459,6 +459,47 @@ class LeadFinderAgent(BaseAgent):
                 f"Pouvons-nous organiser une courte démonstration de 10 minutes cette semaine ?\n\n"
                 f"Bien à vous,\nDeven Pawaray\nNexus Software (Maurice)"
             )
+        elif niche == "whatsapp_flight_addon":
+            pitch = (
+                f"Bonjour {contact.split(' ')[0]} 👋,\n\n"
+                f"J'espère que vous vous portez bien ainsi que toute l'équipe de *{company}*.\n\n"
+                f"Plus de 70% des voyageurs préfèrent recevoir leurs billets, statuts de vol et alertes bagages directement sur WhatsApp plutôt que de chercher dans leurs boîtes emails ou sur des sites lents.\n\n"
+                f"Nous avons développé notre produit phare : **WhatsApp Flight Addon™** :\n"
+                f"👉 Démo interactive en direct : https://whatsapp-flight-addon.vercel.app\n\n"
+                f"✈️ *Fonctionnalités prêtes à l'emploi*:\n"
+                f"• Recherche de vols & disponibilités en temps réel (Air Mauritius, Emirates, Air France, etc.)\n"
+                f"• Consultation instantanée du statut PNR & e-ticket par message WhatsApp\n"
+                f"• FAQ intelligente 24/7 sur les franchises bagages & formalités visa\n"
+                f"• Règlement sécurisé des suppléments ou modifications via MCB Juice (+230 58169420) & Cartes\n"
+                f"• Triage automatique des requêtes nocturnes avec transfert conseiller humain\n\n"
+                f"💰 *Tarification Découplée Clé-en-main*:\n"
+                f"• Configuration & intégration WhatsApp Business API : Rs 25,000 MUR\n"
+                f"• Forfait maintenance & surveillance 24/7 : Rs 5,000 / mois\n"
+                f"• Rachat de licence complète code source propriétaire : Rs 45,000 MUR (payable via Juice).\n"
+                f"📱 Démo directe sur WhatsApp : +230 58169420\n\n"
+                f"Seriez-vous disponible pour une démonstration de 5 minutes sur votre téléphone cette semaine ?\n\n"
+                f"Bien à vous,\nDeven Pawaray\nFondateur, Nexus AI Solutions (Maurice)"
+            )
+        elif niche == "whatsapp_restaurant_sme":
+            pitch = (
+                f"Bonjour {contact.split(' ')[0]} 👋,\n\n"
+                f"J'espère que vous vous portez bien ainsi que toute l'équipe de *{company}*.\n\n"
+                f"Combien de réservations perd votre établissement aux heures de pointe parce que la ligne téléphonique est occupée ou que les messages WhatsApp restent sans réponse ?\n\n"
+                f"Nous avons conçu une solution ultra-simple pour les restaurants et commerçants mauriciens :\n"
+                f"👉 **Réservation & Commande 100% automatisée sur WhatsApp** :\n\n"
+                f"🍽️ *Fonctionnalités incluses*:\n"
+                f"• Réservation instantanée de table 24/7 avec confirmation automatique du créneau\n"
+                f"• Envoi interactif de votre Menu du Jour et suggestions du chef\n"
+                f"• Prise de commandes à emporter (Takeaway / Click & Collect) sans payer 30% de commission tierce\n"
+                f"• Règlement sécurisé des acomptes via MCB Juice (+230 58169420) & Cartes\n"
+                f"• Réduction de 80% du temps passé par votre équipe au téléphone\n\n"
+                f"💰 *Tarification Spéciale Restauration / Commerce*:\n"
+                f"• Installation clé-en-main : Rs 15,000 MUR\n"
+                f"• Maintenance & support : Rs 3,000 / mois (ou forfait unique à vie de Rs 25,000 MUR payable via Juice).\n"
+                f"📱 Démo directe sur WhatsApp : +230 58169420\n\n"
+                f"Seriez-vous ouvert à une démonstration en direct de 2 minutes sur WhatsApp ce jeudi ?\n\n"
+                f"Bien à vous,\nDeven Pawaray\nFondateur, Nexus AI Solutions (Maurice)"
+            )
         elif "hospitality" in niche or "tourism" in niche:
             pitch = (
                 f"Bonjour {contact.split(' ')[0]} 👋,\n\n"
