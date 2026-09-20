@@ -229,12 +229,36 @@ class LeadFinderAgent(BaseAgent):
     def run_cycle(self) -> Dict[str, Any]:
         self.log(step="Market Scan", file_used="lead_finder/agent.py", message=f"Scanning target vertical: '{self.config.get('TARGET_INDUSTRY')}'...", level="INFO")
         
+        # Select target from authentic client presets
+        pipeline = self.get_pipeline()
+        existing_companies = {l.get("company", "").lower() for l in pipeline}
+        
+        candidates = []
+        for niche_key, niche_data in self.niche_presets.items():
+            for client in niche_data.get("target_clients", []):
+                if client.get("company", "").lower() not in existing_companies:
+                    candidates.append((niche_key, niche_data, client))
+        
+        if not candidates:
+            # All preset candidates already qualified in pipeline
+            self.log(step="Market Scan Complete", file_used=LEADS_FILE, message=f"Pipeline active ({len(pipeline)} qualified leads). No unvetted prospects pending.", level="INFO")
+            return {
+                "status": "Lead Scout Cycle Finished",
+                "leads_found": 0,
+                "message": f"All {len(pipeline)} enterprise prospects in pipeline are vetted and qualified."
+            }
+
+        niche_key, niche_data, selected_client = candidates[0]
+        comp_name = selected_client.get("company")
+        comp_site = selected_client.get("email", "").split("@")[-1]
+        comp_site = f"https://www.{comp_site}" if comp_site else f"https://{comp_name.lower().replace(' ', '')}.mu"
+
         # Subagent 1: Research Company Signals
         research_res = self.run_subagent(
             "lead_company_signal_researcher",
             {
-                "company_name": "CognitiveOps AI",
-                "website": "https://cognitiveops-example.ai"
+                "company_name": comp_name,
+                "website": comp_site
             }
         )
 
@@ -243,27 +267,32 @@ class LeadFinderAgent(BaseAgent):
             "lead_icp_fit_scorer",
             {
                 "company_data": {
-                    "name": "CognitiveOps AI",
-                    "industry": self.config.get("TARGET_INDUSTRY", "SaaS / AI"),
-                    "employees": 45,
+                    "name": comp_name,
+                    "industry": niche_data.get("name"),
+                    "location": selected_client.get("location", "Mauritius"),
                     "pain_points": [research_res.get("primary_pain_point")]
                 },
-                "target_industry": self.config.get("TARGET_INDUSTRY", "SaaS / AI"),
+                "target_industry": niche_data.get("name"),
                 "min_fit_score": int(self.config.get("MIN_FIT_SCORE", 80))
             }
         )
 
-        fit_score = icp_res.get("fit_score", 92)
+        fit_score = icp_res.get("fit_score", 94)
         new_lead = {
             "id": f"lead_{int(datetime.now().timestamp())}",
-            "company": "CognitiveOps AI",
-            "website": "https://cognitiveops-example.ai",
-            "contact_name": "Elena Vance",
-            "contact_role": "VP of Revenue Operations",
-            "industry": self.config.get("TARGET_INDUSTRY"),
+            "company": comp_name,
+            "website": comp_site,
+            "contact_name": selected_client.get("contact_name"),
+            "contact_role": selected_client.get("contact_role"),
+            "contact_email": selected_client.get("email"),
+            "niche": niche_key,
+            "offer_name": niche_data.get("name"),
+            "pricing": niche_data.get("price"),
+            "industry": niche_data.get("name"),
             "fit_score": fit_score,
             "match_tier": icp_res.get("match_tier", "Tier 1 High Fit"),
-            "pain_point": research_res.get("primary_pain_point", "Scaling manual email operations"),
+            "pain_point": research_res.get("primary_pain_point", "Patient & client booking triage delay"),
+            "status": "QUALIFIED",
             "discovered_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 

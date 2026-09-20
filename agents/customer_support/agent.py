@@ -85,34 +85,40 @@ class CustomerSupportAgent(BaseAgent):
     def run_cycle(self) -> Dict[str, Any]:
         self.log(step="Ticket Ingestion", file_used="customer_support/agent.py", message="Checking support queues and client threads...", level="INFO")
 
-        sample_ticket_raw = {
-            "id": f"tkt_{int(datetime.now().timestamp())}",
-            "client": "Marcus Sterling (Enterprise Tier)",
-            "client_tier": "Enterprise",
-            "subject": "System integration webhook verification needed",
-            "body": "Our production webhook is down and failing requests. Urgent assistance required.",
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
+        # Load real tickets from TICKETS_FILE
+        from core.storage import safe_load_json
+        existing_tickets = safe_load_json(TICKETS_FILE, default=[])
+        pending_tickets = [t for t in existing_tickets if t.get("status") == "PENDING" and not t.get("draft_preview")]
+
+        if not pending_tickets:
+            self.log(step="Queue Clear", file_used=TICKETS_FILE, message="Support queue audit: 0 pending tickets. All queues clear.", level="INFO")
+            return {
+                "status": "Support Cycle Completed",
+                "tickets_pending": 0,
+                "message": "All customer queues clear, 0 pending tickets."
+            }
+
+        ticket_raw = pending_tickets[0]
 
         # Subagent 1: Classify sentiment and urgency
         classification = self.run_subagent(
             "support_sentiment_classifier",
             {
-                "subject": sample_ticket_raw["subject"],
-                "body": sample_ticket_raw["body"],
-                "client_tier": sample_ticket_raw["client_tier"]
+                "subject": ticket_raw["subject"],
+                "body": ticket_raw["body"],
+                "client_tier": ticket_raw.get("client_tier", "Standard")
             }
         )
 
-        sample_ticket_raw["priority"] = classification.get("priority", "P1")
-        sample_ticket_raw["sentiment"] = classification.get("sentiment", "Urgent")
+        ticket_raw["priority"] = classification.get("priority", "P1")
+        ticket_raw["sentiment"] = classification.get("sentiment", "Normal")
         self.stats["tickets_reviewed"] += 1
 
         # Subagent 2: VIP / P1 Mobile Escalation
         escalation_res = self.run_subagent(
             "support_vip_escalation",
             {
-                "ticket": sample_ticket_raw,
+                "ticket": ticket_raw,
                 "enabled": self.config.get("P1_MOBILE_ALERT", True)
             }
         )
@@ -124,7 +130,7 @@ class CustomerSupportAgent(BaseAgent):
         draft_res = self.run_subagent(
             "support_reply_drafter",
             {
-                "ticket": sample_ticket_raw,
+                "ticket": ticket_raw,
                 "brand_tone": self.config.get("BRAND_TONE", "Empathetic, clear, and reassuring"),
                 "tickets_file": TICKETS_FILE
             }
@@ -132,11 +138,11 @@ class CustomerSupportAgent(BaseAgent):
         if draft_res.get("success"):
             self.stats["drafts_ready"] += 1
 
-        self.log(step="Triage Complete", file_used=TICKETS_FILE, message=f"Processed ticket: {sample_ticket_raw['subject']} (Priority: {sample_ticket_raw['priority']})", level="SUCCESS")
+        self.log(step="Triage Complete", file_used=TICKETS_FILE, message=f"Processed ticket: {ticket_raw['subject']} (Priority: {ticket_raw['priority']})", level="SUCCESS")
 
         return {
             "status": "Support Cycle Completed",
-            "ticket_processed": sample_ticket_raw,
+            "ticket_processed": ticket_raw,
             "classification": classification,
             "escalation": escalation_res
         }

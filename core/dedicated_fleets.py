@@ -103,9 +103,9 @@ PRODUCT_ECONOMICS = [
         "pipeline_yearly_maintenance_arr": 27500,
         "total_year1_pipeline_potential": 165000,
         "target_companies": [
-            {"company": "CognitiveOps AI", "contact": "Elena Vance", "status": "DISPATCHED_7_TOUCHES"},
-            {"company": "Nexus Partner Network", "contact": "Kevin Adlib", "status": "DISPATCHED_SENT"},
-            {"company": "Silicon Valley SaaS Leads", "contact": "Agency Founders", "status": "QUEUED"}
+            {"company": "AuraFlow Growth Agency", "contact": "Marcus Vance", "status": "QUEUED"},
+            {"company": "Nexus Partner Network", "contact": "Kevin Adlib", "status": "ACTIVE_PARTNER"},
+            {"company": "Verve Scale Labs", "contact": "Chloe Chen", "status": "QUEUED"}
         ]
     }
 ]
