@@ -2430,6 +2430,63 @@ def api_test_spam_simulation(payload: TestSpamSimulationRequest):
         "verdict": verdict
     }
 
+class GenerateSocialPostRequest(BaseModel):
+    topic: Optional[str] = None
+    category: Optional[str] = None
+    preset_id: Optional[str] = None
+
+class PublishSocialPostRequest(BaseModel):
+    post_id: str
+    action: Optional[str] = "publish"
+    scheduled_for: Optional[str] = None
+
+@app.get("/api/executive/social/posts")
+def api_get_executive_social_posts():
+    """Returns the CEO social media posts ledger, reach statistics, and curated inspiration prompts."""
+    from agents.executive_poster.subagents import load_posts_ledger, EXECUTIVE_PRESET_PROMPTS, SocialAnalyticsRadarSubAgent
+    posts = load_posts_ledger()
+    radar = SocialAnalyticsRadarSubAgent()
+    stats = radar.execute({})
+    return {
+        "success": True,
+        "posts": posts,
+        "stats": stats,
+        "presets": EXECUTIVE_PRESET_PROMPTS
+    }
+
+@app.post("/api/executive/social/generate")
+def api_generate_executive_social_post(payload: GenerateSocialPostRequest):
+    """Ghostwrites an executive social post for LinkedIn, X, and WhatsApp in the CEO's voice."""
+    from agents.executive_poster.subagents import ExecutiveGhostwriterSubAgent
+    ghostwriter = ExecutiveGhostwriterSubAgent()
+    res = ghostwriter.execute({
+        "topic": payload.topic,
+        "category": payload.category,
+        "preset_id": payload.preset_id
+    })
+    return res
+
+@app.post("/api/executive/social/publish")
+def api_publish_executive_social_post(payload: PublishSocialPostRequest):
+    """Publishes or schedules an approved CEO post, broadcasting to webhooks and generating 1-click intent URLs."""
+    from agents.executive_poster.subagents import SocialPublishingSubAgent
+    publisher = SocialPublishingSubAgent()
+    res = publisher.execute({
+        "post_id": payload.post_id,
+        "action": payload.action,
+        "scheduled_for": payload.scheduled_for
+    })
+    return res
+
+@app.post("/api/executive/social/quick-post")
+def api_quick_executive_social_post():
+    """Autonomous 1-click cycle: drafts, formats, and prepares an executive thought leadership piece."""
+    from agents.executive_poster.agent import ExecutivePosterAgent
+    agent = ExecutivePosterAgent()
+    res = agent.run_cycle()
+    return res
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
+

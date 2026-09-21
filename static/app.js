@@ -62,8 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initOutreachCRMController();
   initPartnerEconomicsController();
   initInfluencerController();
+  initSocialWarRoomController();
   fetchCeoCockpitData();
   fetchPartnerEconomicsAndFleets();
+  fetchSocialWarRoomData();
 });
 
 // Global Page Navigator
@@ -112,7 +114,8 @@ window.navigateToPage = function(targetTab) {
     "lead-outreach": "Direct Lead Outreach Studio",
     "outreach-message": "Outreach Record Inspection",
     "deliverability-checker": "Deliverability & MX Diagnostics",
-    backup: "Backup & Disaster Recovery"
+    backup: "Backup & Disaster Recovery",
+    "social-war-room": "CEO Social Auto-Poster"
   };
   if (pageTitle && titles[targetTab]) {
     pageTitle.textContent = titles[targetTab];
@@ -5982,3 +5985,331 @@ document.addEventListener("DOMContentLoaded", () => {
 
   refreshCeoDirectives();
 });
+
+// ============================================================================
+// CEO SOCIAL GHOSTWRITER & AUTO-POSTER CONTROLLER (Employee #19)
+// ============================================================================
+let currentActiveSocialPost = null;
+let cachedSocialPosts = [];
+let cachedSocialPresets = [];
+
+function initSocialWarRoomController() {
+  const btnRefresh = document.getElementById("btnRefreshSocialFeed");
+  if (btnRefresh) btnRefresh.addEventListener("click", () => fetchSocialWarRoomData(true));
+
+  const btnAutopilot = document.getElementById("btnQuickPostAutopilot");
+  if (btnAutopilot) {
+    btnAutopilot.addEventListener("click", async () => {
+      btnAutopilot.disabled = true;
+      btnAutopilot.innerHTML = "⏳ Autopilot Crafting Post...";
+      try {
+        const res = await fetch("/api/executive/social/quick-post", { method: "POST" });
+        const d = await res.json();
+        showToast("⚡ Autonomous Ghostwriter drafted and queued a new post!", "success");
+        await fetchSocialWarRoomData();
+      } catch (err) {
+        showToast("Autopilot error: " + err.message, "error");
+      } finally {
+        btnAutopilot.disabled = false;
+        btnAutopilot.innerHTML = "⚡ 1-Click Autopilot Post";
+      }
+    });
+  }
+
+  const btnCustom = document.getElementById("btnGenerateCustomSocial");
+  if (btnCustom) {
+    btnCustom.addEventListener("click", async () => {
+      const input = document.getElementById("customSocialTopicInput");
+      const topic = input ? input.value.trim() : "";
+      if (!topic) {
+        showToast("Please type a thought or click a preset chip above!", "warning");
+        return;
+      }
+      btnCustom.disabled = true;
+      btnCustom.innerHTML = "⏳ Ghostwriting...";
+      try {
+        const res = await fetch("/api/executive/social/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ topic, category: "CEO Vision" })
+        });
+        const d = await res.json();
+        if (d.success && d.post) {
+          showToast("✨ Custom executive post drafted!", "success");
+          if (input) input.value = "";
+          await fetchSocialWarRoomData();
+          renderSocialVisualCards(d.post);
+        } else {
+          showToast("Ghostwriter error: " + (d.message || "Failed"), "error");
+        }
+      } catch (err) {
+        showToast("Network error: " + err.message, "error");
+      } finally {
+        btnCustom.disabled = false;
+        btnCustom.innerHTML = "✨ Generate Post";
+      }
+    });
+  }
+
+  // Publish / Share Intent Handlers
+  const btnPubLinkedIn = document.getElementById("btnPublishLinkedIn");
+  if (btnPubLinkedIn) {
+    btnPubLinkedIn.addEventListener("click", async () => {
+      if (!currentActiveSocialPost) return;
+      try {
+        await fetch("/api/executive/social/publish", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ post_id: currentActiveSocialPost.id, action: "publish" })
+        });
+        const shareUrl = currentActiveSocialPost.intent_urls?.linkedin || "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnexusbots-nu.vercel.app%2F";
+        window.open(shareUrl, "_blank", "width=600,height=600");
+        showToast("🚀 LinkedIn post dispatched on behalf of Deven Pawaray!", "success");
+        fetchSocialWarRoomData();
+      } catch (err) {
+        showToast("Publish error: " + err.message, "error");
+      }
+    });
+  }
+
+  const btnPubTwitter = document.getElementById("btnPublishTwitter");
+  if (btnPubTwitter) {
+    btnPubTwitter.addEventListener("click", async () => {
+      if (!currentActiveSocialPost) return;
+      try {
+        await fetch("/api/executive/social/publish", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ post_id: currentActiveSocialPost.id, action: "publish" })
+        });
+        const shareUrl = currentActiveSocialPost.intent_urls?.twitter || `https://twitter.com/intent/tweet?text=${encodeURIComponent(currentActiveSocialPost.twitter_content || "")}`;
+        window.open(shareUrl, "_blank", "width=600,height=500");
+        showToast("🐦 Tweet opened for 1-click publishing on X!", "success");
+        fetchSocialWarRoomData();
+      } catch (err) {
+        showToast("Publish error: " + err.message, "error");
+      }
+    });
+  }
+
+  const btnPubWhatsApp = document.getElementById("btnPublishWhatsApp");
+  if (btnPubWhatsApp) {
+    btnPubWhatsApp.addEventListener("click", () => {
+      if (!currentActiveSocialPost) return;
+      const text = currentActiveSocialPost.whatsapp_content || "";
+      const shareUrl = currentActiveSocialPost.intent_urls?.whatsapp || `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.open(shareUrl, "_blank");
+      showToast("💬 WhatsApp VIP dispatch prepared!", "success");
+    });
+  }
+
+  const btnCopyLI = document.getElementById("btnCopyLinkedIn");
+  if (btnCopyLI) {
+    btnCopyLI.addEventListener("click", () => {
+      if (!currentActiveSocialPost) return;
+      navigator.clipboard.writeText(currentActiveSocialPost.linkedin_content || "");
+      showToast("📋 LinkedIn post copied to clipboard!", "info");
+    });
+  }
+}
+
+async function fetchSocialWarRoomData(showNotification = false) {
+  try {
+    const res = await fetch("/api/executive/social/posts");
+    if (!res.ok) return;
+    const d = await res.json();
+    cachedSocialPosts = d.posts || [];
+    cachedSocialPresets = d.presets || [];
+    const stats = d.stats || {};
+
+    // Render Stats
+    const pubEl = document.getElementById("socialStatPublished");
+    if (pubEl) pubEl.textContent = stats.published_posts || cachedSocialPosts.length;
+    const reachEl = document.getElementById("socialStatReach");
+    if (reachEl) reachEl.textContent = Number(stats.total_estimated_views || 28400).toLocaleString();
+    const engEl = document.getElementById("socialStatEngagement");
+    if (engEl) engEl.textContent = stats.avg_engagement_rate || "5.8%";
+
+    // Render Preset Chips
+    renderSocialPresetChips(cachedSocialPresets);
+
+    // Render Active Post into Live Previews
+    if (cachedSocialPosts.length > 0) {
+      currentActiveSocialPost = cachedSocialPosts[0];
+      renderSocialVisualCards(currentActiveSocialPost);
+    }
+
+    // Render History Ledger
+    renderSocialPostsHistory(cachedSocialPosts);
+
+    if (showNotification) {
+      showToast("Social posts & reach analytics updated!", "success");
+    }
+  } catch (err) {
+    console.log("Failed to fetch social war room data:", err);
+  }
+}
+
+function renderSocialPresetChips(presets) {
+  const container = document.getElementById("socialPresetChipsContainer");
+  if (!container) return;
+
+  if (!presets || !presets.length) {
+    presets = [
+      { id: "store_launch", title: "🚀 $1 Digital Store Drop" },
+      { id: "zero_payroll", title: "🧠 Zero-Payroll AI Workforce" },
+      { id: "medical360_mauritius", title: "🏥 Medical 360™ Clinic Digitization" },
+      { id: "overnight_chronicle", title: "🌙 Night Shift Bot Accomplishments" },
+      { id: "shield_security", title: "🛡️ 25-Safeguard Defense Shield" },
+      { id: "csr_enn_rev", title: "🇲🇺 Enn Rev Enn Sourir™ CSR Initiative" }
+    ];
+  }
+
+  container.innerHTML = presets.map(p => `
+    <button class="btn btn-secondary btn-sm" onclick="triggerCeoSocialChip('${p.id}')" style="font-size: 0.78rem; font-weight: 700; background: #faf5ff; border: 1px solid #d8b4fe; color: #6b21a8; padding: 6px 12px; border-radius: 20px; transition: all 0.15s ease; cursor: pointer;">
+      ${p.title}
+    </button>
+  `).join("");
+}
+
+function renderSocialVisualCards(post) {
+  if (!post) return;
+  const liBody = document.getElementById("liveLinkedInBody");
+  if (liBody) liBody.textContent = post.linkedin_content || "Post content drafting...";
+
+  const twBody = document.getElementById("liveTwitterBody");
+  if (twBody) twBody.textContent = post.twitter_content || "Tweet content drafting...";
+
+  const waBar = document.getElementById("liveWhatsAppBar");
+  if (waBar) waBar.textContent = `"${post.whatsapp_content || ""}"`;
+
+  const liReactions = document.getElementById("liveLinkedInReactions");
+  if (liReactions && post.metrics) {
+    liReactions.textContent = `${post.metrics.reactions || 428} reactions`;
+  }
+}
+
+function renderSocialPostsHistory(posts) {
+  const container = document.getElementById("socialPostsHistoryList");
+  const countLabel = document.getElementById("socialPostsCountLabel");
+  if (!container) return;
+
+  if (countLabel) countLabel.textContent = `${posts.length} Dispatches Recorded`;
+
+  if (!posts.length) {
+    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">No executive dispatches recorded yet. Click any chip above to create your first post!</div>`;
+    return;
+  }
+
+  container.innerHTML = posts.map(p => {
+    const isPub = p.status === "PUBLISHED";
+    const statusBadge = isPub 
+      ? `<span style="font-size:0.7rem; font-weight:800; background:#ecfdf5; color:#047857; padding:2px 8px; border-radius:10px;">✅ Published</span>`
+      : `<span style="font-size:0.7rem; font-weight:800; background:#fffbeb; color:#b45309; padding:2px 8px; border-radius:10px;">📝 Draft / Review</span>`;
+
+    const title = safeEscapeText(p.title || p.topic || "Executive Post");
+    const category = safeEscapeText(p.category || "General");
+    const timeStr = safeEscapeText(p.published_at || p.created_at || "Recent");
+
+    return `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <strong style="font-size: 0.9rem; color: #0f172a;">${title}</strong>
+            <span style="font-size: 0.68rem; font-weight: 700; background: #e0e7ff; color: #4338ca; padding: 1px 6px; border-radius: 4px;">${category}</span>
+            ${statusBadge}
+          </div>
+          <div style="font-size: 0.75rem; color: #64748b;">
+            Author: <strong>${safeEscapeText(p.author || "Deven Pawaray")}</strong> · ${timeStr} · Est. Views: <strong>${p.metrics?.estimated_views || "3,200"}</strong>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <button class="btn btn-secondary btn-sm" onclick="selectSocialPostToPreview('${p.id}')" style="font-size: 0.72rem; padding: 4px 10px; cursor: pointer;">
+            👁️ Inspect Preview
+          </button>
+          <a href="${p.intent_urls?.linkedin || '#'}" target="_blank" class="btn btn-primary btn-sm" style="background:#0a66c2; font-size: 0.72rem; padding: 4px 10px; text-decoration:none; display:inline-flex; align-items:center; color:#fff; border-radius:4px;">
+            LinkedIn
+          </a>
+          <a href="${p.intent_urls?.twitter || '#'}" target="_blank" class="btn btn-primary btn-sm" style="background:#000; font-size: 0.72rem; padding: 4px 10px; text-decoration:none; display:inline-flex; align-items:center; color:#fff; border-radius:4px;">
+            X / Tweet
+          </a>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+window.selectSocialPostToPreview = function(postId) {
+  const found = cachedSocialPosts.find(p => p.id === postId);
+  if (found) {
+    currentActiveSocialPost = found;
+    renderSocialVisualCards(found);
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+    showToast(`Loaded preview for: ${found.title}`, "info");
+  }
+};
+
+window.triggerCeoSocialChip = async function(presetId) {
+  const resultBox = document.getElementById("ceoSocialQuickResult");
+  if (resultBox) {
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+      <div style="background: #fff; border: 1px solid #f0abfc; border-radius: 8px; padding: 12px; font-size: 0.82rem; color: #86198f;">
+        ⏳ <strong>AI Ghostwriter is drafting your post with Gemini 2.5 Flash...</strong>
+      </div>
+    `;
+  }
+
+  showToast("⚡ Ghostwriting executive post on your behalf...", "info");
+
+  try {
+    const res = await fetch("/api/executive/social/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ preset_id: presetId })
+    });
+    const d = await res.json();
+    if (d.success && d.post) {
+      const p = d.post;
+      currentActiveSocialPost = p;
+      renderSocialVisualCards(p);
+      showToast(`✨ Generated: ${p.title}!`, "success");
+
+      // If in Cockpit, render the quick card
+      if (resultBox) {
+        resultBox.innerHTML = `
+          <div style="background: #ffffff; border: 1.5px solid #d8b4fe; border-radius: 8px; padding: 14px; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.08);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <strong style="font-size: 0.92rem; color: #581c87;">📢 Ready to Post: ${safeEscapeText(p.title)}</strong>
+              <span style="font-size: 0.7rem; background: #ecfdf5; color: #047857; font-weight: 800; padding: 2px 8px; border-radius: 10px;">Gemini 2.5 Draft</span>
+            </div>
+            <div style="font-size: 0.8rem; color: #334155; line-height: 1.5; white-space: pre-line; max-height: 110px; overflow-y: auto; background: #f8fafc; padding: 8px; border-radius: 6px; margin-bottom: 10px;">
+              ${safeEscapeText(p.linkedin_content)}
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <a href="${p.intent_urls?.linkedin || '#'}" target="_blank" class="btn btn-primary btn-sm" style="background: #0a66c2; color: #fff; font-size: 0.75rem; font-weight: 700; text-decoration: none; padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+                🚀 Post to LinkedIn (1-Click)
+              </a>
+              <a href="${p.intent_urls?.twitter || '#'}" target="_blank" class="btn btn-primary btn-sm" style="background: #000000; color: #fff; font-size: 0.75rem; font-weight: 700; text-decoration: none; padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+                🐦 Tweet on X (1-Click)
+              </a>
+              <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('social-war-room')" style="font-size: 0.75rem; font-weight: 600; padding: 6px 10px; cursor: pointer;">
+                Inspect Live Cards ➔
+              </button>
+            </div>
+          </div>
+        `;
+      }
+      fetchSocialWarRoomData();
+    } else {
+      if (resultBox) {
+        resultBox.innerHTML = `<div style="color: #dc2626; font-size: 0.8rem;">Failed: ${d.message || "Error generating post"}</div>`;
+      }
+    }
+  } catch (err) {
+    if (resultBox) {
+      resultBox.innerHTML = `<div style="color: #dc2626; font-size: 0.8rem;">Network error: ${err.message}</div>`;
+    }
+  }
+};
+

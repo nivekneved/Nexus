@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nexus™ Autonomous Workforce — Operating Manual</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      line-height: 1.55;
+      font-size: 11pt;
+      margin: 0;
+      padding: 0;
+    }
+    .cover-page {
+      page-break-after: always;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      border: 2px solid #0284c7;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #f8fafc 0%, #f0fdf4 100%);
+      box-sizing: border-box;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 9pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 20px;
+      background: #e0f2fe;
+      color: #0369a1;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    h1.cover-title {
+      font-size: 28pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 12px 0;
+      line-height: 1.15;
+    }
+    .cover-subtitle {
+      font-size: 14pt;
+      color: #475569;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+    .cover-meta {
+      margin-top: auto;
+      border-top: 1px solid #cbd5e1;
+      padding-top: 20px;
+      font-size: 10pt;
+      color: #64748b;
+    }
+    .cover-meta strong {
+      color: #0f172a;
+    }
+    
+    h2 {
+      font-size: 16pt;
+      color: #0369a1;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 13pt;
+      color: #0f172a;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+    p {
+      margin: 0 0 10px 0;
+    }
+    
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #0284c7;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 14px 0;
+      page-break-inside: avoid;
+    }
+    .card-title {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    
+    .code-box {
+      font-family: "Courier New", Courier, monospace;
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 8.5pt;
+      margin: 10px 0;
+      white-space: pre-wrap;
+      page-break-inside: avoid;
+    }
+    
+    .page-break {
+      page-break-after: always;
+    }
+    
+    .highlight-pill {
+      background: #ecfdf5;
+      color: #047857;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #a7f3d0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== COVER PAGE ==================== -->
+  <div class="cover-page">
+    <div class="badge">Official Operating System Manual • v3.3.0</div>
+    <h1 class="cover-title">Nexus™ Sovereign AI Workforce</h1>
+    <div class="cover-subtitle">Dual Executive & Engineering Guidebook</div>
+    
+    <p style="font-size: 11pt; color: #334155; max-width: 500px;">
+      A comprehensive operational manual for managing 18 autonomous agents, 
+      live digital vending machines, automated cashflow gateways, and self-healing cloud serverless functions.
+    </p>
+
+    <div class="cover-meta">
+      <div><strong>Principal / CEO:</strong> Deven Pawaray</div>
+      <div><strong>Organization:</strong> Nexus Autonomous Intelligence</div>
+      <div><strong>Location:</strong> Grand Baie, Mauritius</div>
+      <div><strong>Public Gateway:</strong> https://nexusbots-nu.vercel.app</div>
+      <div><strong>Local Headquarters:</strong> http://127.0.0.1:8000</div>
+      <div><strong>Publication Date:</strong> September 2026</div>
+    </div>
+  </div>
+
+  <!-- ==================== SECTION 1 ==================== -->
+  <h2>Level 0: The Quick-Start Story (For Beginners & 10-Year-Olds)</h2>
+  <p>
+    Imagine you own a <strong>secret digital treehouse with 18 loyal robot friends</strong>.
+    You are the CEO sitting in the comfortable chair, and your robots never sleep.
+  </p>
+  <div class="card">
+    <div class="card-title">How the Vending Machine Works in 4 Steps:</div>
+    <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+      <li><strong>Scout:</strong> A robot checks YouTube to see what 500,000 coders are struggling with.</li>
+      <li><strong>Build:</strong> Another robot writes a clean helper program in 2 seconds and tests it in a safe test-tube.</li>
+      <li><strong>Sell:</strong> It places the tool on your online shelf for <strong>$1.00 USD (or Rs 45 MUR)</strong> with a 1-click buy button.</li>
+      <li><strong>Earn:</strong> When someone in London or Tokyo buys it, PayPal or MCB Juice takes the cash and delivers the file instantly.</li>
+    </ol>
+  </div>
+
+  <!-- ==================== SECTION 2: CEO MANUAL ==================== -->
+  <h2>Part 1: The CEO Executive Operating Manual</h2>
+  <p>
+    As Chief Executive Officer, your focus is on <strong>cash flow, risk mitigation, product throughput, and system health</strong>. 
+    You do not need to write code. Your daily commitment is approximately <strong>3 minutes</strong>.
+  </p>
+
+  <h3>1. Cash Flow & Automated Financial Pipelines</h3>
+  <p>Nexus operates two independent payment collection arteries:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Artery</th>
+        <th>Target Audience</th>
+        <th>Price Point</th>
+        <th>Settlement & Verification</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>PayPal REST Gateway</strong></td>
+        <td>International developers (US, Europe, Asia)</td>
+        <td>$1.00 USD one-time</td>
+        <td>Automated instant capture via OAuth2 bearer token. Direct deposit into your linked account.</td>
+      </tr>
+      <tr>
+        <td><strong>MCB Juice Portal</strong></td>
+        <td>Mauritius domestic clients & SME owners</td>
+        <td>Rs 45.00 MUR one-time</td>
+        <td>Direct mobile transfer to <strong>+230 58169420</strong>. Verified against replay fraud via <code>financial_shield</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2. The 24/7 Autopilot Night Shift</h3>
+  <p>
+    Every 30 minutes while you sleep, the <strong>Night Shift Chronicle</strong> runs an automated operational sweep:
+  </p>
+  <ul>
+    <li><strong>Inbox Hygiene:</strong> Automatically incinerates marketing spam and cold pitches across all 5 configured IMAP accounts.</li>
+    <li><strong>Zero Password Deletions:</strong> Banking alerts, 2FA codes, and OTPs are protected by the Immunity Shield.</li>
+    <li><strong>Infrastructure Cap:</strong> Monitors cloud burn to guarantee expenses stay well below the <strong>$180 USD monthly budget</strong>.</li>
+    <li><strong>Morning Standup Briefing:</strong> When you wake up, your Executive AI Partner has a single markdown summary ready on your screen.</li>
+  </ul>
+
+  <h3>3. The 3 CEO Dashboard Levers</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Widget</th>
+        <th>Where to Look</th>
+        <th>What It Tells You</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Executive Ledger</strong></td>
+        <td>Top-Right Card</td>
+        <td>Cryptographically signed record of every rupee and dollar earned.</td>
+      </tr>
+      <tr>
+        <td><strong>Fleet Health Matrix</strong></td>
+        <td>Center Grid</td>
+        <td>18 green status indicators proving all employee agents are standing by.</td>
+      </tr>
+      <tr>
+        <td><strong>1-Click Factory Box</strong></td>
+        <td>Bottom Toolbar</td>
+        <td>Type any keyword (e.g., <em>"invoice parser"</em>) to manufacture a new live product.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== SECTION 3: ENGINEERING MANUAL ==================== -->
+  <h2>Part 2: The Engineering Technical Manual (In Plain English)</h2>
+  <p>
+    Nexus is architected as a <strong>hybrid edge-and-core sovereign system</strong>. It combines high-speed global delivery with deep local privacy.
+  </p>
+
+  <div class="code-box">
+[ GLOBAL PUBLIC INTERNET ]                   [ LOCAL MACHINE / SOVEREIGN CORE ]
+https://nexusbots-nu.vercel.app              http://127.0.0.1:8000
+       │                                                    │
+       ├─► Vercel Serverless Gateway (api/index.py)         ├─► FastAPI Master Engine (server.py)
+       ├─► Static Glassmorphic Store (/store)              ├─► 18 Autonomous Agent Loops
+       ├─► Dynamic Tools REST API (/api/tools)             ├─► Live IMAP SSL Sync (Gmail/Outlook)
+       └─► Read-Only /tmp Storage Layer                     └─► Tamper-Resilient Signed Ledgers
+  </div>
+
+  <h3>1. The 9 Universal Agent Tools</h3>
+  <p>All agents have access to the Universal Tool Registry (<code>core/tool_registry.py</code>):</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Tool Name</th>
+        <th>Category</th>
+        <th>Technical Function</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>niche_scout</code></td>
+        <td>Market Scout</td>
+        <td>Searches public developer discussions for recurring technical pain points.</td>
+      </tr>
+      <tr>
+        <td><code>scout_video_trends</code></td>
+        <td>Market Scout</td>
+        <td>Parses YouTube video view counts to quantify real consumer demand.</td>
+      </tr>
+      <tr>
+        <td><code>verify_email_domain</code></td>
+        <td>Lead Generation</td>
+        <td>Performs DNS socket MX record resolution to prevent cold email bounces.</td>
+      </tr>
+      <tr>
+        <td><code>generate_whatsapp_link</code></td>
+        <td>Communication</td>
+        <td>Creates dynamic <code>wa.me</code> deep-links with URL-encoded bilingual sales pitches.</td>
+      </tr>
+      <tr>
+        <td><code>create_paypal_link</code></td>
+        <td>Finance</td>
+        <td>Calls PayPal v2 Orders API to generate 1-click checkout URLs with capture tokens.</td>
+      </tr>
+      <tr>
+        <td><code>check_paypal_balance</code></td>
+        <td>Finance</td>
+        <td>Queries official PayPal Reporting API via OAuth2 client credentials.</td>
+      </tr>
+      <tr>
+        <td><code>run_safe_diagnostic</code></td>
+        <td>System</td>
+        <td>Verifies localhost port availability, CPU load, and network latency.</td>
+      </tr>
+      <tr>
+        <td><code>run_python_sandbox</code></td>
+        <td>QA / Security</td>
+        <td>Compiles bytecode and runs scripts in isolated subprocesses with 6s timeouts.</td>
+      </tr>
+      <tr>
+        <td><code>broadcast_product_announcement</code></td>
+        <td>Marketing</td>
+        <td>Dispatches formatted embed announcement cards to Discord/Slack webhooks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2. The E2B Isolated Code Sandbox</h3>
+  <p>
+    Nexus guarantees that no customer receives broken code. The <strong>Sandbox Executor</strong> (<code>core/sandbox_executor.py</code>) conducts a strict two-phase inspection:
+  </p>
+  <ol>
+    <li><strong>Static Compilation (Bytecode):</strong> Runs <code>py_compile</code> to catch missing brackets, invalid syntax, or unclosed strings.</li>
+    <li><strong>Subprocess Execution:</strong> Spawns an isolated Python runtime with cross-platform UTF-8 encoding and a strict 6,000ms execution cap.</li>
+    <li><strong>Automatic Quarantine:</strong> Any script that produces an uncaught exception is withheld from the store catalog until auto-corrected.</li>
+  </ol>
+
+  <h3>3. MemGPT 3-Tiered Memory Architecture</h3>
+  <ul>
+    <li><strong>Working Memory:</strong> In-memory dictionary tracking current session goals and transient tasks.</li>
+    <li><strong>Recall Memory (<code>memory/recall_memory.json</code>):</strong> Sliding window of the last 100 scouted niches, tool executions, and client responses.</li>
+    <li><strong>Archival Memory (<code>memory/archival_memory.json</code>):</strong> Immutable corporate ground truth (owner information, MCB Juice phone numbers, verified product blueprints).</li>
+  </ul>
+
+  <h3>4. Serverless Read-Only Safeguard (Vercel Architecture)</h3>
+  <p>
+    Vercel serverless functions run on AWS Lambda where the application directory (<code>/var/task</code>) is strictly read-only. 
+    The storage subsystem (<code>core/storage.py</code>) transparently redirects state writes to <code>/tmp</code> whenever <code>VERCEL=1</code> is detected, preventing filesystem crash errors and ensuring 100% cloud uptime.
+  </p>
+
+  <div class="card" style="margin-top: 30px; text-align: center; border-left: none; border-top: 3px solid #0284c7;">
+    <div style="font-weight: 700; font-size: 11pt; color: #0f172a;">Nexus™ Autonomous Intelligence Workforce</div>
+    <div style="font-size: 9pt; color: #64748b; margin-top: 4px;">Grand Baie, Mauritius • Certified Sovereign Architecture • v3.3.0</div>
+  </div>
+
+</body>
+</html>

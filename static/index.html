@@ -247,6 +247,11 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             <span>Autonomous Fleet</span>
           </button>
+          <button class="nav-item" data-tab="social-war-room">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            <span>CEO Social Auto-Poster</span>
+            <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: #8b5cf6; color: #fff; padding: 1px 6px; border-radius: 10px;">Post On My Behalf</span>
+          </button>
         </div>
 
         <!-- 2. COMMERCIAL & REVENUE -->
@@ -381,6 +386,9 @@
           <a href="/store" target="_blank" class="btn btn-sm" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; text-decoration: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem;">
             ⚡ $1 Store
           </a>
+          <button class="btn btn-sm" onclick="window.navigateToPage('social-war-room')" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer;">
+            📱 Post On My Behalf
+          </button>
           <a href="/donations" target="_blank" class="btn btn-sm" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: #ef4444; color: #fff; text-decoration: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem;">
             ❤️ Donations
           </a>
@@ -595,6 +603,41 @@
                   👆 Click any scenario chip above to watch live Gemini AI email classification.
                 </div>
               </div>
+            </div>
+
+            <!-- Lab 3: Post on My Behalf (CEO Ghostwriter) -->
+            <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 8px; padding: 14px; grid-column: 1 / -1;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-weight: 800; font-size: 0.85rem; color: #86198f;">📱 3. Post on My Behalf (CEO Ghostwriter)</span>
+                  <span class="badge" style="background: #fae8ff; color: #a21caf; font-size: 0.68rem; font-weight: 700;">Employee #19 Active</span>
+                </div>
+                <button class="btn btn-sm" onclick="window.navigateToPage('social-war-room')" style="background: #a21caf; color: #fff; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: none; cursor: pointer;">
+                  Open Social War Room ➔
+                </button>
+              </div>
+              <p style="font-size: 0.78rem; color: #701a75; margin: 0 0 10px 0;">
+                Click any milestone below. Watch your AI Agent ghostwrite a viral founder post and prepare 1-click publishing:
+              </p>
+
+              <!-- 1-Click Social Test Chips -->
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+                <button class="btn btn-secondary btn-sm" onclick="triggerCeoSocialChip('store_launch')" style="font-size: 0.72rem; font-weight: 700; background: #fff; border: 1px solid #f0abfc; color: #86198f;">
+                  🚀 Announce $1 Store Drop
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="triggerCeoSocialChip('zero_payroll')" style="font-size: 0.72rem; font-weight: 700; background: #fff; border: 1px solid #f0abfc; color: #6b21a8;">
+                  🧠 Zero-Payroll AI Workforce Vision
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="triggerCeoSocialChip('overnight_chronicle')" style="font-size: 0.72rem; font-weight: 700; background: #fff; border: 1px solid #f0abfc; color: #1e1b4b;">
+                  🌙 Night Shift Bot Accomplishments
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="triggerCeoSocialChip('medical360_mauritius')" style="font-size: 0.72rem; font-weight: 700; background: #fff; border: 1px solid #f0abfc; color: #047857;">
+                  🏥 Medical 360™ Clinic Digitization
+                </button>
+              </div>
+
+              <!-- Quick Live Preview Result Box -->
+              <div id="ceoSocialQuickResult" style="display: none; margin-top: 10px;"></div>
             </div>
 
           </div>
@@ -1305,6 +1348,19 @@
 
       <!-- TAB 3: EMAIL AGENT TRIAGE & DASHBOARD -->
       <section class="tab-pane" id="pane-dashboard">
+        <!-- CEO Quick-Start Orientation -->
+        <div style="background: #ffffff; border: 1.5px solid #cbd5e1; border-left: 4px solid #0284c7; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <strong style="font-size: 0.88rem; color: #0f172a;">👔 CEO Quick Guide: Multi-Inbox Priority Feed</strong>
+            <div style="font-size: 0.8rem; color: #475569; margin-top: 2px; line-height: 1.45;">
+              • <strong>What it does:</strong> Sweeps all 5 inboxes automatically. Leaves real client emails in your inbox, shreds spam in 0.2s.<br>
+              • <strong>How to operate:</strong> Click <strong>"Fetch Feed"</strong> to inspect high-priority messages. Click <strong>"Reply with AI"</strong> to approve an executive response with 1 click.<br>
+              • <strong>Safety guarantee:</strong> 2FA verification codes, bank OTPs, and client invoices are shielded with 100% immunity.
+            </div>
+          </div>
+          <span style="font-size: 0.72rem; font-weight: 700; background: #f0f9ff; color: #0284c7; padding: 3px 8px; border-radius: 12px;">Zero Risk · 100% Immune</span>
+        </div>
+
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-header">
@@ -2846,6 +2902,279 @@
 
         </div>
 
+      <!-- ========================================================================= -->
+      <!-- TAB 19: CEO SOCIAL GHOSTWRITER & AUTO-POSTER (POST ON MY BEHALF)          -->
+      <!-- ========================================================================= -->
+      <section class="tab-pane" id="pane-social-war-room">
+
+        <!-- Executive Hero Banner -->
+        <div class="ceo-banner" style="background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 45%, #7c3aed 100%); margin-bottom: 20px; border: 1px solid rgba(196, 181, 253, 0.3); border-radius: 14px; padding: 24px 28px; box-shadow: 0 10px 30px rgba(109, 40, 217, 0.25);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: #fff; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;">
+                  Employee #19 · Personal Ghostwriter &amp; Auto-Poster
+                </span>
+                <span class="badge" style="background: #10b981; color: #fff; font-size: 0.72rem; font-weight: 800;">
+                  Author: Deven Pawaray (CEO)
+                </span>
+              </div>
+              <h1 style="margin: 0 0 6px 0; font-size: 1.85rem; font-weight: 900; color: #fff; letter-spacing: -0.02em;">
+                CEO Social Ghostwriter &amp; Auto-Poster
+              </h1>
+              <p style="margin: 0; font-size: 0.92rem; color: rgba(255, 255, 255, 0.9); max-width: 760px; line-height: 1.5;">
+                Your autonomous voice engine. Crafts high-converting thought leadership, product announcements, and milestone updates on your behalf. Preview posts exactly as followers see them, and publish with 1 click to LinkedIn, X, and WhatsApp.
+              </p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+              <button class="btn btn-secondary btn-sm" id="btnRefreshSocialFeed" style="background: rgba(255, 255, 255, 0.15); color: #fff; border: 1px solid rgba(255, 255, 255, 0.3); font-weight: 600; padding: 9px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;">
+                ↻ Refresh Dispatches
+              </button>
+              <button class="btn btn-primary btn-sm" id="btnQuickPostAutopilot" style="background: #ffffff; color: #5b21b6; font-weight: 800; padding: 9px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); display: inline-flex; align-items: center; gap: 6px;">
+                ⚡ 1-Click Autopilot Post
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual 1-2-3 Operator Guide (For the CEO: CEOs like to see things!) -->
+        <div style="background: #ffffff; border: 2px solid #e0e7ff; border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.06);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.3rem;">🧭</span>
+              <strong style="font-size: 0.95rem; color: #1e1b4b; text-transform: uppercase; letter-spacing: 0.04em;">CEO 3-Step Visual Guide: How To Operate This Screen</strong>
+            </div>
+            <span style="font-size: 0.75rem; background: #ecfdf5; color: #047857; font-weight: 700; padding: 2px 8px; border-radius: 12px;">Zero Typing Required</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+            <div style="background: #f8fafc; border-left: 4px solid #6366f1; border-radius: 6px; padding: 10px 14px;">
+              <div style="font-weight: 800; font-size: 0.82rem; color: #4338ca; margin-bottom: 4px;">1️⃣ STEP 1: PICK A TOPIC</div>
+              <div style="font-size: 0.8rem; color: #475569; line-height: 1.4;">Click any <strong>pre-written topic chip</strong> below. No typing required. Gemini AI immediately writes the post in your voice.</div>
+            </div>
+            <div style="background: #f8fafc; border-left: 4px solid #8b5cf6; border-radius: 6px; padding: 10px 14px;">
+              <div style="font-weight: 800; font-size: 0.82rem; color: #6d28d9; margin-bottom: 4px;">2️⃣ STEP 2: SEE THE LIVE PREVIEW</div>
+              <div style="font-size: 0.8rem; color: #475569; line-height: 1.4;">Look at the <strong>Visual Post Cards</strong> below. See exactly how your post looks on LinkedIn, Twitter/X, and WhatsApp with your name and avatar.</div>
+            </div>
+            <div style="background: #f8fafc; border-left: 4px solid #10b981; border-radius: 6px; padding: 10px 14px;">
+              <div style="font-weight: 800; font-size: 0.82rem; color: #047857; margin-bottom: 4px;">3️⃣ STEP 3: CLICK POST</div>
+              <div style="font-size: 0.8rem; color: #475569; line-height: 1.4;">Tap <strong>"Post on My Behalf"</strong> or click the 1-click share button to publish directly or open ready-to-tweet windows.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 KPI Stat Cards -->
+        <div class="ceo-kpi-grid" style="margin-bottom: 24px;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #7c3aed;">
+            <span class="ceo-kpi-badge" style="background: #f3e8ff; color: #7e22ce;">Omni-Channel</span>
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Published Dispatches</div>
+            <div style="font-size: 1.85rem; font-weight: 900; color: #0f172a;" id="socialStatPublished">12</div>
+            <div style="font-size: 0.78rem; color: #7e22ce; font-weight: 600;">LinkedIn · X / Twitter · WhatsApp</div>
+          </div>
+          <div class="ceo-kpi-card" style="border-left: 4px solid #0284c7;">
+            <span class="ceo-kpi-badge" style="background: #e0f2fe; color: #0369a1;">Audience Impressions</span>
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Estimated Reach</div>
+            <div style="font-size: 1.85rem; font-weight: 900; color: #0284c7;" id="socialStatReach">34,500</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">Founder &amp; Executive Network</div>
+          </div>
+          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981;">
+            <span class="ceo-kpi-badge" style="background: #ecfdf5; color: #047857;">Engagement</span>
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Average Interaction</div>
+            <div style="font-size: 1.85rem; font-weight: 900; color: #047857;" id="socialStatEngagement">5.8%</div>
+            <div style="font-size: 0.78rem; color: #059669; font-weight: 600;">Reactions, Reposts &amp; Inquiries</div>
+          </div>
+          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b;">
+            <span class="ceo-kpi-badge" style="background: #fffbeb; color: #b45309;">AI Model</span>
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Active Ghostwriter</div>
+            <div style="font-size: 1.45rem; font-weight: 900; color: #b45309; padding-top: 4px;">Gemini 2.5 Flash</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">Voice Persona: Deven Pawaray</div>
+          </div>
+        </div>
+
+        <!-- Topic Chips: 1-Click Inspiration (No typing required) -->
+        <div class="card-panel" style="padding: 20px; border-radius: 12px; margin-bottom: 24px; background: #ffffff; border: 1px solid #e2e8f0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #1e1b4b;">
+                💡 1-Click Topic Prompts (Click Any Chip to Generate Instantly)
+              </h3>
+              <p style="margin: 4px 0 0 0; font-size: 0.8rem; color: #64748b;">
+                Clicking any chip commands your Ghostwriter Agent to draft authentic copy in your voice within 2 seconds.
+              </p>
+            </div>
+            <span class="badge" style="background: #f1f5f9; color: #475569; font-weight: 700;">6 Curated Themes</span>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;" id="socialPresetChipsContainer">
+            <!-- Rendered dynamically via app.js -->
+          </div>
+
+          <div style="margin-top: 14px; display: flex; gap: 8px; align-items: center; padding-top: 12px; border-top: 1px dashed #e2e8f0;">
+            <input type="text" id="customSocialTopicInput" class="form-input" placeholder="Or type a custom thought (e.g. 'Just closed our first clinic in Curepipe')..." style="font-size: 0.85rem; flex: 1;">
+            <button class="btn btn-primary btn-sm" id="btnGenerateCustomSocial" style="background: #7c3aed; color: #fff; font-weight: 700; white-space: nowrap; padding: 8px 16px;">
+              ✨ Generate Post
+            </button>
+          </div>
+        </div>
+
+        <!-- Split Screen: Visual Previews (CEOs Like To See Things) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px; margin-bottom: 24px;">
+
+          <!-- Visual Column 1: LinkedIn Preview Card -->
+          <div class="card-panel" style="padding: 20px; border-radius: 14px; background: #ffffff; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1.3rem;">💼</span>
+                  <strong style="font-size: 0.95rem; color: #0a66c2;">LinkedIn Live Preview</strong>
+                </div>
+                <span class="badge" style="background: #e8f4f8; color: #0a66c2; font-weight: 700; font-size: 0.72rem;">Executive Post</span>
+              </div>
+
+              <!-- Realistic LinkedIn Card -->
+              <div style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <!-- Header -->
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #1e1b4b, #4338ca); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                    DP
+                  </div>
+                  <div>
+                    <div style="font-weight: 800; font-size: 0.95rem; color: #000;">Deven Pawaray</div>
+                    <div style="font-size: 0.75rem; color: #666; line-height: 1.2;">Founder &amp; CEO • Nexus Autonomous Workforce</div>
+                    <div style="font-size: 0.72rem; color: #888;">Just now · 🌐 Public</div>
+                  </div>
+                </div>
+
+                <!-- Post Body -->
+                <div id="liveLinkedInBody" style="font-size: 0.88rem; color: #191919; line-height: 1.55; white-space: pre-line; min-height: 140px; margin-bottom: 14px;">
+                  SaaS subscriptions are broken.
+
+                  Why pay $49/month for software you only use twice a week?
+
+                  At Nexus, we launched our $1 Autonomous Digital Vending Machine: self-hosted Python automation scripts with 0 monthly rent and instant PayPal fulfillment.
+
+                  Scale systems, not working hours.
+                </div>
+
+                <!-- Engagement Bar -->
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; padding: 8px 0; margin-bottom: 10px; font-size: 0.78rem; color: #666;">
+                  <div style="display: flex; align-items: center; gap: 4px;">
+                    <span>👍 ❤️ 💡</span>
+                    <strong style="color: #333;" id="liveLinkedInReactions">428 reactions</strong>
+                  </div>
+                  <div>48 comments · 19 reposts</div>
+                </div>
+
+                <!-- Action Bar -->
+                <div style="display: flex; justify-content: space-around; font-size: 0.8rem; font-weight: 600; color: #666; padding: 4px 0;">
+                  <span>👍 Like</span>
+                  <span>💬 Comment</span>
+                  <span>🔁 Repost</span>
+                  <span>📤 Send</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Publish Control Bar -->
+            <div style="margin-top: 16px; display: flex; gap: 10px;">
+              <button class="btn btn-primary" id="btnPublishLinkedIn" style="flex: 1; background: #0a66c2; color: #fff; font-weight: 700; font-size: 0.85rem; padding: 10px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                🚀 Post to LinkedIn (1-Click)
+              </button>
+              <button class="btn btn-secondary" id="btnCopyLinkedIn" style="font-weight: 600; font-size: 0.82rem; padding: 10px 14px; border-radius: 8px;">
+                📋 Copy Text
+              </button>
+            </div>
+          </div>
+
+          <!-- Visual Column 2: X (Twitter) Preview Card -->
+          <div class="card-panel" style="padding: 20px; border-radius: 14px; background: #ffffff; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1.3rem;">🐦</span>
+                  <strong style="font-size: 0.95rem; color: #0f172a;">X (Twitter) Live Preview</strong>
+                </div>
+                <span class="badge" style="background: #f1f5f9; color: #0f172a; font-weight: 700; font-size: 0.72rem;">Verified Founder</span>
+              </div>
+
+              <!-- Realistic X Tweet Card -->
+              <div style="background: #000000; border-radius: 12px; padding: 16px; color: #ffffff; box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
+                <!-- Header -->
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                  <div style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #4338ca, #6366f1); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem;">
+                    DP
+                  </div>
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                      <strong style="font-size: 0.92rem; color: #fff;">Deven Pawaray</strong>
+                      <span style="color: #38bdf8; font-size: 0.85rem;">✓</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: #71767b;">@NexusCEO · 1m</div>
+                  </div>
+                </div>
+
+                <!-- Tweet Body -->
+                <div id="liveTwitterBody" style="font-size: 0.92rem; color: #e7e9ea; line-height: 1.45; white-space: pre-line; min-height: 100px; margin-bottom: 14px;">
+                  SaaS subscriptions are broken. Why pay $49/mo for a tool you use twice a week?
+
+                  We built the Nexus Autonomous Vending Machine: self-hosted Python automation scripts for $1.00.
+
+                  • Zero monthly fees
+                  • Run locally forever
+                  • Instant PayPal checkout
+
+                  #BuildInPublic #Python #IndieHacker
+                </div>
+
+                <!-- Metrics Footer -->
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #71767b; border-top: 1px solid #2f3336; padding-top: 10px;">
+                  <span>💬 34</span>
+                  <span>🔁 112</span>
+                  <span>❤️ 521</span>
+                  <span>📊 18.2K</span>
+                  <span>🔖 45</span>
+                </div>
+              </div>
+
+              <!-- WhatsApp VIP Card -->
+              <div style="margin-top: 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <strong style="font-size: 0.8rem; color: #166534;">💬 WhatsApp VIP Broadcast Preview</strong>
+                  <span style="font-size: 0.7rem; color: #15803d; font-weight: 600;">Direct to Investors &amp; VIP Leads</span>
+                </div>
+                <div id="liveWhatsAppBar" style="font-size: 0.8rem; color: #1f2937; line-height: 1.4; white-space: pre-line; font-style: italic;">
+                  "Morning update from Nexus: autonomous night shift executed with 100% success. 14 spam attempts blocked, system backups verified, and zero downtime."
+                </div>
+              </div>
+            </div>
+
+            <!-- Publish Control Bar -->
+            <div style="margin-top: 16px; display: flex; gap: 10px;">
+              <button class="btn btn-primary" id="btnPublishTwitter" style="flex: 1; background: #000000; color: #fff; font-weight: 700; font-size: 0.85rem; padding: 10px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                🐦 Tweet on X (1-Click)
+              </button>
+              <button class="btn btn-primary" id="btnPublishWhatsApp" style="background: #16a34a; color: #fff; font-weight: 700; font-size: 0.85rem; padding: 10px 14px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;">
+                💬 WhatsApp
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Live Dispatches Ledger -->
+        <div class="card-panel" style="padding: 20px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.2rem;">📜</span>
+              <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #1e1b4b;">Executive Publishing History &amp; Queue</h3>
+            </div>
+            <span style="font-size: 0.75rem; color: #64748b;" id="socialPostsCountLabel">Showing all dispatches</span>
+          </div>
+
+          <div id="socialPostsHistoryList" style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="text-align: center; color: var(--text-muted); padding: 24px;">Loading publishing history...</div>
+          </div>
+        </div>
+
       </section>
 
       <!-- ========================================================================= -->
@@ -2881,6 +3210,21 @@
               </button>
             </div>
           </div>
+        </div>
+
+        <!-- CEO Quick-Start Orientation -->
+        <div style="background: #ffffff; border: 1.5px solid #fbcfe8; border-left: 4px solid #be185d; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <strong style="font-size: 0.88rem; color: #831843;">👔 CEO Quick Guide: Influencer Matcher &amp; Campaigns</strong>
+            <div style="font-size: 0.8rem; color: #475569; margin-top: 2px; line-height: 1.45;">
+              • <strong>What it does:</strong> Scans Mauritian &amp; global influencers, rates their engagement-to-cost ratio, and generates pitch copy for Medical 360™ &amp; Nexus.<br>
+              • <strong>How to operate:</strong> Click <strong>"Pitch"</strong> on any influencer card below, or click <strong>"Ride Trend"</strong> to generate a tailored pitch in 2 seconds.<br>
+              • <strong>Posting on your behalf:</strong> For publishing directly to your own personal social channels, open the <strong>CEO Social Auto-Poster</strong> tab.
+            </div>
+          </div>
+          <button class="btn btn-sm" onclick="window.navigateToPage('social-war-room')" style="background: #be185d; color: #fff; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: none; cursor: pointer;">
+            Open Social Auto-Poster ➔
+          </button>
         </div>
 
         <!-- 4 KPI Stat Cards -->
