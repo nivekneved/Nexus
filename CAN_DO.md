@@ -117,3 +117,22 @@ Any of the 19 agents can dynamically execute these tools via `self.call_tool(too
 - **Live Vercel Cloud Gateway (`https://nexusbots-nu.vercel.app`)**: High-speed, globally distributed serverless edge with zero cold-start crashes (read-only filesystem protected).
 - **Public Tunnel Starter (`scripts/start_public_tunnel.py`)**: 1-click Cloudflare Quick Tunnel / Localtunnel to expose localhost for testing without port forwarding.
 - **Executive PDF Manual Generator (`scripts/generate_manual_pdf.py`)**: Produces printable A4 PDF documentation on demand ([`https://nexusbots-nu.vercel.app/manual`](https://nexusbots-nu.vercel.app/manual)).
+
+---
+
+## 💰 9. The 3-Pillar Autonomous Monetization Model
+
+1. **Pillar 1 — Fast Local Cash (Mauritian Accounting & Audit B2B)**:
+   - **Product**: Nexus MCB Recon™ (`products/nexus_mcb_recon.py`).
+   - **Target**: Mauritian accounting, audit, and fiduciary firms (Ebène Cybercity, Port Louis, Grand Baie).
+   - **Pricing**: Rs 1,500 MUR one-time buyout (or Rs 4,500 5-user practice pack).
+   - **Advantage**: 100% offline execution. Solves 15–20 hours of manual Excel bank reconciliation monthly with zero cloud data risk.
+2. **Pillar 2 — High-Ticket B2B Healthcare (Mauritian Private Clinics & Labs)**:
+   - **Product**: Medical 360™ Operations Suite (`https://www.med360.mu/preview`).
+   - **Target**: Private clinics, polyclinics, and diagnostic labs (Clinique Bon Pasteur, Clinique du Nord, Green Cross, City Clinic, Labourdonnais).
+   - **Pricing**: Rs 45,000 MUR setup + Rs 5,000/mo maintenance (or Rs 90,000 full buyout).
+   - **Advantage**: 24/7 online specialist booking, blood bank donor registry, and diagnostic lab booking.
+3. **Pillar 3 — Global Anti-SaaS Software Arsenal (Anti-Subscription)**:
+   - **Product**: Self-hosted, single-file Python utilities (`products/`).
+   - **Pricing**: $9.00 – $29.00 USD individually, or **$39.00 USD bundle** (Rs 1,800 MUR) on the Digital Store ([`https://nexusbots-nu.vercel.app/store`](https://nexusbots-nu.vercel.app/store)).
+   - **Positioning**: *"Own the Python utility forever, stop paying monthly SaaS rent."* 100% automated PayPal and MCB Juice fulfillment.

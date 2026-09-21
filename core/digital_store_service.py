@@ -28,15 +28,15 @@ CATALOG = {
         "name": "Nexus™ Email Guardian",
         "tagline": "Self-Hosted IMAP Spam Killer & 2FA Security Shield",
         "description": "A lightweight, zero-dependency Python script that runs locally to purge marketing spam while locking down 2FA/OTP verification codes.",
-        "price_usd": 1.00,
-        "price_mur": 45.0,
+        "price_usd": 9.00,
+        "price_mur": 415.0,
         "filename": "nexus_email_guardian.py",
-        "badge": "Popular",
+        "badge": "Anti-SaaS",
         "features": [
             "100% self-hosted — no 3rd-party reading your inbox",
             "Protects 2FA, OTP, banking, and receipt emails",
             "Auto-purges disposable spam TLDs (.xyz, .buzz, etc.)",
-            "Zero monthly subscription fee"
+            "Zero monthly subscription fee (Save $15/mo)"
         ]
     },
     "nexus-whatsapp-bot": {
@@ -44,10 +44,10 @@ CATALOG = {
         "name": "Nexus™ WhatsApp Bot Starter",
         "tagline": "FastAPI Conversational Business Bot & Direct wa.me Router",
         "description": "Production-ready FastAPI conversational WhatsApp concierge template. Ready for Meta Cloud API or direct wa.me link generation.",
-        "price_usd": 1.00,
-        "price_mur": 45.0,
+        "price_usd": 15.00,
+        "price_mur": 690.0,
         "filename": "nexus_whatsapp_bot_starter.py",
-        "badge": "Hot",
+        "badge": "Commercial",
         "features": [
             "Instant 1-click wa.me customer chat links",
             "Autonomous FAQ & business hours auto-responder",
@@ -60,30 +60,46 @@ CATALOG = {
         "name": "Nexus™ B2B Lead Scraper & MX Verifier",
         "tagline": "DNS MX Gatekeeper & Zero-Bounce Email Verifier",
         "description": "A high-speed DNS-level mail exchange verifier in Python. Filters out ghost domains, prevents SMTP bounce bans, and cleans prospect lists.",
-        "price_usd": 1.00,
-        "price_mur": 45.0,
+        "price_usd": 12.00,
+        "price_mur": 550.0,
         "filename": "nexus_b2b_lead_scraper.py",
-        "badge": "Essential",
+        "badge": "No API Keys",
         "features": [
             "Validates real DNS MX mail servers instantly",
             "Prevents sender domain reputation damage & blacklisting",
-            "Zero external API keys or paid credits required",
+            "Zero external API keys or Hunter.io credits required",
             "Processes thousands of leads in seconds"
+        ]
+    },
+    "nexus-mcb-recon": {
+        "id": "nexus-mcb-recon",
+        "name": "Nexus™ MCB Statement & Juice Reconciler",
+        "tagline": "Automated Bank Statement to Excel Ledger (100% Offline Privacy)",
+        "description": "Designed for Mauritian accountants, auditors, and business owners. Converts MCB statement PDFs and Juice exports into categorized, audit-ready Excel spreadsheets in 2 seconds.",
+        "price_usd": 29.00,
+        "price_mur": 1500.0,
+        "filename": "nexus_mcb_recon.py",
+        "badge": "Mauritius B2B",
+        "features": [
+            "Zero cloud uploads: 100% financial privacy for client banking records",
+            "Auto-categorizes CEB, CWA, Mauritius Telecom, MRA VAT, and Juice transfers",
+            "Instant CSV / Excel output compatible with QuickBooks, Sage, and Excel",
+            "One-time purchase: No recurring monthly software fees"
         ]
     },
     "nexus-developer-bundle": {
         "id": "nexus-developer-bundle",
-        "name": "Nexus™ 3-in-1 Dev Superpack",
-        "tagline": "Complete Automation Triad (Email + WhatsApp + Lead Verifier)",
-        "description": "Get all three flagship Nexus automation utilities bundled together for the special launch price of just $1.00 USD.",
-        "price_usd": 1.00,
-        "price_mur": 45.0,
+        "name": "Nexus™ Anti-SaaS Automation Arsenal (4-in-1 Suite)",
+        "tagline": "Complete Perpetual Automation Suite (Email + WhatsApp + Leads + MCB Recon)",
+        "description": "Get all four flagship Nexus automation utilities bundled together with full source code and perpetual commercial rights.",
+        "price_usd": 39.00,
+        "price_mur": 1800.0,
         "filename": "nexus_dev_superpack.zip",
-        "badge": "Best Value (3-in-1)",
+        "badge": "Best Value (4-in-1)",
         "features": [
-            "Includes Email Guardian + WhatsApp Bot + B2B Lead Verifier",
+            "Includes Email Guardian + WhatsApp Bot + B2B Lead Verifier + MCB Recon",
             "All source code with MIT-style commercial usage rights",
-            "Full developer setup instructions & documentation",
+            "Replaces over $120/month in recurring monthly subscriptions",
             "Instant single-click zip download"
         ]
     }

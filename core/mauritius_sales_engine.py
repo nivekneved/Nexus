@@ -252,6 +252,36 @@ class MauritiusSalesEngine:
                 )
             },
             {
+                "id": "accounting_mcb_recon",
+                "icon": "📊",
+                "is_flagship": True,
+                "title": "MCB Statement PDF-to-Excel & Juice Reconciler",
+                "status_badge": "⚡ FAST CASH • ONE-TIME B2B",
+                "locations": "Ébène Cybercity, Port Louis Financial District, Grand Baie, Moka",
+                "offer": "100% Offline Bank Statement to Audit-Ready Excel Parser (No Cloud, Total Privacy)",
+                "setup_fee": 1500,
+                "currency": "MUR",
+                "retainer_fee": "Rs 1,500 MUR one-time buyout (or Rs 4,500 5-User Practice License)",
+                "demo_url": "https://nexusbots-nu.vercel.app/store",
+                "sold_reference": "nexus_mcb_recon (Tested locally: parses dates, CEB/CWA/MRA/Juice, balance to Excel CSV)",
+                "value_prop": "Eliminates 15-20 hours of manual data entry every month. Converts MCB statement PDFs and Juice exports into cleanly categorized Excel / Sage / QuickBooks CSVs in 2 seconds. 100% local execution — zero client financial data leaves the accountant's computer.",
+                "sample_pitch_fr": (
+                    "Bonjour! 👋\n\n"
+                    "Je m'appelle Deven (+230 58169420), ingénieur logiciel à Maurice.\n\n"
+                    "Combien d'heures votre équipe comptable passe-t-elle chaque fin de mois à ressaisir manuellement les relevés bancaires MCB et les transactions Juice dans Excel ?\n\n"
+                    "Nous avons développé un outil sur mesure pour les cabinets comptables et auditeurs mauriciens :\n"
+                    "👉 **Nexus MCB Recon™** :\n\n"
+                    "⚡ Convertit instantanément vos relevés bancaires PDF MCB et exports Juice en tableaux Excel prêts pour l'audit\n"
+                    "🏷️ Détection et catégorisation automatique : CEB, CWA, MRA TVA/TDS, Mauritius Telecom et virements Juice\n"
+                    "🔒 **Confidentialité 100% Hors-Ligne** : Le script tourne directement sur votre PC. Aucune donnée financière ne quitte votre machine ni n'est envoyée dans le cloud\n"
+                    "📊 Compatible immédiatement avec Excel, Sage Pastel et QuickBooks\n\n"
+                    "💰 Tarif unique sans aucun abonnement :\n"
+                    "• Licence permanente cabinet : Rs 1,500 MUR (règlement instantané via MCB Juice au 58169420)\n"
+                    "• Pack Multi-Postes (5 comptables) : Rs 4,500 MUR\n\n"
+                    "Puis-je vous envoyer un extrait de démonstration sur WhatsApp pour tester avec un relevé type ?"
+                )
+            },
+            {
                 "id": "dental_clinics",
                 "icon": "🏥",
                 "title": "Dental, Medical & Aesthetic Clinics",
@@ -358,6 +388,16 @@ Respond ONLY with the exact text message to be sent back to the customer.
                 "✈️ Vols directs Air Mauritius / Emirates\n"
                 "⛵ Croisières privées en catamaran & survol hélicoptère\n\n"
                 "Découvrez notre catalogue en ligne : https://i-travellix.vercel.app ou indiquez vos dates de voyage pour un devis personnalisé."
+            )
+        elif sector_id == "accounting_mcb_recon":
+            fallback = (
+                "Bonjour! 📊 Bienvenue sur le service d'automatisation comptable Nexus MCB Recon™.\n\n"
+                "Comment pouvons-nous vous assister ?\n"
+                "1️⃣ Traitement instantané de votre relevé PDF MCB vers Excel CSV\n"
+                "2️⃣ Réconciliation des virements Juice et transactions CEB / CWA / MRA\n"
+                "3️⃣ Démonstration de sécurité : 100% hors-ligne (aucune fuite de données bancaires)\n"
+                "4️⃣ Commander votre licence cabinet (Rs 1,500 via Juice au +230 58169420)\n\n"
+                "Envoyez votre question ou contactez directement Deven au +230 58169420."
             )
         else:
             fallback = (

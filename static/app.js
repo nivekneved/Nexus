@@ -4425,6 +4425,30 @@ window.openOutreachMessageDetail = openOutreachMessageDetail;
 window.handleCheckDeliverability = handleCheckDeliverability;
 window.fetchOutreachCRM = fetchOutreachCRM;
 
+window.filterB2BDesk = function(cat) {
+  const cards = document.querySelectorAll(".b2b-deal-card");
+  cards.forEach(card => {
+    if (cat === "all" || card.dataset.category === cat) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+
+  const btnAll = document.getElementById("btnFilterB2BAll");
+  const btnAcc = document.getElementById("btnFilterB2BAccounting");
+  const btnMed = document.getElementById("btnFilterB2BMedical");
+
+  if (btnAll && btnAcc && btnMed) {
+    btnAll.style.background = cat === "all" ? "#0f172a" : "#fff";
+    btnAll.style.color = cat === "all" ? "#fff" : "#475569";
+    btnAcc.style.background = cat === "accounting" ? "#0284c7" : "#fff";
+    btnAcc.style.color = cat === "accounting" ? "#fff" : "#0284c7";
+    btnMed.style.background = cat === "medical" ? "#059669" : "#fff";
+    btnMed.style.color = cat === "medical" ? "#fff" : "#059669";
+  }
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // AGENT MESH & COMMS HUB CONTROLLER
 // ─────────────────────────────────────────────────────────────────────────────
