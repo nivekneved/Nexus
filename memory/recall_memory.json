@@ -1,0 +1,27 @@
+[
+  {
+    "timestamp": "2026-09-21 10:37:02",
+    "event_type": "NICHE_SCOUTED",
+    "details": {
+      "niche": "invoice pdf extractor",
+      "total_views": 342632,
+      "tier": "⚡ SOLID NICHE (Targeted Problem)"
+    }
+  },
+  {
+    "timestamp": "2026-09-21 10:34:34",
+    "event_type": "NICHE_SCOUTED",
+    "details": {
+      "niche": "invoice pdf extractor",
+      "total_views": 355439,
+      "tier": "⚡ SOLID NICHE (Targeted Problem)"
+    }
+  },
+  {
+    "timestamp": "2026-09-21 10:32:09",
+    "event_type": "test_event",
+    "details": {
+      "message": "Memory online"
+    }
+  }
+]

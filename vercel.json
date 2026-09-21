@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "static/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/store",
+      "dest": "/static/store.html"
+    },
+    {
+      "src": "/donate",
+      "dest": "/static/donations.html"
+    },
+    {
+      "src": "/donations",
+      "dest": "/static/donations.html"
+    },
+    {
+      "src": "/license",
+      "dest": "/static/license.html"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/download/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/",
+      "dest": "/static/index.html"
+    }
+  ]
+}

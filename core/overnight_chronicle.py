@@ -1,10 +1,22 @@
 import os
+import sys
 import json
 import time
 import hashlib
 import threading
 from datetime import datetime
 from typing import Dict, Any, List, Optional
+
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+if hasattr(sys.stderr, "reconfigure"):
+    try:
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 CHRONICLE_FILE = "overnight_activity.json"
 AUTOPILOT_STATE_FILE = "autopilot_state.json"
@@ -44,6 +56,9 @@ class OvernightChronicle:
         self._load_state()
 
     def _load_state(self):
+        if "VERCEL" in os.environ:
+            self.is_running = True
+            return
         from core.storage import safe_load_json
         data = safe_load_json(AUTOPILOT_STATE_FILE, default=None)
         if data is not None:
@@ -117,6 +132,9 @@ class OvernightChronicle:
 
 
     def start(self, interval_minutes: int = 30):
+        if "VERCEL" in os.environ:
+            self.is_running = True
+            return
         if self.is_running:
             return
         self.interval_minutes = interval_minutes

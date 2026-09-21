@@ -40,6 +40,7 @@ from core.legal_guardrails import legal_guardrails
 from core.hidden_boards_service import hidden_boards_service
 from core.backup_service import create_full_enterprise_backup, list_backups_metadata, get_backup_manifest
 from restore import restore_backup as execute_restore_backup
+from core.digital_store_service import digital_store_service
 
 app = FastAPI(title="Nexus AI Workforce Hub")
 
@@ -66,7 +67,7 @@ async def security_shield_middleware(request: Request, call_next):
 # Dashboard Bearer-Token Authentication Middleware
 # Set NEXUS_DASHBOARD_TOKEN in your .env to enable.
 _DASHBOARD_TOKEN = os.getenv("NEXUS_DASHBOARD_TOKEN", "")
-_UNPROTECTED_PATHS = {"/", "/license", "/terms", "/static", "/api/mesh/inbound"}
+_UNPROTECTED_PATHS = {"/", "/license", "/terms", "/static", "/api/mesh/inbound", "/donate", "/donations", "/store", "/download"}
 
 @app.middleware("http")
 async def dashboard_auth_middleware(request: Request, call_next):
@@ -77,10 +78,16 @@ async def dashboard_auth_middleware(request: Request, call_next):
     path = request.url.path
     client_ip = request.client.host if request.client else "127.0.0.1"
 
-    # Allow static assets, root UI, and public A2A webhook without Bearer rejection
-    if path == "/" or path.startswith("/static") or path == "/license" or path == "/terms" or path == "/api/mesh/inbound":
+    # Allow static assets, root UI, donations, digital store, downloads, and public webhooks without Bearer rejection
+    if (
+        path in ("/", "/license", "/terms", "/donate", "/donations", "/store", "/api/mesh/inbound")
+        or path.startswith("/static")
+        or path.startswith("/api/donations")
+        or path.startswith("/api/store")
+        or path.startswith("/download")
+    ):
         response = await call_next(request)
-        if (path == "/" or path == "/license") and _DASHBOARD_TOKEN:
+        if (path in ("/", "/license", "/donate", "/donations", "/store")) and _DASHBOARD_TOKEN:
             response.set_cookie(key="nexus_token", value=_DASHBOARD_TOKEN, httponly=False, samesite="lax")
         return response
 
@@ -242,7 +249,42 @@ class SweepBouncesRequest(BaseModel):
     account_id: Optional[str] = None
     dry_run: Optional[bool] = False
 
+class CreateDonationRequest(BaseModel):
+    donor_name: Optional[str] = "Kind Supporter"
+    donor_email: Optional[str] = "supporter@example.com"
+    amount: float = 1.00
+    currency: Optional[str] = "USD"
+    cause: Optional[str] = "Baby Ryan — Urgent Cardiac Surgery"
 
+class CreateStoreCheckoutRequest(BaseModel):
+    product_id: str
+    buyer_email: str
+    buyer_name: Optional[str] = "Valued Developer"
+    currency: Optional[str] = "USD"
+
+
+# Tool Registry Endpoints
+class ExecuteToolRequest(BaseModel):
+    tool_name: str
+    params: Optional[Dict[str, Any]] = {}
+
+@app.get("/api/tools")
+def list_fleet_tools(category: Optional[str] = None):
+    """Returns all executable tools equipped across the AI workforce."""
+    from core.tool_registry import tool_registry
+    tools = tool_registry.list_tools(category)
+    return {
+        "success": True,
+        "tools": tools,
+        "total_tools": len(tools)
+    }
+
+@app.post("/api/tools/execute")
+def execute_tool_endpoint(payload: ExecuteToolRequest):
+    """Directly executes a tool from the fleet toolbox."""
+    from core.tool_registry import tool_registry
+    res = tool_registry.call_tool(payload.tool_name, **payload.params)
+    return res
 
 
 # Addon Registry Endpoints
@@ -251,6 +293,7 @@ def list_all_addons(category: Optional[str] = None):
     """Returns all registered modular addons."""
     addons = addon_registry.list_addons(category)
     return {
+        "success": True,
         "addons": addons,
         "total_active": sum(1 for a in addons if a.get("is_active", True)),
         "total_addons": len(addons)
@@ -2147,6 +2190,190 @@ def serve_llms():
 @app.get("/sitemap.xml")
 def serve_sitemap():
     return FileResponse("static/sitemap.xml", media_type="application/xml")
+
+@app.get("/donate")
+@app.get("/donations")
+def serve_donations_page():
+    return FileResponse("static/donations.html")
+
+@app.post("/api/donations/create")
+def api_create_donation(payload: CreateDonationRequest):
+    """Creates a live 1-click PayPal donation checkout token for Enn Rev Enn Sourir."""
+    try:
+        inv = payment_service.create_invoice(
+            client_name=payload.donor_name or "Kind Supporter",
+            client_email=payload.donor_email or "donor@example.com",
+            amount=payload.amount,
+            currency=payload.currency or "USD",
+            description=f"Enn Rev Enn Sourir Donation: {payload.cause}",
+            method="paypal"
+        )
+        return {
+            "success": True,
+            "order_id": inv.get("paypal_order_id"),
+            "checkout_url": inv.get("payment_url"),
+            "invoice_id": inv.get("id"),
+            "amount": inv.get("amount"),
+            "currency": inv.get("currency"),
+            "cause": payload.cause
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# ============================================================================
+# Digital Product Micro-Store & 1-Click Vending Machine Endpoints
+# ============================================================================
+@app.get("/store")
+def serve_store_page():
+    return FileResponse("static/store.html")
+
+@app.get("/api/store/products")
+def api_get_store_products():
+    """Returns the digital product catalog."""
+    return {"success": True, "products": digital_store_service.get_catalog()}
+
+@app.post("/api/store/checkout")
+def api_create_store_checkout(payload: CreateStoreCheckoutRequest):
+    """Creates a live 1-click PayPal checkout token for a digital micro-product."""
+    try:
+        res = digital_store_service.create_checkout_order(
+            product_id=payload.product_id,
+            buyer_email=payload.buyer_email,
+            buyer_name=payload.buyer_name or "Valued Developer",
+            currency=payload.currency or "USD"
+        )
+        return res
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/api/store/capture/{order_id}")
+def api_capture_store_order(order_id: str):
+    """Verifies and fulfills an approved PayPal digital store order."""
+    res = digital_store_service.fulfill_order(order_id)
+    if not res.get("success"):
+        raise HTTPException(status_code=400, detail=res.get("error", "Fulfillment failed"))
+    return res
+
+@app.get("/download/{product_id}")
+def download_digital_product(product_id: str, token: Optional[str] = None):
+    """Delivers the Python script or zip bundle as an attachment download."""
+    if token and not digital_store_service.validate_download_token(product_id, token):
+        raise HTTPException(status_code=403, detail="Invalid or expired download token.")
+
+    file_path = digital_store_service.get_download_path(product_id)
+    if not file_path or not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"Product '{product_id}' file not found.")
+
+    filename = os.path.basename(file_path)
+    media_type = "application/zip" if filename.endswith(".zip") else "text/x-python"
+    return FileResponse(
+        path=file_path,
+        media_type=media_type,
+        filename=filename,
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+    )
+
+class BuildProductRequest(BaseModel):
+    niche_keyword: str
+
+@app.post("/api/factory/build")
+def api_factory_build_product(payload: BuildProductRequest):
+    """Runs the 5-stage MetaGPT/ChatDev SOP factory assembly line for a niche keyword."""
+    from core.product_factory_engine import product_factory
+    res = product_factory.run_assembly_line(payload.niche_keyword)
+    return res
+
+# ============================================================================
+# Universal Fleet Tool Registry Endpoints
+# ============================================================================
+class ExecuteToolRequest(BaseModel):
+    tool_name: str
+    arguments: Optional[Dict[str, Any]] = None
+
+@app.get("/api/tools")
+def api_get_tools():
+    """Returns the list of all equipped dynamic tools in the Universal Tool Registry."""
+    from core.tool_registry import tool_registry
+    return {"success": True, "count": len(tool_registry.list_tools()), "tools": tool_registry.list_tools()}
+
+@app.post("/api/tools/execute")
+def api_execute_tool(payload: ExecuteToolRequest):
+    """Executes a registered fleet tool dynamically with arguments."""
+    from core.tool_registry import tool_registry
+    res = tool_registry.execute(payload.tool_name, **(payload.arguments or {}))
+    return res
+
+# ============================================================================
+# Social & Webhook Broadcast Endpoints
+# ============================================================================
+class BroadcastSnippetsRequest(BaseModel):
+    product_name: str
+    price: Optional[str] = "$1.00 USD"
+    checkout_url: Optional[str] = "http://127.0.0.1:8000/store"
+    description: Optional[str] = ""
+
+@app.get("/api/broadcast/queue")
+def api_get_broadcast_queue(limit: int = 25):
+    """Returns recent product announcement broadcasts and their delivery status."""
+    from core.social_broadcaster import social_broadcaster
+    return {"success": True, "queue": social_broadcaster.get_queue(limit=limit)}
+
+@app.post("/api/broadcast/snippets")
+def api_generate_broadcast_snippets(payload: BroadcastSnippetsRequest):
+    """Generates ready-to-copy Twitter/X, Reddit, and Discord promotional copy."""
+    from core.social_broadcaster import social_broadcaster
+    snippets = social_broadcaster.generate_social_snippets(
+        product_name=payload.product_name,
+        price=payload.price or "$1.00 USD",
+        checkout_url=payload.checkout_url or "http://127.0.0.1:8000/store",
+        description=payload.description or ""
+    )
+    return {"success": True, "snippets": snippets}
+
+# ============================================================================
+# Gemini Key Integration & Live Switch
+# ============================================================================
+class UpdateGeminiKeyRequest(BaseModel):
+    api_key: str
+
+@app.post("/api/settings/gemini-key")
+def api_update_gemini_key(payload: UpdateGeminiKeyRequest):
+    """Validates a new Gemini API key and persists it to .env, immediately upgrading fleet intelligence."""
+    new_key = payload.api_key.strip()
+    if not new_key or len(new_key) < 15:
+        raise HTTPException(status_code=400, detail="Invalid Gemini API key format.")
+
+    # Test key with Google GenAI SDK
+    test_passed = False
+    error_detail = ""
+    try:
+        from google import genai
+        client = genai.Client(api_key=new_key)
+        resp = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents="Respond with only the single word: OK"
+        )
+        if resp and resp.text:
+            test_passed = True
+    except Exception as e:
+        error_detail = str(e)
+
+    # Persist to .env
+    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    try:
+        set_key(env_path, "GEMINI_API_KEY", new_key)
+        os.environ["GEMINI_API_KEY"] = new_key
+        load_dotenv(override=True)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed writing to .env: {e}")
+
+    return {
+        "success": True,
+        "test_passed": test_passed,
+        "message": "Gemini API key successfully saved and active across all 18 agents!" if test_passed else f"Key saved to .env, but ping test returned: {error_detail}",
+        "tested_model": "gemini-2.5-flash"
+    }
+
 
 if __name__ == "__main__":
     import uvicorn

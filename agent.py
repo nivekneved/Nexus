@@ -18,14 +18,18 @@ if hasattr(sys.stderr, "reconfigure"):
 from email_client import EmailClient
 from spam_classifier import SpamClassifier
 
-# Setup logging
+# Setup logging (safe for both local server and read-only serverless environments like Vercel)
+handlers = [logging.StreamHandler(sys.stdout)]
+try:
+    log_dir = "/tmp" if os.name != "nt" and "VERCEL" in os.environ else "."
+    handlers.insert(0, logging.FileHandler(os.path.join(log_dir, "email_agent.log"), encoding="utf-8"))
+except Exception:
+    pass
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("email_agent.log", encoding="utf-8"),
-        logging.StreamHandler(sys.stdout)
-    ]
+    handlers=handlers
 )
 logger = logging.getLogger("EmailAgent")
 console = Console(force_terminal=True, legacy_windows=False)

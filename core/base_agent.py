@@ -55,6 +55,23 @@ class BaseAgent(ABC):
             }
         return subagent.run(payload)
 
+    def call_tool(self, tool_name: str, **kwargs) -> Dict[str, Any]:
+        """Allows any agent to dynamically execute tools from the central Tool Registry."""
+        from core.tool_registry import tool_registry
+        res = tool_registry.call_tool(tool_name, **kwargs)
+        self.log(
+            step="TOOL_EXECUTION",
+            file_used="tool_registry.py",
+            message=f"Agent invoked tool '{tool_name}' (Success: {res.get('success')})",
+            level="INFO" if res.get("success") else "WARN"
+        )
+        return res
+
+    def list_available_tools(self, category: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Returns all tools available to this agent."""
+        from core.tool_registry import tool_registry
+        return tool_registry.list_tools(category=category)
+
     @abstractmethod
     def run_cycle(self) -> Dict[str, Any]:
         """

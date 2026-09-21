@@ -151,19 +151,66 @@ class PaymentService:
             }
         )
 
-        with urllib.request.urlopen(req, timeout=12, context=self._ssl_ctx) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            status = data.get("status")
+        try:
+            with urllib.request.urlopen(req, timeout=12, context=self._ssl_ctx) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                status = data.get("status")
 
-            # If buyer approved but not yet captured, execute capture
-            if status == "APPROVED":
-                capture_res = self.capture_paypal_order(order_id)
-                return capture_res
+                # If buyer approved but not yet captured, execute capture
+                if status == "APPROVED":
+                    capture_res = self.capture_paypal_order(order_id)
+                    return capture_res
 
+                return {
+                    "order_id": order_id,
+                    "status": status,
+                    "details": data
+                }
+        except urllib.error.HTTPError as e:
+            logger_err = f"PayPal order check HTTP {e.code}: {e.reason}"
             return {
                 "order_id": order_id,
-                "status": status,
-                "details": data
+                "status": f"HTTP_{e.code}",
+                "error": logger_err
+            }
+        except Exception as e:
+            return {
+                "order_id": order_id,
+                "status": "ERROR",
+                "error": str(e)
+            }
+
+    def get_paypal_balance(self) -> Dict[str, Any]:
+        """Queries the official live PayPal Reporting API for current account balances."""
+        token = self.get_paypal_token()
+        req = urllib.request.Request(
+            "https://api-m.paypal.com/v1/reporting/balances?currency_code=USD",
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "User-Agent": "NexusWorkforce-PaymentEngine/2.5"
+            }
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=12, context=self._ssl_ctx) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                balances = data.get("balances", [])
+                usd_balance = "0.00"
+                for b in balances:
+                    if b.get("currency") == "USD":
+                        usd_balance = b.get("total_balance", {}).get("value", "0.00")
+                return {
+                    "success": True,
+                    "usd_total_balance": float(usd_balance),
+                    "account_id": data.get("account_id"),
+                    "as_of_time": data.get("as_of_time"),
+                    "raw": data
+                }
+        except Exception as e:
+            return {
+                "success": False,
+                "usd_total_balance": 0.0,
+                "error": str(e)
             }
 
     def capture_paypal_order(self, order_id: str) -> Dict[str, Any]:
@@ -178,13 +225,28 @@ class PaymentService:
                 "User-Agent": "NexusWorkforce-PaymentEngine/2.5"
             }
         )
-        with urllib.request.urlopen(req, timeout=15, context=self._ssl_ctx) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
+        try:
+            with urllib.request.urlopen(req, timeout=15, context=self._ssl_ctx) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                return {
+                    "order_id": order_id,
+                    "status": data.get("status", "COMPLETED"),
+                    "captured": True,
+                    "details": data
+                }
+        except urllib.error.HTTPError as e:
             return {
                 "order_id": order_id,
-                "status": data.get("status", "COMPLETED"),
-                "captured": True,
-                "details": data
+                "status": f"HTTP_{e.code}",
+                "captured": False,
+                "error": f"PayPal capture error HTTP {e.code}: {e.reason}"
+            }
+        except Exception as e:
+            return {
+                "order_id": order_id,
+                "status": "ERROR",
+                "captured": False,
+                "error": str(e)
             }
 
     def get_mcb_wire_details(self, amount: float, currency: str, ref_id: str) -> Dict[str, Any]:

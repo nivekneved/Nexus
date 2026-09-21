@@ -29,7 +29,11 @@ def _get_lock_for_path(filepath: str | Path) -> threading.RLock:
 def _get_bak_path(p: Path) -> Path:
     """Returns the path to the .bak file inside a dedicated .shadow_bak folder to keep directories tidy."""
     bak_dir = p.parent / ".shadow_bak"
-    bak_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        bak_dir.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        # Read-only filesystem (e.g. Vercel Serverless)
+        pass
     return bak_dir / f"{p.name}.bak"
 
 
@@ -43,9 +47,20 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
     lock = _get_lock_for_path(p)
 
     with lock:
-        # Check both primary shadow_bak path and legacy in-place .bak
-        bak_candidates = [_get_bak_path(p), p.with_suffix(p.suffix + ".bak")]
-        if not p.exists() or p.stat().st_size == 0:
+        # Check primary path, serverless /tmp fallback, and backups
+        candidates = [p]
+        if "VERCEL" in os.environ and not str(p).startswith("/tmp"):
+            candidates.insert(0, Path("/tmp") / p.name)
+
+        target = None
+        for c in candidates:
+            if c.exists() and c.stat().st_size > 0:
+                target = c
+                break
+
+        if not target:
+            # Try backup candidates
+            bak_candidates = [_get_bak_path(p), p.with_suffix(p.suffix + ".bak")]
             for bak in bak_candidates:
                 if bak.exists() and bak.stat().st_size > 0:
                     try:
@@ -58,10 +73,10 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
             return default if default is not None else []
 
         try:
-            with open(p, "r", encoding="utf-8") as f:
+            with open(target, "r", encoding="utf-8") as f:
                 return json.load(f)
         except (json.JSONDecodeError, OSError) as e:
-            logger.warning(f"[Storage] Corrupt JSON detected in {p}: {e}. Attempting .bak recovery...")
+            logger.warning(f"[Storage] Corrupt JSON detected in {target}: {e}. Attempting .bak recovery...")
             bak_candidates = [_get_bak_path(p), p.with_suffix(p.suffix + ".bak")]
             for bak in bak_candidates:
                 if bak.exists() and bak.stat().st_size > 0:
@@ -79,15 +94,21 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
 def atomic_save_json(filepath: str | Path, data: Any, indent: int = 2) -> bool:
     """
     Atomically persists data to disk:
-    1. Writes to temporary file in the same directory.
+    1. Writes to temporary file in the same directory (or /tmp on serverless).
     2. Flushes and syncs to disk (fsync).
     3. Updates .bak fallback snapshot in .shadow_bak/.
     4. Performs atomic os.replace() to prevent any 0-byte state during power loss/crash.
     """
     p = Path(filepath)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    lock = _get_lock_for_path(p)
+    if "VERCEL" in os.environ and not str(p).startswith("/tmp"):
+        p = Path("/tmp") / p.name
 
+    try:
+        p.parent.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        pass
+
+    lock = _get_lock_for_path(p)
     tmp_path = p.with_suffix(p.suffix + f".tmp_{threading.get_ident()}")
     bak_path = _get_bak_path(p)
 
@@ -96,7 +117,10 @@ def atomic_save_json(filepath: str | Path, data: Any, indent: int = 2) -> bool:
             with open(tmp_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=indent, ensure_ascii=False)
                 f.flush()
-                os.fsync(f.fileno())
+                try:
+                    os.fsync(f.fileno())
+                except OSError:
+                    pass
 
             # Update .bak in .shadow_bak before replacing if current file is valid
             if p.exists() and p.stat().st_size > 0:
@@ -116,4 +140,7 @@ def atomic_save_json(filepath: str | Path, data: Any, indent: int = 2) -> bool:
                     tmp_path.unlink()
                 except Exception:
                     pass
+            # In serverless environments, avoid crashing if disk write fails
+            if "VERCEL" in os.environ:
+                return False
             raise e

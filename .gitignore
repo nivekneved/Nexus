@@ -6,6 +6,7 @@
 .env
 .env.local
 .env.*.local
+.vercel
 *.key
 *.pem
 
@@ -90,3 +91,6 @@ desktop.ini
 .idea/
 *.suo
 *.user
+
+.vercel
+.env*

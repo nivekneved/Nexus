@@ -1,0 +1,26 @@
+{
+  "owner": "Deven Pawaray",
+  "brand": "Nexus AI Workforce",
+  "default_currency": "USD",
+  "mcb_juice": "+230 58169420",
+  "verified_product_blueprints": [
+    {
+      "id": "nexus-invoice-pdf-extractor",
+      "name": "Nexus™ Invoice Pdf Extractor",
+      "tagline": "Self-Hosted Invoice Pdf Extractor Automation Utility",
+      "description": "A self-hosted, lightweight Python script to automate invoice pdf extractor. Zero monthly subscriptions.",
+      "price_usd": 1.0,
+      "price_mur": 45.0,
+      "filename": "nexus_invoice_pdf_extractor.py",
+      "badge": "Automated",
+      "features": [
+        "100% self-hosted Python script for invoice pdf extractor",
+        "Zero external subscriptions or recurring API costs",
+        "Standalone single-file architecture with clean CLI output",
+        "Commercial usage rights included with $1.00 purchase"
+      ]
+    }
+  ],
+  "target_price_usd": 1.0,
+  "last_updated": "2026-09-21 10:34:34"
+}

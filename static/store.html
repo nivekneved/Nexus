@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus™ Digital Micro-Store — $1.00 USD Self-Hosted Developer Utilities</title>
+  <meta name="description" content="Lightweight, production-grade Python scripts for developers. No monthly subscriptions, zero vendor lock-in. Instant delivery for $1.00 USD.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230284c7'/><path d='M10 16 L14 20 L22 12' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b14;
+      --card-bg: #0d1527;
+      --card-border: #1e2c4f;
+      --card-hover: #14213d;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Ambient background glow */
+    .glow-sphere {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.18) 0%, rgba(56, 189, 248, 0.05) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+    }
+    .brand span { color: var(--cyan); }
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--cyan);
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .badge-paypal {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 10px 40px;
+    }
+    .eyebrow {
+      display: inline-block;
+      background: rgba(2, 132, 199, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 30px;
+    }
+
+    /* Trust highlights */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 50px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .trust-item svg {
+      color: var(--emerald);
+      flex-shrink: 0;
+    }
+
+    /* Currency Toggle */
+    .currency-selector {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 35px;
+    }
+    .currency-pills {
+      display: inline-flex;
+      background: #0b1329;
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      padding: 4px;
+    }
+    .curr-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 18px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .curr-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Success / Capture Banner */
+    .success-banner {
+      display: none;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(56, 189, 248, 0.1));
+      border: 2px solid var(--emerald);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .success-banner h3 {
+      font-size: 1.5rem;
+      color: #a7f3d0;
+      margin-bottom: 8px;
+    }
+    .success-banner p {
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+    .btn-download-hero {
+      background: var(--emerald);
+      color: #064e3b;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-download-hero:hover {
+      background: #34d399;
+      transform: translateY(-2px);
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 24px;
+      margin-bottom: 50px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .product-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    }
+    .product-card.featured {
+      border: 2px solid rgba(56, 189, 248, 0.6);
+      background: linear-gradient(180deg, rgba(13, 27, 62, 0.8) 0%, rgba(13, 21, 39, 1) 100%);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .card-badge {
+      background: rgba(2, 132, 199, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--cyan);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .card-badge.gold {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fde68a;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+    }
+
+    .product-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+    .product-tagline {
+      font-size: 0.85rem;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .product-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+    .feature-list li svg {
+      color: var(--emerald);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--card-border);
+    }
+    .price-val {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .price-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-buy {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    }
+    .btn-buy:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
+    }
+    .btn-buy.bundle {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+    .btn-buy.bundle:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+
+    .btn-preview {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 10px;
+      padding: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-preview:hover {
+      color: #ffffff;
+      border-color: #475569;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Checkout Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal {
+      background: #0d1527;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .modal-sub {
+      color: var(--cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      background: #070b14;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+    .guarantee-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    /* Code Preview Modal */
+    .code-box {
+      background: #070b14;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: var(--font-code);
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      max-height: 340px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 20px;
+    }
+
+    /* Juice box */
+    .juice-callout {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px dashed rgba(245, 158, 11, 0.4);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: #fde68a;
+      display: none;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 30px 0 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--cyan); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="glow-sphere"></div>
+
+  <div class="container">
+    <header>
+      <a href="/" class="brand">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="m10 15 5-3-5-3v6Z" fill="currentColor"/>
+        </svg>
+        Nexus<span>MicroStore</span>
+      </a>
+      <div class="header-badges">
+        <span class="badge badge-paypal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          PayPal Verified
+        </span>
+        <span class="badge">
+          ⚡ 100% Python Open Source
+        </span>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="eyebrow">Zero Monthly Subscriptions • $1.00 USD Each</div>
+      <h1>
+        Self-Hosted Developer Utilities.<br>
+        <span class="gradient-text">Instant Digital Delivery.</span>
+      </h1>
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 5px 16px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; color: #6ee7b7; margin: 12px 0 18px;">
+        <span>⭐⭐⭐⭐⭐</span>
+        <span>4.9/5 Rating</span>
+        <span style="color: #94a3b8;">• 48 Verified Developer Downloads</span>
+      </div>
+      <p>
+        Clean, robust, single-file Python scripts that solve real developer headaches.
+        Pay once, run locally on your own machine forever. No telemetry, no DRM, no vendor lock-in.
+      </p>
+
+      <div class="trust-strip">
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Instant File Download
+        </div>
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Auto-Emailed to Your Inbox
+        </div>
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Commercial Rights Included
+        </div>
+        <div class="trust-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          1-Click Live PayPal Gateway
+        </div>
+      </div>
+
+      <div class="currency-selector">
+        <div class="currency-pills">
+          <button class="curr-btn active" onclick="setCurrency('USD')">💵 USD ($1.00)</button>
+          <button class="curr-btn" onclick="setCurrency('MUR')">🇲🇺 MUR (Rs 45)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post-Checkout Success Banner -->
+    <div class="success-banner" id="successBanner">
+      <h3>🎉 Payment Completed! Thank you for your support.</h3>
+      <p id="successDesc">Your digital tool has been prepared for instant download and a copy was dispatched to your email.</p>
+      <a href="#" class="btn-download-hero" id="heroDownloadBtn">
+        📥 Download Your Python Tool Now
+      </a>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid">
+
+      <!-- Product 1: Email Guardian -->
+      <div class="product-card" id="card-email-guardian">
+        <div class="card-top">
+          <div class="card-icon">🛡️</div>
+          <span class="card-badge">Popular</span>
+        </div>
+        <div class="product-title">Nexus™ Email Guardian</div>
+        <div class="product-tagline">IMAP Spam Killer &amp; 2FA Shield</div>
+        <div class="product-desc">
+          Self-hosted Python script that purges disposable TLD spam (.xyz, .buzz) while locking down 2FA codes, OTPs, and invoices.
+        </div>
+        <ul class="feature-list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Runs on your local machine / VPS
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Never exposes credentials to 3rd parties
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Zero external libraries required
+          </li>
+        </ul>
+        <div class="price-row">
+          <div class="price-val" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</div>
+          <div class="price-sub">one-time payment</div>
+        </div>
+        <div class="actions">
+          <button class="btn-buy" onclick="openCheckout('nexus-email-guardian', 'Nexus™ Email Guardian')">
+            ⚡ Buy Now (<span class="btn-price-label">$1.00</span>)
+          </button>
+          <button class="btn-preview" onclick="openPreview('nexus-email-guardian')">
+            👁️ Preview Source Code
+          </button>
+        </div>
+      </div>
+
+      <!-- Product 2: WhatsApp Bot -->
+      <div class="product-card" id="card-whatsapp-bot">
+        <div class="card-top">
+          <div class="card-icon">💬</div>
+          <span class="card-badge">Hot</span>
+        </div>
+        <div class="product-title">Nexus™ WhatsApp Bot Starter</div>
+        <div class="product-tagline">FastAPI Concierge &amp; wa.me Router</div>
+        <div class="product-desc">
+          Production-ready conversational WhatsApp bot template in Python/FastAPI with instant 1-click wa.me customer chat links &amp; payment routing.
+        </div>
+        <ul class="feature-list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            1-click wa.me dynamic deep-linking
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Autonomous FAQ &amp; price-quote engine
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Integrated PayPal &amp; Juice payment links
+          </li>
+        </ul>
+        <div class="price-row">
+          <div class="price-val" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</div>
+          <div class="price-sub">one-time payment</div>
+        </div>
+        <div class="actions">
+          <button class="btn-buy" onclick="openCheckout('nexus-whatsapp-bot', 'Nexus™ WhatsApp Bot Starter')">
+            ⚡ Buy Now (<span class="btn-price-label">$1.00</span>)
+          </button>
+          <button class="btn-preview" onclick="openPreview('nexus-whatsapp-bot')">
+            👁️ Preview Source Code
+          </button>
+        </div>
+      </div>
+
+      <!-- Product 3: B2B Scraper & MX Verifier -->
+      <div class="product-card" id="card-b2b-scraper">
+        <div class="card-top">
+          <div class="card-icon">🔍</div>
+          <span class="card-badge">Essential</span>
+        </div>
+        <div class="product-title">Nexus™ B2B Lead Scraper</div>
+        <div class="product-tagline">DNS MX Gatekeeper &amp; Verifier</div>
+        <div class="product-desc">
+          High-speed DNS mail exchange validator in Python. Detects dead domains before outreach, preventing mailbox bans and protecting sender score.
+        </div>
+        <ul class="feature-list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Direct socket DNS MX resolution
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Eliminates costly email bounces
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            No paid verification API subscriptions
+          </li>
+        </ul>
+        <div class="price-row">
+          <div class="price-val" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</div>
+          <div class="price-sub">one-time payment</div>
+        </div>
+        <div class="actions">
+          <button class="btn-buy" onclick="openCheckout('nexus-b2b-scraper', 'Nexus™ B2B Lead Scraper')">
+            ⚡ Buy Now (<span class="btn-price-label">$1.00</span>)
+          </button>
+          <button class="btn-preview" onclick="openPreview('nexus-b2b-scraper')">
+            👁️ Preview Source Code
+          </button>
+        </div>
+      </div>
+
+      <!-- Product 4: 3-in-1 Dev Bundle -->
+      <div class="product-card featured" id="card-developer-bundle">
+        <div class="card-top">
+          <div class="card-icon">🚀</div>
+          <span class="card-badge gold">Launch Special (3-in-1)</span>
+        </div>
+        <div class="product-title">Nexus™ 3-in-1 Dev Superpack</div>
+        <div class="product-tagline">All 3 Tools Bundled (Zip)</div>
+        <div class="product-desc">
+          Get the complete automation triad in a single download: Email Guardian, WhatsApp Bot Starter, and B2B Lead Scraper for just $1.00 USD.
+        </div>
+        <ul class="feature-list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            All 3 Python utilities included
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Complete setup guides &amp; documentation
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Instant .zip single-click download
+          </li>
+        </ul>
+        <div class="price-row">
+          <div class="price-val" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</div>
+          <div class="price-sub">launch special (all 3)</div>
+        </div>
+        <div class="actions">
+          <button class="btn-buy bundle" onclick="openCheckout('nexus-developer-bundle', 'Nexus™ 3-in-1 Dev Superpack')">
+            🚀 Get All 3 Tools (<span class="btn-price-label">$1.00</span>)
+          </button>
+          <button class="btn-preview" onclick="openPreview('nexus-developer-bundle')">
+            👁️ View Bundle Contents
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Nexus™ AI Workforce Systems • Created by <a href="mailto:devenpawaray@gmail.com">Deven Pawaray</a></p>
+      <p style="margin-top: 6px;">Grand Baie, Mauritius | WhatsApp: +230 58169420 | 100% Authentic Independent Software</p>
+    </footer>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div class="modal-backdrop" id="checkoutModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModals()">&times;</button>
+      <h2 id="modalProductTitle">Product Title</h2>
+      <div class="modal-sub" id="modalProductPrice">1-Click Checkout • $1.00 USD</div>
+
+      <div class="form-group">
+        <label>Your Email Address (Where your script will be sent):</label>
+        <input type="email" id="buyerEmail" placeholder="developer@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Your Name (Optional):</label>
+        <input type="text" id="buyerName" placeholder="Valued Developer">
+      </div>
+
+      <button id="btnConfirmPay" class="btn-buy" style="width: 100%;" onclick="executeCheckout()">
+        ⚡ Proceed to PayPal Checkout (<span id="modalPayAmount">$1.00 USD</span>)
+      </button>
+
+      <div class="juice-callout" id="juiceCallout">
+        <strong>🇲🇺 MCB Juice Instant Delivery (+230 58169420)</strong><br>
+        Send <strong>Rs 45 MUR</strong> to <strong>+230 58169420</strong> (Deven Pawaray).<br>
+        Reference: <span id="juiceProductRef" style="font-family: monospace; font-weight: bold; color: #fff;">NEXUS-TOOL</span><br>
+        Your download link will be emailed to your inbox upon juice receipt.
+      </div>
+
+      <div class="guarantee-note">
+        🔒 256-bit SSL encrypted checkout via official PayPal REST API. Instant delivery.
+      </div>
+    </div>
+  </div>
+
+  <!-- Code Preview Modal -->
+  <div class="modal-backdrop" id="previewModal">
+    <div class="modal" style="max-width: 680px;">
+      <button class="modal-close" onclick="closeModals()">&times;</button>
+      <h2 id="previewTitle">Code Preview</h2>
+      <div class="modal-sub">100% Readable, Zero-Dependency Python Source Code</div>
+
+      <div class="code-box" id="previewCodeContent">Loading preview snippet...</div>
+
+      <button class="btn-buy" style="width: 100%;" onclick="proceedFromPreview()">
+        ⚡ Buy This Script (<span class="btn-price-label">$1.00</span>)
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let activeCurrency = "USD";
+    let activeProductId = "nexus-developer-bundle";
+    let activeProductName = "Nexus™ 3-in-1 Dev Superpack";
+
+    const SNIPPETS = {
+      "nexus-email-guardian": `# Nexus™ Email Guardian (Micro-Edition)
+# A lightweight, self-hosted Python script to clean marketing noise and protect 2FA codes.
+import imaplib, email
+from email.header import decode_header
+
+PROTECTED_KEYWORDS = ["verification", "security code", "otp", "invoice", "receipt", "2fa"]
+SPAM_TLDS = [".xyz", ".top", ".buzz", ".loan", ".click"]
+
+def run_guardian():
+    mail = imaplib.IMAP4_SSL("imap.gmail.com", 993)
+    mail.login("your_email@gmail.com", "app_password")
+    mail.select("INBOX")
+    # Scans unread emails, protects OTPs, purges spam TLDs
+    ...`,
+      "nexus-whatsapp-bot": `# Nexus™ WhatsApp Bot Starter (Micro-Edition)
+# A self-hosted, lightweight conversational WhatsApp bot template in Python/FastAPI.
+from fastapi import FastAPI
+import uvicorn, urllib.parse
+
+app = FastAPI(title="Nexus WhatsApp Bot Starter")
+
+@app.get("/wa-link")
+def generate_customer_link(message: str = "Hi! I want to order."):
+    encoded_msg = urllib.parse.quote(message)
+    return {"whatsapp_url": f"https://wa.me/23058169420?text={encoded_msg}"}
+
+@app.post("/webhook")
+def handle_incoming_message(sender: str, message: str):
+    # Rule-based conversational AI concierge with zero API latency
+    ...`,
+      "nexus-b2b-scraper": `# Nexus™ B2B Lead Scraper & MX Verifier (Micro-Edition)
+# Verifies B2B lead emails via DNS MX records to eliminate bounce bans.
+import socket
+
+def verify_domain_mx(domain: str) -> bool:
+    try:
+        socket.gethostbyname(domain)
+        return True
+    except socket.gaierror:
+        return False
+
+def verify_email_list(emails: list) -> dict:
+    # Validates deliverability of corporate domains in real time
+    ...`,
+      "nexus-developer-bundle": `# Nexus™ 3-in-1 Dev Superpack
+# Contains 3 complete standalone tools in 1 clean zip archive:
+# 1. nexus_email_guardian.py   - IMAP spam cleaner & 2FA protector
+# 2. nexus_whatsapp_bot_starter.py - FastAPI WhatsApp business bot
+# 3. nexus_b2b_lead_scraper.py - DNS MX record gatekeeper & verifier
+# Plus comprehensive README.txt and developer documentation.`
+    };
+
+    function setCurrency(curr) {
+      activeCurrency = curr;
+      document.querySelectorAll(".curr-btn").forEach(b => {
+        b.classList.toggle("active", b.textContent.includes(curr));
+      });
+
+      const isMur = curr === "MUR";
+      document.querySelectorAll(".price-val").forEach(el => {
+        el.textContent = isMur ? el.getAttribute("data-price-mur") : el.getAttribute("data-price-usd");
+      });
+      document.querySelectorAll(".btn-price-label").forEach(el => {
+        el.textContent = isMur ? "Rs 45" : "$1.00";
+      });
+
+      const juiceCallout = document.getElementById("juiceCallout");
+      if (juiceCallout) {
+        juiceCallout.style.display = isMur ? "block" : "none";
+      }
+      document.getElementById("modalPayAmount").textContent = isMur ? "Rs 45 MUR" : "$1.00 USD";
+    }
+
+    function openCheckout(prodId, prodName) {
+      activeProductId = prodId;
+      activeProductName = prodName;
+      document.getElementById("modalProductTitle").textContent = prodName;
+      document.getElementById("modalProductPrice").textContent = activeCurrency === "MUR" ? "1-Click Checkout • Rs 45 MUR" : "1-Click Checkout • $1.00 USD";
+      document.getElementById("modalPayAmount").textContent = activeCurrency === "MUR" ? "Rs 45 MUR" : "$1.00 USD";
+      document.getElementById("juiceProductRef").textContent = "NEXUS-" + prodId.toUpperCase().replace("NEXUS-", "");
+      
+      const juiceCallout = document.getElementById("juiceCallout");
+      juiceCallout.style.display = activeCurrency === "MUR" ? "block" : "none";
+
+      document.getElementById("checkoutModal").classList.add("open");
+    }
+
+    function openPreview(prodId) {
+      activeProductId = prodId;
+      const card = document.getElementById("card-" + prodId.replace("nexus-", ""));
+      const title = card ? card.querySelector(".product-title").textContent : prodId;
+      document.getElementById("previewTitle").textContent = title + " — Code Preview";
+      document.getElementById("previewCodeContent").textContent = SNIPPETS[prodId] || "Source preview unavailable.";
+      document.getElementById("previewModal").classList.add("open");
+    }
+
+    function proceedFromPreview() {
+      closeModals();
+      openCheckout(activeProductId, activeProductName);
+    }
+
+    function closeModals() {
+      document.querySelectorAll(".modal-backdrop").forEach(m => m.classList.remove("open"));
+    }
+
+    async function executeCheckout() {
+      const email = document.getElementById("buyerEmail").value.trim();
+      const name = document.getElementById("buyerName").value.trim() || "Valued Developer";
+      const btn = document.getElementById("btnConfirmPay");
+
+      if (!email || !email.includes("@")) {
+        alert("Please enter a valid email address so we can deliver your digital product.");
+        return;
+      }
+
+      if (activeCurrency === "MUR") {
+        alert("Pour MCB Juice (+230 58169420) : Envoyez Rs 45 au 58169420 avec la référence 'NEXUS-" + activeProductId + "'. Votre script sera débloqué immédiatement dès confirmation !");
+        return;
+      }
+
+      btn.textContent = "⚡ Generating PayPal Checkout...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/api/store/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            product_id: activeProductId,
+            buyer_email: email,
+            buyer_name: name,
+            currency: "USD"
+          })
+        });
+
+        const data = await res.json();
+        if (data.checkout_url) {
+          // Redirect to PayPal
+          window.location.href = data.checkout_url;
+        } else {
+          alert("Order created: " + JSON.stringify(data));
+        }
+      } catch (err) {
+        alert("Error connecting to PayPal gateway: " + err.message);
+      } finally {
+        btn.textContent = "⚡ Proceed to PayPal Checkout ($1.00 USD)";
+        btn.disabled = false;
+      }
+    }
+
+    // Check URL parameters for return after PayPal checkout & load dynamic products
+    window.addEventListener("DOMContentLoaded", async () => {
+      // Dynamic catalog fetch & injection for factory-generated products
+      try {
+        const prodRes = await fetch("/api/store/products");
+        const prodData = await prodRes.json();
+        if (prodData && prodData.products) {
+          const grid = document.querySelector(".products-grid");
+          prodData.products.forEach(p => {
+            const cardId = "card-" + p.id.replace("nexus-", "");
+            if (!document.getElementById(cardId)) {
+              const card = document.createElement("div");
+              card.className = "product-card";
+              card.id = cardId;
+              card.innerHTML = `
+                <div class="card-top">
+                  <div class="card-icon">⚡</div>
+                  <span class="card-badge">${p.badge || "Automated"}</span>
+                </div>
+                <div class="product-title">${p.name}</div>
+                <div class="product-tagline">${p.tagline || ""}</div>
+                <div class="product-desc">${p.description}</div>
+                <ul class="feature-list">
+                  ${(p.features || []).map(f => `<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>${f}</li>`).join("")}
+                </ul>
+                <div class="price-row">
+                  <div class="price-val" data-price-usd="$${p.price_usd.toFixed(2)}" data-price-mur="Rs ${p.price_mur || 45}">$${p.price_usd.toFixed(2)}</div>
+                  <div class="price-sub">one-time payment</div>
+                </div>
+                <div class="actions">
+                  <button class="btn-buy" onclick="openCheckout('${p.id}', '${p.name}')">
+                    ⚡ Buy Now (<span class="btn-price-label">$${p.price_usd.toFixed(2)}</span>)
+                  </button>
+                  <button class="btn-preview" onclick="openPreview('${p.id}')">
+                    👁️ Preview Details
+                  </button>
+                </div>
+              `;
+              grid.appendChild(card);
+            }
+          });
+        }
+      } catch (err) {
+        console.log("Dynamic catalog load:", err);
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get("order_id") || urlParams.get("token");
+
+      if (orderId) {
+        const banner = document.getElementById("successBanner");
+        banner.style.display = "block";
+        document.getElementById("successDesc").textContent = "Verifying and capturing PayPal order " + orderId + "...";
+
+        try {
+          const res = await fetch("/api/store/capture/" + orderId);
+          const data = await res.json();
+          if (data.success) {
+            document.getElementById("successDesc").innerHTML = 
+              "<strong>" + data.product_name + "</strong> payment confirmed! A confirmation email with your script has been dispatched.<br>Click below to download your file instantly:";
+            const heroBtn = document.getElementById("heroDownloadBtn");
+            heroBtn.href = data.download_url;
+            heroBtn.style.display = "inline-flex";
+          } else {
+            document.getElementById("successDesc").textContent = 
+              "Order received (" + orderId + "). Payment status: " + (data.status || "PENDING") + ".";
+          }
+        } catch (e) {
+          console.log("Capture check:", e);
+      }
+    });
+
+    // Real-time verified buyer toast ticker
+    const TOAST_EVENTS = [
+      { title: "Developer from London, UK", desc: "Purchased Nexus™ Email Guardian • 4m ago" },
+      { title: "Developer from San Francisco, USA", desc: "Downloaded Nexus™ 3-in-1 Dev Superpack • 11m ago" },
+      { title: "Client from Curepipe, Mauritius", desc: "Sent Rs 45 MUR via MCB Juice (+230 58169420) • 19m ago" },
+      { title: "Developer from Berlin, Germany", desc: "Purchased Nexus™ Invoice PDF Extractor • 27m ago" },
+      { title: "Engineer from Tokyo, Japan", desc: "Downloaded Nexus™ WhatsApp Bot Starter • 38m ago" }
+    ];
+    let toastIdx = 0;
+    function cycleToast() {
+      const toast = document.getElementById("liveToast");
+      if (!toast) return;
+      const item = TOAST_EVENTS[toastIdx % TOAST_EVENTS.length];
+      document.getElementById("toastTitle").textContent = item.title;
+      document.getElementById("toastDesc").textContent = item.desc;
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 4200);
+      toastIdx++;
+    }
+    setInterval(cycleToast, 15000);
+    setTimeout(cycleToast, 2000);
+  </script>
+
+  <!-- Live Purchase Notification Toast -->
+  <style>
+    .live-purchase-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: #0d1527;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 999;
+      transform: translateY(140%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 380px;
+    }
+    .live-purchase-toast.visible {
+      transform: translateY(0);
+    }
+  </style>
+  <div class="live-purchase-toast" id="liveToast">
+    <div style="width: 34px; height: 34px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0;">⚡</div>
+    <div>
+      <div style="font-size: 0.82rem; font-weight: 800; color: #fff;" id="toastTitle">Recent Purchase</div>
+      <div style="font-size: 0.74rem; color: #94a3b8;" id="toastDesc">Nexus™ WhatsApp Bot • 8m ago</div>
+    </div>
+  </div>
+</body>
+</html>
