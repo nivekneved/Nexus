@@ -9,7 +9,7 @@ from datetime import datetime
 from typing import Optional, Dict, Any, List
 
 import httpx
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, StreamingResponse, JSONResponse, HTMLResponse
 from pydantic import BaseModel
@@ -664,6 +664,35 @@ def get_mobile_logs():
             return list(reversed(data))
     except Exception:
         return []
+
+# ===================================================
+# 📱 WHATSAPP GATEWAY PROVIDER API (CallMeBot vs OpenWA)
+# ===================================================
+@app.get("/api/whatsapp/config")
+def get_whatsapp_gateway_config():
+    from core.whatsapp_gateway import load_whatsapp_config
+    return load_whatsapp_config()
+
+@app.post("/api/whatsapp/config")
+def update_whatsapp_gateway_config(cfg: dict = Body(...)):
+    from core.whatsapp_gateway import save_whatsapp_config
+    saved = save_whatsapp_config(cfg)
+    return {"success": True, "config": saved}
+
+@app.post("/api/whatsapp/test")
+def test_whatsapp_gateway(payload: dict = Body(default={})):
+    from core.whatsapp_gateway import send_whatsapp_message, load_whatsapp_config
+    cfg = load_whatsapp_config()
+    provider = cfg.get("provider", "callmebot")
+    phone = payload.get("phone") or cfg.get("phone", "+23058169420")
+    test_text = (
+        f"⚡ Nexus Executive WhatsApp Link Confirmed ({provider.upper()})\n"
+        f"Autonomous communication channel verified at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.\n"
+        f"Recipient: Deven Pawaray (+230 58169420) | All 18 agents armed."
+    )
+    result = send_whatsapp_message(text=test_text, phone=phone, title="Nexus Gateway Connection Test")
+    return {"success": True, "result": result}
+
 
 @app.post("/api/simulate")
 def simulate_email(req: SimulateRequest):

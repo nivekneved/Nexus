@@ -213,40 +213,25 @@ class DailyBriefService:
         text = brief["whatsapp_text"]
         phone = PHONE_TARGET
 
-        # Attempt CallMeBot live API dispatch if key configured
-        api_key = os.getenv("CALLMEBOT_API_KEY", "").strip()
-        live_sent = False
-        api_response = "Mock/Simulation"
-
-        if api_key:
-            try:
-                import urllib.request
-                import ssl
-                params = urllib.parse.urlencode({
-                    "phone": phone,
-                    "text": text,
-                    "apikey": api_key
-                })
-                url = f"https://api.callmebot.com/whatsapp.php?{params}"
-                req = urllib.request.Request(url, headers={"User-Agent": "NexusWorkforce-DailyBrief/2.9"})
-                with urllib.request.urlopen(req, timeout=15, context=ssl.create_default_context()) as resp:
-                    api_response = resp.read().decode("utf-8", errors="replace")[:200]
-                    live_sent = True
-            except Exception as e:
-                api_response = f"Error: {str(e)[:150]}"
+        # Dispatch via configured WhatsApp Gateway (CallMeBot or OpenWA)
+        from core.whatsapp_gateway import send_whatsapp_message
+        gw_res = send_whatsapp_message(text=text, phone=phone, title="4:00 PM Daily Sales & Activity Brief")
+        live_sent = gw_res.get("status") == "DELIVERED"
+        api_response = gw_res.get("response") or gw_res.get("error") or gw_res.get("channel", "Dispatched")
 
         # Record in notifications history
         record = {
             "id": f"brief_4pm_{int(time.time()*1000)}",
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "recipient": phone,
-            "channel": "WhatsApp (4 PM Daily Brief)",
+            "channel": gw_res.get("channel", "WhatsApp (4 PM Daily Brief)"),
+            "provider": gw_res.get("provider", "callmebot"),
             "urgency": "P1",
             "title": "4:00 PM Daily Sales & Activity Brief",
             "message": text,
-            "status": "DELIVERED" if live_sent else "SIMULATED",
+            "status": gw_res.get("status", "SIMULATED"),
             "live_sent": live_sent,
-            "response": api_response,
+            "response": str(api_response)[:250],
             "whatsapp_url": brief["whatsapp_url"]
         }
 

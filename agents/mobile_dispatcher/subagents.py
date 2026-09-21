@@ -78,27 +78,27 @@ class TwilioWhatsAppSubAgent(BaseSubAgent):
 
         formatted_text = f"[{urgency}] *{title}*\n{message}\n\n_Nexus Autonomous OS | Mauritius +230_"
 
-        api_key = os.getenv("CALLMEBOT_API_KEY", "").strip()
-
-        # Live dispatch when API key is configured
-        if api_key and not mock_mode:
-            try:
-                result = self._send_via_callmebot(recipient, api_key, formatted_text)
-                result["urgency"] = urgency
-                result["formatted_text"] = formatted_text
-                return result
-            except Exception as e:
-                # Never drop the event — fall through to simulation on error
-                return {
-                    "channel": "WhatsApp (CallMeBot Error - Simulated)",
-                    "recipient": recipient,
-                    "urgency": urgency,
-                    "status": "SIMULATED",
-                    "mock_mode": True,
-                    "error": str(e)[:150],
-                    "dispatched_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "formatted_text": formatted_text
-                }
+        # Universal dispatch via configured gateway (CallMeBot or OpenWA)
+        from core.whatsapp_gateway import send_whatsapp_message
+        try:
+            result = send_whatsapp_message(text=formatted_text, phone=recipient)
+            result["urgency"] = urgency
+            result["formatted_text"] = formatted_text
+            result["recipient"] = recipient
+            if "dispatched_at" not in result:
+                result["dispatched_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            return result
+        except Exception as e:
+            return {
+                "channel": "WhatsApp (Error - Simulated)",
+                "recipient": recipient,
+                "urgency": urgency,
+                "status": "SIMULATED",
+                "mock_mode": True,
+                "error": str(e)[:150],
+                "dispatched_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "formatted_text": formatted_text
+            }
 
         # Simulation / no-key mode
         return {

@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initPartnerEconomicsController();
   initInfluencerController();
   initSocialWarRoomController();
+  initWhatsAppGatewayController();
   fetchCeoCockpitData();
   fetchPartnerEconomicsAndFleets();
   fetchSocialWarRoomData();
@@ -157,6 +158,7 @@ window.navigateToPage = function(targetTab) {
     if (targetTab === "devops" && typeof fetchDevOpsDashboard === "function") fetchDevOpsDashboard();
     if (targetTab === "autopilot" && typeof fetchAutopilotData === "function") fetchAutopilotData();
     if (targetTab === "revenue" && typeof fetchRevenueScoutData === "function") fetchRevenueScoutData();
+    if (targetTab === "settings" && typeof initWhatsAppGatewayController === "function") initWhatsAppGatewayController();
   } catch (navErr) {
     console.warn("Navigation data fetch warning:", navErr);
   }
@@ -617,6 +619,170 @@ async function handleSaveAgentSettings(e) {
     btn.textContent = "Save Preferences";
   }
 }
+
+// ===================================================
+// 📱 WHATSAPP GATEWAY PROVIDER CONTROLLER (CallMeBot vs OpenWA)
+// ===================================================
+async function initWhatsAppGatewayController() {
+  const radioButtons = document.querySelectorAll('input[name="waGatewayRadio"]');
+  const cardCallMeBot = document.getElementById("cardProviderCallMeBot");
+  const cardOpenWA = document.getElementById("cardProviderOpenWA");
+  const formCallMeBot = document.getElementById("formCallMeBot");
+  const formOpenWA = document.getElementById("formOpenWA");
+  const badgeActive = document.getElementById("waActiveBadge");
+  const btnSave = document.getElementById("btnSaveWhatsAppGateway");
+  const btnTest = document.getElementById("btnTestWhatsAppGateway");
+
+  if (!cardCallMeBot || !cardOpenWA) return;
+
+  function updateProviderUI(provider) {
+    if (provider === "openwa") {
+      cardOpenWA.style.borderColor = "#4f46e5";
+      cardOpenWA.style.background = "#eef2ff";
+      cardCallMeBot.style.borderColor = "var(--border-subtle)";
+      cardCallMeBot.style.background = "var(--bg-app)";
+      if (formOpenWA) formOpenWA.style.display = "block";
+      if (formCallMeBot) formCallMeBot.style.display = "none";
+      if (badgeActive) {
+        badgeActive.textContent = "OpenWA Active (Self-Hosted)";
+        badgeActive.style.background = "#4f46e5";
+      }
+    } else {
+      cardCallMeBot.style.borderColor = "#10b981";
+      cardCallMeBot.style.background = "#f0fdf4";
+      cardOpenWA.style.borderColor = "var(--border-subtle)";
+      cardOpenWA.style.background = "var(--bg-app)";
+      if (formCallMeBot) formCallMeBot.style.display = "block";
+      if (formOpenWA) formOpenWA.style.display = "none";
+      if (badgeActive) {
+        badgeActive.textContent = "CallMeBot Active (Cloud)";
+        badgeActive.style.background = "#10b981";
+      }
+    }
+  }
+
+  // Handle Radio Changes
+  radioButtons.forEach(r => {
+    r.addEventListener("change", (e) => {
+      updateProviderUI(e.target.value);
+    });
+  });
+
+  // Fetch Current Config
+  try {
+    const res = await fetch("/api/whatsapp/config");
+    if (res.ok) {
+      const cfg = await res.json();
+      const currentProvider = cfg.provider || "callmebot";
+      const radio = document.querySelector(`input[name="waGatewayRadio"][value="${currentProvider}"]`);
+      if (radio) radio.checked = true;
+      updateProviderUI(currentProvider);
+
+      if (cfg.phone) {
+        const pInput = document.getElementById("cfgCmbPhone");
+        if (pInput) pInput.value = cfg.phone;
+      }
+      if (cfg.callmebot && cfg.callmebot.api_key !== undefined) {
+        const kInput = document.getElementById("cfgCmbApiKey");
+        if (kInput) kInput.value = cfg.callmebot.api_key;
+      }
+      if (cfg.openwa) {
+        if (cfg.openwa.base_url) {
+          const uInput = document.getElementById("cfgOpenwaBaseUrl");
+          if (uInput) uInput.value = cfg.openwa.base_url;
+        }
+        if (cfg.openwa.chat_id) {
+          const cInput = document.getElementById("cfgOpenwaChatId");
+          if (cInput) cInput.value = cfg.openwa.chat_id;
+        }
+        if (cfg.openwa.session) {
+          const sInput = document.getElementById("cfgOpenwaSession");
+          if (sInput) sInput.value = cfg.openwa.session;
+        }
+        if (cfg.openwa.api_key !== undefined) {
+          const aInput = document.getElementById("cfgOpenwaApiKey");
+          if (aInput) aInput.value = cfg.openwa.api_key;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("Could not load WhatsApp Gateway config:", err);
+  }
+
+  // Save Gateway Settings
+  if (btnSave && !btnSave._bound) {
+    btnSave._bound = true;
+    btnSave.addEventListener("click", async () => {
+      const selectedRadio = document.querySelector('input[name="waGatewayRadio"]:checked');
+      const provider = selectedRadio ? selectedRadio.value : "callmebot";
+      const payload = {
+        provider: provider,
+        phone: document.getElementById("cfgCmbPhone")?.value?.trim() || "+23058169420",
+        callmebot: {
+          api_key: document.getElementById("cfgCmbApiKey")?.value?.trim() || ""
+        },
+        openwa: {
+          base_url: document.getElementById("cfgOpenwaBaseUrl")?.value?.trim() || "http://localhost:3000",
+          chat_id: document.getElementById("cfgOpenwaChatId")?.value?.trim() || "23058169420@c.us",
+          session: document.getElementById("cfgOpenwaSession")?.value?.trim() || "default",
+          api_key: document.getElementById("cfgOpenwaApiKey")?.value?.trim() || ""
+        }
+      };
+
+      btnSave.disabled = true;
+      btnSave.textContent = "Saving...";
+      try {
+        const res = await fetch("/api/whatsapp/config", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Failed to save gateway config");
+        showToast(`✅ WhatsApp Gateway switched to ${provider === "openwa" ? "OpenWA (Self-Hosted)" : "CallMeBot"}!`, "success");
+        updateProviderUI(provider);
+      } catch (err) {
+        showToast("Gateway save error: " + err.message, "error");
+      } finally {
+        btnSave.disabled = false;
+        btnSave.textContent = "💾 Save Gateway";
+      }
+    });
+  }
+
+  // Test Ping
+  if (btnTest && !btnTest._bound) {
+    btnTest._bound = true;
+    btnTest.addEventListener("click", async () => {
+      btnTest.disabled = true;
+      btnTest.textContent = "📡 Testing...";
+      showToast("Sending test WhatsApp transmission...", "info");
+      try {
+        const res = await fetch("/api/whatsapp/test", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({})
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Test ping failed");
+        const r = data.result || {};
+        if (r.status === "DELIVERED") {
+          showToast(`⚡ Live WhatsApp delivered via ${r.channel}!`, "success");
+        } else if (r.status === "SIMULATED") {
+          showToast(`ℹ️ Simulated ping: ${r.error || r.response || "No API key"}`, "info");
+        } else {
+          showToast(`⚠️ ${r.status}: ${r.error || "Check gateway connection"}`, "warning");
+        }
+      } catch (err) {
+        showToast("Test ping error: " + err.message, "error");
+      } finally {
+        btnTest.disabled = false;
+        btnTest.textContent = "⚡ Test Ping Now";
+      }
+    });
+  }
+}
+window.initWhatsAppGatewayController = initWhatsAppGatewayController;
 
 // Scheduler Toggle
 async function handleToggleScheduler() {

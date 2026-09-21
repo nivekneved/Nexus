@@ -148,3 +148,33 @@ Any of the 19 agents can dynamically execute these tools via `self.call_tool(too
   3. **Day's Operational Activities**: Summary of IMAP inboxes cleaned, 2FA codes protected, and autonomous cycles executed.
   4. **Tomorrow's Schedule ("Who, What, and When")**: Exact timetable (09:30 AM, 11:00 AM, 01:30 PM, 03:00 PM, 04:30 PM) specifying the executive contact, corporate target, and action plan for the next business day.
 - **Control**: Live preview card with 1-click test button available in **Night Shift & 24/7 Autopilot** (`pane-autopilot`).
+
+---
+
+## 📱 11. WhatsApp Gateway Provider Selector (Settings)
+
+- **Location**: `Settings` tab → **WhatsApp & Mobile Gateway Provider** card (top of page).
+- **Choice between 2 providers** — switch with 1 click, no code required:
+
+| Provider | Type | Best For |
+|---|---|---|
+| **CallMeBot** (default) | Cloud micro-service | Quick setup, no server needed |
+| **OpenWA** ([github.com/rmyndharis/OpenWA](https://github.com/rmyndharis/OpenWA)) | Self-hosted REST gateway | Full privacy, unlimited dispatches, no 3rd party |
+
+- **CallMeBot Config**: Phone number + API key (one-time WhatsApp setup with `+34 698 28 89 73`).
+- **OpenWA Config**: Base URL, Chat ID, Session name, optional Bearer token.
+- **1-Command Docker Deploy**: `docker run -d -p 3000:3000 --name openwa rmyndharis/openwa` — copy button built in.
+- **Test Ping button**: Fires a live test transmission via the currently selected gateway with instant status feedback.
+- **Backend**: `core/whatsapp_gateway.py` — universal dispatcher routes through either provider. Config saved in `whatsapp_config.json`.
+- **All WhatsApp dispatches** (4PM Daily Brief, Mobile Alerts, Standup Briefs) now route through this unified gateway.
+- **API Endpoints**: `GET/POST /api/whatsapp/config`, `POST /api/whatsapp/test`.
+
+---
+
+## 🛠️ 12. UI/UX & Layout Fixes (Executive Dashboard)
+
+- **Fixed blank white gap** above CEO hero banner: top-header markup had a broken div structure (orphaned closing tags). Now properly wrapped with `.header-actions` div — header is compact, sticky, and pixel-perfect.
+- **Fixed missing `</section>` tag** for `pane-partner-fleets` — tab content was leaking into next section, causing navigation corruption.
+- **Top Header** now has clean `flex-wrap`, subtle `border-bottom` separator, and responsive button wrap on smaller screens.
+- **All CTAs audited**: 53 `onclick` handlers verified — all functions found in `app.js`. All `<a href>` links (`/manual`, `/store`, `/donations`, `/license`) confirmed as registered server routes.
+- **Button handlers confirmed working**: `btnCeoRunStandup`, `btnCeoWhatsAppBrief`, `btnOpenPaymentModal`, `btnPingMobile`, `btnToggleDaemon`, `btnCeoOpenPartnerEconomics`, `btnSendDailyBriefWhatsApp`, and all modal controls.

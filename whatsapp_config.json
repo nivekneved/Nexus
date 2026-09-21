@@ -1,0 +1,13 @@
+{
+  "provider": "callmebot",
+  "phone": "+23058169420",
+  "callmebot": {
+    "api_key": ""
+  },
+  "openwa": {
+    "base_url": "http://localhost:3000",
+    "api_key": "",
+    "session": "default",
+    "chat_id": "23058169420@c.us"
+  }
+}

@@ -273,10 +273,24 @@ body {
 }
 
 /* Main Content */
-.top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
 .page-title { font-size: 1.65rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.02em; line-height: 1; }
 .page-subtitle { font-size: 0.92rem; color: var(--text-muted); margin-top: 2px; }
-.header-actions { display: flex; align-items: center; gap: 12px; }
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
 /* Daemon Pill */
 .daemon-pill {

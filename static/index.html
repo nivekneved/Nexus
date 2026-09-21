@@ -380,6 +380,7 @@
           </div>
         </div>
 
+        <div class="header-actions">
           <a href="/manual" target="_blank" class="btn btn-sm" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: linear-gradient(135deg, #4338ca, #312e81); color: #fff; text-decoration: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem;">
             📄 PDF Manual
           </a>
@@ -2192,6 +2193,129 @@
 
       <!-- FULL PAGE 1: DYNAMIC AGENT & SYSTEM SETTINGS -->
       <section class="tab-pane" id="pane-settings">
+
+        <!-- WHATSAPP DISPATCH GATEWAY SETTINGS CARD -->
+        <div class="card-panel" style="padding: 24px; border-radius: 12px; margin-bottom: 24px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border-subtle);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div class="agent-icon-badge" style="width: 44px; height: 44px; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; background: #ecfdf5; color: #10b981; border-radius: 10px; border: 1px solid #a7f3d0;">📱</div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <h2 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--text-main);">WhatsApp &amp; Mobile Gateway Provider</h2>
+                  <span id="waActiveBadge" class="badge" style="background: #10b981; color: #fff; font-weight: 700; font-size: 0.72rem; padding: 2px 8px; border-radius: 12px;">CallMeBot Active</span>
+                </div>
+                <p style="margin: 2px 0 0 0; font-size: 0.84rem; color: var(--text-dim);">Choose between the default cloud micro-service and your own self-hosted OpenWA gateway</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnTestWhatsAppGateway" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+                ⚡ Test Ping Now
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btnSaveWhatsAppGateway" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: #10b981; border: none;">
+                💾 Save Gateway
+              </button>
+            </div>
+          </div>
+
+          <!-- Provider Selection Cards (Radio Pill Grid) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            
+            <!-- Option 1: CallMeBot -->
+            <label id="cardProviderCallMeBot" style="cursor: pointer; border: 2px solid #10b981; border-radius: 12px; padding: 18px; background: #f0fdf4; display: flex; flex-direction: column; gap: 8px; position: relative; transition: all 0.2s;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <input type="radio" name="waGatewayRadio" value="callmebot" checked style="transform: scale(1.2); accent-color: #10b981;">
+                  <strong style="font-size: 1rem; color: #0f172a;">CallMeBot (Default)</strong>
+                </div>
+                <span style="font-size: 0.72rem; background: #10b981; color: #fff; padding: 2px 8px; border-radius: 10px; font-weight: 700;">Cloud Micro-Service</span>
+              </div>
+              <p style="margin: 0; font-size: 0.82rem; color: #475569; line-height: 1.45;">
+                Instant, zero-install WhatsApp personal notifications. Great for quick deployment with no local docker daemon required.
+              </p>
+            </label>
+
+            <!-- Option 2: OpenWA (Self-Hosted) -->
+            <label id="cardProviderOpenWA" style="cursor: pointer; border: 2px solid var(--border-subtle); border-radius: 12px; padding: 18px; background: var(--bg-app); display: flex; flex-direction: column; gap: 8px; position: relative; transition: all 0.2s;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <input type="radio" name="waGatewayRadio" value="openwa" style="transform: scale(1.2); accent-color: #4f46e5;">
+                  <strong style="font-size: 1rem; color: #0f172a;">OpenWA (Self-Hosted Gateway)</strong>
+                </div>
+                <span style="font-size: 0.72rem; background: #4f46e5; color: #fff; padding: 2px 8px; border-radius: 10px; font-weight: 700;">100% Private REST</span>
+              </div>
+              <p style="margin: 0; font-size: 0.82rem; color: #475569; line-height: 1.45;">
+                Self-hosted WhatsApp API via <a href="https://github.com/rmyndharis/OpenWA" target="_blank" style="color: #4f46e5; font-weight: 600; text-decoration: underline;">github.com/rmyndharis/OpenWA</a>. Zero 3rd party dependency, full privacy, and unlimited dispatches.
+              </p>
+            </label>
+
+          </div>
+
+          <!-- Form Fields Container -->
+          <div id="waConfigFieldsContainer">
+            
+            <!-- CallMeBot Sub-form -->
+            <div id="formCallMeBot" style="display: block; background: #fafafa; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 18px; margin-bottom: 16px;">
+              <h4 style="margin: 0 0 12px 0; font-size: 0.95rem; font-weight: 700; color: #0f172a;">CallMeBot Credentials</h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+                <div class="form-group" style="margin: 0;">
+                  <label style="font-weight: 600; font-size: 0.82rem;">Target Phone (Mauritius E.164)</label>
+                  <input type="text" id="cfgCmbPhone" class="form-input" value="+23058169420" placeholder="+23058169420">
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label style="font-weight: 600; font-size: 0.82rem;">CallMeBot API Key</label>
+                  <input type="password" id="cfgCmbApiKey" class="form-input" placeholder="Enter API key or leave blank for simulation">
+                </div>
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: #64748b; line-height: 1.45;">
+                💡 <em>To get your free key: Add <code>+34 698 28 89 73</code> on WhatsApp and send: <code>I allow callmebot to send me messages</code>.</em>
+              </div>
+            </div>
+
+            <!-- OpenWA Sub-form -->
+            <div id="formOpenWA" style="display: none; background: #fafafa; border: 1px solid var(--border-subtle); border-radius: 10px; padding: 18px; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #0f172a;">OpenWA Self-Hosted REST Gateway Config</h4>
+                <a href="https://github.com/rmyndharis/OpenWA" target="_blank" class="btn btn-sm" style="font-size: 0.75rem; padding: 4px 8px; background: #0f172a; color: #fff; text-decoration: none; border-radius: 6px;">
+                  📦 GitHub: rmyndharis/OpenWA ↗
+                </a>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+                <div class="form-group" style="margin: 0;">
+                  <label style="font-weight: 600; font-size: 0.82rem;">OpenWA Server Base URL</label>
+                  <input type="text" id="cfgOpenwaBaseUrl" class="form-input" value="http://localhost:3000" placeholder="http://localhost:3000">
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label style="font-weight: 600; font-size: 0.82rem;">Chat ID / Destination</label>
+                  <input type="text" id="cfgOpenwaChatId" class="form-input" value="23058169420@c.us" placeholder="23058169420@c.us">
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label style="font-weight: 600; font-size: 0.82rem;">Session Name</label>
+                  <input type="text" id="cfgOpenwaSession" class="form-input" value="default" placeholder="default">
+                </div>
+                <div class="form-group" style="margin: 0;">
+                  <label style="font-weight: 600; font-size: 0.82rem;">API Bearer Token (Optional)</label>
+                  <input type="password" id="cfgOpenwaApiKey" class="form-input" placeholder="Leave empty if unauthenticated">
+                </div>
+              </div>
+
+              <!-- Quick Deploy Helper -->
+              <div style="margin-top: 14px; background: #0f172a; border-radius: 8px; padding: 12px 14px; color: #e2e8f0; font-size: 0.78rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <span style="font-weight: 700; color: #38bdf8;">🚀 1-Command Local OpenWA Deployment:</span>
+                  <button type="button" onclick="navigator.clipboard.writeText('docker run -d -p 3000:3000 --name openwa rmyndharis/openwa'); showToast('📋 Docker command copied!', 'success');" style="background: rgba(255,255,255,0.15); border: none; color: #fff; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem;">
+                    Copy Docker Command
+                  </button>
+                </div>
+                <code style="color: #4ade80; font-family: var(--font-mono); word-break: break-all;">docker run -d -p 3000:3000 --name openwa rmyndharis/openwa</code>
+                <div style="margin-top: 6px; color: #94a3b8;">Once started, open <code>http://localhost:3000</code> in your browser to scan your WhatsApp QR code and authorize the session.</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- AGENT BEHAVIORAL TUNING MODAL / PANEL -->
         <div id="settingsModal" class="card-panel" style="padding: 24px; border-radius: 12px; margin-bottom: 24px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px; flex-wrap: wrap; gap: 10px;">
             <div style="display: flex; align-items: center; gap: 12px;">
@@ -3077,6 +3201,7 @@
           </div>
 
         </div>
+      </section>
 
       <!-- ========================================================================= -->
       <!-- TAB 19: CEO SOCIAL GHOSTWRITER & AUTO-POSTER (POST ON MY BEHALF)          -->
