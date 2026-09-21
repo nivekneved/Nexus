@@ -27,23 +27,29 @@ class TieredMemoryEngine:
         return cls._instance
 
     def _init_storage(self):
-        os.makedirs(MEMORY_DIR, exist_ok=True)
+        try:
+            os.makedirs(MEMORY_DIR, exist_ok=True)
+        except OSError:
+            pass
         self.working_memory: Dict[str, Any] = {
             "session_start": time.strftime("%Y-%m-%d %H:%M:%S"),
             "current_goal": "Autonomous $1 Digital Product Sales & Vending Machine",
             "active_tasks": []
         }
-        if not os.path.exists(RECALL_FILE):
-            self._save_json(RECALL_FILE, [])
-        if not os.path.exists(ARCHIVAL_FILE):
-            self._save_json(ARCHIVAL_FILE, {
-                "owner": "Deven Pawaray",
-                "brand": "Nexus AI Workforce",
-                "default_currency": "USD",
-                "mcb_juice": "+230 58169420",
-                "verified_product_blueprints": [],
-                "target_price_usd": 1.00
-            })
+        try:
+            if not os.path.exists(RECALL_FILE):
+                self._save_json(RECALL_FILE, [])
+            if not os.path.exists(ARCHIVAL_FILE):
+                self._save_json(ARCHIVAL_FILE, {
+                    "owner": "Deven Pawaray",
+                    "brand": "Nexus AI Workforce",
+                    "default_currency": "USD",
+                    "mcb_juice": "+230 58169420",
+                    "verified_product_blueprints": [],
+                    "target_price_usd": 1.00
+                })
+        except Exception:
+            pass
 
     def _load_json(self, path: str, default: Any) -> Any:
         try:

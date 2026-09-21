@@ -34,25 +34,29 @@ class ExecutiveAIPartner:
         self._ensure_storage()
 
     def _ensure_storage(self):
-        if not os.path.exists(DECISIONS_LOG_PATH):
-            with open(DECISIONS_LOG_PATH, "w", encoding="utf-8") as f:
-                json.dump([
-                    {
-                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                        "decision_id": "DEC-INIT-001",
-                        "category": "CHARTER_INAUGURATION",
-                        "summary": "Nexus AI officially appointed as Trusted Co-Managing Partner by Deven Pawaray.",
-                        "action_taken": "Assumed full operational stewardship over 16 primary agents and 51 subagents.",
-                        "status": "ACTIVE_MANDATE",
-                        "escalated_to_deven": False
-                    }
-                ], f, indent=2)
+        try:
+            if not os.path.exists(DECISIONS_LOG_PATH):
+                with open(DECISIONS_LOG_PATH, "w", encoding="utf-8") as f:
+                    json.dump([
+                        {
+                            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                            "decision_id": "DEC-INIT-001",
+                            "category": "CHARTER_INAUGURATION",
+                            "summary": "Nexus AI officially appointed as Trusted Co-Managing Partner by Deven Pawaray.",
+                            "action_taken": "Assumed full operational stewardship over 16 primary agents and 51 subagents.",
+                            "status": "ACTIVE_MANDATE",
+                            "escalated_to_deven": False
+                        }
+                    ], f, indent=2)
+        except OSError:
+            pass
 
-        if not os.path.exists(DIRECTIVES_PATH):
-            with open(DIRECTIVES_PATH, "w", encoding="utf-8") as f:
-                json.dump({
-                    "primary_focus": "Autonomous Revenue Generation & Client Acquisition",
-                    "target_niches": ["ennrevennsourir_ngo", "medical360_portal", "itravellix_saas"],
+        try:
+            if not os.path.exists(DIRECTIVES_PATH):
+                with open(DIRECTIVES_PATH, "w", encoding="utf-8") as f:
+                    json.dump({
+                        "primary_focus": "Autonomous Revenue Generation & Client Acquisition",
+                        "target_niches": ["ennrevennsourir_ngo", "medical360_portal", "itravellix_saas"],
                     "monthly_revenue_target_mur": 150000.0,
                     "max_cloud_budget_usd": 180.0,
                     "risk_tolerance": "CALCULATED_AGGRESSIVE",
@@ -66,6 +70,8 @@ class ExecutiveAIPartner:
                     ],
                     "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 }, f, indent=2)
+        except OSError:
+            pass
 
     def get_status(self) -> Dict[str, Any]:
         """Returns the current operational status of the Executive AI Partner."""
