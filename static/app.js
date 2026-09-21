@@ -2951,6 +2951,7 @@ function initAutopilotController() {
 async function fetchAutopilotData() {
   await Promise.all([
     fetchAutopilotStatus(),
+    fetchDailyBriefPreview(),
     fetchMorningDossier(),
     fetchFlightRecorderEvents()
   ]);
@@ -3049,6 +3050,46 @@ async function fetchMorningDossier() {
     content.textContent = "Error loading morning dossier.";
   }
 }
+
+async function fetchDailyBriefPreview() {
+  const content = document.getElementById("dailyBriefContent");
+  if (!content) return;
+  try {
+    const res = await fetch("/api/daily-brief/preview");
+    if (!res.ok) return;
+    const data = await res.json();
+    content.textContent = data.whatsapp_text || "No briefing compiled yet.";
+  } catch (err) {
+    content.textContent = "Error compiling 4 PM daily brief.";
+  }
+}
+
+async function dispatchDailyBriefWhatsApp() {
+  const btn = document.getElementById("btnSendDailyBriefWhatsApp");
+  try {
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "💬 Dispatching...";
+    }
+    const res = await fetch("/api/daily-brief/dispatch-now", { method: "POST" });
+    const data = await res.json();
+    if (data.brief?.whatsapp_url) {
+      window.open(data.brief.whatsapp_url, "_blank");
+    }
+    showToast(`📱 4:00 PM Daily Brief dispatched to WhatsApp (+230 58169420)!`, "success");
+    fetchDailyBriefPreview();
+  } catch (err) {
+    showToast(`Error dispatching daily brief: ${err.message}`, "error");
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "💬 Send to WhatsApp Now";
+    }
+  }
+}
+
+window.fetchDailyBriefPreview = fetchDailyBriefPreview;
+window.dispatchDailyBriefWhatsApp = dispatchDailyBriefWhatsApp;
 
 async function fetchFlightRecorderEvents() {
   const feed = document.getElementById("flightRecorderFeed");

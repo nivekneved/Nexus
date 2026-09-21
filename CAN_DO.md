@@ -136,3 +136,15 @@ Any of the 19 agents can dynamically execute these tools via `self.call_tool(too
    - **Product**: Self-hosted, single-file Python utilities (`products/`).
    - **Pricing**: $9.00 – $29.00 USD individually, or **$39.00 USD bundle** (Rs 1,800 MUR) on the Digital Store ([`https://nexusbots-nu.vercel.app/store`](https://nexusbots-nu.vercel.app/store)).
    - **Positioning**: *"Own the Python utility forever, stop paying monthly SaaS rent."* 100% automated PayPal and MCB Juice fulfillment.
+
+---
+
+## ⏰ 10. The 4:00 PM Daily Executive WhatsApp Dispatcher
+
+- **Trigger Cadence**: Automatically fires at **16:00 (4:00 PM)** every day directly to Deven's WhatsApp (`+230 58169420`).
+- **Real-Time Data Synthesis**:
+  1. **Day's Sales & Revenue**: Exact cash collected (PayPal USD + MCB Juice MUR) and pending invoices issued.
+  2. **Contacts & Outreach**: Total number of business executives pitched across WhatsApp and zero-bounce SMTP.
+  3. **Day's Operational Activities**: Summary of IMAP inboxes cleaned, 2FA codes protected, and autonomous cycles executed.
+  4. **Tomorrow's Schedule ("Who, What, and When")**: Exact timetable (09:30 AM, 11:00 AM, 01:30 PM, 03:00 PM, 04:30 PM) specifying the executive contact, corporate target, and action plan for the next business day.
+- **Control**: Live preview card with 1-click test button available in **Night Shift & 24/7 Autopilot** (`pane-autopilot`).

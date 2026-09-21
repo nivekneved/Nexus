@@ -1778,7 +1778,31 @@
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <!-- Left: While You Slept Morning Dossier Card -->
+          <!-- Left: 4:00 PM Daily Sales, Activities & Schedule Briefing Card -->
+          <div class="card-panel" style="border: 1.5px solid #10b98144; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);">
+            <div class="card-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.3rem;">⏰</span>
+                <div>
+                  <h3 class="card-title" style="margin: 0; font-size: 1rem; color: #047857;">4:00 PM Daily Sales &amp; Schedule Brief</h3>
+                  <p style="margin: 2px 0 0 0; font-size: 0.74rem; color: #64748b;">Dispatches automatically to +230 58169420 every day at 16:00</p>
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-secondary btn-sm" id="btnRefreshDailyBrief" onclick="fetchDailyBriefPreview()" style="font-size: 0.72rem; padding: 3px 8px;">
+                  🔄 Preview
+                </button>
+                <button class="btn btn-primary btn-sm" id="btnSendDailyBriefWhatsApp" onclick="dispatchDailyBriefWhatsApp()" style="font-size: 0.72rem; padding: 3px 10px; background: #25D366; color: #fff; font-weight: 700; border: none;">
+                  💬 Send to WhatsApp Now
+                </button>
+              </div>
+            </div>
+            <div id="dailyBriefContent" style="margin-top: 14px; font-size: 0.84rem; line-height: 1.55; white-space: pre-wrap; background: #ffffff; border: 1px solid #bbf7d0; border-radius: 8px; padding: 14px; color: #0f172a; max-height: 480px; overflow-y: auto;">
+              Loading today's 4:00 PM executive sales &amp; activities brief...
+            </div>
+          </div>
+
+          <!-- Right: While You Slept Morning Dossier Card -->
           <div class="card-panel">
             <div class="card-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px;">
               <div style="display: flex; align-items: center; gap: 8px;">
@@ -1791,8 +1815,10 @@
               Loading executive overnight dossier...
             </div>
           </div>
+        </div>
 
-          <!-- Right: Flight Recorder Live Activity Stream -->
+        <div style="margin-top: 20px;">
+          <!-- Flight Recorder Live Activity Stream -->
           <div class="card-panel">
             <div class="card-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px;">
               <div style="display: flex; align-items: center; gap: 8px;">

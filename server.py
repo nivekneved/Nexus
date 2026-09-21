@@ -41,8 +41,12 @@ from core.hidden_boards_service import hidden_boards_service
 from core.backup_service import create_full_enterprise_backup, list_backups_metadata, get_backup_manifest
 from restore import restore_backup as execute_restore_backup
 from core.digital_store_service import digital_store_service
+from core.daily_brief_service import daily_brief_service
 
 app = FastAPI(title="Nexus AI Workforce Hub")
+
+# Start 4:00 PM Daily WhatsApp Executive Briefing Scheduler
+daily_brief_service.start_scheduler()
 
 
 # Safeguards 1, 13, 14, 15: Security Shield Middleware (Rate Limiting & Security Headers)
@@ -1320,6 +1324,29 @@ def dispatch_morning_dossier_to_whatsapp():
         urgency="P1"
     )
     return {"success": True, "dispatched": res, "dossier": dossier}
+
+# --- 4:00 PM Daily Sales, Activities & Schedule WhatsApp Briefing ---
+
+@app.get("/api/daily-brief/preview")
+def preview_daily_brief():
+    """Generates the real-time 4:00 PM executive briefing of sales, activities, contacts, and tomorrow's schedule."""
+    return daily_brief_service.compile_daily_brief()
+
+@app.post("/api/daily-brief/dispatch-now")
+def dispatch_daily_brief_now():
+    """Dispatches the 4:00 PM executive briefing directly to Deven's WhatsApp (+230 58169420) immediately."""
+    res = daily_brief_service.dispatch_daily_brief()
+    return res
+
+@app.get("/api/daily-brief/status")
+def get_daily_brief_status():
+    """Returns the scheduler state for the 4:00 PM daily executive WhatsApp briefing."""
+    return {
+        "is_running": daily_brief_service.is_running,
+        "target_time": daily_brief_service.target_time_str,
+        "target_phone": "+23058169420",
+        "last_sent_date": daily_brief_service.last_sent_date
+    }
 
 
 # --- Executive AI Partner & Autonomous Suite Operator Endpoints ---
