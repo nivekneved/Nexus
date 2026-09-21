@@ -2227,6 +2227,13 @@ def api_create_donation(payload: CreateDonationRequest):
 def serve_store_page():
     return FileResponse("static/store.html")
 
+@app.get("/manual")
+def serve_manual_pdf():
+    pdf_path = os.path.abspath("static/Nexus_User_Manual.pdf")
+    if os.path.exists(pdf_path):
+        return FileResponse(pdf_path, media_type="application/pdf", filename="Nexus_User_Manual.pdf")
+    return FileResponse("Nexus_User_Manual.pdf", media_type="application/pdf", filename="Nexus_User_Manual.pdf")
+
 @app.get("/api/store/products")
 def api_get_store_products():
     """Returns the digital product catalog."""

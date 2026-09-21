@@ -20,6 +20,10 @@
       "dest": "/static/store.html"
     },
     {
+      "src": "/manual",
+      "dest": "/static/Nexus_User_Manual.pdf"
+    },
+    {
       "src": "/donate",
       "dest": "/static/donations.html"
     },
