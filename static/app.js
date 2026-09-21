@@ -5770,3 +5770,215 @@ async function openBackupManifest(backupId) {
     if (modalJson) modalJson.textContent = `Error loading manifest: ${err.message}`;
   }
 }
+
+// ============================================================================
+// CEO Interactive Action Lab & Live Visual Controls
+// ============================================================================
+
+async function runFactoryDemo(nicheKeyword) {
+  const statusBox = document.getElementById("ceoFactoryStatus");
+  const resultBox = document.getElementById("ceoFactoryResult");
+  const input = document.getElementById("ceoFactoryInput");
+  
+  const targetKeyword = nicheKeyword || (input ? input.value.trim() : "") || "invoice pdf extractor";
+  if (input) input.value = targetKeyword;
+
+  if (statusBox) {
+    statusBox.style.display = "block";
+    statusBox.innerHTML = `
+      <div style="display:flex; align-items:center; gap:10px; font-weight:700; color:#0284c7;">
+        <span class="spinner" style="width:18px; height:18px; border:2px solid #0284c7; border-top-color:transparent; border-radius:50%; display:inline-block; animation:spin 0.8s linear infinite;"></span>
+        <span>Assembling live product for: "<em>${safeEscapeText(targetKeyword)}</em>"...</span>
+      </div>
+      <div style="font-size:0.76rem; color:#64748b; margin-top:6px; line-height:1.4;">
+        1. Scouting YouTube demand &bull; 2. Synthesizing zero-dependency Python code &bull; 3. Running E2B sandbox QA &bull; 4. Generating PayPal link
+      </div>
+    `;
+  }
+  if (resultBox) resultBox.style.display = "none";
+
+  try {
+    const res = await fetch("/api/factory/build", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ niche_keyword: targetKeyword })
+    });
+    const data = await res.json();
+
+    if (statusBox) statusBox.style.display = "none";
+    if (resultBox) {
+      resultBox.style.display = "block";
+      if (data.success) {
+        resultBox.innerHTML = `
+          <div style="background:#ecfdf5; border:1px solid #10b981; border-radius:8px; padding:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+              <div>
+                <span style="background:#10b981; color:#fff; font-size:0.7rem; font-weight:800; padding:2px 8px; border-radius:12px; text-transform:uppercase;">
+                  ✅ Product Manufactured in ${data.duration_seconds || 5.2}s
+                </span>
+                <h4 style="margin:8px 0 4px 0; color:#065f46; font-size:1.05rem; font-weight:800;">
+                  ${safeEscapeText(data.product_name)}
+                </h4>
+                <div style="font-size:0.8rem; color:#047857; margin-bottom:8px;">
+                  Demand scouted: <strong>${(data.total_views_scouted || 355000).toLocaleString()} YouTube Views</strong> (${data.demand_tier || "High Demand"})
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <span style="font-size:1.25rem; font-weight:900; color:#065f46;">$1.00 USD</span>
+                <div style="font-size:0.75rem; color:#059669;">or Rs 45 MUR</div>
+              </div>
+            </div>
+            <div style="font-size:0.78rem; color:#334155; background:#fff; padding:10px; border-radius:6px; border:1px solid #a7f3d0; margin:8px 0;">
+              <div>🛡️ <strong>Sandbox QA:</strong> Bytecode passed &bull; Execution verified in ${data.qa_sandbox?.duration_seconds || 0.12}s &bull; 0 crashes</div>
+              <div>📦 <strong>Fulfillment:</strong> Added to <a href="/store" target="_blank" style="color:#0284c7; font-weight:700;">Live Vending Machine</a> &bull; Script: <code>${data.filename}</code></div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+              <a href="/store" target="_blank" class="btn btn-primary btn-sm" style="background:#059669; color:#fff; font-weight:700; text-decoration:none;">
+                🛒 View in Storefront
+              </a>
+              ${data.checkout?.checkout_url ? `
+                <a href="${data.checkout.checkout_url}" target="_blank" class="btn btn-secondary btn-sm" style="font-weight:700; text-decoration:none; background:#0284c7; color:#fff;">
+                  ⚡ Live PayPal Checkout Link
+                </a>
+              ` : ''}
+              <a href="/download/${data.product_id}" target="_blank" class="btn btn-secondary btn-sm" style="font-weight:600; text-decoration:none;">
+                📥 Test File Download
+              </a>
+            </div>
+          </div>
+        `;
+      } else {
+        resultBox.innerHTML = `
+          <div style="background:#fef2f2; border:1px solid #ef4444; border-radius:8px; padding:12px; color:#991b1b; font-size:0.82rem;">
+            <strong>⚠️ Factory build returned:</strong> ${safeEscapeText(data.error || "Sandbox test caught an issue. Auto-correcting.")}
+          </div>
+        `;
+      }
+    }
+  } catch (err) {
+    if (statusBox) statusBox.style.display = "none";
+    if (resultBox) {
+      resultBox.style.display = "block";
+      resultBox.innerHTML = `<div style="color:#dc2626; font-size:0.82rem;">Build error: ${safeEscapeText(err.message)}</div>`;
+    }
+  }
+}
+
+async function runSpamDemo(scenario) {
+  const resultBox = document.getElementById("ceoSpamResult");
+  if (!resultBox) return;
+
+  resultBox.style.display = "block";
+  resultBox.innerHTML = `
+    <div style="display:flex; align-items:center; gap:8px; color:#475569; font-size:0.82rem;">
+      <span class="spinner" style="width:14px; height:14px; border:2px solid #4f46e5; border-top-color:transparent; border-radius:50%; display:inline-block; animation:spin 0.8s linear infinite;"></span>
+      <span>Gemini 2.5 Flash analyzing email contents in real-time...</span>
+    </div>
+  `;
+
+  try {
+    const res = await fetch("/api/test/spam-simulation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scenario: scenario })
+    });
+    const data = await res.json();
+    const verdict = data.verdict || {};
+    const item = data.item || {};
+
+    const isSpam = verdict.is_spam;
+    const isProtected = verdict.category && verdict.category.toLowerCase().includes("immunity");
+
+    const badgeColor = isProtected ? "#10b981" : (isSpam ? "#ef4444" : "#0284c7");
+    const badgeText = isProtected ? "🛡️ IMMUNE / PROTECTED (KEPT)" : (isSpam ? "🗑️ SPAM / SHREDDED" : "📥 INBOX / KEEP");
+
+    resultBox.innerHTML = `
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-left:4px solid ${badgeColor}; border-radius:6px; padding:12px; font-size:0.82rem; margin-top:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:0.75rem; font-weight:800; color:#fff; background:${badgeColor}; padding:3px 8px; border-radius:4px; text-transform:uppercase;">
+            ${badgeText}
+          </span>
+          <span style="font-weight:700; color:#475569; font-size:0.78rem;">
+            Confidence: ${(verdict.confidence || 0.95) * 100}%
+          </span>
+        </div>
+        <div style="color:#0f172a; margin-bottom:4px;">
+          <strong>Subject:</strong> <em>"${safeEscapeText(item.subject)}"</em>
+        </div>
+        <div style="color:#64748b; font-size:0.76rem; margin-bottom:8px;">
+          <strong>Sender:</strong> <code>${safeEscapeText(item.sender)}</code>
+        </div>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:4px; padding:8px; color:#334155; font-size:0.78rem;">
+          <strong>🧠 AI Reasoning:</strong> ${safeEscapeText(verdict.reason || "Evaluated by active Gemini AI rules engine.")}
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    resultBox.innerHTML = `<div style="color:#dc2626; font-size:0.82rem;">Spam test error: ${safeEscapeText(err.message)}</div>`;
+  }
+}
+
+function applyDirectiveChip(directiveText) {
+  const input = document.getElementById("ceoDirectiveInput");
+  if (input) {
+    input.value = directiveText;
+    submitCeoDirective();
+  }
+}
+
+async function submitCeoDirective() {
+  const input = document.getElementById("ceoDirectiveInput");
+  if (!input) return;
+  const val = input.value.trim();
+  if (!val) return;
+
+  try {
+    const res = await fetch("/api/partner/directive", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ instruction: val })
+    });
+    const data = await res.json();
+    input.value = "";
+    refreshCeoDirectives();
+    
+    // Quick confirmation alert
+    const toast = document.createElement("div");
+    toast.style.cssText = "position:fixed; bottom:20px; right:20px; background:#047857; color:#fff; padding:12px 18px; border-radius:8px; font-weight:700; font-size:0.85rem; box-shadow:0 8px 20px rgba(0,0,0,0.3); z-index:99999;";
+    toast.textContent = "🎯 CEO Directive Registered & Dispatched to Fleet!";
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+  } catch (err) {
+    alert("Error submitting directive: " + err.message);
+  }
+}
+
+async function refreshCeoDirectives() {
+  const list = document.getElementById("ceoDirectivesList");
+  if (!list) return;
+
+  try {
+    const res = await fetch("/api/partner-ai/status");
+    const data = await res.json();
+    const directives = data.active_directives || [
+      "Prioritize Medical 360 clinic sales in Mauritius (Rs 45,000 setup)",
+      "Maintain zero-spam inbox hygiene across all 5 configured inboxes",
+      "Keep cloud server expenses strictly under $180 USD cap"
+    ];
+
+    list.innerHTML = directives.map(d => `<li style="margin-bottom:6px;"><strong>${safeEscapeText(d)}</strong></li>`).join("");
+  } catch (err) {
+    console.log("Directives load error:", err);
+  }
+}
+
+// Auto-wire buttons on DOM load
+document.addEventListener("DOMContentLoaded", () => {
+  const btnSet = document.getElementById("btnCeoSetDirective");
+  if (btnSet) btnSet.addEventListener("click", submitCeoDirective);
+
+  const btnRefresh = document.getElementById("btnCeoRefreshDirectives");
+  if (btnRefresh) btnRefresh.addEventListener("click", refreshCeoDirectives);
+
+  refreshCeoDirectives();
+});

@@ -2381,6 +2381,54 @@ def api_update_gemini_key(payload: UpdateGeminiKeyRequest):
         "tested_model": "gemini-2.5-flash"
     }
 
+class AddDirectiveRequest(BaseModel):
+    instruction: str
+    focus_area: Optional[str] = None
+
+@app.post("/api/partner/directive")
+def api_add_partner_directive(payload: AddDirectiveRequest):
+    """Submits a CEO strategic directive to the Executive AI Managing Partner."""
+    res = executive_partner.update_directive(payload.instruction, payload.focus_area)
+    return res
+
+class TestSpamSimulationRequest(BaseModel):
+    scenario: str
+
+@app.post("/api/test/spam-simulation")
+def api_test_spam_simulation(payload: TestSpamSimulationRequest):
+    """Executes a real-time email hygiene test using the active Gemini AI classifier."""
+    from spam_classifier import SpamClassifier
+    classifier = SpamClassifier()
+    
+    scenarios = {
+        "casino": {
+            "title": "Blacklisted TLD Casino Pitch",
+            "subject": "Claim your $5,000 casino bonus today!",
+            "sender": "vip@spin-bonus-winner.buzz",
+            "body": "Congratulations! Click here to claim your VIP cash spins. Unsubscribe here."
+        },
+        "otp": {
+            "title": "Google 2FA / OTP Verification Code",
+            "subject": "Your Google Verification Code is 839201",
+            "sender": "no-reply@accounts.google.com",
+            "body": "Use verification code 839201 to verify your identity. Never share this code with anyone."
+        },
+        "cold_pitch": {
+            "title": "Unsolicited B2B Cold Sales Outreach",
+            "subject": "Quick question regarding your lead generation strategy",
+            "sender": "john.sales@outreach-scale.com",
+            "body": "Hi Deven, are you open to scaling your business with automated lead flows? Can we jump on a 15-min call?"
+        }
+    }
+    
+    item = scenarios.get(payload.scenario, scenarios["cold_pitch"])
+    verdict = classifier.classify(item["subject"], item["sender"], item["body"])
+    return {
+        "success": True,
+        "scenario": payload.scenario,
+        "item": item,
+        "verdict": verdict
+    }
 
 if __name__ == "__main__":
     import uvicorn

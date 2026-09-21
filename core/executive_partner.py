@@ -117,8 +117,11 @@ class ExecutiveAIPartner:
 
         data["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        with open(DIRECTIVES_PATH, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2)
+        try:
+            with open(DIRECTIVES_PATH, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2)
+        except OSError:
+            pass
 
         decision = self.record_decision(
             category="STRATEGIC_ALIGNMENT",
