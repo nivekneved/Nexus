@@ -2016,6 +2016,9 @@ function setupRevenueAndProductivity() {
   const btnDiscoverLeads = document.getElementById("btnDiscoverLeads");
   if (btnDiscoverLeads) btnDiscoverLeads.addEventListener("click", handleDiscoverLeads);
 
+  // Init LeadsMU chip buttons & free-text input
+  initLeadsMUChips();
+
   const btnRefreshUnifiedFeed = document.getElementById("btnRefreshUnifiedFeed");
   if (btnRefreshUnifiedFeed) btnRefreshUnifiedFeed.addEventListener("click", () => fetchUnifiedFeed(true));
 
@@ -2328,8 +2331,110 @@ async function handleMarkInvoicePaid(invoiceId) {
   }
 }
 
-// 2. Outbound Lead Acquisition Pipeline
+// =====================================================
+// 2. LeadsMU™ — B2B Lead Intelligence Specialist
+// =====================================================
+
+/** Structured campaign intelligence per niche key */
+const LEADSMU_CAMPAIGN_DATA = {
+  whatsapp_flight_addon: {
+    offering: "WhatsApp Flight Addon™ — Conversational Booking Bot",
+    mode: "Product-Driven",
+    icp: "Travel agencies, airline sales offices & OTAs in Mauritius that handle 50+ WhatsApp booking queries daily with no 24/7 auto-response",
+    vp: "Cut booking response time from 4hrs → 30 sec, recover Rs 15k–40k/month in after-hours leads, zero commission loss",
+    gapLabels: {
+      default: "No 24/7 auto-responder; booking queries go unanswered after 6 PM"
+    }
+  },
+  whatsapp_restaurant_sme: {
+    offering: "WhatsApp Restaurant & SME Booking Bot (Rs 15k setup)",
+    mode: "Product-Driven",
+    icp: "Grand Baie, Port Louis & Tamarin restaurants/SMEs losing 20–40 table reservations/week to unanswered WhatsApp messages during peak service",
+    vp: "Automate 100% of table reservations 24/7, eliminate Rs 3k–8k/day in missed covers, reduce front-desk call volume by 80%",
+    gapLabels: {
+      default: "Manual WhatsApp triage during service rush; late replies causing no-show bookings"
+    }
+  },
+  medical360_portal: {
+    offering: "Medical 360™ — Complete Clinic & Hospital Operations Portal",
+    mode: "Niche-Driven",
+    icp: "Private clinics, diagnostic centres & specialist practices in Ébène, Curepipe & Rose-Hill running appointments via phone call or paper ledger",
+    vp: "Replace phone-based appointment triage with a fully branded web portal — reduce admin overload by 60%, activate online lab booking & blood bank registry",
+    gapLabels: {
+      default: "No online appointment system; patients call and hold, secretariat overwhelmed at peak hours"
+    }
+  },
+  ennrevennsourir_ngo: {
+    offering: "Enn Rev Enn Sourir™ — NGO & CSR Crowdfunding Portal",
+    mode: "Niche-Driven",
+    icp: "Corporate CSR departments & NGOs in Mauritius collecting donations via bank transfer with no MRA-compliant receipt automation or transparent fund tracking",
+    vp: "Issue instant MRA Section 50L tax receipts (15% deduction), boost donor trust with live fund traceability, activate Juice micro-donations from Rs 500/month",
+    gapLabels: {
+      default: "Manual receipt issuance after bank transfers; no real-time donor transparency or MRA tax certificate automation"
+    }
+  },
+  itravellix_saas: {
+    offering: "i-Travellix™ Enterprise Travel Platform (Rs 200k Web + Rs 50k Mobile)",
+    mode: "Product-Driven",
+    icp: "DMCs, inbound receptive agencies & luxury travel operators in Mauritius paying 12–18% commissions to OTA platforms with no direct booking engine",
+    vp: "Eliminate OTA commissions on direct bookings — 1 deal saved = full platform ROI; add real-time Air Mauritius + Emirates flight inventory in under 3 weeks",
+    gapLabels: {
+      default: "No direct booking website; 100% dependent on OTA commissions & phone enquiries for international clients"
+    }
+  },
+  mauritius_hospitality: {
+    offering: "VillaFlow SaaS + WhatsApp AI Concierge (Rs 25k setup)",
+    mode: "Niche-Driven",
+    icp: "Boutique villas, eco-lodges & 4-star resorts in Le Morne, Chamarel & Belle Mare relying on email and staff for after-hours guest requests",
+    vp: "Deploy a 24/7 bilingual (FR/EN) AI concierge handling check-in codes, excursion bookings & airport transfers — reduce overnight staff overtime by 40%",
+    gapLabels: {
+      default: "Guests messaging at midnight for check-in codes & excursion requests; no automated concierge layer"
+    }
+  },
+  mauritius_tourism: {
+    offering: "WhatsApp 24/7 Booking Triage & Instant Quotation Bot (Rs 15k)",
+    mode: "Niche-Driven",
+    icp: "Car rental operators near SSR Airport & catamaran/excursion operators in Grand Baie replying manually to 80+ daily WhatsApp price enquiries",
+    vp: "Auto-qualify & quote 100% of WhatsApp enquiries instantly — capture airport-transfer leads before competitors reply, add Rs 20k+/month in recovered bookings",
+    gapLabels: {
+      default: "Slow manual WhatsApp price quote replies; airport-rush leads captured by faster competitors"
+    }
+  },
+  global_startups: {
+    offering: "Nexus Autonomous AI Workforce — Commercial Lifetime License ($249)",
+    mode: "Product-Driven",
+    icp: "Solo founders & dev-led agencies (US/UK/EU, $1M–$20M ARR) wasting 10+ hrs/week on inbox triage, invoice chasing & ops overhead",
+    vp: "Deploy 18 autonomous AI agents in under 10 min — cut ops overhead by 70%, auto-triage 5 inboxes, and generate Gemini-powered client replies 24/7",
+    gapLabels: {
+      default: "Email triage bottleneck across multiple founder inboxes consuming 2–3 hours daily"
+    }
+  }
+};
+
+/** Gap audit metadata per niche for enriched lead cards */
+const LEADSMU_GAP_ICONS = {
+  booking: { icon: "📵", label: "No Auto-Booking" },
+  response: { icon: "🐌", label: "Slow Response" },
+  noconcierge: { icon: "🤖", label: "No AI Concierge" },
+  nowebsite: { icon: "🌐", label: "No Modern Portal" },
+  commission: { icon: "💸", label: "High OTA Commission" },
+  norece: { icon: "🧾", label: "No Auto-Receipts" },
+  manual: { icon: "📋", label: "Manual Ops" }
+};
+
+const NICHE_GAP_TAGS = {
+  whatsapp_flight_addon: ["booking", "response"],
+  whatsapp_restaurant_sme: ["booking", "response", "manual"],
+  medical360_portal: ["nowebsite", "manual", "response"],
+  ennrevennsourir_ngo: ["norece", "manual"],
+  itravellix_saas: ["commission", "nowebsite"],
+  mauritius_hospitality: ["noconcierge", "response"],
+  mauritius_tourism: ["booking", "response"],
+  global_startups: ["manual", "response"]
+};
+
 let cachedLeadsMap = {};
+let currentLeadsMUNiche = null;
 
 async function fetchLeadsPipeline() {
   const container = document.getElementById("leadsPipelineList");
@@ -2357,62 +2462,83 @@ async function fetchLeadsPipeline() {
       return;
     }
 
-    container.innerHTML = leads.map(lead => {
+    container.innerHTML = leads.map((lead, idx) => {
       const demoUrl = lead.offer_name?.match(/https:\/\/[^\s\)]+/)?.[0] || (lead.website?.includes('vercel.app') ? lead.website : null);
       const displayPrice = lead.pricing || (lead.niche === 'global_startups' ? '$249 USD' : 'Rs 45,000 MUR');
+      const niche = lead.niche || currentLeadsMUNiche || 'mauritius_hospitality';
+      const gapTags = NICHE_GAP_TAGS[niche] || ['manual'];
+      const campData = LEADSMU_CAMPAIGN_DATA[niche] || {};
+      const detectedGap = lead.pain_point || campData.gapLabels?.default || 'Manual operations & slow response time';
+
+      // Determine contact priority icon
+      const hasWhatsApp = true; // All Mauritian leads assumed reachable via WA
+      const contactLine = [
+        lead.contact_name ? `👤 ${escapeHtml(lead.contact_name)}` : '',
+        lead.contact_role ? `<span style="color:#6b7280">(${escapeHtml(lead.contact_role)})</span>` : '',
+        lead.contact_email ? `<span style="color:#2563eb">✉️ ${escapeHtml(lead.contact_email)}</span>` : ''
+      ].filter(Boolean).join(' · ');
+
+      const fitScore = lead.fit_score || 90;
+      const fitColor = fitScore >= 90 ? '#047857' : fitScore >= 80 ? '#1d4ed8' : '#b45309';
+      const fitBg = fitScore >= 90 ? '#ecfdf5' : fitScore >= 80 ? '#eff6ff' : '#fffbeb';
+      const fitBorder = fitScore >= 90 ? '#a7f3d0' : fitScore >= 80 ? '#bfdbfe' : '#fde68a';
 
       return `
-      <div class="card-panel" style="background: #fff; border: 1px solid var(--border-subtle); padding: 14px; border-radius: 8px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-        <div>
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 6px; flex-wrap: wrap;">
+      <div class="card-panel" style="background: #fff; border: 1px solid #e2e8f0; padding: 0; border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.05); overflow:hidden;">
+        <!-- Lead number accent bar -->
+        <div style="background:linear-gradient(90deg,#4f46e5,#7c3aed);height:3px;"></div>
+        <div style="padding:14px;">
+          <!-- Header row -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 6px; flex-wrap: wrap;">
             <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
-              <span class="badge" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; font-size: 0.72rem;">
-                🎯 ${lead.fit_score || 90}% Match • ${escapeHtml(lead.match_tier || 'Tier 1 High Fit')}
+              <span style="font-size:0.68rem;color:#6b7280;font-weight:700;background:#f8fafc;border:1px solid #e2e8f0;padding:1px 7px;border-radius:10px;">#${String(idx+1).padStart(2,'0')}</span>
+              <span style="background:${fitBg};color:${fitColor};font-weight:800;font-size:0.72rem;padding:2px 8px;border-radius:10px;border:1px solid ${fitBorder};">
+                🎯 ${fitScore}% ICP Match
               </span>
-              ${lead.status === 'PITCHED' ? `
-                <span class="badge" style="background: #fdf2f8; color: #be185d; font-weight: 800; font-size: 0.7rem; border: 1px solid #f472b644;">
-                  🚀 PITCHED (${escapeHtml(lead.pitch_sent_via || 'email')})
-                </span>
-              ` : ''}
+              ${lead.status === 'PITCHED' ? `<span style="background:#fdf2f8;color:#be185d;font-weight:800;font-size:0.68rem;padding:2px 7px;border-radius:10px;border:1px solid #f472b644;">🚀 PITCHED</span>` : `<span style="background:#f0fdf4;color:#065f46;font-weight:700;font-size:0.68rem;padding:2px 7px;border-radius:10px;border:1px solid #a7f3d0;">✅ QUALIFIED</span>`}
             </div>
-            <span style="font-size: 0.78rem; color: #047857; font-weight: 800; background: #ecfdf5; padding: 2px 6px; border-radius: 4px; border: 1px solid #10b98133;">
+            <span style="font-size:0.78rem;color:#047857;font-weight:800;background:#ecfdf5;padding:2px 8px;border-radius:6px;border:1px solid #10b98133;white-space:nowrap;">
               ${escapeHtml(displayPrice)}
             </span>
           </div>
 
-          <h4 style="margin: 0 0 2px 0; font-size: 0.95rem; font-weight: 700; color: #111827;">${escapeHtml(lead.company)}</h4>
-          <div style="font-size: 0.8rem; color: #6b7280; margin-bottom: 6px;">
-            👤 ${escapeHtml(lead.contact_name)} (${escapeHtml(lead.contact_role || 'Executive')})
-            ${lead.contact_email ? ` • <span style="color: #2563eb;">${escapeHtml(lead.contact_email)}</span>` : ''}
+          <!-- Company & Contact -->
+          <h4 style="margin: 0 0 2px 0; font-size: 0.97rem; font-weight: 800; color: #0f172a;">${escapeHtml(lead.company)}</h4>
+          <div style="font-size: 0.78rem; color: #64748b; margin-bottom: 8px; line-height:1.4;">${contactLine}</div>
+
+          <!-- Gap Audit badges -->
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px;">
+            ${gapTags.map(tag => {
+              const g = LEADSMU_GAP_ICONS[tag] || {icon:'⚠️',label:tag};
+              return `<span style="font-size:0.68rem;font-weight:700;background:#fef2f2;color:#b91c1c;padding:2px 7px;border-radius:10px;border:1px solid #fecaca;display:inline-flex;align-items:center;gap:3px;">${g.icon} ${g.label}</span>`;
+            }).join('')}
           </div>
 
-          <p style="margin: 0 0 10px 0; font-size: 0.78rem; color: #4b5563; line-height: 1.35;">
-            <strong>Bottleneck:</strong> ${escapeHtml(lead.pain_point || 'Scaling customer communication & ops fatigue')}
-          </p>
+          <!-- Identified Operational Gap -->
+          <div style="background:#fafafa;border-left:3px solid #f59e0b;padding:8px 10px;border-radius:0 6px 6px 0;margin-bottom:10px;">
+            <div style="font-size:0.68rem;font-weight:700;color:#b45309;text-transform:uppercase;margin-bottom:2px;">⚠️ Identified Operational Gap</div>
+            <p style="margin:0;font-size:0.78rem;color:#374151;line-height:1.4;">${escapeHtml(detectedGap)}</p>
+          </div>
+
+          <!-- Best Fit Product -->
+          <div style="font-size:0.75rem;color:#4338ca;font-weight:700;margin-bottom:10px;background:#eef2ff;padding:5px 9px;border-radius:6px;display:inline-block;">
+            🚀 Best Fit: ${escapeHtml(campData.offering || lead.offer_name || 'Nexus Turnkey Solution')}
+          </div>
 
           ${demoUrl ? `
-            <div style="margin-bottom: 10px;">
-              <a href="${escapeHtml(demoUrl)}" target="_blank" rel="noopener" style="font-size: 0.74rem; color: #2563eb; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
-                🌐 Live Asset Demo: ${escapeHtml(demoUrl.replace('https://', ''))} ↗
-              </a>
+            <div style="margin-bottom:4px;">
+              <a href="${escapeHtml(demoUrl)}" target="_blank" rel="noopener" style="font-size:0.74rem;color:#2563eb;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">🌐 Live Demo: ${escapeHtml(demoUrl.replace('https://',''))} ↗</a>
             </div>
           ` : ''}
         </div>
 
-        <div style="border-top: 1px solid #f3f4f6; padding-top: 10px; margin-top: 6px;">
-          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-            <button type="button" class="btn btn-primary btn-sm btn-lead-wa" data-id="${lead.id}" style="flex: 1.1; font-weight: 700; background: #059669; color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.75rem; padding: 6px 8px;">
-              📱 WhatsApp
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm btn-lead-email" data-id="${lead.id}" style="flex: 1.1; font-weight: 700; background: #2563eb; color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.75rem; padding: 6px 8px;">
-              ✉️ Email Pitch
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm btn-lead-mint-inv" data-id="${lead.id}" style="flex: 1; font-weight: 700; background: #1e1b4b; color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.75rem; padding: 6px 8px;">
-              💳 Invoice
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm btn-craft-pitch" data-id="${lead.id}" style="font-weight: 600; background: #f8fafc; color: #374151; font-size: 0.75rem; padding: 6px 8px;">
-              ✨ Pitch
-            </button>
+        <!-- Action row -->
+        <div style="border-top:1px solid #f3f4f6;padding:10px 14px;background:#fafafa;">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-sm btn-lead-wa" data-id="${lead.id}" style="flex:1.1;font-weight:700;background:#059669;color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:0.74rem;padding:6px 8px;border:none;border-radius:6px;cursor:pointer;">📱 WhatsApp</button>
+            <button type="button" class="btn btn-sm btn-lead-email" data-id="${lead.id}" style="flex:1.1;font-weight:700;background:#2563eb;color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:0.74rem;padding:6px 8px;border:none;border-radius:6px;cursor:pointer;">✉️ Email</button>
+            <button type="button" class="btn btn-sm btn-lead-mint-inv" data-id="${lead.id}" style="flex:1;font-weight:700;background:#1e1b4b;color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:0.74rem;padding:6px 8px;border:none;border-radius:6px;cursor:pointer;">💳 Invoice</button>
+            <button type="button" class="btn btn-sm btn-craft-pitch" data-id="${lead.id}" style="font-weight:600;background:#f8fafc;color:#374151;font-size:0.74rem;padding:6px 8px;border:1px solid #e2e8f0;border-radius:6px;cursor:pointer;">✨ Pitch</button>
           </div>
         </div>
       </div>
@@ -2687,26 +2813,165 @@ async function handleRunLiveMonetizationDemo() {
   }
 }
 
+// Init LeadsMU chip buttons (called once from setupRevenueAndProductivity)
+function initLeadsMUChips() {
+  document.querySelectorAll(".btn-leadsmu-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const niche = chip.dataset.niche;
+      const select = document.getElementById("leadNicheSelect");
+      if (select) select.value = niche;
+      // Set a friendly label in the free-text input
+      const inp = document.getElementById("leadsMUInput");
+      if (inp) inp.value = chip.textContent.trim();
+      // Trigger discover
+      handleDiscoverLeads();
+    });
+  });
+
+  // Also wire Enter key on free-text input
+  const inp = document.getElementById("leadsMUInput");
+  if (inp) {
+    inp.addEventListener("keydown", e => {
+      if (e.key === "Enter") handleDiscoverLeads();
+    });
+    // Auto-map typed product/niche to nearest backend niche key
+    inp.addEventListener("input", () => {
+      const v = inp.value.toLowerCase();
+      const select = document.getElementById("leadNicheSelect");
+      if (!select) return;
+      if (v.includes("restaurant") || v.includes("café") || v.includes("cafe") || v.includes("sme") || v.includes("shop")) select.value = "whatsapp_restaurant_sme";
+      else if (v.includes("flight") || v.includes("airline") || v.includes("travel") && v.includes("agency")) select.value = "whatsapp_flight_addon";
+      else if (v.includes("clinic") || v.includes("medical") || v.includes("hospital") || v.includes("dental") || v.includes("doctor")) select.value = "medical360_portal";
+      else if (v.includes("ngo") || v.includes("csr") || v.includes("charity") || v.includes("foundation")) select.value = "ennrevennsourir_ngo";
+      else if (v.includes("villa") || v.includes("hotel") || v.includes("resort") || v.includes("lodge") || v.includes("boutique")) select.value = "mauritius_hospitality";
+      else if (v.includes("rental") || v.includes("car") || v.includes("catamaran") || v.includes("excursion") || v.includes("tour")) select.value = "mauritius_tourism";
+      else if (v.includes("travellix") || v.includes("booking platform") || v.includes("dmc")) select.value = "itravellix_saas";
+      else if (v.includes("global") || v.includes("saas") || v.includes("startup") || v.includes("nexus")) select.value = "global_startups";
+    });
+  }
+}
+
 async function handleDiscoverLeads() {
   const select = document.getElementById("leadNicheSelect");
   const niche = select ? select.value : "medical360_portal";
   const btn = document.getElementById("btnDiscoverLeads");
+  const inputEl = document.getElementById("leadsMUInput");
+  const userInput = inputEl ? inputEl.value.trim() : "";
+
+  // Detect mode from free-text input
+  const isNicheDriven = userInput && (
+    userInput.toLowerCase().includes("in ") ||
+    userInput.toLowerCase().includes("around ") ||
+    userInput.toLowerCase().includes("near ") ||
+    LEADSMU_CAMPAIGN_DATA[niche]?.mode === "Niche-Driven"
+  );
+  const detectedMode = isNicheDriven ? "🗺️ Niche-Driven" : "📦 Product-Driven";
+
+  // Show mode badge
+  const modeBadge = document.getElementById("leadsMUModeBadge");
+  if (modeBadge) {
+    modeBadge.textContent = `MODE: ${detectedMode}`;
+    modeBadge.style.display = "inline-block";
+    modeBadge.style.background = isNicheDriven ? "#eff6ff" : "#fef3c7";
+    modeBadge.style.color = isNicheDriven ? "#1d4ed8" : "#b45309";
+    modeBadge.style.borderColor = isNicheDriven ? "#93c5fd" : "#fde68a";
+  }
+
+  // Store active niche for enriched rendering
+  currentLeadsMUNiche = niche;
+
+  // Render Strategic Campaign Overview
+  leadsmuRenderCampaignOverview(niche, userInput);
 
   try {
-    if (btn) btn.textContent = "⚡ Discovering...";
+    if (btn) { btn.innerHTML = "<span>⏳</span> Scouting Prospects..."; btn.disabled = true; }
+    showToast(`🔍 LeadsMU™ scanning ${LEADSMU_CAMPAIGN_DATA[niche]?.offering || niche}...`, "info");
+
     const res = await fetch("/api/leads/discover", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ niche })
     });
     if (!res.ok) throw new Error("Failed to discover leads");
-    showToast("Discovered and scored new target prospects!", "success");
-    fetchLeadsPipeline();
+    const data = await res.json();
+    const count = data.leads?.length || 0;
+    showToast(`✅ LeadsMU™ found ${count} qualified prospects — dossier ready!`, "success");
+    await fetchLeadsPipeline();
+    // Auto-render top-2 pitches
+    leadsmuRenderOutreachPitches(data.leads || []);
   } catch (err) {
     showToast(`Error: ${err.message}`, "error");
   } finally {
-    if (btn) btn.textContent = "⚡ Discover Leads";
+    if (btn) { btn.innerHTML = "<span>⚡</span> Run LeadsMU Scout"; btn.disabled = false; }
   }
+}
+
+function leadsmuRenderCampaignOverview(niche, userInput) {
+  const panel = document.getElementById("leadsMUCampaignOverview");
+  if (!panel) return;
+  const data = LEADSMU_CAMPAIGN_DATA[niche] || {};
+  const offering = userInput || data.offering || niche;
+  document.getElementById("leadsmuOverviewOffering").textContent = offering;
+  document.getElementById("leadsmuOverviewICP").textContent = data.icp || "Mauritian SMEs & enterprises seeking digital transformation";
+  document.getElementById("leadsmuOverviewVP").textContent = data.vp || "Automate manual operations, reduce overheads & capture lost revenue";
+  panel.style.display = "block";
+}
+
+function leadsmuRenderOutreachPitches(leads) {
+  const container = document.getElementById("leadsMUOutreachPitches");
+  if (!container || leads.length === 0) return;
+  const top2 = leads.slice(0, 2);
+  const niche = currentLeadsMUNiche || "mauritius_hospitality";
+
+  const pitchChannels = [
+    { label: "📱 WhatsApp Message", icon: "📱", color: "#059669", bg: "#f0fdf4", border: "#a7f3d0" },
+    { label: "✉️ Email Pitch",      icon: "✉️", color: "#2563eb", bg: "#eff6ff", border: "#bfdbfe" }
+  ];
+
+  container.style.display = "block";
+  container.innerHTML = `
+    <div style="border-top:1px dashed #c7d2fe;padding-top:18px;margin-top:4px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <div style="width:28px;height:28px;background:linear-gradient(135deg,#7c3aed,#4f46e5);border-radius:7px;display:flex;align-items:center;justify-content:center;"><span style="font-size:1rem;">✍️</span></div>
+        <div>
+          <div style="font-size:0.85rem;font-weight:800;color:#1e1b4b;">§ 3 — Actionable Outreach Pitches (Ready to Send)</div>
+          <div style="font-size:0.75rem;color:#6b7280;">Top-2 priority prospects — Mauritian business tone · Under 100 words · Low-friction CTA</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;">
+        ${top2.map((lead, idx) => {
+          const channel = pitchChannels[idx % 2];
+          const firstName = (lead.contact_name || "there").split(" ")[0];
+          const company = lead.company || "your business";
+          const campData = LEADSMU_CAMPAIGN_DATA[niche] || {};
+          const painPoint = lead.pain_point || campData.gapLabels?.default || "operational overheads";
+          const price = lead.pricing || campData.offering || "our solution";
+
+          const pitch = idx === 0
+            ? `Bonjour ${firstName} 👋,\n\nJ'espère que vous vous portez bien ainsi que toute l'équipe de *${company}*.\n\n${painPoint.charAt(0).toUpperCase() + painPoint.slice(1)} est un défi que nous résolvons au quotidien pour des entreprises similaires à Maurice.\n\nNous avons une solution clé-en-main prête à déployer. Seriez-vous disponible pour une démo de 5 minutes cette semaine ?\n\nBien à vous,\nDeven Pawaray (+230 58169420) · Nexus AI Solutions`
+            : `Hi ${firstName},\n\nQuick note on *${company}* — we noticed ${painPoint.toLowerCase()}.\n\nWe've built a turnkey solution (${price}) that addresses this exactly for Mauritius-based businesses.\n\nCan I send you a 60-second product preview? No commitment needed.\n\nBest,\nDeven Pawaray · WhatsApp +230 58169420`;
+
+          return `
+          <div style="background:${channel.bg};border:1px solid ${channel.border};border-radius:12px;padding:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:7px;">
+                <span style="font-size:1rem;">${channel.icon}</span>
+                <div>
+                  <div style="font-size:0.8rem;font-weight:800;color:${channel.color};">${channel.label}</div>
+                  <div style="font-size:0.72rem;color:#6b7280;">Prospect #${idx+1}: ${escapeHtml(company)}</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;">
+                <button onclick="navigator.clipboard.writeText(this.closest('[data-pitch]').dataset.pitch);showToast('📋 Pitch copied!','success');" class="btn btn-secondary btn-sm" style="padding:3px 9px;font-size:0.72rem;font-weight:700;border-color:${channel.border};">📋 Copy</button>
+                ${idx === 0 ? `<button onclick="window.open('https://wa.me/?text='+encodeURIComponent(this.closest('[data-pitch]').dataset.pitch),'_blank');" class="btn btn-sm" style="padding:3px 9px;font-size:0.72rem;font-weight:700;background:${channel.color};color:#fff;border:none;">📱 Open WA</button>` : `<button onclick="navigator.clipboard.writeText(this.closest('[data-pitch]').dataset.pitch);showToast('✉️ Email body copied — paste into Gmail!','success');" class="btn btn-sm" style="padding:3px 9px;font-size:0.72rem;font-weight:700;background:${channel.color};color:#fff;border:none;">✉️ Copy Email</button>`}
+              </div>
+            </div>
+            <div data-pitch="${escapeHtml(pitch)}" style="font-size:0.8rem;color:#1e293b;line-height:1.55;white-space:pre-wrap;background:#fff;border-radius:8px;padding:12px 14px;border:1px solid ${channel.border};">${escapeHtml(pitch)}</div>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+  `;
 }
 
 async function handlePitchForLead(leadId) {

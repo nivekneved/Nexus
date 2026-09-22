@@ -997,33 +997,90 @@
           </div>
         </div>
 
-        <!-- OUTBOUND CLIENT ACQUISITION PIPELINE (LEAD FINDER) -->
-        <div class="card-panel" style="margin-bottom: 24px; border: 1px solid #3b82f633; background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(99, 102, 241, 0.03) 100%);">
-          <div class="card-header" style="border-bottom: 1px solid rgba(59, 130, 246, 0.15); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="font-size: 1.4rem;">🎯</span>
+        <!-- LEADSMU: B2B LEAD INTELLIGENCE SPECIALIST -->
+        <div class="card-panel" id="leadsMUPanel" style="margin-bottom: 24px; border: 1px solid #4f46e533; background: linear-gradient(135deg, rgba(79,70,229,0.04) 0%, rgba(99,102,241,0.03) 60%, rgba(16,185,129,0.03) 100%);">
+
+          <!-- LeadsMU Header -->
+          <div class="card-header" style="border-bottom: 1px solid rgba(79,70,229,0.18); padding-bottom: 14px; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 38px; height: 38px; background: linear-gradient(135deg,#4f46e5,#7c3aed); border-radius: 10px; display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:1.3rem;">🎯</span>
+              </div>
               <div>
-                <h2 class="card-title" style="margin: 0; font-size: 1.1rem; color: #1d4ed8;">Outbound Lead Acquisition Pipeline</h2>
-                <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Direct WhatsApp outreach &amp; 1-click invoice minting (Rs 45,000 / $249)</p>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <h2 class="card-title" style="margin:0;font-size:1.1rem;color:#3730a3;">LeadsMU™ — B2B Lead Intelligence</h2>
+                  <span style="background:#eef2ff;color:#4338ca;font-size:0.72rem;font-weight:800;padding:2px 8px;border-radius:20px;border:1px solid #c7d2fe;">AI-POWERED</span>
+                  <span id="leadsMUModeBadge" style="display:none;background:#ecfdf5;color:#065f46;font-size:0.72rem;font-weight:800;padding:2px 8px;border-radius:20px;border:1px solid #6ee7b7;">MODE: —</span>
+                </div>
+                <p style="margin:3px 0 0;font-size:0.8rem;color:var(--text-muted);">Enter a <strong>Product to sell</strong> OR a <strong>Target Niche</strong> — get verified Mauritian prospects with contact details &amp; pitch-ready outreach</p>
               </div>
             </div>
-            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <select id="leadNicheSelect" class="form-input" style="padding: 4px 8px; font-size: 0.82rem; width: auto; font-weight: 600;">
-                <option value="whatsapp_flight_addon">✈️ WhatsApp Flight Addon™ Bot (Rs 25k setup / Rs 45k buyout)</option>
-                <option value="whatsapp_restaurant_sme">🍽️ WhatsApp Restaurant &amp; SME Booking Bot (Rs 15k setup / Rs 25k flat)</option>
-                <option value="medical360_portal">🩺 Medical 360™ Clinic &amp; Hospital Portal (Rs 45k)</option>
-                <option value="ennrevennsourir_ngo">❤️ Enn Rev Enn Sourir™ NGO &amp; CSR Portal (Rs 45k)</option>
-                <option value="itravellix_saas">🌟 i-Travellix™ Luxury Travel SaaS (Rs 50k)</option>
-                <option value="mauritius_hospitality">🏝️ Mauritius Luxury Villas (Rs 25k setup + Rs 5k/mo)</option>
-                <option value="mauritius_tourism">🚗 Mauritius Excursions &amp; Rentals (Rs 15k setup)</option>
-                <option value="global_startups">🌍 Global Tech Agencies ($249 USD License)</option>
-              </select>
-              <button class="btn btn-primary btn-sm" id="btnDiscoverLeads" style="font-weight: 600; background: #1d4ed8;">⚡ Discover Leads</button>
+            <!-- Mode quick-select chips -->
+            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+              <span style="font-size:0.74rem;color:var(--text-muted);font-weight:600;white-space:nowrap;">Quick select:</span>
+              <button type="button" class="btn-leadsmu-chip" data-niche="whatsapp_restaurant_sme" style="background:#f0fdf4;color:#065f46;border:1px solid #a7f3d0;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🍽️ Restaurants</button>
+              <button type="button" class="btn-leadsmu-chip" data-niche="medical360_portal" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🩺 Clinics</button>
+              <button type="button" class="btn-leadsmu-chip" data-niche="mauritius_hospitality" style="background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🏝️ Hotels</button>
+              <button type="button" class="btn-leadsmu-chip" data-niche="mauritius_tourism" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🚗 Car Rentals</button>
+              <button type="button" class="btn-leadsmu-chip" data-niche="whatsapp_flight_addon" style="background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">✈️ Travel Agencies</button>
+              <button type="button" class="btn-leadsmu-chip" data-niche="ennrevennsourir_ngo" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">❤️ NGOs</button>
             </div>
           </div>
-          <!-- LEAD PIPELINE RESULTS GRID — populated by fetchLeadsPipeline() -->
-          <div id="leadsPipelineList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; margin-top: 16px; padding: 0 4px 4px;">
-            <p style="color: #9ca3af; font-size: 0.85rem; padding: 8px; grid-column: 1/-1;">Select a niche above and click <strong>"⚡ Discover Leads"</strong> to scout target prospects.</p>
+
+          <!-- LeadsMU Command Bar -->
+          <div style="padding:16px 0 0;">
+            <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px;">
+              <div style="flex:1;min-width:240px;">
+                <label style="font-size:0.75rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:5px;">Product or Niche (Mode auto-detected)</label>
+                <input type="text" id="leadsMUInput" class="form-input" placeholder="e.g. 'WhatsApp Booking Bot' OR 'Dental Clinics in Curepipe'" style="font-size:0.88rem;font-weight:500;border:1.5px solid #c7d2fe;background:#fafbff;" />
+              </div>
+              <div style="min-width:180px;">
+                <label style="font-size:0.75rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:5px;">Campaign Niche (Backend)</label>
+                <select id="leadNicheSelect" class="form-input" style="padding:7px 10px;font-size:0.82rem;font-weight:600;border:1.5px solid #e2e8f0;">
+                  <option value="whatsapp_flight_addon">✈️ WhatsApp Flight Addon™ (Rs 25k)</option>
+                  <option value="whatsapp_restaurant_sme">🍽️ Restaurant &amp; SME Bot (Rs 15k)</option>
+                  <option value="medical360_portal">🩺 Medical 360™ Portal (Rs 45k)</option>
+                  <option value="ennrevennsourir_ngo">❤️ NGO / CSR Portal (Rs 45k)</option>
+                  <option value="itravellix_saas">🌟 i-Travellix™ SaaS (Rs 50k)</option>
+                  <option value="mauritius_hospitality">🏝️ Luxury Villas (Rs 25k)</option>
+                  <option value="mauritius_tourism">🚗 Excursions &amp; Rentals (Rs 15k)</option>
+                  <option value="global_startups">🌍 Global Tech ($249 USD)</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" id="btnDiscoverLeads" style="font-weight:700;background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;padding:8px 18px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;">
+                <span>⚡</span> Run LeadsMU Scout
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btnRefreshLeads" style="font-weight:600;padding:8px 12px;white-space:nowrap;" onclick="fetchLeadsPipeline()">↻ Refresh</button>
+            </div>
+
+            <!-- Strategic Campaign Overview — injected dynamically -->
+            <div id="leadsMUCampaignOverview" style="display:none;margin-bottom:16px;background:linear-gradient(135deg,#1e1b4b 0%,#312e81 100%);border-radius:12px;padding:18px 20px;color:#fff;position:relative;overflow:hidden;">
+              <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+              <div style="position:absolute;bottom:-30px;right:60px;width:80px;height:80px;background:rgba(255,255,255,0.03);border-radius:50%;"></div>
+              <div style="font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#a5b4fc;margin-bottom:10px;">📊 Strategic Campaign Overview</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;position:relative;z-index:1;">
+                <div>
+                  <div style="font-size:0.7rem;color:#c7d2fe;font-weight:600;text-transform:uppercase;margin-bottom:3px;">Target Offering / Niche</div>
+                  <div id="leadsmuOverviewOffering" style="font-size:0.92rem;font-weight:700;color:#fff;line-height:1.3;">—</div>
+                </div>
+                <div>
+                  <div style="font-size:0.7rem;color:#c7d2fe;font-weight:600;text-transform:uppercase;margin-bottom:3px;">Ideal Customer Profile</div>
+                  <div id="leadsmuOverviewICP" style="font-size:0.85rem;font-weight:500;color:#e0e7ff;line-height:1.4;">—</div>
+                </div>
+                <div>
+                  <div style="font-size:0.7rem;color:#c7d2fe;font-weight:600;text-transform:uppercase;margin-bottom:3px;">Core Value Proposition</div>
+                  <div id="leadsmuOverviewVP" style="font-size:0.85rem;font-weight:500;color:#e0e7ff;line-height:1.4;">—</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LEAD PIPELINE RESULTS GRID — populated by fetchLeadsPipeline() -->
+            <div id="leadsPipelineList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;padding:0 2px 4px;">
+              <p style="color:#9ca3af;font-size:0.85rem;padding:8px;grid-column:1/-1;">Enter a <strong>product or niche</strong> above and click <strong>"⚡ Run LeadsMU Scout"</strong> to generate your qualified prospect dossier.</p>
+            </div>
+
+            <!-- Top-2 Outreach Pitches — injected dynamically -->
+            <div id="leadsMUOutreachPitches" style="display:none;margin-top:18px;"></div>
           </div>
         </div>
 
