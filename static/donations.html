@@ -146,6 +146,113 @@
       font-weight: 600;
     }
 
+    .cause-image-wrap {
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      position: relative;
+      background: #0b1120;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .cause-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      transition: transform 0.35s ease;
+      display: block;
+    }
+    .cause-card:hover .cause-image {
+      transform: scale(1.06);
+    }
+    .cause-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 7px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .cause-link-btn:hover {
+      background: rgba(56, 189, 248, 0.22);
+      border-color: #38bdf8;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .cause-link-btn.wa-link {
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+      border-color: rgba(74, 222, 128, 0.3);
+    }
+    .cause-link-btn.wa-link:hover {
+      background: rgba(74, 222, 128, 0.22);
+      border-color: #4ade80;
+      color: #ffffff;
+    }
+
+    /* Medical Case Dossier Modal */
+    .dossier-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .dossier-modal-card {
+      background: #111a2e;
+      border: 1px solid #2d3e66;
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 30px rgba(56, 189, 248, 0.15);
+      position: relative;
+      padding: 30px;
+      color: #f1f5f9;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .dossier-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #cbd5e1;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .dossier-close-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: #ef4444;
+      color: #fff;
+    }
+
     /* Donation Form Box */
     .donation-box {
       background: linear-gradient(180deg, #17223b 0%, #0e1526 100%);
@@ -315,44 +422,80 @@
       </p>
     </section>
 
-    <!-- Causes -->
+    <!-- Causes from Enn Rev Enn Sourir Official Homepage -->
     <div class="causes-grid">
-      <div class="cause-card active" onclick="selectCause(this, 'Baby Ryan — Urgent Cardiac Surgery')">
-        <span class="cause-badge">URGENT</span>
-        <h3>Baby Ryan (18 mos)</h3>
-        <p>Congenital heart defect requiring urgent surgical travel to Chennai hospital.</p>
+      <!-- Child 1: Alison -->
+      <div class="cause-card active" onclick="selectCause(this, 'Alison (8 yrs) — Hirschsprung Disease Surgery')">
+        <div class="cause-image-wrap">
+          <img src="/static/images/alison.jpg" onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2024/11/Alison-new.jpg'" alt="Alison - Enn Rev Enn Sourir" class="cause-image">
+        </div>
+        <span class="cause-badge">URGENT SURGERY</span>
+        <h3>Alison (8 Years Old)</h3>
+        <p>Diagnosed with Hirschsprung Disease. Requires specialized surgical intervention and intensive post-operative care.</p>
         <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: 68%;"></div>
+          <div class="progress-bar-fill" style="width: 20.38%;"></div>
         </div>
         <div class="progress-stats">
-          <span>Collected: $13,600 USD</span>
-          <span>Goal: $20,000 USD</span>
+          <span>Raised: Rs 283,984 (20.4%)</span>
+          <span>Goal: Rs 1,393,186</span>
+        </div>
+        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+          <a href="https://ennrevennsourir.org/en/patient/alison-5/" target="_blank" rel="noopener noreferrer" class="cause-link-btn" onclick="event.stopPropagation();">
+            🔗 Official NGO Case &amp; Medical Report ↗
+          </a>
+          <a href="https://wa.me/23058169420?text=Hello%20Deven,%20I%20would%20like%20to%20support%20Alison%20(8%20yrs)%20via%20Enn%20Rev%20Enn%20Sourir" target="_blank" rel="noopener noreferrer" class="cause-link-btn wa-link" onclick="event.stopPropagation();">
+            💬 WhatsApp NGO Team About Alison
+          </a>
         </div>
       </div>
 
-      <div class="cause-card" onclick="selectCause(this, 'Lina — Pediatric Leukemia Care')">
-        <span class="cause-badge">ONGOING</span>
-        <h3>Lina (6 yrs)</h3>
-        <p>Specialized immunotherapy and chemotherapy travel support fund.</p>
+      <!-- Child 2: Vedisha -->
+      <div class="cause-card" onclick="selectCause(this, 'Vedisha (13 yrs) — Right Hip Subluxation & Hemiparesis')">
+        <div class="cause-image-wrap">
+          <img src="/static/images/vedisha.jpg" onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2025/01/Vedisha1.jpg'" alt="Vedisha - Enn Rev Enn Sourir" class="cause-image">
+        </div>
+        <span class="cause-badge">URGENT CARE</span>
+        <h3>Vedisha (13 Years Old)</h3>
+        <p>Right Hip subluxation with Hemiparesis. Needs orthopedic surgery, corrective procedures, and specialized rehabilitation.</p>
         <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: 45%;"></div>
+          <div class="progress-bar-fill" style="width: 24.86%;"></div>
         </div>
         <div class="progress-stats">
-          <span>Collected: $6,750 USD</span>
-          <span>Goal: $15,000 USD</span>
+          <span>Raised: Rs 152,182 (24.9%)</span>
+          <span>Goal: Rs 612,072</span>
+        </div>
+        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+          <a href="https://ennrevennsourir.org/en/patient/vedisha-13/" target="_blank" rel="noopener noreferrer" class="cause-link-btn" onclick="event.stopPropagation();">
+            🔗 Official NGO Case &amp; Medical Report ↗
+          </a>
+          <a href="https://wa.me/23058169420?text=Hello%20Deven,%20I%20would%20like%20to%20support%20Vedisha%20(13%20yrs)%20via%20Enn%20Rev%20Enn%20Sourir" target="_blank" rel="noopener noreferrer" class="cause-link-btn wa-link" onclick="event.stopPropagation();">
+            💬 WhatsApp NGO Team About Vedisha
+          </a>
         </div>
       </div>
 
-      <div class="cause-card" onclick="selectCause(this, 'Emergency Pediatric Consumables Fund')">
-        <span class="cause-badge">GENERAL</span>
-        <h3>Emergency Relief Pool</h3>
-        <p>Instant financial relief for urgent pediatric medicines and specialized nutrition.</p>
+      <!-- Child 3: Ming -->
+      <div class="cause-card" onclick="selectCause(this, 'Ming (6 yrs) — Laparoscopic Adhesiolysis Surgery')">
+        <div class="cause-image-wrap">
+          <img src="/static/images/ming.jpg" onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2025/03/mING.jpg'" alt="Ming - Enn Rev Enn Sourir" class="cause-image">
+        </div>
+        <span class="cause-badge">CRITICAL SURGERY</span>
+        <h3>Ming (6 Years Old)</h3>
+        <p>Laparoscopic Adhesiolysis surgical procedure required to relieve chronic severe intestinal complications and pain.</p>
         <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: 82%;"></div>
+          <div class="progress-bar-fill" style="width: 31.68%;"></div>
         </div>
         <div class="progress-stats">
-          <span>Collected: $4,100 USD</span>
-          <span>Goal: $5,000 USD</span>
+          <span>Raised: Rs 71,676 (31.7%)</span>
+          <span>Goal: Rs 226,238</span>
+        </div>
+        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+          <a href="https://ennrevennsourir.org/en/patient/ming-6/" target="_blank" rel="noopener noreferrer" class="cause-link-btn" onclick="event.stopPropagation();">
+            🔗 Official NGO Case &amp; Medical Report ↗
+          </a>
+          <a href="https://wa.me/23058169420?text=Hello%20Deven,%20I%20would%20like%20to%20support%20Ming%20(6%20yrs)%20via%20Enn%20Rev%20Enn%20Sourir" target="_blank" rel="noopener noreferrer" class="cause-link-btn wa-link" onclick="event.stopPropagation();">
+            💬 WhatsApp NGO Team About Ming
+          </a>
         </div>
       </div>
     </div>
@@ -360,7 +503,7 @@
     <!-- Donation Box -->
     <div class="donation-box">
       <h2 class="donation-title">Choose Your Contribution</h2>
-      <p class="donation-sub" id="selectedCauseLabel">Supporting: Baby Ryan — Urgent Cardiac Surgery</p>
+      <p class="donation-sub" id="selectedCauseLabel">Supporting: Alison (8 yrs) — Hirschsprung Disease Surgery</p>
 
       <div class="currency-toggle">
         <button class="currency-btn active" onclick="setCurrency('USD')">USD ($)</button>
@@ -414,7 +557,7 @@
   <script>
     let currentCurrency = "USD";
     let selectedAmount = 1;
-    let selectedCause = "Baby Ryan — Urgent Cardiac Surgery";
+    let selectedCause = "Alison (8 yrs) — Hirschsprung Disease Surgery";
 
     const USD_TIERS = [1, 5, 25, 100];
     const MUR_TIERS = [50, 250, 1000, 5000];
