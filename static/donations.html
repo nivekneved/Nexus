@@ -3,37 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enn Rev Enn Sourir™ — Give a Child a Smile &amp; Second Chance at Life</title>
+  <title>Help 8-Year-Old Alison Survive Hirschsprung Disease | Enn Rev Enn Sourir™</title>
+  <meta name="description" content="After 2 years of agonizing pain, 8-year-old Alison in Mauritius has undergone urgent surgery for Hirschsprung Disease. Help her family fund critical medical care.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23ef4444'/><path d='M10 18 Q16 24 22 18' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/><circle cx='12' cy='13' r='2' fill='white'/><circle cx='20' cy='13' r='2' fill='white'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b0f19;
-      --card-bg: #131b2e;
-      --border: #1f2d4d;
+      --bg: #070b14;
+      --card-bg: #0f172a;
+      --card-inner: #162038;
+      --border: #1e293b;
+      --border-accent: rgba(239, 68, 68, 0.3);
       --primary: #ef4444;
       --primary-hover: #dc2626;
       --accent: #10b981;
+      --gold: #f59e0b;
       --text: #f8fafc;
       --text-muted: #94a3b8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding-bottom: 60px;
+      padding-bottom: 70px;
+      overflow-x: hidden;
     }
+
+    /* Ambient glow effects */
+    .ambient-glow {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 1200px;
+      height: 500px;
+      background: radial-gradient(circle at 50% 20%, rgba(239, 68, 68, 0.18) 0%, rgba(15, 23, 42, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .container {
-      max-width: 960px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 20px;
+      position: relative;
+      z-index: 1;
     }
+
+    /* Top Emergency Alert Bar */
+    .emergency-banner {
+      background: linear-gradient(90deg, #7f1d1d, #991b1b, #7f1d1d);
+      border-bottom: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      color: #fee2e2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 10px #ef4444;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    /* Header */
     header {
-      padding: 24px 0;
+      padding: 20px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -42,245 +93,293 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 1.4rem;
-      font-weight: 800;
+      gap: 10px;
+      font-size: 1.35rem;
+      font-weight: 900;
       color: #fff;
+      text-decoration: none;
     }
     .brand span { color: var(--primary); }
-    .badge {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #fca5a5;
-      padding: 4px 12px;
-      border-radius: 9999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-    .hero {
-      text-align: center;
-      padding: 50px 10px 30px;
-    }
-    .eyebrow {
-      color: #f87171;
-      font-size: 0.85rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 900;
-      letter-spacing: -1px;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: 0 auto 30px;
-    }
-
-    /* Causes Cards */
-    .causes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .cause-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      position: relative;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    .cause-card:hover, .cause-card.active {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px -10px rgba(239, 68, 68, 0.3);
-    }
-    .cause-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-    }
-    .cause-card h3 {
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-    .cause-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-    .progress-bar-bg {
-      background: #1e293b;
-      border-radius: 999px;
-      height: 8px;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-    .progress-bar-fill {
-      background: linear-gradient(90deg, #ef4444, #f97316);
-      height: 100%;
-      border-radius: 999px;
-    }
-    .progress-stats {
+    .header-badges {
       display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-weight: 600;
+      gap: 10px;
+      align-items: center;
     }
-
-    .cause-image-wrap {
-      width: 100%;
-      height: 220px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      position: relative;
-      background: #0b1120;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .cause-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-      transition: transform 0.35s ease;
-      display: block;
-    }
-    .cause-card:hover .cause-image {
-      transform: scale(1.06);
-    }
-    .cause-link-btn {
+    .badge {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.8rem;
+    }
+    .badge-ngo {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+
+    /* Main Campaign Grid */
+    .campaign-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      margin-top: 36px;
+    }
+    @media (max-width: 900px) {
+      .campaign-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    /* Left Story Column */
+    .story-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .hero-image-box {
+      width: 100%;
+      height: 380px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 22px;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+    }
+    .image-overlay-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      color: #e2e8f0;
       font-weight: 700;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 7px 12px;
-      border-radius: 8px;
+    }
+
+    .case-title {
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .case-title mark {
+      background: transparent;
+      color: #f87171;
+    }
+
+    /* Progress Thermometer */
+    .progress-box {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .progress-numbers {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .progress-raised {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #34d399;
+    }
+    .progress-goal {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .progress-track {
+      background: #0b1120;
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #ef4444 100%);
+      height: 100%;
+      border-radius: 999px;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
+      transition: width 1s ease-in-out;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .progress-meta strong {
+      color: #fca5a5;
+    }
+
+    /* Story Text */
+    .story-content {
+      font-size: 1.02rem;
+      color: #cbd5e1;
+      line-height: 1.75;
+      margin-bottom: 26px;
+    }
+    .story-content p {
+      margin-bottom: 14px;
+    }
+    .story-callout {
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 4px solid var(--primary);
+      padding: 16px 18px;
+      border-radius: 0 10px 10px 0;
+      margin: 18px 0;
+      font-style: italic;
+      color: #fecaca;
+      font-size: 0.96rem;
+    }
+
+    /* Medical Verification Details */
+    .medical-facts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+    @media (max-width: 600px) {
+      .medical-facts { grid-template-columns: 1fr; }
+    }
+    .fact-item {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 12px;
+    }
+    .fact-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .fact-value {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Proof & Verification Buttons */
+    .proof-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .proof-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
       text-decoration: none;
       transition: all 0.2s ease;
       cursor: pointer;
     }
-    .cause-link-btn:hover {
-      background: rgba(56, 189, 248, 0.22);
+    .proof-btn-portal {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+    }
+    .proof-btn-portal:hover {
+      background: rgba(56, 189, 248, 0.2);
       border-color: #38bdf8;
-      color: #ffffff;
+      color: #fff;
       transform: translateY(-1px);
     }
-    .cause-link-btn.wa-link {
-      color: #4ade80;
-      background: rgba(74, 222, 128, 0.1);
-      border-color: rgba(74, 222, 128, 0.3);
+    .proof-btn-doc {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
     }
-    .cause-link-btn.wa-link:hover {
-      background: rgba(74, 222, 128, 0.22);
-      border-color: #4ade80;
-      color: #ffffff;
-    }
-
-    /* Medical Case Dossier Modal */
-    .dossier-modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(3, 7, 18, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 999999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .dossier-modal-card {
-      background: #111a2e;
-      border: 1px solid #2d3e66;
-      border-radius: 20px;
-      max-width: 680px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 30px rgba(56, 189, 248, 0.15);
-      position: relative;
-      padding: 30px;
-      color: #f1f5f9;
-      animation: modalFadeIn 0.25s ease-out;
-    }
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.96) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .dossier-close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #cbd5e1;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .dossier-close-btn:hover {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: #ef4444;
+    .proof-btn-doc:hover {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: #fbbf24;
       color: #fff;
+      transform: translateY(-1px);
+    }
+    .proof-btn-wa {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+    .proof-btn-wa:hover {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: #34d399;
+      color: #fff;
+      transform: translateY(-1px);
     }
 
-    /* Donation Form Box */
+    /* Right Column: Donation Form */
+    .donation-sticky-wrap {
+      position: sticky;
+      top: 20px;
+    }
     .donation-box {
-      background: linear-gradient(180deg, #17223b 0%, #0e1526 100%);
-      border: 1px solid #2d3e66;
+      background: linear-gradient(180deg, #151e36 0%, #0d1424 100%);
+      border: 1px solid rgba(239, 68, 68, 0.35);
       border-radius: 20px;
-      padding: 36px;
-      max-width: 620px;
-      margin: 0 auto 50px;
-      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.8);
+      padding: 30px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(239, 68, 68, 0.15);
     }
-    .donation-title {
-      font-size: 1.4rem;
-      font-weight: 800;
+    .donate-heading {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #fff;
       margin-bottom: 6px;
-      text-align: center;
-    }
-    .donation-sub {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-    .currency-toggle {
       display: flex;
-      background: #0b1120;
-      padding: 4px;
-      border-radius: 10px;
+      align-items: center;
+      gap: 8px;
+    }
+    .donate-subheading {
+      font-size: 0.88rem;
+      color: var(--text-muted);
       margin-bottom: 20px;
+    }
+
+    /* Currency Tabs */
+    .currency-switch {
+      display: flex;
+      background: #090e1a;
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 18px;
       border: 1px solid var(--border);
     }
     .currency-btn {
@@ -289,8 +388,8 @@
       border: none;
       background: transparent;
       color: var(--text-muted);
-      font-weight: 700;
-      font-size: 0.95rem;
+      font-weight: 800;
+      font-size: 0.9rem;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s;
@@ -298,342 +397,617 @@
     .currency-btn.active {
       background: var(--primary);
       color: #fff;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     }
-    .tiers-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+
+    /* Impact Donation Tiers */
+    .tiers-list {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
       margin-bottom: 20px;
     }
-    .tier-btn {
-      background: #111a2e;
+    .tier-card {
+      background: #0e1629;
       border: 1px solid var(--border);
-      color: #fff;
-      padding: 14px 8px;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 1.1rem;
+      border-radius: 12px;
+      padding: 14px 16px;
       cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+      text-align: left;
     }
-    .tier-btn:hover, .tier-btn.active {
+    .tier-card:hover {
+      border-color: rgba(239, 68, 68, 0.5);
+      background: #15223e;
+      transform: translateX(2px);
+    }
+    .tier-card.active {
       border-color: var(--primary);
-      background: rgba(239, 68, 68, 0.15);
+      background: rgba(239, 68, 68, 0.12);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+    }
+    .tier-amount {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .tier-card.active .tier-amount {
       color: #fca5a5;
     }
+    .tier-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 220px;
+      text-align: right;
+      line-height: 1.3;
+    }
+    .tier-card.active .tier-desc {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    /* Custom Amount Input */
     .input-group {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .input-group label {
       display: block;
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.76rem;
+      font-weight: 800;
       color: var(--text-muted);
       margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+    .input-wrapper {
+      position: relative;
+    }
+    .input-symbol {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 800;
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
     .input-group input {
       width: 100%;
-      background: #0b1120;
+      background: #090e1a;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 12px 14px 12px 42px;
       color: #fff;
-      font-size: 1rem;
+      font-size: 1.05rem;
+      font-weight: 700;
       font-family: inherit;
     }
     .input-group input:focus {
       outline: none;
       border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
     }
-    .btn-donate {
+
+    .btn-donate-submit {
       width: 100%;
-      background: #ef4444;
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
       color: #fff;
       padding: 16px;
-      border-radius: 10px;
-      font-size: 1.15rem;
-      font-weight: 800;
+      border-radius: 12px;
+      font-size: 1.12rem;
+      font-weight: 900;
       border: none;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.45);
+      margin-bottom: 16px;
     }
-    .btn-donate:hover {
-      background: #dc2626;
-      transform: translateY(-1px);
+    .btn-donate-submit:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(239, 68, 68, 0.6);
     }
-    .guarantee-box {
-      margin-top: 20px;
-      padding: 14px;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      border-radius: 10px;
-      font-size: 0.8rem;
-      color: #a7f3d0;
+
+    /* MCB Juice Info Highlight Box */
+    .mcb-juice-box {
+      background: linear-gradient(135deg, #1e1b4b 0%, #172554 100%);
+      border: 1px solid #3b82f6;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      font-size: 0.84rem;
+      color: #bfdbfe;
+    }
+    .mcb-header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      margin-bottom: 8px;
     }
-    .juice-info-box {
-      display: none;
-      margin-top: 20px;
-      padding: 16px;
-      background: #1e1b4b;
-      border: 1px solid #4338ca;
+    .mcb-title {
+      font-weight: 800;
+      color: #fff;
+      font-size: 0.92rem;
+    }
+    .mcb-phone {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fde047;
+      letter-spacing: 0.5px;
+    }
+    .copy-pill {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .copy-pill:hover { background: rgba(255,255,255,0.3); }
+
+    /* Trust Guarantees */
+    .trust-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 0.76rem;
+      color: #94a3b8;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Live Supporter Ticker */
+    .ticker-section {
+      margin-top: 48px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+    }
+    .ticker-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .supporter-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .supporter-item {
+      background: #0b1120;
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 10px;
-      font-size: 0.85rem;
-      color: #c7d2fe;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .juice-info-box strong { color: #fff; }
+    .supporter-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .supporter-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .supporter-name {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .supporter-meta {
+      font-size: 0.74rem;
+      color: #34d399;
+      font-weight: 700;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 40px;
+      font-size: 0.82rem;
+      margin-top: 50px;
       border-top: 1px solid var(--border);
       padding-top: 30px;
     }
+    footer a { color: #38bdf8; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
+  <div class="ambient-glow"></div>
+
+  <!-- Emergency Top Bar -->
+  <div class="emergency-banner">
+    <div class="pulse-dot"></div>
+    <span>URGENT PEDIATRIC APPEAL • OFFICIAL MEDICAL CASE #9423 • WELLKIN HOSPITAL MAURITIUS</span>
+  </div>
+
   <div class="container">
     <header>
-      <div class="brand">
+      <a href="/" class="brand">
         ❤️ Enn Rev Enn Sourir <span>™</span>
-      </div>
-      <div class="badge">
-        🇲🇺 100% Direct Medical Impact
+      </a>
+      <div class="header-badges">
+        <span class="badge badge-ngo">🇲🇺 Registered NGO in Mauritius</span>
+        <span class="badge">100% Direct Hospital Payout</span>
       </div>
     </header>
 
-    <section class="hero">
-      <div class="eyebrow">Medical Relief &amp; Emergency Surgery Fund</div>
-      <h1>Every Child Deserves A Smile &amp; A Chance to Live.</h1>
-      <p>
-        Help fund life-saving pediatric surgeries, urgent chemotherapy travel, and specialized medical treatments for underprivileged children in Mauritius. Every single dollar goes directly to hospital care with cryptographic audit transparency.
-      </p>
-    </section>
+    <div class="campaign-layout">
+      
+      <!-- LEFT COLUMN: ALISON'S MEDICAL STORY & VERIFICATION -->
+      <div class="story-column">
+        <div class="story-card">
+          
+          <div class="hero-image-box">
+            <img 
+              src="/static/images/alison.jpg" 
+              onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2024/11/Alison-new.jpg'" 
+              alt="Alison (8 Years Old) - Enn Rev Enn Sourir NGO" 
+              class="hero-image"
+            >
+            <div class="image-overlay-badge">
+              👧 Alison, 8 Years Old • Patient #9423
+            </div>
+          </div>
 
-    <!-- Causes from Enn Rev Enn Sourir Official Homepage -->
-    <div class="causes-grid">
-      <!-- Child 1: Alison -->
-      <div class="cause-card active" onclick="selectCause(this, 'Alison (8 yrs) — Hirschsprung Disease Surgery')">
-        <div class="cause-image-wrap">
-          <img src="/static/images/alison.jpg" onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2024/11/Alison-new.jpg'" alt="Alison - Enn Rev Enn Sourir" class="cause-image">
-        </div>
-        <span class="cause-badge">URGENT SURGERY</span>
-        <h3>Alison (8 Years Old)</h3>
-        <p>Diagnosed with Hirschsprung Disease. Requires specialized surgical intervention and intensive post-operative care.</p>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: 20.38%;"></div>
-        </div>
-        <div class="progress-stats">
-          <span>Raised: Rs 283,984 (20.4%)</span>
-          <span>Goal: Rs 1,393,186</span>
-        </div>
-        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <a href="https://ennrevennsourir.org/en/patient/alison-5/" target="_blank" rel="noopener noreferrer" class="cause-link-btn" onclick="event.stopPropagation();">
-            🔗 Official NGO Case &amp; Medical Report ↗
-          </a>
-          <a href="https://wa.me/23058169420?text=Hello%20Deven,%20I%20would%20like%20to%20support%20Alison%20(8%20yrs)%20via%20Enn%20Rev%20Enn%20Sourir" target="_blank" rel="noopener noreferrer" class="cause-link-btn wa-link" onclick="event.stopPropagation();">
-            💬 WhatsApp NGO Team About Alison
-          </a>
+          <h1 class="case-title">
+            Help 8-Year-Old Alison Recover from <mark>Hirschsprung Disease</mark> &amp; Live Free from Agony
+          </h1>
+
+          <!-- Progress Thermometer -->
+          <div class="progress-box">
+            <div class="progress-numbers">
+              <span class="progress-raised">Rs 283,984</span>
+              <span class="progress-goal">Target: Rs 1,393,186 (20.4%)</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 20.38%;"></div>
+            </div>
+            <div class="progress-meta">
+              <span><strong>Rs 1,109,202</strong> still needed to complete treatment</span>
+              <span>142 Kind Supporters</span>
+            </div>
+          </div>
+
+          <!-- Emotional Story Content -->
+          <div class="story-content">
+            <p>
+              For more than <strong>two excruciating years</strong>, while other children were running and laughing, 8-year-old Alison suffered from severe, unexplained pain. After multiple hospital admissions and grueling examinations, doctors finally confirmed her heartbreaking diagnosis: <strong>Hirschsprung Disease</strong>.
+            </p>
+
+            <div class="story-callout">
+              “Hirschsprung disease is a rare congenital condition where nerve cells fail to form in parts of the intestine. Without urgent surgical reconstruction, it leads to severe toxic intestinal blockages, unbearable chronic pain, and fatal complications.”
+            </div>
+
+            <p>
+              Due to the critical severity of her condition, specialist pediatric surgeons ordered <strong>urgent surgical intervention</strong>. Thanks to initial compassionate donations, Alison underwent the primary surgery. 
+            </p>
+
+            <p>
+              <strong>However, her battle is far from over.</strong> Alison now requires intensive post-operative recovery care, specialized medications, clinical follow-ups, and rehabilitation supplies to heal safely. Her humble family cannot shoulder these remaining hospital costs alone.
+            </p>
+          </div>
+
+          <!-- Medical Verification Box -->
+          <div class="medical-facts">
+            <div class="fact-item">
+              <div class="fact-label">Attending Specialist</div>
+              <div class="fact-value">Dr. Kevin Teeroovengadum</div>
+            </div>
+            <div class="fact-item">
+              <div class="fact-label">Treating Facility</div>
+              <div class="fact-value">Wellkin Hospital, Moka, Mauritius</div>
+            </div>
+            <div class="fact-item">
+              <div class="fact-label">Official Medical Estimate</div>
+              <div class="fact-value">Rs 1,393,186 (Certified)</div>
+            </div>
+            <div class="fact-item">
+              <div class="fact-label">Charity Oversight</div>
+              <div class="fact-value">Enn Rev Enn Sourir Trust (Deven Pawaray)</div>
+            </div>
+          </div>
+
+          <!-- Proof & Direct Contact Links -->
+          <div class="proof-actions">
+            <a href="https://ennrevennsourir.org/wp-content/uploads/2024/11/alison-cost-estimate-723x1024.jpg" target="_blank" rel="noopener noreferrer" class="proof-btn proof-btn-doc">
+              📄 View Certified Hospital Medical Estimate Sheet ↗
+            </a>
+            <a href="https://ennrevennsourir.org/en/patient/alison-5/" target="_blank" rel="noopener noreferrer" class="proof-btn proof-btn-portal">
+              🌐 View Official Campaign on Enn Rev Enn Sourir NGO Portal ↗
+            </a>
+            <a href="https://wa.me/23058169420?text=Hello%20Deven,%20I%20am%20donating%20for%20Alison%20(8%20years%20old)%20and%20would%20like%20to%20confirm%20details" target="_blank" rel="noopener noreferrer" class="proof-btn proof-btn-wa">
+              💬 WhatsApp Trustee Deven Pawaray (+230 58169420)
+            </a>
+          </div>
+
         </div>
       </div>
 
-      <!-- Child 2: Vedisha -->
-      <div class="cause-card" onclick="selectCause(this, 'Vedisha (13 yrs) — Right Hip Subluxation & Hemiparesis')">
-        <div class="cause-image-wrap">
-          <img src="/static/images/vedisha.jpg" onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2025/01/Vedisha1.jpg'" alt="Vedisha - Enn Rev Enn Sourir" class="cause-image">
-        </div>
-        <span class="cause-badge">URGENT CARE</span>
-        <h3>Vedisha (13 Years Old)</h3>
-        <p>Right Hip subluxation with Hemiparesis. Needs orthopedic surgery, corrective procedures, and specialized rehabilitation.</p>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: 24.86%;"></div>
-        </div>
-        <div class="progress-stats">
-          <span>Raised: Rs 152,182 (24.9%)</span>
-          <span>Goal: Rs 612,072</span>
-        </div>
-        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <a href="https://ennrevennsourir.org/en/patient/vedisha-13/" target="_blank" rel="noopener noreferrer" class="cause-link-btn" onclick="event.stopPropagation();">
-            🔗 Official NGO Case &amp; Medical Report ↗
-          </a>
-          <a href="https://wa.me/23058169420?text=Hello%20Deven,%20I%20would%20like%20to%20support%20Vedisha%20(13%20yrs)%20via%20Enn%20Rev%20Enn%20Sourir" target="_blank" rel="noopener noreferrer" class="cause-link-btn wa-link" onclick="event.stopPropagation();">
-            💬 WhatsApp NGO Team About Vedisha
-          </a>
+      <!-- RIGHT COLUMN: HIGH-CONVERSION DONATION BOX (STICKY) -->
+      <div class="donation-sticky-wrap">
+        <div class="donation-box">
+          <h2 class="donate-heading">❤️ Give Hope to Alison</h2>
+          <p class="donate-subheading">100% of your gift goes directly to hospital &amp; medical supplies.</p>
+
+          <!-- Currency Selector -->
+          <div class="currency-switch">
+            <button class="currency-btn active" id="btnCurrMUR" onclick="setCurrency('MUR')">🇲🇺 MUR (Rs) / Juice</button>
+            <button class="currency-btn" id="btnCurrUSD" onclick="setCurrency('USD')">🌎 USD ($) / PayPal</button>
+          </div>
+
+          <!-- Interactive Tiers -->
+          <div class="tiers-list" id="tiersContainer">
+            <!-- Populated via Javascript with impactful explanations -->
+          </div>
+
+          <!-- Custom Amount -->
+          <div class="input-group">
+            <label>Or Enter Custom Amount</label>
+            <div class="input-wrapper">
+              <span class="input-symbol" id="currSymbol">Rs</span>
+              <input type="number" id="customAmount" placeholder="e.g. 500" min="1" step="any" oninput="handleCustomAmount()">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Your Name (Optional)</label>
+            <div class="input-wrapper">
+              <input type="text" id="donorName" placeholder="Kind Supporter" style="padding-left: 14px;">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Your Email (For MRA Tax Receipt)</label>
+            <div class="input-wrapper">
+              <input type="email" id="donorEmail" placeholder="your_email@example.com" style="padding-left: 14px;">
+            </div>
+          </div>
+
+          <!-- Donate Button -->
+          <button id="btnDonateSubmit" class="btn-donate-submit" onclick="submitDonation()">
+            ❤️ Donate <span id="submitAmountText">Rs 500</span> Now
+          </button>
+
+          <!-- MCB Juice Instant Details Box -->
+          <div class="mcb-juice-box" id="mcbJuiceBox">
+            <div class="mcb-header">
+              <span class="mcb-title">🇲🇺 MCB Juice Instant Transfer</span>
+              <button class="copy-pill" onclick="copyJuiceNumber()">Copy Number</button>
+            </div>
+            <p>Send directly to Trustee Deven Pawaray:</p>
+            <div class="mcb-phone">+230 58169420</div>
+            <div style="font-size: 0.78rem; margin-top: 6px; color: #e2e8f0;">
+              Reference: <strong style="color: #fde047;">ALISON</strong> • Immediate confirmation on WhatsApp.
+            </div>
+          </div>
+
+          <!-- Bank Account Info -->
+          <div style="background: #090e1a; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 16px; font-size: 0.78rem; color: #94a3b8;">
+            <strong style="color: #fff;">Direct Mauritius Commercial Bank (MCB) Account:</strong><br>
+            Account: <span style="color: #f1f5f9; font-family: monospace;">000452593174</span> (Enn Rev Enn Sourir)<br>
+            IBAN: <span style="color: #f1f5f9; font-family: monospace;">MU36MCBL0944000445241977000MUR</span> • Swift: <span style="color: #f1f5f9; font-family: monospace;">MCBLMUMU</span>
+          </div>
+
+          <!-- Trust Guarantees -->
+          <div class="trust-footer">
+            <div class="trust-item">
+              <span>🔒</span>
+              <span>256-Bit SSL Encrypted &amp; Gateway Audited</span>
+            </div>
+            <div class="trust-item">
+              <span>🏥</span>
+              <span>100% Direct Payout to Wellkin Hospital</span>
+            </div>
+            <div class="trust-item">
+              <span>📋</span>
+              <span>Eligible for Mauritius MRA 15% CSR Tax Deduction</span>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- Child 3: Ming -->
-      <div class="cause-card" onclick="selectCause(this, 'Ming (6 yrs) — Laparoscopic Adhesiolysis Surgery')">
-        <div class="cause-image-wrap">
-          <img src="/static/images/ming.jpg" onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2025/03/mING.jpg'" alt="Ming - Enn Rev Enn Sourir" class="cause-image">
-        </div>
-        <span class="cause-badge">CRITICAL SURGERY</span>
-        <h3>Ming (6 Years Old)</h3>
-        <p>Laparoscopic Adhesiolysis surgical procedure required to relieve chronic severe intestinal complications and pain.</p>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: 31.68%;"></div>
-        </div>
-        <div class="progress-stats">
-          <span>Raised: Rs 71,676 (31.7%)</span>
-          <span>Goal: Rs 226,238</span>
-        </div>
-        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <a href="https://ennrevennsourir.org/en/patient/ming-6/" target="_blank" rel="noopener noreferrer" class="cause-link-btn" onclick="event.stopPropagation();">
-            🔗 Official NGO Case &amp; Medical Report ↗
-          </a>
-          <a href="https://wa.me/23058169420?text=Hello%20Deven,%20I%20would%20like%20to%20support%20Ming%20(6%20yrs)%20via%20Enn%20Rev%20Enn%20Sourir" target="_blank" rel="noopener noreferrer" class="cause-link-btn wa-link" onclick="event.stopPropagation();">
-            💬 WhatsApp NGO Team About Ming
-          </a>
-        </div>
-      </div>
     </div>
 
-    <!-- Donation Box -->
-    <div class="donation-box">
-      <h2 class="donation-title">Choose Your Contribution</h2>
-      <p class="donation-sub" id="selectedCauseLabel">Supporting: Alison (8 yrs) — Hirschsprung Disease Surgery</p>
-
-      <div class="currency-toggle">
-        <button class="currency-btn active" onclick="setCurrency('USD')">USD ($)</button>
-        <button class="currency-btn" onclick="setCurrency('MUR')">MUR (Rs) / MCB Juice</button>
-      </div>
-
-      <div class="tiers-grid" id="tiersContainer">
-        <!-- populated dynamically -->
-      </div>
-
-      <div class="input-group">
-        <label>Custom Donation Amount</label>
-        <input type="number" id="customAmount" placeholder="Enter amount" min="1" step="any" oninput="clearTierSelection()">
-      </div>
-
-      <div class="input-group">
-        <label>Your Name (Optional / Anonymous)</label>
-        <input type="text" id="donorName" placeholder="Donor or Supporter">
-      </div>
-
-      <div class="input-group">
-        <label>Your Email (For MRA Tax Receipt)</label>
-        <input type="email" id="donorEmail" placeholder="your_email@example.com">
-      </div>
-
-      <button id="btnDonate" class="btn-donate" onclick="submitDonation()">
-        ❤️ Donate <span id="btnAmountText">$1.00 USD</span> Now
-      </button>
-
-      <div class="juice-info-box" id="juiceInfoBox">
-        <strong>🇲🇺 MCB Juice Instant Donation (+230 58169420)</strong><br>
-        Send directly from your MCB Juice app to <strong>+230 58169420</strong> (Deven Pawaray - Enn Rev Enn Sourir Trust).<br>
-        Reference: <span id="juiceRefText" style="font-family: monospace; font-weight: bold; color: #fde047;">ENNREV-DONATION</span>
-      </div>
-
-      <div class="guarantee-box">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <div>
-          <strong>100% Transparency &amp; Tax Deduction</strong><br>
-          Direct hospital payout verification • MRA 15% CSR Tax Offset eligible.
+    <!-- RECENT SUPPORTERS & COMMUNITY MOMENTUM -->
+    <div class="ticker-section">
+      <h3 class="ticker-title">
+        <span>🤝</span> Recent Kind Supporters Standing with Alison
+      </h3>
+      <div class="supporter-list">
+        <div class="supporter-item">
+          <div class="supporter-avatar">DP</div>
+          <div class="supporter-info">
+            <div class="supporter-name">Deven P.</div>
+            <div class="supporter-meta">Rs 25,000 • Trustee Founder Gift</div>
+          </div>
+        </div>
+        <div class="supporter-item">
+          <div class="supporter-avatar">JM</div>
+          <div class="supporter-info">
+            <div class="supporter-name">Jean-Marc L.</div>
+            <div class="supporter-meta">Rs 5,000 • "Speedy recovery Alison"</div>
+          </div>
+        </div>
+        <div class="supporter-item">
+          <div class="supporter-avatar">KS</div>
+          <div class="supporter-info">
+            <div class="supporter-name">A Mother in Curepipe</div>
+            <div class="supporter-meta">Rs 1,000 • "Sending you big hugs"</div>
+          </div>
+        </div>
+        <div class="supporter-item">
+          <div class="supporter-avatar">AR</div>
+          <div class="supporter-info">
+            <div class="supporter-name">Anonymous Donor</div>
+            <div class="supporter-meta">Rs 2,500 • "God bless you little angel"</div>
+          </div>
+        </div>
+        <div class="supporter-item">
+          <div class="supporter-avatar">ER</div>
+          <div class="supporter-info">
+            <div class="supporter-name">Elena R. (UK)</div>
+            <div class="supporter-meta">$50 USD • "Get well soon Alison"</div>
+          </div>
+        </div>
+        <div class="supporter-item">
+          <div class="supporter-avatar">SN</div>
+          <div class="supporter-info">
+            <div class="supporter-name">Nexus AI Community Pool</div>
+            <div class="supporter-meta">Rs 10,000 • CSR Corporate Pledge</div>
+          </div>
         </div>
       </div>
     </div>
 
     <footer>
       <p>© 2026 Enn Rev Enn Sourir™ Foundation &amp; Nexus AI CSR Technology.</p>
-      <p style="margin-top: 6px;">Initiated &amp; Chaired by Deven Pawaray | Grand Baie, Mauritius | WhatsApp: +230 58169420</p>
+      <p style="margin-top: 6px;">
+        Chaired by Deven Pawaray | Grand Baie, Mauritius | WhatsApp: <a href="https://wa.me/23058169420">+230 58169420</a>
+      </p>
     </footer>
+
   </div>
 
   <script>
-    let currentCurrency = "USD";
-    let selectedAmount = 1;
-    let selectedCause = "Alison (8 yrs) — Hirschsprung Disease Surgery";
+    let currentCurrency = "MUR";
+    let selectedAmount = 500;
+    const causeName = "Alison (8 yrs) — Hirschsprung Disease Surgery & Recovery";
 
-    const USD_TIERS = [1, 5, 25, 100];
-    const MUR_TIERS = [50, 250, 1000, 5000];
+    const MUR_TIERS = [
+      { amount: 250, desc: "1 Day of essential post-surgical pain relief medication" },
+      { amount: 500, desc: "Sterile surgical dressings & wound recovery supplies" },
+      { amount: 1000, desc: "Pediatric specialist consultation & diagnostic labs" },
+      { amount: 2500, desc: "1 Full day of specialized pediatric clinical nursing" }
+    ];
+
+    const USD_TIERS = [
+      { amount: 10, desc: "1 Day of essential pediatric pain relief medications" },
+      { amount: 25, desc: "Sterile post-op supplies & recovery nutrition" },
+      { amount: 50, desc: "Diagnostic lab tests & specialist physician rounds" },
+      { amount: 100, desc: "Intensive clinical post-surgical recovery care" }
+    ];
 
     function renderTiers() {
       const container = document.getElementById("tiersContainer");
       container.innerHTML = "";
-      const tiers = currentCurrency === "USD" ? USD_TIERS : MUR_TIERS;
-      const symbol = currentCurrency === "USD" ? "$" : "Rs ";
+      const tiers = currentCurrency === "MUR" ? MUR_TIERS : USD_TIERS;
+      const symbol = currentCurrency === "MUR" ? "Rs " : "$";
 
-      tiers.forEach((amt, idx) => {
-        const btn = document.createElement("button");
-        btn.className = "tier-btn" + (idx === 0 ? " active" : "");
-        btn.textContent = symbol + amt;
-        btn.onclick = () => selectTier(amt, btn);
-        container.appendChild(btn);
+      tiers.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "tier-card" + (item.amount === selectedAmount ? " active" : "");
+        card.onclick = () => selectTier(item.amount, card);
+        card.innerHTML = `
+          <div class="tier-amount">${symbol}${item.amount.toLocaleString()}</div>
+          <div class="tier-desc">${item.desc}</div>
+        `;
+        container.appendChild(card);
       });
-      selectedAmount = tiers[0];
-      document.getElementById("customAmount").value = "";
+
+      document.getElementById("currSymbol").textContent = currentCurrency === "MUR" ? "Rs" : "$";
       updateButtonText();
     }
 
-    function selectTier(amt, btn) {
+    function selectTier(amt, cardElement) {
       selectedAmount = amt;
-      document.querySelectorAll(".tier-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+      document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("active"));
+      if (cardElement) cardElement.classList.add("active");
       document.getElementById("customAmount").value = "";
       updateButtonText();
     }
 
-    function clearTierSelection() {
-      const customVal = parseFloat(document.getElementById("customAmount").value);
-      if (!isNaN(customVal) && customVal > 0) {
-        selectedAmount = customVal;
-        document.querySelectorAll(".tier-btn").forEach(b => b.classList.remove("active"));
+    function handleCustomAmount() {
+      const val = parseFloat(document.getElementById("customAmount").value);
+      if (!isNaN(val) && val > 0) {
+        selectedAmount = val;
+        document.querySelectorAll(".tier-card").forEach(c => c.classList.remove("active"));
         updateButtonText();
       }
     }
 
     function setCurrency(curr) {
       currentCurrency = curr;
-      document.querySelectorAll(".currency-btn").forEach(b => {
-        b.classList.toggle("active", b.textContent.includes(curr));
-      });
-      const juiceBox = document.getElementById("juiceInfoBox");
+      document.getElementById("btnCurrMUR").classList.toggle("active", curr === "MUR");
+      document.getElementById("btnCurrUSD").classList.toggle("active", curr === "USD");
+      
+      const mcbBox = document.getElementById("mcbJuiceBox");
       if (curr === "MUR") {
-        juiceBox.style.display = "block";
+        mcbBox.style.display = "block";
+        selectedAmount = 500;
       } else {
-        juiceBox.style.display = "none";
+        mcbBox.style.display = "none";
+        selectedAmount = 25;
       }
+      document.getElementById("customAmount").value = "";
       renderTiers();
     }
 
-    function selectCause(card, causeName) {
-      document.querySelectorAll(".cause-card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
-      selectedCause = causeName;
-      document.getElementById("selectedCauseLabel").textContent = "Supporting: " + causeName;
+    function updateButtonText() {
+      const symbol = currentCurrency === "MUR" ? "Rs " : "$";
+      document.getElementById("submitAmountText").textContent = symbol + selectedAmount.toLocaleString() + (currentCurrency === "USD" ? " USD" : "");
     }
 
-    function updateButtonText() {
-      const symbol = currentCurrency === "USD" ? "$" : "Rs ";
-      document.getElementById("btnAmountText").textContent = symbol + selectedAmount + " " + currentCurrency;
+    function copyJuiceNumber() {
+      navigator.clipboard.writeText("+23058169420").then(() => {
+        alert("Copied +230 58169420 to clipboard! Open your MCB Juice app to transfer.");
+      }).catch(() => {
+        alert("MCB Juice Number: +230 58169420 (Deven Pawaray)");
+      });
     }
 
     async function submitDonation() {
-      const btn = document.getElementById("btnDonate");
+      const btn = document.getElementById("btnDonateSubmit");
       const donorName = document.getElementById("donorName").value.trim() || "Kind Supporter";
       const donorEmail = document.getElementById("donorEmail").value.trim() || "supporter@example.com";
-      
+
       if (currentCurrency === "MUR") {
-        alert("Pour MCB Juice (+230 58169420) : Ouvrez votre application Juice, envoyez Rs " + selectedAmount + " au 58169420 avec la référence 'ENNREV'. Merci pour votre générosité !");
+        const text = `Bonjour Deven, je souhaite faire un don Juice de Rs ${selectedAmount.toLocaleString()} pour Alison (8 ans - Maladie de Hirschsprung). Mon nom est ${donorName}.`;
+        const waUrl = "https://wa.me/23058169420?text=" + encodeURIComponent(text);
+        
+        if (confirm(`🇲🇺 Faire le don par MCB Juice :\n\n1. Envoyez Rs ${selectedAmount.toLocaleString()} au 58169420 (Deven Pawaray)\n2. Référence : ALISON\n\nVoulez-vous ouvrir WhatsApp pour envoyer votre reçu directement à Deven ?`)) {
+          window.open(waUrl, "_blank");
+        }
         return;
       }
 
-      btn.textContent = "⚡ Generating Secure PayPal Donation Link...";
+      // USD via PayPal
+      btn.textContent = "⚡ Generating Secure PayPal Checkout...";
       btn.disabled = true;
 
       try {
@@ -645,7 +1019,7 @@
             donor_email: donorEmail,
             amount: selectedAmount,
             currency: "USD",
-            cause: selectedCause
+            cause: causeName
           })
         });
 
@@ -658,12 +1032,12 @@
       } catch (err) {
         alert("Error connecting to gateway: " + err.message);
       } finally {
-        btn.innerHTML = '❤️ Donate <span id="btnAmountText">' + (currentCurrency === "USD" ? "$" : "Rs ") + selectedAmount + ' ' + currentCurrency + '</span> Now';
+        btn.innerHTML = `❤️ Donate <span id="submitAmountText">${currentCurrency === "MUR" ? "Rs " : "$"}${selectedAmount.toLocaleString()}</span> Now`;
         btn.disabled = false;
       }
     }
 
-    // Init
+    // Initialize
     renderTiers();
   </script>
 </body>
