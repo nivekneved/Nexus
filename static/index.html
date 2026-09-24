@@ -238,6 +238,19 @@
             <span>CEO Cockpit</span>
             <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: #4f46e5; color: #fff; padding: 1px 6px; border-radius: 10px;">Primary</span>
           </button>
+          <button class="nav-item" data-tab="jarvis-voice" id="navItemJarvis">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6" stroke-dasharray="2 2"/>
+              <circle cx="12" cy="12" r="2" fill="#00f0ff"/>
+              <line x1="12" y1="2" x2="12" y2="6"/>
+              <line x1="12" y1="18" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="6" y2="12"/>
+              <line x1="18" y1="12" x2="22" y2="12"/>
+            </svg>
+            <span>J.A.R.V.I.S. Voice AI</span>
+            <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #06b6d4); color: #fff; padding: 1px 6px; border-radius: 10px; box-shadow: 0 0 8px rgba(6,182,212,0.45);">Iron Man</span>
+          </button>
           <button class="nav-item" data-tab="partner-fleets">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
             <span>Partner Fleets</span>
@@ -904,6 +917,206 @@
             </div>
           </div>
 
+        </div>
+
+      </section>
+
+      <!-- TAB: J.A.R.V.I.S. (IRON MAN VOICE & INTELLIGENCE HUD) -->
+      <section class="tab-pane" id="pane-jarvis-voice">
+        
+        <div class="jarvis-hud-wrapper">
+          <!-- Stark Industries Header -->
+          <div class="jarvis-header-grid">
+            <div class="jarvis-brand-lockup">
+              <!-- Animated SVG Arc Reactor -->
+              <svg class="jarvis-arc-reactor-svg" viewBox="0 0 100 100" id="jarvisHeaderReactor">
+                <!-- Outer Tech Ticks -->
+                <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(0,240,255,0.2)" stroke-width="2"/>
+                <g class="jarvis-reactor-ring-outer">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-dasharray="14 8 20 6"/>
+                  <line x1="50" y1="4" x2="50" y2="12" stroke="#00f0ff" stroke-width="2"/>
+                  <line x1="50" y1="88" x2="50" y2="96" stroke="#00f0ff" stroke-width="2"/>
+                  <line x1="4" y1="50" x2="12" y2="50" stroke="#00f0ff" stroke-width="2"/>
+                  <line x1="88" y1="50" x2="96" y2="50" stroke="#00f0ff" stroke-width="2"/>
+                </g>
+                <g class="jarvis-reactor-ring-inner">
+                  <circle cx="50" cy="50" r="28" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="8 6"/>
+                  <!-- Core Triangular Elements -->
+                  <polygon points="50,26 68,60 32,60" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                  <polygon points="50,74 68,40 32,40" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+                </g>
+                <!-- Glowing Core -->
+                <circle cx="50" cy="50" r="14" fill="#00f0ff" class="jarvis-reactor-core"/>
+                <circle cx="50" cy="50" r="7" fill="#ffffff"/>
+              </svg>
+
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <span class="jarvis-telemetry-badge">
+                    <span class="pulse-dot" style="background: #00f0ff;"></span> Stark OS • J.A.R.V.I.S.
+                  </span>
+                  <span style="font-size: 0.72rem; color: #94a3b8; font-family: var(--font-mono);">v4.2.0 Mark VII</span>
+                </div>
+                <h1 style="font-size: 1.8rem; font-weight: 900; margin: 0; color: #ffffff; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px;">
+                  J.A.R.V.I.S. Command &amp; Voice Console
+                </h1>
+                <p style="margin: 4px 0 0 0; font-size: 0.88rem; color: #94a3b8;">
+                  Dedicated to <strong>Mr. Deven Pawaray (Sir)</strong>. Full conversational intelligence, speech synthesis, and hands-free autonomous fleet execution.
+                </p>
+              </div>
+            </div>
+
+            <!-- Header Quick Action Controls -->
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+              <button class="btn btn-secondary btn-sm" id="btnJarvisClearHistory" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; font-size: 0.78rem;">
+                🧹 Recycle Logs
+              </button>
+              <button class="btn btn-primary btn-sm" id="btnJarvisDiagnostics" style="background: linear-gradient(135deg, #0284c7, #06b6d4); color: #fff; font-weight: 700; border: none; font-size: 0.78rem; box-shadow: 0 0 12px rgba(6,182,212,0.4);">
+                ⚡ Diagnostics Sweep
+              </button>
+            </div>
+          </div>
+
+          <!-- HUD Telemetry Grid -->
+          <div class="jarvis-hud-stats-bar">
+            <div class="jarvis-hud-stat-box">
+              <span class="jarvis-hud-stat-label">Power Core</span>
+              <div class="jarvis-hud-stat-value" style="color: #00f0ff;">100% NOMINAL</div>
+            </div>
+            <div class="jarvis-hud-stat-box">
+              <span class="jarvis-hud-stat-label">Audio Matrix</span>
+              <div class="jarvis-hud-stat-value" style="color: #38bdf8;" id="jarvisAudioStatusBadge">READY (UK VOICE)</div>
+            </div>
+            <div class="jarvis-hud-stat-box">
+              <span class="jarvis-hud-stat-label">Fleet Link</span>
+              <div class="jarvis-hud-stat-value" style="color: #10b981;">16 AGENTS ACTIVE</div>
+            </div>
+            <div class="jarvis-hud-stat-box">
+              <span class="jarvis-hud-stat-label">Defense Protocol</span>
+              <div class="jarvis-hud-stat-value" style="color: #fbbf24;">25 SHIELDS / LVL 5</div>
+            </div>
+            <div class="jarvis-hud-stat-box">
+              <span class="jarvis-hud-stat-label">Local Host Base</span>
+              <div class="jarvis-hud-stat-value" style="font-size: 0.88rem; color: #e2e8f0;">MAURITIUS (+230)</div>
+            </div>
+          </div>
+
+          <!-- Interactive Voice Control Stage -->
+          <div class="jarvis-voice-stage">
+            <div style="position: relative; display: flex; align-items: center; justify-content: center;">
+              <button class="jarvis-big-mic-btn" id="jarvisMainMicBtn" title="Click to speak with J.A.R.V.I.S.">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                  <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+              </button>
+              <div class="jarvis-mic-ripples"></div>
+            </div>
+
+            <div class="jarvis-voice-status-text" id="jarvisVoiceStatusText">
+              Press to Speak or Tap Quick Directives Below
+            </div>
+            <div class="jarvis-voice-status-sub" id="jarvisVoiceSubText">
+              Speech recognition online • British Butler cadence ready
+            </div>
+
+            <!-- Waveform Equalizer -->
+            <div class="jarvis-audio-wave-bars" id="jarvisAudioWaveBars">
+              <div class="jarvis-wave-bar"></div>
+              <div class="jarvis-wave-bar"></div>
+              <div class="jarvis-wave-bar"></div>
+              <div class="jarvis-wave-bar"></div>
+              <div class="jarvis-wave-bar"></div>
+              <div class="jarvis-wave-bar"></div>
+              <div class="jarvis-wave-bar"></div>
+            </div>
+
+            <!-- Voice Controls & Settings Bar -->
+            <div class="jarvis-voice-settings-row">
+              <label class="jarvis-control-chip" style="cursor: pointer;">
+                <input type="checkbox" id="jarvisVoiceOutputToggle" checked style="accent-color: #00f0ff;">
+                <span>Voice Playback (TTS)</span>
+              </label>
+
+              <label class="jarvis-control-chip" style="cursor: pointer;">
+                <input type="checkbox" id="jarvisSoundEffectsToggle" checked style="accent-color: #00f0ff;">
+                <span>Arc Reactor Chimes</span>
+              </label>
+
+              <div class="jarvis-control-chip">
+                <span>Voice:</span>
+                <select id="jarvisVoiceSelector">
+                  <option value="uk-male" selected>British Butler (UK Male)</option>
+                  <option value="us-male">Executive Male (US)</option>
+                  <option value="deep-male">Deep Baritone Male</option>
+                </select>
+                <button type="button" id="btnJarvisTestVoice" style="background: rgba(0,240,255,0.15); border: 1px solid var(--jarvis-cyan); color: var(--jarvis-cyan); border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; cursor: pointer; margin-left: 4px;">🔊 Test</button>
+              </div>
+
+              <div class="jarvis-control-chip">
+                <span>Speed:</span>
+                <select id="jarvisVoiceSpeed">
+                  <option value="0.95">0.95x (Deliberate)</option>
+                  <option value="1.05" selected>1.05x (Brisk & Direct)</option>
+                  <option value="1.15">1.15x (Fast)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Quick Voice Directives Chips -->
+            <div class="jarvis-chips-bar" style="justify-content: center;">
+              <button class="jarvis-cmd-chip" onclick="window.jarvisSendDirectCommand('Good day Jarvis, what is our operational status?')">
+                ⚡ Operational Status
+              </button>
+              <button class="jarvis-cmd-chip" onclick="window.jarvisSendDirectCommand('Clean all spam across my inboxes')">
+                ✉️ Clean Inboxes
+              </button>
+              <button class="jarvis-cmd-chip" onclick="window.jarvisSendDirectCommand('Give me our current financial summary and receivables')">
+                💼 Financial Summary
+              </button>
+              <button class="jarvis-cmd-chip" onclick="window.jarvisSendDirectCommand('Run repo radar and check for CVE vulnerabilities')">
+                🎯 Repo Radar Audit
+              </button>
+              <button class="jarvis-cmd-chip" onclick="window.jarvisSendDirectCommand('Deploy B2B lead scout for Mauritius businesses')">
+                🔭 B2B Lead Scout
+              </button>
+              <button class="jarvis-cmd-chip" onclick="window.jarvisSendDirectCommand('Dispatch the executive briefing to my WhatsApp')">
+                📱 WhatsApp Briefing
+              </button>
+              <button class="jarvis-cmd-chip" onclick="window.jarvisSendDirectCommand('Are all 25 security safeguards active?')">
+                🛡️ Verify Shields
+              </button>
+            </div>
+          </div>
+
+          <!-- Holographic Terminal & Message Stream -->
+          <div class="jarvis-terminal-panel">
+            <div class="jarvis-terminal-header">
+              <div class="jarvis-terminal-title">
+                <span class="pulse-dot" style="background: #00f0ff;"></span>
+                <span>Holographic Terminal Uplink • Live Stream</span>
+              </div>
+              <span style="font-size: 0.72rem; color: #94a3b8; font-family: var(--font-mono);">
+                STARK SECURITY SEC-LEVEL 5
+              </span>
+            </div>
+
+            <!-- Chat Stream Scrollable Area -->
+            <div class="jarvis-chat-stream" id="jarvisChatStream">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- User Text Input Bar -->
+            <div class="jarvis-input-container">
+              <input type="text" id="jarvisTextInput" class="jarvis-text-input" placeholder="Address J.A.R.V.I.S. or dictate your directive, Sir..." autocomplete="off">
+              <button class="jarvis-send-btn" id="jarvisSendBtn">
+                <span>Send</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
 
       </section>
@@ -4008,6 +4221,44 @@
 
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
   <div class="toast-container" id="toastContainer"></div>
+
+  <!-- STARK INDUSTRIES • GLOBAL AMBIENT FLOATING J.A.R.V.I.S. HUD -->
+  <div class="jarvis-ambient-hud" id="jarvisAmbientHud">
+    <!-- Floating Capsule (Appears when active or speaking) -->
+    <div class="jarvis-capsule" id="jarvisCapsule" style="display: none;">
+      <div class="jarvis-capsule-header">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span class="pulse-dot" style="background: #00f0ff; width: 6px; height: 6px;"></span>
+          <span style="font-size: 0.7rem; font-family: var(--font-mono); color: #00f0ff; font-weight: 700;">J.A.R.V.I.S. HUD</span>
+        </div>
+        <button id="btnJarvisCapsuleClose" title="Dismiss" style="background: transparent; border: none; color: #94a3b8; font-size: 1rem; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+
+      <div class="jarvis-capsule-body">
+        <div class="jarvis-capsule-transcript" id="jarvisCapsuleTranscript">Listening to Sir...</div>
+        <div class="jarvis-capsule-reply" id="jarvisCapsuleReply" style="display: none;"></div>
+        <div class="jarvis-capsule-action" id="jarvisCapsuleAction" style="display: none;"></div>
+      </div>
+
+      <div class="jarvis-capsule-footer">
+        <span style="font-size: 0.65rem; color: #64748b; font-family: var(--font-mono);">Shortcut: [Alt + J]</span>
+        <button id="btnJarvisCapsuleDrawer" title="Open Full Console" style="background: transparent; border: none; color: #38bdf8; font-size: 0.68rem; cursor: pointer; text-decoration: underline;">Open Console ↗</button>
+      </div>
+    </div>
+
+    <!-- Master Floating Arc Reactor Mic Button -->
+    <div class="jarvis-floating-orb-container">
+      <button class="jarvis-floating-orb" id="jarvisFloatingOrb" title="J.A.R.V.I.S. Voice Assistant (Press Alt+J or Click to Speak)">
+        <svg viewBox="0 0 100 100" width="34" height="34" style="pointer-events: none;">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="12 6"/>
+          <circle cx="50" cy="50" r="28" fill="none" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="50" cy="50" r="14" fill="#00f0ff"/>
+          <circle cx="50" cy="50" r="6" fill="#ffffff"/>
+        </svg>
+      </button>
+      <div class="jarvis-floating-ripples"></div>
+    </div>
+  </div>
 
   <script src="/static/dal.js" defer></script>
   <script src="/static/app.js?v=3.2.0" defer></script>

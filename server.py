@@ -88,6 +88,7 @@ async def dashboard_auth_middleware(request: Request, call_next):
         or path.startswith("/static")
         or path.startswith("/api/donations")
         or path.startswith("/api/store")
+        or path.startswith("/api/jarvis")
         or path.startswith("/download")
     ):
         response = await call_next(request)
@@ -2541,6 +2542,70 @@ def api_quick_executive_social_post():
     agent = ExecutivePosterAgent()
     res = agent.run_cycle()
     return res
+
+
+# ==========================================
+# J.A.R.V.I.S. (Iron Man Voice & Assistant) Endpoints
+# ==========================================
+from core.jarvis_service import jarvis_service
+
+class JarvisChatRequest(BaseModel):
+    message: str
+    voice_mode: Optional[bool] = True
+
+class JarvisCommandRequest(BaseModel):
+    command: str
+
+@app.post("/api/jarvis/chat")
+def api_jarvis_chat(payload: JarvisChatRequest):
+    """Conversational endpoint with J.A.R.V.I.S. (Iron Man persona) with fleet command execution."""
+    res = jarvis_service.chat(
+        user_message=payload.message,
+        voice_mode=payload.voice_mode,
+        agent_manager=manager
+    )
+    return {
+        "success": True,
+        **res
+    }
+
+@app.get("/api/jarvis/status")
+def api_jarvis_status():
+    """Returns J.A.R.V.I.S. operational status, Arc Reactor core state, and fleet link."""
+    return {
+        "success": True,
+        "name": "J.A.R.V.I.S.",
+        "full_name": "Just A Rather Very Intelligent System",
+        "principal": "Deven Pawaray",
+        "power_level": "100%",
+        "status": "ONLINE",
+        "arc_reactor": "ACTIVE",
+        "gemini_active": jarvis_service.gemini_client is not None,
+        "fleet_count": len(manager.agents),
+        "history_count": len(jarvis_service.load_history(limit=100))
+    }
+
+@app.get("/api/jarvis/history")
+def api_jarvis_history(limit: int = 50):
+    """Retrieves conversation history with J.A.R.V.I.S."""
+    history = jarvis_service.load_history(limit=limit)
+    return {
+        "success": True,
+        "history": history
+    }
+
+@app.post("/api/jarvis/clear")
+def api_jarvis_clear_history():
+    """Resets J.A.R.V.I.S. conversation logs."""
+    cleared = jarvis_service.clear_history()
+    return {"success": cleared, "message": "J.A.R.V.I.S. conversation logs recycled, Sir."}
+
+@app.post("/api/jarvis/command")
+def api_jarvis_voice_command(payload: JarvisCommandRequest):
+    """Directly triggers a voice command action via J.A.R.V.I.S."""
+    res = jarvis_service.execute_voice_command(payload.command, agent_manager=manager)
+    return {"success": True, **res}
+
 
 if __name__ == "__main__":
     import uvicorn

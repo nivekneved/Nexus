@@ -116,7 +116,8 @@ window.navigateToPage = function(targetTab) {
     "outreach-message": "Outreach Record Inspection",
     "deliverability-checker": "Deliverability & MX Diagnostics",
     backup: "Backup & Disaster Recovery",
-    "social-war-room": "CEO Social Auto-Poster"
+    "social-war-room": "CEO Social Auto-Poster",
+    "jarvis-voice": "J.A.R.V.I.S. Voice AI Console"
   };
   if (pageTitle && titles[targetTab]) {
     pageTitle.textContent = titles[targetTab];
@@ -124,6 +125,7 @@ window.navigateToPage = function(targetTab) {
 
   // Execute tab-specific data fetching
   try {
+    if (targetTab === "jarvis-voice" && typeof initJarvisVoice === "function") initJarvisVoice();
     if (targetTab === "backup" && typeof fetchBackupDashboardData === "function") fetchBackupDashboardData();
     if (targetTab === "ceo-cockpit" && typeof fetchCeoCockpitData === "function") fetchCeoCockpitData();
     if (targetTab === "partner-fleets" && typeof fetchPartnerEconomicsAndFleets === "function") fetchPartnerEconomicsAndFleets();
@@ -6808,4 +6810,522 @@ window.triggerCeoSocialChip = async function(presetId) {
     }
   }
 };
+
+
+/* ==========================================================================
+   STARK INDUSTRIES • J.A.R.V.I.S. (IRON MAN VOICE & INTELLIGENCE HUD)
+   ========================================================================== */
+
+let jarvisSpeechRecognizer = null;
+let isJarvisListening = false;
+let jarvisVoicesLoaded = false;
+
+// 1. Arc Reactor Audio Synthesizer (Native Web Audio API — Zero MP3s required)
+function jarvisPlaySound(type) {
+  const toggle = document.getElementById("jarvisSoundEffectsToggle");
+  if (toggle && !toggle.checked) return;
+
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+
+    if (type === "activate") {
+      // Harmonic startup chime
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc1.type = "sine";
+      osc2.type = "triangle";
+      osc1.frequency.setValueAtTime(440, ctx.currentTime);
+      osc1.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.25);
+      osc2.frequency.setValueAtTime(554.37, ctx.currentTime);
+      osc2.frequency.exponentialRampToValueAtTime(1108.73, ctx.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+      osc1.start(); osc2.start();
+      osc1.stop(ctx.currentTime + 0.45); osc2.stop(ctx.currentTime + 0.45);
+    } else if (type === "listen") {
+      // Quick listening pulse
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    } else if (type === "acknowledge") {
+      // Dual high-tech confirmation click
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(784, ctx.currentTime);
+      osc.frequency.setValueAtTime(1046.5, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.07, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.22);
+    }
+  } catch (e) {
+    // Non-blocking if browser audio policy limits autoplay
+  }
+}
+
+// 2. Web Speech Synthesis (Refined British Butler Cadence)
+function jarvisSpeakText(text) {
+  const toggle = document.getElementById("jarvisVoiceOutputToggle");
+  if (toggle && !toggle.checked) return;
+  if (!("speechSynthesis" in window)) return;
+
+  window.speechSynthesis.cancel();
+
+  // Strip Markdown markers so J.A.R.V.I.S. pronounces natural speech
+  const cleanText = text
+    .replace(/```[\s\S]*?```/g, "Code block provided on your console, Sir.")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/[#_~>-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!cleanText) return;
+
+  const utter = new SpeechSynthesisUtterance(cleanText);
+
+  // Configure speed and pitch
+  const speedEl = document.getElementById("jarvisVoiceSpeed");
+  utter.rate = speedEl ? parseFloat(speedEl.value) || 1.05 : 1.05;
+
+  // 1. Strictly blacklist female identifiers to prevent female voices from playing
+  const FEMALE_NAMES = ["female", "woman", "girl", "zira", "hazel", "susan", "catherine", "linda", "heera", "ayanda", "serena", "victoria", "karen", "samantha", "tessa", "moira", "fiona", "eva", "ava", "allison", "jenny", "stephanie", "aria", "michelle", "natasha"];
+
+  const isVoiceFemale = (v) => {
+    const name = (v.name || "").toLowerCase();
+    return FEMALE_NAMES.some(fn => name.includes(fn));
+  };
+
+  const isMaleExplicit = (v) => {
+    const name = (v.name || "").toLowerCase();
+    return /male|man|george|daniel|arthur|oliver|david|james|guy|ryan|mark|richard|brian|tom|alex|fred/i.test(name);
+  };
+
+  const voices = window.speechSynthesis.getVoices();
+  const selector = document.getElementById("jarvisVoiceSelector")?.value || "uk-male";
+
+  // Filter all non-female English voices
+  const maleVoices = voices.filter(v => (v.lang.startsWith("en") || !v.lang) && !isVoiceFemale(v));
+
+  let chosenVoice = null;
+  if (selector === "uk-male") {
+    // British Male priority (e.g., Google UK English Male, Microsoft George, Daniel)
+    chosenVoice = maleVoices.find(v => v.lang.startsWith("en-GB") && isMaleExplicit(v))
+      || maleVoices.find(v => v.lang.startsWith("en-GB"))
+      || maleVoices.find(v => isMaleExplicit(v))
+      || maleVoices[0];
+  } else if (selector === "us-male") {
+    // US Male priority (e.g., Microsoft David, Microsoft Mark, Guy)
+    chosenVoice = maleVoices.find(v => (v.lang.startsWith("en-US") || v.lang === "en") && isMaleExplicit(v))
+      || maleVoices.find(v => v.lang.startsWith("en-US"))
+      || maleVoices.find(v => isMaleExplicit(v))
+      || maleVoices[0];
+  } else {
+    // Deep Baritone / Any male
+    chosenVoice = maleVoices.find(v => isMaleExplicit(v)) || maleVoices[0];
+  }
+
+  // Resonant masculine pitch (Paul Bettany cadence)
+  utter.pitch = selector === "deep-male" ? 0.85 : 0.92;
+
+  if (chosenVoice) {
+    utter.voice = chosenVoice;
+  }
+
+  const sub = document.getElementById("jarvisVoiceSubText");
+  const waveBars = document.getElementById("jarvisAudioWaveBars");
+
+  utter.onstart = () => {
+    if (sub) sub.textContent = "J.A.R.V.I.S. is speaking to Sir...";
+    if (waveBars) waveBars.querySelectorAll(".jarvis-wave-bar").forEach(b => b.style.background = "#38bdf8");
+  };
+
+  utter.onend = utter.onerror = () => {
+    if (sub) sub.textContent = "Speech recognition online • British Butler cadence ready";
+    if (waveBars) waveBars.querySelectorAll(".jarvis-wave-bar").forEach(b => b.style.background = "var(--jarvis-cyan)");
+  };
+
+  window.speechSynthesis.speak(utter);
+}
+
+// 3. Speech Recognition (Microphone Voice Control)
+function stopJarvisListeningUI() {
+  isJarvisListening = false;
+  const micBtn = document.getElementById("jarvisMainMicBtn");
+  const orb = document.getElementById("jarvisFloatingOrb");
+  const statusText = document.getElementById("jarvisVoiceStatusText");
+  const subText = document.getElementById("jarvisVoiceSubText");
+
+  if (micBtn) micBtn.classList.remove("listening");
+  if (orb) orb.classList.remove("listening");
+  if (statusText) statusText.textContent = "Press to Speak or Tap Quick Directives Below";
+  if (subText) subText.textContent = "Speech recognition online • British Butler cadence ready";
+}
+
+function toggleJarvisListening() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    if (typeof showToast === "function") {
+      showToast("Speech Recognition requires Chrome, Edge, or Safari.", "warning");
+    }
+    const subText = document.getElementById("jarvisVoiceSubText");
+    if (subText) subText.textContent = "Speech Recognition not supported in this browser. Please type below.";
+    return;
+  }
+
+  if (isJarvisListening) {
+    if (jarvisSpeechRecognizer) {
+      try { jarvisSpeechRecognizer.stop(); } catch(e){}
+    }
+    stopJarvisListeningUI();
+    return;
+  }
+
+  jarvisPlaySound("listen");
+
+  try {
+    jarvisSpeechRecognizer = new SpeechRecognition();
+    jarvisSpeechRecognizer.continuous = false;
+    jarvisSpeechRecognizer.interimResults = true;
+    jarvisSpeechRecognizer.lang = "en-US";
+
+    const micBtn = document.getElementById("jarvisMainMicBtn");
+    const orb = document.getElementById("jarvisFloatingOrb");
+    const statusText = document.getElementById("jarvisVoiceStatusText");
+    const subText = document.getElementById("jarvisVoiceSubText");
+    const capsule = document.getElementById("jarvisCapsule");
+    const capTranscript = document.getElementById("jarvisCapsuleTranscript");
+    const capReply = document.getElementById("jarvisCapsuleReply");
+    const capAction = document.getElementById("jarvisCapsuleAction");
+
+    jarvisSpeechRecognizer.onstart = () => {
+      isJarvisListening = true;
+      if (micBtn) micBtn.classList.add("listening");
+      if (orb) orb.classList.add("listening");
+      if (statusText) statusText.textContent = "Listening to Sir...";
+      if (subText) subText.textContent = "Speak your directive into your microphone...";
+      if (capsule) capsule.style.display = "block";
+      if (capTranscript) capTranscript.textContent = "Listening to Sir...";
+      if (capReply) capReply.style.display = "none";
+      if (capAction) capAction.style.display = "none";
+    };
+
+    jarvisSpeechRecognizer.onresult = (event) => {
+      let interim = "";
+      let finalTranscript = "";
+
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          interim += event.results[i][0].transcript;
+        }
+      }
+
+      const activeText = finalTranscript || interim;
+      if (activeText) {
+        if (statusText) statusText.textContent = `"${activeText}"`;
+        if (capTranscript) capTranscript.textContent = `"${activeText}"`;
+      }
+
+      if (finalTranscript) {
+        if (subText) subText.textContent = "Transmitting to J.A.R.V.I.S. neural core...";
+        sendJarvisMessage(finalTranscript);
+      }
+    };
+
+    jarvisSpeechRecognizer.onerror = (event) => {
+      console.warn("Jarvis STT Error:", event.error);
+      if (subText) subText.textContent = `Mic input notice: ${event.error}. Click to retry.`;
+      if (capTranscript) capTranscript.textContent = `Mic note: ${event.error}`;
+      stopJarvisListeningUI();
+    };
+
+    jarvisSpeechRecognizer.onend = () => {
+      stopJarvisListeningUI();
+    };
+
+    jarvisSpeechRecognizer.start();
+  } catch (err) {
+    console.error("Failed to start voice recognition:", err);
+    stopJarvisListeningUI();
+  }
+}
+
+// 4. Chat Rendering & Execution Engine
+function renderJarvisMessage(role, text, timestamp, actionTaken, voice) {
+  const stream = document.getElementById("jarvisChatStream");
+  if (!stream) return;
+
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `jarvis-msg ${role === "user" ? "user" : "model"}`;
+
+  const headerDiv = document.createElement("div");
+  headerDiv.className = "jarvis-msg-header";
+  headerDiv.innerHTML = `
+    <span>${role === "user" ? "👤 SIR (DEVEN)" : "🤖 J.A.R.V.I.S."}</span>
+    <span>${timestamp || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+  `;
+  msgDiv.appendChild(headerDiv);
+
+  if (actionTaken) {
+    const actionTag = document.createElement("div");
+    actionTag.className = "jarvis-action-tag";
+    actionTag.textContent = `⚡ FLEET PROTOCOL: ${actionTaken}`;
+    msgDiv.appendChild(actionTag);
+  }
+
+  const contentDiv = document.createElement("div");
+  // Simple markdown formatting for bold, bullets, and line breaks
+  let formatted = safeEscapeText(text)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code style="background:rgba(0,240,255,0.15);color:#00f0ff;padding:2px 5px;border-radius:4px;font-family:var(--font-mono);font-size:0.85em;">$1</code>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n•\s+/g, '<br>• ')
+    .replace(/\n-\s+/g, '<br>• ')
+    .replace(/\n/g, '<br>');
+
+  contentDiv.innerHTML = formatted;
+  msgDiv.appendChild(contentDiv);
+
+  if (role === "model") {
+    const footerDiv = document.createElement("div");
+    footerDiv.style.marginTop = "8px";
+    footerDiv.style.display = "flex";
+    footerDiv.style.justifyContent = "flex-end";
+
+    const replayBtn = document.createElement("button");
+    replayBtn.className = "jarvis-audio-replay-btn";
+    replayBtn.title = "Replay voice response";
+    replayBtn.innerHTML = `🔊 Replay Voice`;
+    replayBtn.onclick = () => {
+      jarvisSpeakText(text);
+    };
+    footerDiv.appendChild(replayBtn);
+    msgDiv.appendChild(footerDiv);
+  }
+
+  stream.appendChild(msgDiv);
+  stream.scrollTop = stream.scrollHeight;
+}
+
+async function sendJarvisMessage(text) {
+  const cleanInput = text.trim();
+  if (!cleanInput) return;
+
+  const inputEl = document.getElementById("jarvisTextInput");
+  if (inputEl) inputEl.value = "";
+
+  const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  renderJarvisMessage("user", cleanInput, timeNow, null, true);
+
+  // Add typing indicator
+  const stream = document.getElementById("jarvisChatStream");
+  const typingDiv = document.createElement("div");
+  typingDiv.className = "jarvis-msg model";
+  typingDiv.id = "jarvisTypingIndicator";
+  typingDiv.innerHTML = `
+    <div class="jarvis-msg-header"><span>🤖 J.A.R.V.I.S.</span><span>Processing...</span></div>
+    <div style="color: var(--jarvis-cyan); font-family: var(--font-mono); font-size: 0.82rem; display: flex; align-items: center; gap: 6px;">
+      <span class="pulse-dot" style="background: #00f0ff;"></span> Synthesizing telemetry and neural response...
+    </div>
+  `;
+  if (stream) {
+    stream.appendChild(typingDiv);
+    stream.scrollTop = stream.scrollHeight;
+  }
+
+  try {
+    const res = await fetch("/api/jarvis/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: cleanInput, voice_mode: true })
+    });
+
+    const data = await res.json();
+    if (typingDiv && typingDiv.parentNode) typingDiv.parentNode.removeChild(typingDiv);
+
+    if (data.success) {
+      jarvisPlaySound(data.audio_cue === "acknowledge" ? "acknowledge" : "activate");
+      renderJarvisMessage("model", data.reply, data.timestamp, data.action_taken, true);
+      jarvisSpeakText(data.reply);
+
+      // Update ambient floating capsule
+      const capReply = document.getElementById("jarvisCapsuleReply");
+      const capAction = document.getElementById("jarvisCapsuleAction");
+      if (capReply) {
+        capReply.textContent = data.reply;
+        capReply.style.display = "block";
+      }
+      if (data.action_taken && capAction) {
+        capAction.textContent = "⚡ " + data.action_taken;
+        capAction.style.display = "block";
+      }
+      clearTimeout(window._jarvisCapsuleTimer);
+      window._jarvisCapsuleTimer = setTimeout(() => {
+        const c = document.getElementById("jarvisCapsule");
+        if (c && !isJarvisListening) c.style.display = "none";
+      }, 9000);
+    } else {
+      renderJarvisMessage("model", "I encountered an anomaly accessing the core, Sir. Please inspect the fleet logs.", null, null, false);
+    }
+  } catch (err) {
+    if (typingDiv && typingDiv.parentNode) typingDiv.parentNode.removeChild(typingDiv);
+    renderJarvisMessage("model", `Communication channel interrupted, Sir: ${err.message}`, null, null, false);
+  }
+}
+
+window.jarvisSendDirectCommand = function(cmd) {
+  sendJarvisMessage(cmd);
+};
+
+async function fetchJarvisHistory() {
+  try {
+    const res = await fetch("/api/jarvis/history?limit=30");
+    const data = await res.json();
+    if (data.success && Array.isArray(data.history)) {
+      const stream = document.getElementById("jarvisChatStream");
+      if (stream) stream.innerHTML = "";
+      data.history.forEach(item => {
+        renderJarvisMessage(item.role, item.text, item.timestamp, item.action_taken, item.voice);
+      });
+    }
+  } catch (e) {
+    console.error("Failed to load JARVIS history:", e);
+  }
+}
+
+// 5. Primary Initializer
+function initJarvisVoice() {
+  fetchJarvisHistory();
+  jarvisPlaySound("activate");
+
+  // Load voices for synthesis
+  if ("speechSynthesis" in window && !jarvisVoicesLoaded) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      jarvisVoicesLoaded = true;
+    };
+  }
+
+  // Bind Main Mic Button
+  const micBtn = document.getElementById("jarvisMainMicBtn");
+  if (micBtn && !micBtn.dataset.bound) {
+    micBtn.dataset.bound = "true";
+    micBtn.addEventListener("click", () => {
+      toggleJarvisListening();
+    });
+  }
+
+  // Bind Send Button & Text Input
+  const sendBtn = document.getElementById("jarvisSendBtn");
+  const inputEl = document.getElementById("jarvisTextInput");
+  if (sendBtn && !sendBtn.dataset.bound) {
+    sendBtn.dataset.bound = "true";
+    sendBtn.addEventListener("click", () => {
+      if (inputEl) sendJarvisMessage(inputEl.value);
+    });
+  }
+  if (inputEl && !inputEl.dataset.bound) {
+    inputEl.dataset.bound = "true";
+    inputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendJarvisMessage(inputEl.value);
+      }
+    });
+  }
+
+  // Clear History
+  const clearBtn = document.getElementById("btnJarvisClearHistory");
+  if (clearBtn && !clearBtn.dataset.bound) {
+    clearBtn.dataset.bound = "true";
+    clearBtn.addEventListener("click", async () => {
+      if (confirm("Recycle J.A.R.V.I.S. conversation logs, Sir?")) {
+        try {
+          await fetch("/api/jarvis/clear", { method: "POST" });
+          fetchJarvisHistory();
+          jarvisPlaySound("acknowledge");
+        } catch(e){}
+      }
+    });
+  }
+
+  // Diagnostics Button
+  const diagBtn = document.getElementById("btnJarvisDiagnostics");
+  if (diagBtn && !diagBtn.dataset.bound) {
+    diagBtn.dataset.bound = "true";
+    diagBtn.addEventListener("click", () => {
+      sendJarvisMessage("Initiate full fleet diagnostics and telemetry report, Jarvis.");
+    });
+  }
+
+  // Test Male Voice Button
+  const testVoiceBtn = document.getElementById("btnJarvisTestVoice");
+  if (testVoiceBtn && !testVoiceBtn.dataset.bound) {
+    testVoiceBtn.dataset.bound = "true";
+    testVoiceBtn.addEventListener("click", () => {
+      jarvisPlaySound("listen");
+      jarvisSpeakText("Right away, Sir. Male vocal matrix verified. Answers will remain brief and direct.");
+    });
+  }
+}
+
+// 6. Global Ambient Floating Arc Reactor Voice Orb & Hotkey (In-place on any page)
+document.addEventListener("DOMContentLoaded", () => {
+  const orb = document.getElementById("jarvisFloatingOrb");
+  if (orb && !orb.dataset.bound) {
+    orb.dataset.bound = "true";
+    orb.addEventListener("click", () => {
+      // Toggle listening in-place on current tab without navigation
+      toggleJarvisListening();
+    });
+  }
+
+  // Dismiss button on ambient capsule
+  const closeBtn = document.getElementById("btnJarvisCapsuleClose");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      const c = document.getElementById("jarvisCapsule");
+      if (c) c.style.display = "none";
+    });
+  }
+
+  // Drawer button to open full J.A.R.V.I.S. console
+  const drawerBtn = document.getElementById("btnJarvisCapsuleDrawer");
+  if (drawerBtn) {
+    drawerBtn.addEventListener("click", () => {
+      if (typeof window.navigateToPage === "function") {
+        window.navigateToPage("jarvis-voice");
+      }
+    });
+  }
+
+  // Global Keyboard Shortcut: Alt + J (or Alt + j) to speak from anywhere!
+  window.addEventListener("keydown", (e) => {
+    if (e.altKey && (e.key === "j" || e.key === "J")) {
+      e.preventDefault();
+      toggleJarvisListening();
+    }
+  });
+});
+
 
