@@ -7651,3 +7651,533 @@ function initDomainDashboardControls() {
 
 
 
+
+
+// ============================================================================
+// ⚡ NEXUS 25 DAILY OPERATIONAL TASKS & DESIGN VETTING WORKFLOW ENGINE
+// ============================================================================
+
+window.currentVettingTask = null;
+window.taskCatalogCache = [];
+
+/**
+ * Launch an operational task, generating its draft copy and visual design sample
+ * for Sir Deven to vet and edit before execution.
+ */
+window.launchTaskSample = async function(scenarioId, customTopic = "") {
+  const modal = document.getElementById("taskVettingModal");
+  if (!modal) {
+    console.error("taskVettingModal not found in DOM");
+    return;
+  }
+
+  // Display modal immediately with loading state
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+
+  const titleEl = document.getElementById("vettingModalTitle");
+  const platformBadge = document.getElementById("vettingPlatformBadge");
+  const catBadge = document.getElementById("vettingCategoryBadge");
+  const cardContainer = document.getElementById("vettingCardContainer");
+  const editor = document.getElementById("vettingCopyEditor");
+  const topicInput = document.getElementById("vettingCustomTopicInput");
+  const shareIntents = document.getElementById("vettingShareIntents");
+
+  if (titleEl) titleEl.textContent = "Generating Task Design Sample...";
+  if (editor) editor.value = "Analyzing operational context and generating high-converting draft & sample...";
+  if (topicInput && customTopic) topicInput.value = customTopic;
+  if (shareIntents) shareIntents.style.display = "none";
+
+  if (cardContainer) {
+    cardContainer.innerHTML = `
+      <div style="padding: 50px 20px; text-align: center; color: #64748b;">
+        <div class="pulse-dot" style="background: #38bdf8; width: 14px; height: 14px; margin: 0 auto 14px auto;"></div>
+        <strong style="color: #0f172a; font-size: 0.95rem; display: block; margin-bottom: 6px;">
+          Crafting Sample Mockup & Copy
+        </strong>
+        <span style="font-size: 0.8rem; color: #64748b;">
+          Calibrating MEDDPICC hooks, FinOps telemetry, and omnichannel design...
+        </span>
+      </div>
+    `;
+  }
+
+  try {
+    const res = await fetch("/api/tasks/generate-sample", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        scenario_id: scenarioId,
+        custom_topic: customTopic || (topicInput ? topicInput.value.trim() : "")
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error(`Server returned HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    window.currentVettingTask = data;
+    window.currentVettingTask.original_body = data.body;
+
+    // Update modal header
+    if (titleEl) titleEl.textContent = data.scenario.title;
+    if (platformBadge) {
+      platformBadge.textContent = data.scenario.platform;
+      platformBadge.className = "vetting-badge";
+      // colorize platform badge
+      const pLower = (data.scenario.platform || "").toLowerCase();
+      if (pLower.includes("linkedin")) platformBadge.style.background = "#0077b5";
+      else if (pLower.includes("facebook")) platformBadge.style.background = "#1877f2";
+      else if (pLower.includes("x") || pLower.includes("twitter")) platformBadge.style.background = "#000000";
+      else if (pLower.includes("whatsapp")) platformBadge.style.background = "#25d366";
+      else if (pLower.includes("store") || pLower.includes("finance")) platformBadge.style.background = "#059669";
+      else if (pLower.includes("sre") || pLower.includes("ops")) platformBadge.style.background = "#d97706";
+      else platformBadge.style.background = "#4f46e5";
+    }
+
+    if (catBadge) catBadge.textContent = data.scenario.category.toUpperCase();
+
+    // Populate editor
+    if (editor) {
+      editor.value = data.body;
+      updateVettingCharCount();
+    }
+
+    // Render design card sample
+    renderVettingCardSample(data);
+
+    // Setup share intent links
+    setupShareIntentLinks(data.share_links);
+
+    if (typeof showToast === "function") {
+      showToast(`Sample for "${data.scenario.title}" ready for your vetting!`, "success");
+    }
+  } catch (err) {
+    console.error("Task generation error:", err);
+    if (cardContainer) {
+      cardContainer.innerHTML = `
+        <div style="padding: 30px; text-align: center; color: #ef4444;">
+          <strong>Generation Failed</strong>
+          <p style="font-size: 0.8rem; margin-top: 6px;">${err.message}</p>
+        </div>
+      `;
+    }
+    if (typeof showToast === "function") {
+      showToast("Error generating task sample: " + err.message, "error");
+    }
+  }
+};
+
+/**
+ * Live sync: Renders the visual design sample card preview
+ */
+function renderVettingCardSample(taskData) {
+  const container = document.getElementById("vettingCardContainer");
+  if (!container || !taskData) return;
+
+  const sample = taskData.sample || taskData.design_sample || {};
+  const scenario = taskData.scenario || {};
+  const currentBody = document.getElementById("vettingCopyEditor")?.value || taskData.body;
+  const platform = (scenario.platform || "").toLowerCase();
+
+  // Highlight points
+  const rawHighlights = sample.highlights || sample.callouts || [];
+  const highlights = rawHighlights.map(h => 
+    `<span style="background: rgba(255,255,255,0.22); color: #fff; padding: 2px 8px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px);">${escapeHtml(h)}</span>`
+  ).join(" ");
+
+  // Format body text with basic markdown bold & linebreaks
+  const formattedBody = escapeHtml(currentBody)
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+
+  // Banner background based on sample or platform
+  let bannerBg = sample.gradient || "linear-gradient(135deg, #0284c7 0%, #1e1b4b 100%)";
+  let brandIcon = "💼";
+  if (platform.includes("linkedin")) {
+    brandIcon = "💼";
+  } else if (platform.includes("facebook")) {
+    brandIcon = "📘";
+  } else if (platform.includes("x") || platform.includes("twitter")) {
+    brandIcon = "✖";
+  } else if (platform.includes("whatsapp")) {
+    brandIcon = "📱";
+  } else if (platform.includes("store") || platform.includes("finance") || platform.includes("usdc")) {
+    brandIcon = "💰";
+  } else if (platform.includes("sre") || platform.includes("ops")) {
+    brandIcon = "🛡️";
+  }
+
+  container.innerHTML = `
+    <!-- Card Author Header -->
+    <div style="padding: 12px 16px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; background: #ffffff;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.85rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+          DP
+        </div>
+        <div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <strong style="font-size: 0.86rem; color: #0f172a;">${escapeHtml(sample.author || 'Deven Pawaray')}</strong>
+            <span style="font-size: 0.72rem; color: #0284c7;" title="Verified Enterprise Architect">☑</span>
+          </div>
+          <span style="font-size: 0.7rem; color: #64748b; display: block;">
+            Founder &amp; Sovereign Architect • Nexus AI Workforce • 🇲🇺 Mauritius
+          </span>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <span style="font-size: 0.68rem; font-weight: 800; background: #f1f5f9; color: #475569; padding: 2px 8px; border-radius: 12px;">
+          ${brandIcon} ${escapeHtml(scenario.platform || 'Public')}
+        </span>
+        <span style="display: block; font-size: 0.65rem; color: #94a3b8; margin-top: 2px;">Just now • 🌐 Public</span>
+      </div>
+    </div>
+
+    <!-- Visual Sample Banner / Graphic Mockup -->
+    <div style="background: ${bannerBg}; color: #ffffff; padding: 20px 22px; position: relative; overflow: hidden;">
+      <div style="position: absolute; right: -15px; bottom: -20px; font-size: 6rem; opacity: 0.08; user-select: none; pointer-events: none;">
+        ${brandIcon}
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px;">
+          NEXUS OPERATIONAL SAMPLE
+        </span>
+        <span style="font-size: 0.65rem; color: rgba(255,255,255,0.85);">● READY FOR SIR'S REVIEW</span>
+      </div>
+      <h4 style="margin: 0 0 8px 0; font-size: 1.15rem; font-weight: 900; line-height: 1.35; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
+        ${escapeHtml(sample.headline || scenario.title)}
+      </h4>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+        ${highlights}
+      </div>
+    </div>
+
+    <!-- Live Post Content Preview -->
+    <div style="padding: 16px 18px; font-size: 0.82rem; line-height: 1.6; color: #1e293b; max-height: 220px; overflow-y: auto; background: #ffffff; border-top: 1px solid #f1f5f9;">
+      <div id="vettingCardLiveBody">${formattedBody}</div>
+    </div>
+
+    <!-- Call to Action Banner -->
+    <div style="padding: 10px 16px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+      <span style="font-size: 0.72rem; font-weight: 700; color: #0284c7;">
+        ${escapeHtml(sample.cta || 'Learn more at nexus-workforce.vercel.app')}
+      </span>
+      <span style="font-size: 0.68rem; font-weight: 700; color: #059669; background: #ecfdf5; padding: 2px 8px; border-radius: 4px; border: 1px solid #a7f3d0;">
+        ⚡ Instant Human Vetting Required
+      </span>
+    </div>
+
+    <!-- Engagement Footer Mockup -->
+    <div style="padding: 8px 16px; background: #ffffff; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-around; align-items: center; color: #64748b; font-size: 0.72rem; font-weight: 600;">
+      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">👍 Like</span>
+      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">💬 Comment</span>
+      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">🔁 Repost</span>
+      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">🚀 Send</span>
+    </div>
+  `;
+}
+
+/**
+ * Update character count and live sync card preview
+ */
+function updateVettingCharCount() {
+  const editor = document.getElementById("vettingCopyEditor");
+  const countEl = document.getElementById("vettingCharCount");
+  const liveBody = document.getElementById("vettingCardLiveBody");
+  if (!editor) return;
+
+  const text = editor.value || "";
+  const chars = text.length;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+
+  if (countEl) {
+    countEl.textContent = `${chars} characters • ${words} words`;
+  }
+
+  if (liveBody) {
+    liveBody.innerHTML = escapeHtml(text)
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+  }
+}
+
+// Bind live update listener
+document.addEventListener("DOMContentLoaded", () => {
+  const editor = document.getElementById("vettingCopyEditor");
+  if (editor) {
+    editor.addEventListener("input", updateVettingCharCount);
+  }
+});
+
+/**
+ * Configure 1-click native web intent links
+ */
+function setupShareIntentLinks(links) {
+  const intentBox = document.getElementById("vettingShareIntents");
+  if (!intentBox) return;
+
+  const btnLI = document.getElementById("intentLinkLinkedIn");
+  const btnFB = document.getElementById("intentLinkFacebook");
+  const btnX = document.getElementById("intentLinkX");
+  const btnWA = document.getElementById("intentLinkWhatsApp");
+
+  if (!links) {
+    intentBox.style.display = "none";
+    return;
+  }
+
+  intentBox.style.display = "flex";
+
+  if (btnLI && links.linkedin) {
+    btnLI.href = links.linkedin;
+    btnLI.style.display = "inline-flex";
+  } else if (btnLI) {
+    btnLI.style.display = "none";
+  }
+
+  if (btnFB && links.facebook) {
+    btnFB.href = links.facebook;
+    btnFB.style.display = "inline-flex";
+  } else if (btnFB) {
+    btnFB.style.display = "none";
+  }
+
+  if (btnX && links.x) {
+    btnX.href = links.x;
+    btnX.style.display = "inline-flex";
+  } else if (btnX) {
+    btnX.style.display = "none";
+  }
+
+  if (btnWA && links.whatsapp) {
+    btnWA.href = links.whatsapp;
+    btnWA.style.display = "inline-flex";
+  } else if (btnWA) {
+    btnWA.style.display = "none";
+  }
+}
+
+/**
+ * Regenerate sample with custom topic prompt
+ */
+window.regenerateTaskSample = function() {
+  if (!window.currentVettingTask || !window.currentVettingTask.scenario) return;
+  const topic = document.getElementById("vettingCustomTopicInput")?.value || "";
+  window.launchTaskSample(window.currentVettingTask.scenario.id, topic);
+};
+
+/**
+ * Copy text from editor
+ */
+window.copyVettedCopy = async function() {
+  const editor = document.getElementById("vettingCopyEditor");
+  if (!editor || !editor.value) return;
+
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(editor.value);
+    } else {
+      editor.select();
+      document.execCommand("copy");
+    }
+    if (typeof showToast === "function") {
+      showToast("Draft content copied to clipboard!", "success");
+    }
+  } catch (err) {
+    console.warn("Copy error:", err);
+    if (typeof showToast === "function") {
+      showToast("Selected text - use Ctrl+C to copy", "info");
+    }
+  }
+};
+
+/**
+ * Reset copy to original AI draft
+ */
+window.resetVettedCopy = function() {
+  const editor = document.getElementById("vettingCopyEditor");
+  if (editor && window.currentVettingTask && window.currentVettingTask.original_body) {
+    editor.value = window.currentVettingTask.original_body;
+    updateVettingCharCount();
+    if (typeof showToast === "function") {
+      showToast("Reset to original draft", "info");
+    }
+  }
+};
+
+/**
+ * Close vetting modal
+ */
+window.closeTaskVettingModal = function() {
+  const modal = document.getElementById("taskVettingModal");
+  if (modal) {
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+  }
+};
+
+/**
+ * Human-in-the-Loop Approval & Execution
+ */
+window.approveAndDispatchCurrentTask = async function() {
+  if (!window.currentVettingTask || !window.currentVettingTask.scenario) {
+    if (typeof showToast === "function") {
+      showToast("No active task to approve.", "warning");
+    }
+    return;
+  }
+
+  const approveBtn = document.getElementById("btnApproveAndDispatch");
+  const editor = document.getElementById("vettingCopyEditor");
+  const finalBody = editor ? editor.value : window.currentVettingTask.body;
+
+  if (approveBtn) {
+    approveBtn.disabled = true;
+    approveBtn.innerHTML = `<span>⏳</span><span>Dispatching &amp; Broadcasting...</span>`;
+  }
+
+  try {
+    const res = await fetch("/api/tasks/approve-and-post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        task_id: window.currentVettingTask.task_id,
+        scenario_id: window.currentVettingTask.scenario.id,
+        edited_body: finalBody
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error(`Execution failed with status ${res.status}`);
+    }
+
+    const result = await res.json();
+
+    if (typeof showToast === "function") {
+      showToast(`⚡ Approved & Dispatched: "${result.scenario_title}"!`, "success");
+    }
+
+    // Refresh memory / status
+    if (typeof logActivity === "function") {
+      logActivity(`Vetted & Approved task: ${result.scenario_title}`);
+    }
+
+    // If there is an external platform link, give user direct access
+    if (result.share_links && (result.share_links.linkedin || result.share_links.facebook || result.share_links.x || result.share_links.whatsapp)) {
+      setupShareIntentLinks(result.share_links);
+    }
+
+    // Briefly show confirmed state before closing
+    if (approveBtn) {
+      approveBtn.innerHTML = `<span>✅</span><span>Dispatched Successfully!</span>`;
+      approveBtn.style.background = "#059669";
+    }
+
+    setTimeout(() => {
+      window.closeTaskVettingModal();
+      if (approveBtn) {
+        approveBtn.disabled = false;
+        approveBtn.innerHTML = `<span>⚡</span><span>Approve &amp; Post / Dispatch Now</span>`;
+        approveBtn.style.background = "";
+      }
+    }, 1200);
+
+  } catch (err) {
+    console.error("Approval error:", err);
+    if (typeof showToast === "function") {
+      showToast("Dispatch error: " + err.message, "error");
+    }
+    if (approveBtn) {
+      approveBtn.disabled = false;
+      approveBtn.innerHTML = `<span>⚡</span><span>Approve &amp; Post / Dispatch Now</span>`;
+    }
+  }
+};
+
+/**
+ * Toggle full 25-task catalog explorer in CEO Cockpit
+ */
+window.toggleAllTasksGrid = async function() {
+  const explorer = document.getElementById("allTasksExplorer");
+  if (!explorer) return;
+
+  const isHidden = explorer.style.display === "none";
+  explorer.style.display = isHidden ? "block" : "none";
+
+  const toggleBtn = document.getElementById("btnToggleAllTasks");
+  if (toggleBtn) {
+    toggleBtn.textContent = isHidden ? "▲ Collapse Catalog" : "🚀 View All 25 Operations";
+  }
+
+  if (isHidden && window.taskCatalogCache.length === 0) {
+    await fetchTaskCatalog();
+  }
+};
+
+/**
+ * Fetch catalog of 25 operations from backend
+ */
+async function fetchTaskCatalog() {
+  const container = document.getElementById("catalogGridContainer");
+  if (container) {
+    container.innerHTML = `<div style="padding: 20px; color: #94a3b8; font-size: 0.8rem;">Loading full operations catalog...</div>`;
+  }
+
+  try {
+    const res = await fetch("/api/tasks/catalog");
+    const data = await res.json();
+    window.taskCatalogCache = data.scenarios || [];
+    renderCatalogGrid(window.taskCatalogCache);
+  } catch (err) {
+    console.error("Failed to load catalog:", err);
+    if (container) {
+      container.innerHTML = `<div style="padding: 20px; color: #ef4444; font-size: 0.8rem;">Failed to load catalog: ${err.message}</div>`;
+    }
+  }
+}
+
+/**
+ * Render catalog cards
+ */
+function renderCatalogGrid(scenarios) {
+  const container = document.getElementById("catalogGridContainer");
+  if (!container) return;
+
+  if (!scenarios || scenarios.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; color: #94a3b8; font-size: 0.8rem;">No operations found for this category.</div>`;
+    return;
+  }
+
+  container.innerHTML = scenarios.map(sc => `
+    <button class="task-launch-card" onclick="window.launchTaskSample('${escapeHtml(sc.id)}')">
+      <div class="task-card-icon" style="background: rgba(255,255,255,0.08);">
+        ${escapeHtml(sc.icon || '⚡')}
+      </div>
+      <div class="task-card-info">
+        <span class="task-card-title">${escapeHtml(sc.title)}</span>
+        <span class="task-card-desc">${escapeHtml(sc.description)}</span>
+      </div>
+      <span class="task-card-badge">${escapeHtml(sc.platform)}</span>
+    </button>
+  `).join("");
+}
+
+/**
+ * Filter 25-task catalog by category
+ */
+window.filterCatalogCategory = function(cat) {
+  const tabs = document.querySelectorAll(".task-filter-tab");
+  tabs.forEach(t => t.classList.remove("active"));
+  event.target.classList.add("active");
+
+  if (!window.taskCatalogCache || window.taskCatalogCache.length === 0) return;
+
+  if (cat === "all") {
+    renderCatalogGrid(window.taskCatalogCache);
+  } else {
+    const filtered = window.taskCatalogCache.filter(s => (s.category || "").toLowerCase() === cat.toLowerCase());
+    renderCatalogGrid(filtered);
+  }
+};
+

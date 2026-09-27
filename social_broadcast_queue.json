@@ -1,5 +1,21 @@
 [
   {
+    "timestamp": "2026-09-28 01:42:51",
+    "product_name": "Vetted Task: Launch $1 Digital Store Flash Promotion",
+    "price": "$1.00 USD / Rs 45 MUR",
+    "checkout_url": "http://127.0.0.1:8000/store",
+    "status": "QUEUED_LOCAL",
+    "note": "Queued locally. Add DISCORD_WEBHOOK_URL to .env to push live automatically."
+  },
+  {
+    "timestamp": "2026-09-28 01:41:52",
+    "product_name": "Vetted Task: Create Post for LinkedIn",
+    "price": "$1.00 USD / Rs 45 MUR",
+    "checkout_url": "http://127.0.0.1:8000/store",
+    "status": "QUEUED_LOCAL",
+    "note": "Queued locally. Add DISCORD_WEBHOOK_URL to .env to push live automatically."
+  },
+  {
     "timestamp": "2026-09-28 00:17:46",
     "product_name": "Nexus\u2122 Crypto Price Alert",
     "price": "$1.00 USD",

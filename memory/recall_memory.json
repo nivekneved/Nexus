@@ -1,5 +1,23 @@
 [
   {
+    "timestamp": "2026-09-28 01:42:51",
+    "event_type": "VETTED_TASK_EXECUTED:COMM_FLASH_SALE",
+    "details": {
+      "task_id": "task_comm_flash_sale_1790545368",
+      "title": "Launch $1 Digital Store Flash Promotion",
+      "snippet": "⚡ 48-HOUR FLASH PROMOTION\n\nGet the complete Nexus™ Developer Superpack (4 Standalone Python Utilitie"
+    }
+  },
+  {
+    "timestamp": "2026-09-28 01:41:52",
+    "event_type": "VETTED_TASK_EXECUTED:MKT_LINKEDIN_POST",
+    "details": {
+      "task_id": "task_mkt_linkedin_post_1790545312",
+      "title": "Create Post for LinkedIn",
+      "snippet": "Most founders I speak with in Mauritius and globally are paying for 12+ recurring micro-SaaS tools t"
+    }
+  },
+  {
     "timestamp": "2026-09-28 00:41:35",
     "event_type": "SKILL_EXECUTED:sales_offer_architect",
     "details": {

@@ -2932,6 +2932,47 @@ def api_jarvis_revenue_plan():
     """Returns the actionable revenue acceleration roadmap to hit Rs 150,000 MUR."""
     return jarvis_service.get_revenue_acceleration_plan()
 
+# ═══════════════════════════════════════════════════════
+#    TASK LAUNCHER & SAMPLE VETTING ENDPOINTS (25 SCENARIOS)
+# ═══════════════════════════════════════════════════════
+
+class TaskGenerateSampleReq(BaseModel):
+    scenario_id: Optional[str] = "mkt_linkedin_post"
+    custom_topic: Optional[str] = None
+
+class TaskApproveDispatchReq(BaseModel):
+    task_id: str
+    scenario_id: str
+    edited_body: str
+
+@app.get("/api/tasks/catalog")
+def api_tasks_catalog(category: Optional[str] = None):
+    """Returns the full catalog of 25 real-life daily operational scenarios."""
+    from core.task_launcher import task_launcher
+    return {"success": True, "scenarios": task_launcher.get_catalog(category=category)}
+
+@app.post("/api/tasks/generate-sample")
+def api_tasks_generate_sample(payload: TaskGenerateSampleReq):
+    """Generates a complete draft with visual design sample for Sir to vet."""
+    from core.task_launcher import task_launcher
+    sample = task_launcher.generate_task_sample(
+        scenario_id=payload.scenario_id or "mkt_linkedin_post",
+        custom_topic=payload.custom_topic
+    )
+    return {"success": True, **sample}
+
+@app.post("/api/tasks/approve-and-post")
+def api_tasks_approve_and_post(payload: TaskApproveDispatchReq):
+    """Executes the vetted task, pushes to queue/webhooks, and yields direct share intent URLs."""
+    from core.task_launcher import task_launcher
+    res = task_launcher.approve_and_dispatch(
+        task_id=payload.task_id,
+        scenario_id=payload.scenario_id,
+        edited_body=payload.edited_body
+    )
+    return res
+
+
 
 if __name__ == "__main__":
     import uvicorn

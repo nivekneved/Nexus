@@ -353,6 +353,357 @@
     ]
   }
   </script>
+
+  <!-- ⚡ NEXUS TASK LAUNCHPAD & HUMAN-IN-THE-LOOP VETTING SYSTEM STYLES -->
+  <style>
+    /* Task Launchpad Cards (CEO Dark Theme) */
+    .task-launch-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      color: inherit;
+    }
+    .task-launch-card:hover {
+      background: rgba(51, 65, 85, 0.9);
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);
+    }
+    .task-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .task-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .task-card-title {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #f8fafc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .task-card-desc {
+      display: block;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .task-card-badge {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      flex-shrink: 0;
+    }
+
+    /* Domain Launch Buttons (Light / Corporate Theme) */
+    .domain-launch-btn {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+      color: inherit;
+      width: 100%;
+    }
+    .domain-launch-btn:hover {
+      border-color: #0284c7;
+      background: #f8fafc;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+    .domain-launch-btn .btn-icn {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .domain-launch-btn .btn-txt {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .domain-launch-btn .btn-txt strong {
+      font-size: 0.8rem;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .domain-launch-btn .btn-txt span {
+      font-size: 0.68rem;
+      color: #64748b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Category Filter Tabs */
+    .task-filter-tab {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .task-filter-tab:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+    .task-filter-tab.active {
+      background: #38bdf8;
+      border-color: #38bdf8;
+      color: #0f172a;
+    }
+
+    /* Vetting Modal Backdrop & Container */
+    .vetting-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .vetting-modal-window {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 1180px;
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      color: #f8fafc;
+      overflow: hidden;
+      animation: vettingFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes vettingFadeIn {
+      from { opacity: 0; transform: scale(0.97) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .vetting-modal-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.95);
+    }
+    .vetting-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.7rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      border-radius: 6px;
+      transition: color 0.15s ease;
+    }
+    .vetting-close-btn:hover {
+      color: #f87171;
+    }
+    .vetting-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #0284c7;
+      color: #fff;
+    }
+    .vetting-badge-category {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+    }
+    .vetting-modal-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+      background: #0b1120;
+    }
+    @media (max-width: 900px) {
+      .vetting-modal-body {
+        grid-template-columns: 1fr;
+      }
+    }
+    .vetting-preview-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+    .vetting-editor-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+    .vetting-card-wrapper {
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .vetting-input {
+      width: 100%;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .vetting-input:focus {
+      border-color: #38bdf8;
+    }
+    .vetting-textarea {
+      width: 100%;
+      flex: 1;
+      min-height: 220px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      font-family: inherit;
+      resize: vertical;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .vetting-textarea:focus {
+      border-color: #38bdf8;
+    }
+    .vetting-action-small-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .vetting-action-small-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+    .vetting-rails-pill {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.72rem;
+      color: #34d399;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .vetting-modal-footer {
+      padding: 14px 22px;
+      border-top: 1px solid #1e293b;
+      background: rgba(15, 23, 42, 0.98);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn-approve-post {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-approve-post:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.55);
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+    }
+    .intent-btn {
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.15s ease;
+    }
+    .intent-btn:hover { opacity: 0.9; }
+    .intent-linkedin { background: #0077b5; color: #fff; }
+    .intent-facebook { background: #1877f2; color: #fff; }
+    .intent-x { background: #000000; color: #fff; border: 1px solid #334155; }
+    .intent-whatsapp { background: #25d366; color: #fff; }
+  </style>
+
 </head>
 <body class="light-theme">
 
@@ -565,6 +916,97 @@
               <button class="btn btn-secondary btn-sm" id="btnCeoOpenPartnerEconomics" style="background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.4); font-weight: 700; padding: 8px 14px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
                 🤝 Partner Economics (1/5 SLA)
               </button>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ================================================================ -->
+        <!-- ⚡ 25 DAILY OPERATIONAL TASKS & DESIGN VETTING LAUNCHPAD (HQ)     -->
+        <!-- ================================================================ -->
+        <div class="task-launchpad-container" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: 1px solid #3730a3; border-radius: 12px; padding: 20px; margin-bottom: 22px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); color: #fff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="pulse-dot" style="background: #38bdf8; width: 10px; height: 10px;"></span>
+              <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 900; letter-spacing: -0.01em; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
+                  ⚡ Task Operations Launchpad — Human-in-the-Loop Vetting
+                </h3>
+                <span style="font-size: 0.76rem; color: #94a3b8;">
+                  Click any operation to generate full draft &amp; visual design sample. You vet &amp; approve before anything is posted.
+                </span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 0.72rem; font-weight: 800; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 10px; border-radius: 14px;">
+                25 Real-Life Scenarios Ready
+              </span>
+              <button onclick="window.toggleAllTasksGrid()" id="btnToggleAllTasks" class="btn btn-sm" style="background: #38bdf8; color: #0f172a; font-weight: 800; border: none; border-radius: 6px; padding: 6px 12px; cursor: pointer;">
+                🚀 View All 25 Operations
+              </button>
+            </div>
+          </div>
+
+          <!-- Top Executive Daily Scenarios (5 Quick Cards) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_morning_standup')">
+              <div class="task-card-icon" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">⚡</div>
+              <div class="task-card-info">
+                <span class="task-card-title">Autonomous Morning Standup</span>
+                <span class="task-card-desc">Cross-fleet ARR &amp; blocker briefing</span>
+              </div>
+              <span class="task-card-badge">CEO • Daily</span>
+            </button>
+
+            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_cross_platform_blitz')">
+              <div class="task-card-icon" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">📢</div>
+              <div class="task-card-info">
+                <span class="task-card-title">Omnichannel Brand Blitz</span>
+                <span class="task-card-desc">Simultaneous LinkedIn, FB &amp; X sample</span>
+              </div>
+              <span class="task-card-badge">Social • Vet</span>
+            </button>
+
+            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_revenue_deliberation')">
+              <div class="task-card-icon" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">💰</div>
+              <div class="task-card-info">
+                <span class="task-card-title">Revenue &amp; Unit Economics</span>
+                <span class="task-card-desc">Target: Rs 150k MUR / &lt;$180 cloud</span>
+              </div>
+              <span class="task-card-badge">FinOps</span>
+            </button>
+
+            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_partner_sla')">
+              <div class="task-card-icon" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">🤝</div>
+              <div class="task-card-info">
+                <span class="task-card-title">Partner SLA Health Audit</span>
+                <span class="task-card-desc">1-in-5 Clinic / NGO partner check</span>
+              </div>
+              <span class="task-card-badge">Partners</span>
+            </button>
+
+            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_emergency_lockdown')">
+              <div class="task-card-icon" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">🔒</div>
+              <div class="task-card-info">
+                <span class="task-card-title">Emergency System Lockdown</span>
+                <span class="task-card-desc">Zero-trust worker revoke &amp; vault lock</span>
+              </div>
+              <span class="task-card-badge" style="color: #f87171; border-color: rgba(239, 68, 68, 0.3);">Security</span>
+            </button>
+          </div>
+
+          <!-- Collapsible Full 25-Task Explorer with Category Filter Tabs -->
+          <div id="allTasksExplorer" style="display: none; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.12);">
+            <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
+              <button class="task-filter-tab active" onclick="window.filterCatalogCategory('all')">All 25 Tasks</button>
+              <button class="task-filter-tab" onclick="window.filterCatalogCategory('marketing')">Marketing &amp; Social (5)</button>
+              <button class="task-filter-tab" onclick="window.filterCatalogCategory('communications')">Communications (5)</button>
+              <button class="task-filter-tab" onclick="window.filterCatalogCategory('commerce')">Commerce &amp; Store (5)</button>
+              <button class="task-filter-tab" onclick="window.filterCatalogCategory('operations')">Operations &amp; SRE (5)</button>
+              <button class="task-filter-tab" onclick="window.filterCatalogCategory('executive')">Executive HQ (5)</button>
+            </div>
+            <div id="catalogGridContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+              <!-- Dynamically populated by app.js -->
             </div>
           </div>
         </div>
@@ -1482,6 +1924,40 @@
           </div>
         </div>
 
+        
+        <!-- ⚡ Domain Operations Launchpad: Communications -->
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.1rem;">⚡</span>
+              <strong style="font-size: 0.88rem; color: #082f49; text-transform: uppercase; letter-spacing: 0.04em;">Communications Launchpad (Human-in-the-Loop)</strong>
+            </div>
+            <span style="font-size: 0.72rem; color: #64748b;">Generates draft &amp; visual preview • Sir Deven vets before dispatch</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_vip_broadcast')">
+              <span class="btn-icn" style="color: #0284c7;">👑</span>
+              <div class="btn-txt"><strong>VIP Investor Broadcast</strong><span>Runway &amp; milestone letter</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_cold_outbound')">
+              <span class="btn-icn" style="color: #6366f1;">🎯</span>
+              <div class="btn-txt"><strong>Cold B2B Sequence</strong><span>3-touch signal outreach draft</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_support_reply')">
+              <span class="btn-icn" style="color: #10b981;">💬</span>
+              <div class="btn-txt"><strong>VIP Support Reply</strong><span>Instant tier-1 empathetic reply</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_spam_sweep')">
+              <span class="btn-icn" style="color: #e11d48;">🛡️</span>
+              <div class="btn-txt"><strong>Anti-Spam Sweep</strong><span>Quarantine &amp; inbox security</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_whatsapp_dispatch')">
+              <span class="btn-icn" style="color: #25d366;">📱</span>
+              <div class="btn-txt"><strong>WhatsApp Dispatch</strong><span>Executive notification to Sir</span></div>
+            </button>
+          </div>
+        </div>
+
         <!-- Comms KPI Strip -->
         <div class="domain-kpi-grid">
           <div class="domain-kpi-card">
@@ -1630,6 +2106,40 @@
                 ⚙️ Autopilot Suite
               </button>
             </div>
+          </div>
+        </div>
+
+        
+        <!-- ⚡ Domain Operations Launchpad: Operations & SRE -->
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #d97706; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.1rem;">⚡</span>
+              <strong style="font-size: 0.88rem; color: #451a03; text-transform: uppercase; letter-spacing: 0.04em;">Operations &amp; SRE Launchpad (Human-in-the-Loop)</strong>
+            </div>
+            <span style="font-size: 0.72rem; color: #64748b;">Generates execution plan &amp; manifest • Sir Deven reviews before running</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_crypto_snapshot')">
+              <span class="btn-icn" style="color: #d97706;">💾</span>
+              <div class="btn-txt"><strong>Cryptographic Snapshot</strong><span>Loss-free WAL + state backup</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_codebase_audit')">
+              <span class="btn-icn" style="color: #6366f1;">🔍</span>
+              <div class="btn-txt"><strong>Clean Code Audit</strong><span>Linter, AST &amp; leak detector</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_shields_verify')">
+              <span class="btn-icn" style="color: #10b981;">🛡️</span>
+              <div class="btn-txt"><strong>Zero-Trust Shields</strong><span>25 security rule verification</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_finops_cloud_cap')">
+              <span class="btn-icn" style="color: #0284c7;">☁️</span>
+              <div class="btn-txt"><strong>Cloud FinOps Audit</strong><span>Under $180 hard compute ceiling</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_disaster_recovery_dryrun')">
+              <span class="btn-icn" style="color: #ef4444;">🔄</span>
+              <div class="btn-txt"><strong>DR Failover Dry-Run</strong><span>Sandbox restore validation</span></div>
+            </button>
           </div>
         </div>
 
@@ -1818,6 +2328,40 @@
                 📈 Revenue Scout
               </button>
             </div>
+          </div>
+        </div>
+
+        
+        <!-- ⚡ Domain Operations Launchpad: Commerce & Treasury -->
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #059669; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.1rem;">⚡</span>
+              <strong style="font-size: 0.88rem; color: #064e3b; text-transform: uppercase; letter-spacing: 0.04em;">Commerce &amp; Treasury Launchpad (Human-in-the-Loop)</strong>
+            </div>
+            <span style="font-size: 0.72rem; color: #64748b;">Generates invoice / tool / promo sample • Sir Deven vets before live release</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_vending_tool')">
+              <span class="btn-icn" style="color: #059669;">⚡</span>
+              <div class="btn-txt"><strong>$1 Python Tool</strong><span>Generate digital vending product</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_issue_invoice')">
+              <span class="btn-icn" style="color: #0284c7;">🧾</span>
+              <div class="btn-txt"><strong>B2B Retainer Invoice</strong><span>MUR (MCB Juice) &amp; USD invoice</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_treasury_audit')">
+              <span class="btn-icn" style="color: #3b82f6;">⛓️</span>
+              <div class="btn-txt"><strong>Base L2 Treasury Audit</strong><span>USDC vault &amp; gas check</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_dunning_notice')">
+              <span class="btn-icn" style="color: #f59e0b;">📢</span>
+              <div class="btn-txt"><strong>Dunning Recovery</strong><span>Gentle receivable reminder</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_flash_sale')">
+              <span class="btn-icn" style="color: #ec4899;">🏷️</span>
+              <div class="btn-txt"><strong>Flash Sale Campaign</strong><span>24-hour urgency promo blast</span></div>
+            </button>
           </div>
         </div>
 
@@ -2022,6 +2566,40 @@
                 📢 Social War Room
               </button>
             </div>
+          </div>
+        </div>
+
+        
+        <!-- ⚡ Domain Operations Launchpad: Marketing & Social -->
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #7c3aed; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.1rem;">⚡</span>
+              <strong style="font-size: 0.88rem; color: #1e1b4b; text-transform: uppercase; letter-spacing: 0.04em;">Content &amp; Lead Generation Launchpad (Human-in-the-Loop)</strong>
+            </div>
+            <span style="font-size: 0.72rem; color: #64748b;">Generates draft &amp; design sample first • Sir Deven vets before posting</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_linkedin_post')">
+              <span class="btn-icn" style="color: #0077b5;">💼</span>
+              <div class="btn-txt"><strong>LinkedIn Post</strong><span>Thought leadership draft &amp; card</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_facebook_post')">
+              <span class="btn-icn" style="color: #1877f2;">📘</span>
+              <div class="btn-txt"><strong>Facebook Campaign</strong><span>Store viral hook &amp; mockup</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_x_thread')">
+              <span class="btn-icn" style="color: #0f172a;">✖</span>
+              <div class="btn-txt"><strong>X / Twitter Thread</strong><span>Tech breakdown &amp; alpha thread</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_carousel_post')">
+              <span class="btn-icn" style="color: #7c3aed;">📑</span>
+              <div class="btn-txt"><strong>Carousel Deck</strong><span>5-slide visual PDF / image deck</span></div>
+            </button>
+            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_b2b_lead_dossier')">
+              <span class="btn-icn" style="color: #059669;">🎯</span>
+              <div class="btn-txt"><strong>B2B Lead Dossier</strong><span>MEDDPICC qualified prospect plan</span></div>
+            </button>
           </div>
         </div>
 
@@ -5532,6 +6110,127 @@
 
     </main>
 
+  </div>
+
+  
+  <!-- ================================================================ -->
+  <!-- ⚡ HUMAN-IN-THE-LOOP TASK DESIGN SAMPLE & VETTING MODAL          -->
+  <!-- ================================================================ -->
+  <div id="taskVettingModal" class="vetting-modal-backdrop" style="display: none;">
+    <div class="vetting-modal-window">
+      <!-- Modal Header -->
+      <div class="vetting-modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="pulse-dot" style="background: #10b981; width: 10px; height: 10px;"></span>
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 id="vettingModalTitle" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #fff;">
+                Task Sample &amp; Human-in-the-Loop Vetting
+              </h3>
+              <span id="vettingPlatformBadge" class="vetting-badge">LinkedIn</span>
+              <span id="vettingCategoryBadge" class="vetting-badge-category">Marketing</span>
+            </div>
+            <p id="vettingModalSubtitle" style="margin: 3px 0 0 0; font-size: 0.78rem; color: #94a3b8;">
+              Review visual mockup, edit the draft content, and approve for broadcast.
+            </p>
+          </div>
+        </div>
+        <button onclick="window.closeTaskVettingModal()" class="vetting-close-btn" title="Close Modal">&times;</button>
+      </div>
+
+      <!-- Dual Column Body -->
+      <div class="vetting-modal-body">
+        
+        <!-- Left Column: Visual Design Mockup & Platform Card Sample -->
+        <div class="vetting-preview-pane">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #38bdf8;">
+              🎨 Live Visual Design Sample (What audience sees)
+            </span>
+            <span style="font-size: 0.7rem; color: #64748b;" id="vettingPreviewAspect">Live Rendering</span>
+          </div>
+
+          <!-- Dynamic Social / Operational Card rendered here -->
+          <div id="vettingCardContainer" class="vetting-card-wrapper">
+            <div style="padding: 40px; text-align: center; color: #64748b;">
+              Generating design sample...
+            </div>
+          </div>
+
+          <!-- 1-Click Browser Direct Intent Links -->
+          <div class="vetting-share-intent-strip" id="vettingShareIntents" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 700; color: #94a3b8;">Direct Web Intent:</span>
+            <a id="intentLinkLinkedIn" href="#" target="_blank" class="intent-btn intent-linkedin" style="display: none;">💼 Open LinkedIn</a>
+            <a id="intentLinkFacebook" href="#" target="_blank" class="intent-btn intent-facebook" style="display: none;">📘 Open Facebook</a>
+            <a id="intentLinkX" href="#" target="_blank" class="intent-btn intent-x" style="display: none;">✖ Open X (Twitter)</a>
+            <a id="intentLinkWhatsApp" href="#" target="_blank" class="intent-btn intent-whatsapp" style="display: none;">📱 Open WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- Right Column: Sir's Review, Topic Customizer, & Copy Editor -->
+        <div class="vetting-editor-pane">
+          <!-- Topic prompt customization -->
+          <div class="vetting-topic-box" style="background: rgba(30, 41, 59, 0.6); padding: 12px; border-radius: 8px; border: 1px solid #334155;">
+            <label style="font-size: 0.74rem; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 6px;">
+              🎯 Refine Topic or Angle (Optional):
+            </label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="vettingCustomTopicInput" class="vetting-input" placeholder="e.g. Focus on Rs 150k MUR earnings and MCB Juice payments...">
+              <button id="btnVettingRegenerate" onclick="window.regenerateTaskSample()" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-weight: 700; background: #334155; color: #fff;">
+                ✨ Regenerate
+              </button>
+            </div>
+          </div>
+
+          <!-- Editable text -->
+          <div style="flex: 1; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label style="font-size: 0.74rem; font-weight: 700; color: #cbd5e1;">
+                ✍️ Editable Draft Content:
+              </label>
+              <div style="display: flex; gap: 8px;">
+                <button onclick="window.copyVettedCopy()" class="vetting-action-small-btn" title="Copy to clipboard">
+                  📋 Copy Text
+                </button>
+                <button onclick="window.resetVettedCopy()" class="vetting-action-small-btn" title="Reset to original draft">
+                  ↺ Reset
+                </button>
+              </div>
+            </div>
+            <textarea id="vettingCopyEditor" class="vetting-textarea" placeholder="Draft text will appear here..."></textarea>
+            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #64748b; margin-top: 4px;">
+              <span id="vettingCharCount">0 characters • 0 words</span>
+              <span>⚡ Live Syncs with Visual Sample</span>
+            </div>
+          </div>
+
+          <!-- Payment Rails Reminder for Commerce/Outreach -->
+          <div class="vetting-rails-pill" id="vettingRailsPill">
+            <span>🇲🇺 MCB Juice: <strong>+230 58169420</strong></span>
+            <span>💳 PayPal: <strong>devenpawaray@gmail.com</strong></span>
+            <span>⛓️ Base L2: <strong>USDC</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer Controls -->
+      <div class="vetting-modal-footer">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button onclick="window.closeTaskVettingModal()" class="btn btn-secondary btn-sm" style="padding: 9px 18px; background: #334155; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
+            Discard / Close
+          </button>
+          <span id="vettingExecutionNotice" style="font-size: 0.74rem; color: #94a3b8;">
+            🛡️ Human-in-the-Loop: No external action taken until you click Approve.
+          </span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button id="btnApproveAndDispatch" onclick="window.approveAndDispatchCurrentTask()" class="btn-approve-post">
+            <span>⚡</span>
+            <span>Approve &amp; Post / Dispatch Now</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
