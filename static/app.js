@@ -7615,6 +7615,22 @@ function initDomainDashboardControls() {
   const btnOpsCycleNow = document.getElementById("btnOpsTriggerCycleNow");
   if (btnOpsCycleNow) btnOpsCycleNow.addEventListener("click", () => triggerAgentRun("domain_operations"));
 
+  const btnOpsToggleAutopilot = document.getElementById("btnOpsToggleAutopilot");
+  if (btnOpsToggleAutopilot) {
+    btnOpsToggleAutopilot.addEventListener("click", async () => {
+      try {
+        const res = await fetch("/api/autopilot/toggle", { method: "POST" });
+        const d = await res.json();
+        const active = d.status === "ACTIVE" || d.is_active;
+        showToast(`24/7 Autopilot is now ${active ? 'ACTIVE' : 'PAUSED'}`, "success");
+        const kpi = document.getElementById("opsKpiAutopilot");
+        if (kpi) kpi.textContent = active ? "Active (30m)" : "Paused";
+      } catch (err) {
+        showToast("Autopilot toggle error: " + err.message, "error");
+      }
+    });
+  }
+
   // Commerce
   const btnCommerceAudit = document.getElementById("btnCommerceRunAudit");
   if (btnCommerceAudit) btnCommerceAudit.addEventListener("click", () => triggerAgentRun("domain_commerce"));
@@ -7884,12 +7900,20 @@ function renderVettingCardSample(taskData) {
       </span>
     </div>
 
-    <!-- Engagement Footer Mockup -->
-    <div style="padding: 8px 16px; background: #ffffff; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-around; align-items: center; color: #64748b; font-size: 0.72rem; font-weight: 600;">
-      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">👍 Like</span>
-      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">💬 Comment</span>
-      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">🔁 Repost</span>
-      <span style="cursor: pointer; display: flex; align-items: center; gap: 4px;">🚀 Send</span>
+    <!-- Interactive Engagement & Sharing Toolbar -->
+    <div style="padding: 10px 16px; background: #ffffff; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-around; align-items: center; color: #475569; font-size: 0.74rem; font-weight: 700;">
+      <button type="button" onclick="showToast('👍 Verified & Marked as Insightful by Sir', 'success')" style="background:transparent;border:none;cursor:pointer;color:#0284c7;display:flex;align-items:center;gap:4px;font-weight:700;">
+        👍 Insightful
+      </button>
+      <button type="button" onclick="document.getElementById('vettingCopyEditor')?.focus()" style="background:transparent;border:none;cursor:pointer;color:#475569;display:flex;align-items:center;gap:4px;font-weight:700;">
+        💬 Edit Draft
+      </button>
+      <button type="button" onclick="window.copyVettedCopy()" style="background:transparent;border:none;cursor:pointer;color:#475569;display:flex;align-items:center;gap:4px;font-weight:700;">
+        📋 Copy Text
+      </button>
+      <button type="button" onclick="window.approveAndDispatchCurrentTask()" style="background:#10b981;color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:800;">
+        ⚡ Approve &amp; Post
+      </button>
     </div>
   `;
 }
