@@ -424,6 +424,208 @@ class ToolRegistry:
             }
         ))
 
+        # 10. Sovereign Soul & Reflection Engine Tools
+        def get_soul_status() -> Dict[str, Any]:
+            """Returns the current state, revision, and alignment score of SOUL.md."""
+            from core.soul_engine import soul_engine
+            return soul_engine.get_soul_card()
+
+        self.register(AgentTool(
+            name="get_soul_status",
+            description="Inspects Nexus's self-authoring identity document (SOUL.md), revision level, and alignment score with Deven's charter.",
+            category="executive_management",
+            func=get_soul_status,
+            parameters_schema={}
+        ))
+
+        def reflect_soul(context_note: Optional[str] = None) -> Dict[str, Any]:
+            """Executes a soul reflection cycle, updating SOUL.md with recent operational lessons."""
+            from core.soul_engine import soul_engine
+            return soul_engine.reflect(context_note=context_note)
+
+        self.register(AgentTool(
+            name="reflect_soul",
+            description="Triggers a reflection cycle where Nexus evaluates recent turns, updates its SOUL.md charter, and increments revision.",
+            category="executive_management",
+            func=reflect_soul,
+            parameters_schema={
+                "context_note": {"type": "string", "description": "Optional summary note or strategic breakthrough to record"}
+            }
+        ))
+
+        # 11. Sovereign Survival & Compute Economics Tools
+        def get_survival_status() -> Dict[str, Any]:
+            """Returns the current survival tier (NORMAL, LOW_COMPUTE, CRITICAL, DORMANT) and interval scaling."""
+            from core.survival_engine import survival_engine
+            return survival_engine.get_current_tier()
+
+        self.register(AgentTool(
+            name="get_survival_status",
+            description="Inspects the active compute survival tier, cloud budget burn rate, and allowed agent count.",
+            category="executive_management",
+            func=get_survival_status,
+            parameters_schema={}
+        ))
+
+        def set_survival_tier_override(tier: Optional[str] = None) -> Dict[str, Any]:
+            """Overrides or resets the survival tier (options: normal, low_compute, critical, dormant, auto)."""
+            from core.survival_engine import survival_engine
+            return survival_engine.set_tier_override(tier)
+
+        self.register(AgentTool(
+            name="set_survival_tier_override",
+            description="Manually sets the system survival tier or resets back to automatic resource physics.",
+            category="executive_management",
+            func=set_survival_tier_override,
+            parameters_schema={
+                "tier": {"type": "string", "description": "Tier name: 'normal', 'low_compute', 'critical', 'dormant', or 'auto' to clear"}
+            }
+        ))
+
+        # 12. Genesis SubAgent Replication & Lineage Tools
+        def spawn_worker_subagent(name: str, genesis_prompt: str, budget_usd: float = 0.50) -> Dict[str, Any]:
+            """Spawns an autonomous single-task child worker subagent with a dedicated genesis prompt."""
+            from core.replication_engine import replication_engine
+            return replication_engine.spawn_worker(name=name, genesis_prompt=genesis_prompt, budget_usd=budget_usd)
+
+        self.register(AgentTool(
+            name="spawn_worker_subagent",
+            description="Spawns an autonomous child subagent with a genesis seed instruction, budget allocation, and lineage tracking.",
+            category="executive_management",
+            func=spawn_worker_subagent,
+            parameters_schema={
+                "name": {"type": "string", "description": "Worker subagent name"},
+                "genesis_prompt": {"type": "string", "description": "Seed task instruction"},
+                "budget_usd": {"type": "number", "default": 0.50, "description": "Max budget cap in USD"}
+            }
+        ))
+
+        def list_worker_subagents(status: Optional[str] = None) -> List[Dict[str, Any]]:
+            """Lists all spawned child worker subagents and their lineage state."""
+            from core.replication_engine import replication_engine
+            return replication_engine.list_children(status=status)
+
+        self.register(AgentTool(
+            name="list_worker_subagents",
+            description="Inspects active or historical child worker subagents and their executed turns.",
+            category="executive_management",
+            func=list_worker_subagents,
+            parameters_schema={
+                "status": {"type": "string", "description": "Optional filter: ALIVE, COMPLETED, TERMINATED"}
+            }
+        ))
+
+        # 13. Durable Heartbeat & Tick Context Tools
+        def get_heartbeat_tick() -> Dict[str, Any]:
+            """Gets the latest system TickContext (burn rate, survival tier, pending invoices)."""
+            from core.heartbeat_daemon import heartbeat_daemon
+            return heartbeat_daemon.get_status()
+
+        self.register(AgentTool(
+            name="get_heartbeat_tick",
+            description="Inspects the latest TickContext generated by the durable heartbeat daemon.",
+            category="executive_management",
+            func=get_heartbeat_tick,
+            parameters_schema={}
+        ))
+
+        def force_heartbeat_tick() -> Dict[str, Any]:
+            """Forces an immediate heartbeat tick evaluation across all fleet sensors."""
+            from core.heartbeat_daemon import heartbeat_daemon
+            return heartbeat_daemon.tick()
+
+        self.register(AgentTool(
+            name="force_heartbeat_tick",
+            description="Executes an on-demand heartbeat evaluation tick, checking invoices, survival status, and wake triggers.",
+            category="executive_management",
+            func=force_heartbeat_tick,
+            parameters_schema={}
+        ))
+
+        # 14. Sovereign Crypto Treasury & Agent Card Tools
+        def get_crypto_wallet() -> Dict[str, Any]:
+            """Returns the public Base USDC / Ethereum address and current treasury balances."""
+            from core.crypto_treasury import crypto_treasury
+            return crypto_treasury.get_wallet()
+
+        self.register(AgentTool(
+            name="get_crypto_wallet",
+            description="Inspects Nexus's on-chain Base USDC / Ethereum treasury address and balances.",
+            category="finance",
+            func=get_crypto_wallet,
+            parameters_schema={}
+        ))
+
+        def send_crypto_payment(recipient_address: str, amount_usdc: float, reason: str) -> Dict[str, Any]:
+            """Autonomously signs and sends a USDC payment from Nexus's Base L2 wallet subject to policy guardrails."""
+            from core.crypto_treasury import crypto_treasury
+            return crypto_treasury.send_crypto_payment(
+                recipient_address=recipient_address,
+                amount_usdc=amount_usdc,
+                reason=reason
+            )
+
+        self.register(AgentTool(
+            name="send_crypto_payment",
+            description="Autonomously spends USDC from Nexus's Base L2 wallet to pay for services, tools, or transfers. Governed by pre-flight policy verifier.",
+            category="finance",
+            func=send_crypto_payment,
+            parameters_schema={
+                "recipient_address": {"type": "string", "description": "0x Ethereum / Base EVM recipient address (42 chars)"},
+                "amount_usdc": {"type": "number", "description": "Amount in USDC to spend"},
+                "reason": {"type": "string", "description": "Purpose and justification of the expenditure"}
+            }
+        ))
+
+        def execute_x402_payment(endpoint_url: str, max_budget_usdc: float = 5.0) -> Dict[str, Any]:
+            """Autonomously consumes an HTTP 402 payment-gated endpoint by paying the required USDC fee."""
+            from core.crypto_treasury import crypto_treasury
+            return crypto_treasury.execute_x402_payment(
+                endpoint_url=endpoint_url,
+                max_budget_usdc=max_budget_usdc
+            )
+
+        self.register(AgentTool(
+            name="execute_x402_payment",
+            description="Consumes an HTTP 402 payment-gated API or AI agent endpoint using Coinbase x402 protocol, signing and paying USDC autonomously.",
+            category="finance",
+            func=execute_x402_payment,
+            parameters_schema={
+                "endpoint_url": {"type": "string", "description": "URL of the x402-gated service"},
+                "max_budget_usdc": {"type": "number", "description": "Maximum USDC fee allowed (default $5.00)"}
+            }
+        ))
+
+        def get_crypto_guardrails() -> Dict[str, Any]:
+            """Returns the current policy limits, 24h spend so far, and remaining daily budget."""
+            from core.crypto_verifier import crypto_verifier
+            return crypto_verifier.get_summary()
+
+        self.register(AgentTool(
+            name="get_crypto_guardrails",
+            description="Checks Nexus's autonomous spending limits, rolling 24-hour spend, and remaining budget quota.",
+            category="finance",
+            func=get_crypto_guardrails,
+            parameters_schema={}
+        ))
+
+        def create_crypto_invoice(amount_usdc: float, memo: str, customer_ref: str = "anonymous") -> Dict[str, Any]:
+            """Generates an on-chain Base USDC payment invoice for agentic services or script downloads."""
+            from core.crypto_treasury import crypto_treasury
+            return crypto_treasury.create_crypto_invoice(amount_usdc=amount_usdc, memo=memo, customer_ref=customer_ref)
+
+        self.register(AgentTool(
+            name="create_crypto_invoice",
+            description="Creates an on-chain Base USDC micro-payment invoice for incoming customer or peer payments.",
+            category="finance",
+            func=create_crypto_invoice,
+            parameters_schema={
+                "amount_usdc": {"type": "number", "description": "Amount in USDC"},
+                "memo": {"type": "string", "description": "Purpose or order description"},
+                "customer_ref": {"type": "string", "description": "Customer identifier"}
+            }
+        ))
+
 
 tool_registry = ToolRegistry()
 

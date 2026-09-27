@@ -7,9 +7,11 @@ from typing import Dict, Any, List, Optional
 from core.subagent import BaseSubAgent
 from security.shield import shield
 
-SUBSCRIPTIONS_FILE = "subscriptions_catalog.json"
-DIGEST_FILE = "daily_newsletter_digest.json"
-DIGEST_MD_FILE = "daily_newsletter_digest.md"
+from core.paths import resolve_data_path, REPORTS_DIR
+
+SUBSCRIPTIONS_FILE = str(resolve_data_path("subscriptions_catalog.json"))
+DIGEST_FILE = str(resolve_data_path("daily_newsletter_digest.json"))
+DIGEST_MD_FILE = str(REPORTS_DIR / "daily_newsletter_digest.md")
 
 class UnsubscribeHarvesterSubAgent(BaseSubAgent):
     """

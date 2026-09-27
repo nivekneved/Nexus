@@ -16,7 +16,7 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-python restore.py
+python "%~dp0restore.py"
 
 echo.
 echo =====================================================================

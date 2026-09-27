@@ -7,8 +7,10 @@ import hashlib
 from datetime import datetime
 from typing import Dict, Any, List, Optional, Tuple
 
-REFS_FILE = "processed_juice_refs.json"
-FINANCIAL_AUDIT_LOG = "financial_audit.log"
+from core.paths import resolve_data_path, resolve_log_path
+
+REFS_FILE = str(resolve_data_path("processed_juice_refs.json"))
+FINANCIAL_AUDIT_LOG = str(resolve_log_path("financial_audit.log"))
 
 class FinancialSecurityShield:
     """
@@ -117,6 +119,7 @@ class FinancialSecurityShield:
         ref_id = ref_record["juice_ref"].strip().upper()
         refs[ref_id] = ref_record
         try:
+            os.makedirs(os.path.dirname(REFS_FILE), exist_ok=True)
             with open(REFS_FILE, "w", encoding="utf-8") as f:
                 json.dump(refs, f, indent=2)
             return True
@@ -206,6 +209,7 @@ class FinancialSecurityShield:
             "hash": hashlib.sha256(json.dumps(details, sort_keys=True).encode("utf-8")).hexdigest()
         }
         try:
+            os.makedirs(os.path.dirname(FINANCIAL_AUDIT_LOG), exist_ok=True)
             with open(FINANCIAL_AUDIT_LOG, "a", encoding="utf-8") as f:
                 f.write(json.dumps(entry) + "\n")
         except Exception:

@@ -39,7 +39,7 @@ from core.contact_history_service import contact_history_service
 from core.legal_guardrails import legal_guardrails
 from core.hidden_boards_service import hidden_boards_service
 from core.backup_service import create_full_enterprise_backup, list_backups_metadata, get_backup_manifest
-from restore import restore_backup as execute_restore_backup
+from scripts.restore import restore_backup as execute_restore_backup
 from core.digital_store_service import digital_store_service
 from core.daily_brief_service import daily_brief_service
 
@@ -71,7 +71,7 @@ async def security_shield_middleware(request: Request, call_next):
 # Dashboard Bearer-Token Authentication Middleware
 # Set NEXUS_DASHBOARD_TOKEN in your .env to enable.
 _DASHBOARD_TOKEN = os.getenv("NEXUS_DASHBOARD_TOKEN", "")
-_UNPROTECTED_PATHS = {"/", "/license", "/terms", "/static", "/api/mesh/inbound", "/donate", "/donations", "/store", "/download"}
+_UNPROTECTED_PATHS = {"/", "/license", "/terms", "/static", "/api/mesh/inbound", "/donate", "/donations", "/store", "/download", "/.well-known/agent-card.json"}
 
 @app.middleware("http")
 async def dashboard_auth_middleware(request: Request, call_next):
@@ -82,10 +82,12 @@ async def dashboard_auth_middleware(request: Request, call_next):
     path = request.url.path
     client_ip = request.client.host if request.client else "127.0.0.1"
 
-    # Allow static assets, root UI, donations, digital store, downloads, and public webhooks without Bearer rejection
+    # Allow static assets, root UI, donations, digital store, downloads, agent-card, and public webhooks without Bearer rejection
     if (
-        path in ("/", "/license", "/terms", "/donate", "/donations", "/store", "/api/mesh/inbound")
+        path in ("/", "/license", "/terms", "/donate", "/donations", "/store", "/api/mesh/inbound", "/.well-known/agent-card.json")
         or path.startswith("/static")
+        or path.startswith("/.well-known")
+        or path.startswith("/api/sovereignty")
         or path.startswith("/api/donations")
         or path.startswith("/api/store")
         or path.startswith("/api/jarvis")
@@ -266,6 +268,198 @@ class CreateStoreCheckoutRequest(BaseModel):
     buyer_email: str
     buyer_name: Optional[str] = "Valued Developer"
     currency: Optional[str] = "USD"
+
+
+# ==============================================================================
+# Sovereign AI & Automaton Capabilities (Soul, Survival, Replication, Treasury)
+# ==============================================================================
+
+class SoulReflectRequest(BaseModel):
+    note: Optional[str] = None
+
+class SurvivalOverrideRequest(BaseModel):
+    tier: Optional[str] = "auto"
+
+class SpawnChildRequest(BaseModel):
+    name: str
+    genesis_prompt: str
+    budget_usd: Optional[float] = 0.50
+
+class CryptoInvoiceRequest(BaseModel):
+    amount_usdc: float
+    memo: str
+    customer_ref: Optional[str] = "anonymous"
+
+class CryptoSendRequest(BaseModel):
+    recipient_address: str
+    amount_usdc: float
+    reason: str
+
+class CryptoBankSettleRequest(BaseModel):
+    amount_usdc: float
+    notes: Optional[str] = ""
+
+class X402ExecuteRequest(BaseModel):
+    endpoint_url: str
+    max_budget_usdc: Optional[float] = 5.0
+
+
+@app.get("/.well-known/agent-card.json")
+def get_erc8004_agent_card():
+    """Serves standard ERC-8004 Agent Card JSON-LD for decentralized discovery."""
+    card_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "agent-card.json")
+    if os.path.exists(card_path):
+        return FileResponse(card_path, media_type="application/json")
+    raise HTTPException(status_code=404, detail="Agent Card not found.")
+
+@app.get("/api/sovereignty/soul")
+def get_soul_card_endpoint():
+    """Returns Nexus's self-authoring identity document (SOUL.md) status."""
+    from core.soul_engine import soul_engine
+    return soul_engine.get_soul_card()
+
+@app.post("/api/sovereignty/reflect")
+def trigger_soul_reflection(payload: SoulReflectRequest):
+    """Triggers an autonomous soul reflection cycle and updates SOUL.md."""
+    from core.soul_engine import soul_engine
+    res = soul_engine.reflect(context_note=payload.note)
+    return res
+
+@app.get("/api/sovereignty/survival")
+def get_survival_status_endpoint():
+    """Returns the current survival tier, budget burn, and model recommendation."""
+    from core.survival_engine import survival_engine
+    return survival_engine.get_current_tier()
+
+@app.post("/api/sovereignty/survival/override")
+def override_survival_tier_endpoint(payload: SurvivalOverrideRequest):
+    """Sets a manual survival tier override (options: normal, low_compute, critical, dormant, auto)."""
+    from core.survival_engine import survival_engine
+    return survival_engine.set_tier_override(payload.tier)
+
+@app.get("/api/sovereignty/heartbeat")
+def get_heartbeat_status_endpoint():
+    """Returns the durable heartbeat daemon status and latest tick context."""
+    from core.heartbeat_daemon import heartbeat_daemon
+    return heartbeat_daemon.get_status()
+
+@app.post("/api/sovereignty/heartbeat/tick")
+def force_heartbeat_tick_endpoint():
+    """Forces an immediate heartbeat evaluation tick."""
+    from core.heartbeat_daemon import heartbeat_daemon
+    return heartbeat_daemon.tick()
+
+@app.get("/api/sovereignty/replication/children")
+def list_replicated_children(status: Optional[str] = None):
+    """Lists all spawned child worker subagents and their lineage."""
+    from core.replication_engine import replication_engine
+    return {
+        "success": True,
+        "children": replication_engine.list_children(status=status)
+    }
+
+@app.post("/api/sovereignty/replication/spawn")
+def spawn_child_endpoint(payload: SpawnChildRequest):
+    """Spawns an autonomous single-task child worker agent."""
+    from core.replication_engine import replication_engine
+    return replication_engine.spawn_worker(
+        name=payload.name,
+        genesis_prompt=payload.genesis_prompt,
+        budget_usd=payload.budget_usd
+    )
+
+@app.get("/api/sovereignty/treasury")
+def get_crypto_treasury_endpoint():
+    """Returns Nexus's on-chain Base USDC / Ethereum treasury address and balances."""
+    from core.crypto_treasury import crypto_treasury
+    return crypto_treasury.get_wallet()
+
+@app.post("/api/sovereignty/treasury/invoice")
+def create_crypto_invoice_endpoint(payload: CryptoInvoiceRequest):
+    """Generates an on-chain Base USDC payment invoice."""
+    from core.crypto_treasury import crypto_treasury
+    return crypto_treasury.create_crypto_invoice(
+        amount_usdc=payload.amount_usdc,
+        memo=payload.memo,
+        customer_ref=payload.customer_ref
+    )
+
+@app.post("/api/sovereignty/treasury/send")
+def send_crypto_endpoint(payload: CryptoSendRequest):
+    """Autonomously signs and dispatches an on-chain USDC payment from Nexus's wallet."""
+    from core.crypto_treasury import crypto_treasury
+    return crypto_treasury.send_crypto_payment(
+        recipient_address=payload.recipient_address,
+        amount_usdc=payload.amount_usdc,
+        reason=payload.reason
+    )
+
+@app.post("/api/sovereignty/treasury/settle-bank")
+def settle_crypto_to_bank_endpoint(payload: CryptoBankSettleRequest):
+    """Off-ramps Base USDC treasury funds to Deven Pawaray's MCB Bank Account (000443260370)."""
+    from core.crypto_treasury import crypto_treasury
+    return crypto_treasury.settle_crypto_to_bank(
+        amount_usdc=payload.amount_usdc,
+        notes=payload.notes or ""
+    )
+
+@app.post("/api/sovereignty/treasury/x402-pay")
+def execute_x402_endpoint(payload: X402ExecuteRequest):
+    """Autonomously purchases an HTTP 402 payment-gated resource using Coinbase x402 standard."""
+    from core.crypto_treasury import crypto_treasury
+    return crypto_treasury.execute_x402_payment(
+        endpoint_url=payload.endpoint_url,
+        max_budget_usdc=payload.max_budget_usdc or 5.0
+    )
+
+@app.get("/api/sovereignty/treasury/guardrails")
+def get_crypto_guardrails_endpoint():
+    """Returns current policy verifier limits and 24h spending quota."""
+    from core.crypto_verifier import crypto_verifier
+    return crypto_verifier.get_summary()
+
+@app.get("/.well-known/agent.json")
+def get_a2a_agent_card_endpoint():
+    """Google A2A Standard Agent Discovery Card exposing capabilities and Base wallet."""
+    from core.crypto_treasury import crypto_treasury
+    return crypto_treasury.get_agent_card()
+
+@app.get("/api/v1/x402/service")
+def x402_demo_service_endpoint(request: Request):
+    """
+    Demonstrates Coinbase x402 Payment-Gated Endpoint.
+    Returns HTTP 402 if unauthenticated, or service payload if payment proof attached.
+    """
+    auth_header = request.headers.get("Authorization", "")
+    tx_header = request.headers.get("X-PAYMENT-HASH", "")
+    from core.crypto_treasury import crypto_treasury
+
+    if not auth_header.startswith("x402") and not tx_header:
+        return JSONResponse(
+            status_code=402,
+            content={
+                "error": "Payment Required",
+                "protocol": "x402",
+                "network": "Base L2 (8453)",
+                "token": "USDC",
+                "recipient": crypto_treasury.address,
+                "amount_usdc": 0.50,
+                "message": "Send 0.50 USDC on Base L2 to unlock this autonomous intelligence feed."
+            },
+            headers={
+                "x-pay-to": crypto_treasury.address,
+                "x-pay-amount": "0.50",
+                "x-pay-token": "USDC",
+                "x-pay-chain": "8453"
+            }
+        )
+    return {
+        "success": True,
+        "service": "Nexus Sovereign Market Alpha Intelligence Dossier",
+        "unlocked_content": "Institutional Base L2 liquidity opportunities and autonomous yield signals.",
+        "verifier": "x402_VERIFIED",
+        "payment_proof": tx_header or auth_header
+    }
 
 
 # Tool Registry Endpoints
@@ -2289,6 +2483,9 @@ def serve_manual_pdf():
     pdf_path = os.path.abspath("static/Nexus_User_Manual.pdf")
     if os.path.exists(pdf_path):
         return FileResponse(pdf_path, media_type="application/pdf", filename="Nexus_User_Manual.pdf")
+    docs_pdf = os.path.abspath("docs/Nexus_User_Manual.pdf")
+    if os.path.exists(docs_pdf):
+        return FileResponse(docs_pdf, media_type="application/pdf", filename="Nexus_User_Manual.pdf")
     return FileResponse("Nexus_User_Manual.pdf", media_type="application/pdf", filename="Nexus_User_Manual.pdf")
 
 @app.get("/api/store/products")
@@ -2606,8 +2803,86 @@ def api_jarvis_voice_command(payload: JarvisCommandRequest):
     res = jarvis_service.execute_voice_command(payload.command, agent_manager=manager)
     return {"success": True, **res}
 
+# ═══════════════════════════════════════════════════════
+#    J.A.R.V.I.S. FULL AUTONOMOUS FILE & CODE ENGINE
+# ═══════════════════════════════════════════════════════
+
+class JarvisFileReadReq(BaseModel):
+    filepath: str
+    max_lines: Optional[int] = 1000
+
+class JarvisFileWriteReq(BaseModel):
+    filepath: str
+    content: str
+    create_backup: Optional[bool] = True
+
+class JarvisFileEditReq(BaseModel):
+    filepath: str
+    search: str
+    replace: str
+
+class JarvisFileImproveReq(BaseModel):
+    filepath: str
+    directive: Optional[str] = "Autonomous J.A.R.V.I.S. code enhancement"
+
+class JarvisFileListReq(BaseModel):
+    subpath: Optional[str] = ""
+    extension: Optional[str] = None
+
+@app.post("/api/jarvis/files/read")
+def api_jarvis_read_file(payload: JarvisFileReadReq):
+    """Allows J.A.R.V.I.S. to read and inspect any file across the workspace."""
+    from core.jarvis_file_engine import jarvis_file_engine
+    return jarvis_file_engine.read_file(payload.filepath, max_lines=payload.max_lines)
+
+@app.post("/api/jarvis/files/write")
+def api_jarvis_write_file(payload: JarvisFileWriteReq):
+    """Allows J.A.R.V.I.S. to create, update, or completely rewrite any file."""
+    from core.jarvis_file_engine import jarvis_file_engine
+    return jarvis_file_engine.write_file(payload.filepath, payload.content, create_backup=payload.create_backup)
+
+@app.post("/api/jarvis/files/edit")
+def api_jarvis_edit_file(payload: JarvisFileEditReq):
+    """Allows J.A.R.V.I.S. to perform surgical find-and-replace edits on any file."""
+    from core.jarvis_file_engine import jarvis_file_engine
+    return jarvis_file_engine.edit_file(payload.filepath, payload.search, payload.replace)
+
+@app.post("/api/jarvis/files/improve")
+def api_jarvis_improve_file(payload: JarvisFileImproveReq):
+    """Allows J.A.R.V.I.S. to audit, optimize, and refactor a target file."""
+    from core.jarvis_file_engine import jarvis_file_engine
+    return jarvis_file_engine.improve_file(payload.filepath, directive=payload.directive)
+
+@app.post("/api/jarvis/files/audit")
+def api_jarvis_audit_file(payload: JarvisFileReadReq):
+    """Allows J.A.R.V.I.S. to audit code quality, syntax, and security risks."""
+    from core.jarvis_file_engine import jarvis_file_engine
+    return jarvis_file_engine.audit_file(payload.filepath)
+
+@app.post("/api/jarvis/files/list")
+def api_jarvis_list_files(payload: JarvisFileListReq):
+    """Allows J.A.R.V.I.S. to enumerate all repository files."""
+    from core.jarvis_file_engine import jarvis_file_engine
+    return jarvis_file_engine.list_files(subpath=payload.subpath, extension=payload.extension)
+
+@app.get("/api/jarvis/reports")
+def api_jarvis_reports(target: Optional[str] = None):
+    """Allows J.A.R.V.I.S. to read, index, and synthesize workspace reports."""
+    return jarvis_service.read_reports(target=target)
+
+@app.get("/api/jarvis/stats")
+def api_jarvis_fleet_stats():
+    """Returns comprehensive fleet statistics aggregated by J.A.R.V.I.S."""
+    return jarvis_service.get_fleet_stats(agent_manager=manager)
+
+@app.get("/api/jarvis/revenue")
+def api_jarvis_revenue_analysis():
+    """Allows J.A.R.V.I.S. to analyze cash flow, invoices, treasury reserves, and monetization blueprints."""
+    return jarvis_service.analyze_revenue()
+
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
+
 

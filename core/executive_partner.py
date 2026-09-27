@@ -12,8 +12,10 @@ from typing import Dict, List, Any, Optional
 
 logger = logging.getLogger("ExecutiveAIPartner")
 
-DECISIONS_LOG_PATH = "partner_decisions.json"
-DIRECTIVES_PATH = "partner_directives.json"
+from core.paths import resolve_data_path
+
+DECISIONS_LOG_PATH = str(resolve_data_path("partner_decisions.json"))
+DIRECTIVES_PATH = str(resolve_data_path("partner_directives.json"))
 
 
 class ExecutiveAIPartner:
@@ -77,6 +79,11 @@ class ExecutiveAIPartner:
         """Returns the current operational status of the Executive AI Partner."""
         directives = self.get_directives()
         decisions = self.get_recent_decisions(limit=5)
+        
+        # Load Soul Card
+        from core.soul_engine import soul_engine
+        soul_card = soul_engine.get_soul_card()
+
         return {
             "partner_title": self.partner_title,
             "principal": {
@@ -92,6 +99,7 @@ class ExecutiveAIPartner:
             "risk_tolerance": directives.get("risk_tolerance", "CALCULATED_PROTECTIVE"),
             "total_decisions_executed": len(self.get_recent_decisions(limit=500)),
             "recent_decisions": decisions,
+            "soul": soul_card,
             "last_active": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
@@ -129,6 +137,13 @@ class ExecutiveAIPartner:
             action_taken="Realigned workforce scheduling and lead qualification priorities.",
             escalated_to_deven=False
         )
+
+        # Reflect in SOUL.md
+        try:
+            from core.soul_engine import soul_engine
+            soul_engine.reflect(context_note=f"Founder directive received: '{new_instruction}'")
+        except Exception:
+            pass
 
         return {
             "success": True,

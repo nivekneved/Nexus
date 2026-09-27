@@ -7,7 +7,9 @@ import urllib.parse
 from datetime import datetime
 from typing import Dict, Any, Optional
 
-CONFIG_FILE = "whatsapp_config.json"
+from core.paths import DATA_DIR, LOGS_DIR
+
+CONFIG_FILE = DATA_DIR / "whatsapp_config.json"
 
 DEFAULT_CONFIG: Dict[str, Any] = {
     "provider": "callmebot",  # "callmebot" | "openwa"
@@ -64,15 +66,21 @@ def save_whatsapp_config(new_config: Dict[str, Any]) -> Dict[str, Any]:
 
     return current
 
+
+
 def _send_callmebot(phone: str, text: str, api_key: str) -> Dict[str, Any]:
-    """Dispatches message via CallMeBot HTTP API."""
+    """Dispatches message via CallMeBot HTTP API with offline local queue fallback."""
     if not api_key:
+        # Fall back to local dispatch log for offline local operations
+        log_fp = LOGS_DIR / "local_dispatches.log"
+        with open(log_fp, "a", encoding="utf-8") as lf:
+            lf.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] [LOCAL_LOG] Phone: {phone} | Text: {text}\n")
         return {
-            "channel": "WhatsApp (CallMeBot Simulated)",
-            "status": "SIMULATED",
+            "channel": "WhatsApp (Local Offline Logger)",
+            "status": "LOCAL_RECORDED",
             "mock_mode": True,
-            "error": "No CALLMEBOT_API_KEY configured. Please provide your API key in Settings.",
-            "response": "Simulation mode active."
+            "error": "No CALLMEBOT_API_KEY configured. Logged locally to logs/local_dispatches.log",
+            "response": f"Message recorded safely in {log_fp.name}"
         }
 
     params = urllib.parse.urlencode({
@@ -83,16 +91,29 @@ def _send_callmebot(phone: str, text: str, api_key: str) -> Dict[str, Any]:
     url = f"https://api.callmebot.com/whatsapp.php?{params}"
     req = urllib.request.Request(url, headers={"User-Agent": "NexusWorkforce-Gateway/3.0"})
     
-    with urllib.request.urlopen(req, timeout=15, context=ssl.create_default_context()) as resp:
-        body = resp.read().decode("utf-8", errors="replace")
-        status_code = resp.status
-        is_ok = status_code == 200
+    try:
+        with urllib.request.urlopen(req, timeout=10, context=ssl.create_default_context()) as resp:
+            body = resp.read().decode("utf-8", errors="replace")
+            status_code = resp.status
+            is_ok = status_code == 200
+            return {
+                "channel": "WhatsApp (CallMeBot Live)",
+                "phone": phone,
+                "status": "DELIVERED" if is_ok else f"HTTP_{status_code}",
+                "mock_mode": False,
+                "response": body[:300],
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+    except Exception as e:
+        log_fp = LOGS_DIR / "local_dispatches.log"
+        with open(log_fp, "a", encoding="utf-8") as lf:
+            lf.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] [OFFLINE_RETRY_LOG] Phone: {phone} | Text: {text} | Reason: {e}\n")
         return {
-            "channel": "WhatsApp (CallMeBot Live)",
+            "channel": "WhatsApp (Offline Fallback)",
             "phone": phone,
-            "status": "DELIVERED" if is_ok else f"HTTP_{status_code}",
-            "mock_mode": False,
-            "response": body[:300],
+            "status": "LOCAL_QUEUED",
+            "mock_mode": True,
+            "response": f"Offline network fallback. Queued locally to logs/local_dispatches.log ({e})",
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
@@ -204,3 +225,12 @@ def send_whatsapp_message(text: str, phone: Optional[str] = None, title: Optiona
         result = _send_callmebot(phone=target_phone, text=formatted_msg, api_key=api_key)
         result["provider"] = "callmebot"
         return result
+
+
+class WhatsAppGateway:
+    """Helper wrapper for WhatsApp operations."""
+    @staticmethod
+    def send_alert(phone: str, text: str, title: Optional[str] = None) -> Dict[str, Any]:
+        return send_whatsapp_message(text=text, phone=phone, title=title)
+
+whatsapp_gateway = WhatsAppGateway()

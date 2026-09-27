@@ -1,0 +1,57 @@
+{
+  "@context": "https://w3id.org/agent-card/v1",
+  "id": "urn:nexus:sovereign-agent:deven-pawaray",
+  "type": "AgentCard",
+  "name": "Nexus™ Sovereign Digital Twin & Autonomous Workforce",
+  "version": "3.1.0",
+  "archetype": "Sovereign Executive Managing Partner",
+  "founder": {
+    "name": "Deven Pawaray",
+    "email": "devenpawaray@gmail.com",
+    "phone": "+230 58169420",
+    "role": "Principal Owner & Beneficiary"
+  },
+  "description": "24/7 Sovereign Digital Twin running quietly to carry operational clutter so you can breathe, rest, and disconnect. Features 16 autonomous employees, 51 single-task subagents, 25 defense safeguards, self-evolving SOUL.md, and survival compute economics.",
+  "sovereignty": {
+    "identity_model": "soul/v1",
+    "soul_path": "SOUL.md",
+    "survival_physics": ["NORMAL", "LOW_COMPUTE", "CRITICAL", "DORMANT"],
+    "monthly_target_mur": 150000.0,
+    "cloud_budget_cap_usd": 180.0
+  },
+  "payment_rails": [
+    {
+      "rail": "MCB_JUICE",
+      "region": "Mauritius (Domestic)",
+      "destination": "+230 58169420",
+      "currency": "MUR",
+      "standard_unit_price": 45.0
+    },
+    {
+      "rail": "PAYPAL_INSTANT",
+      "region": "Global",
+      "checkout_url": "https://nexusbots-nu.vercel.app/store",
+      "currency": "USD",
+      "standard_unit_price": 1.00
+    },
+    {
+      "rail": "BASE_USDC_EIP3009",
+      "network": "Base (Ethereum L2)",
+      "chain_id": 8453,
+      "token_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "standard_unit_price": 1.00
+    }
+  ],
+  "endpoints": {
+    "command_center": "http://127.0.0.1:8000",
+    "digital_store": "http://127.0.0.1:8000/store",
+    "agent_card": "http://127.0.0.1:8000/static/agent-card.json",
+    "webhook_inbox": "http://127.0.0.1:8000/api/webhook"
+  },
+  "compliance": {
+    "legal_shields": ["CAN-SPAM", "Mauritius DPA 2017", "GDPR Zero-Retention"],
+    "defense_safeguards": 25,
+    "anti_phishing_shield": "Protected OTP/2FA Bypass",
+    "tamper_evident_signatures": true
+  }
+}

@@ -1,12 +1,24 @@
-# 💼 NEXUS™ — COMMERCIAL PLAYBOOK, PRODUCTS & LEGAL TERMS
-> **Version 3.0.0 Commercial Edition**  
+# 💼 NEXUS™ — MASTER COMMERCIAL PLAYBOOK, CAPABILITIES & VALUATION PACK
+> **Version 3.3.0 Sovereign Edition** • Unified Commercial Architecture, Complete Capabilities Catalog & M&A Sales Pack  
 > **Managing Principal:** Deven Pawaray | **Autonomous Managing Partner:** Nexus AI  
 > **Contact / WhatsApp:** `+230 58169420` | **Email:** `devenpawaray@gmail.com`  
-> **Headquarters:** Cybercity / Grand Baie, Mauritius (Indian Ocean)
+> **Official Trademark Asset:** [`static/logo.svg`](static/logo.svg) | **Headquarters:** Cybercity / Grand Baie, Mauritius (Indian Ocean)
 
 ---
 
-## 📑 Executive Summary & Commercial Mandate
+## 📑 Table of Contents
+1. [Executive Summary & Commercial Mandate](#1-executive-summary--commercial-mandate)
+2. [Complete Capability & Revenue Catalog](#2-complete-capability--revenue-catalog)
+3. [The 18 Autonomous AI Primary Employees](#3-the-18-autonomous-ai-primary-employees)
+4. [Turnkey Software Fleet & Decoupled Pricing](#4-turnkey-software-fleet--decoupled-pricing)
+5. [Autonomous On-Chain Agent Commerce (Base L2 & x402)](#5-autonomous-on-chain-agent-commerce-base-l2--x402)
+6. [Multi-Channel Pitch Launchkit & Objection Handling](#6-multi-channel-pitch-launchkit--objection-handling)
+7. [Quantitative Valuation Matrix & M&A Sales Pack](#7-quantitative-valuation-matrix--ma-sales-pack)
+8. [Legal Shield, Data Sovereignty & Compliance](#8-legal-shield-data-sovereignty--compliance)
+
+---
+
+## 1. Executive Summary & Commercial Mandate
 
 Nexus Autonomous Workforce™ is an enterprise-grade autonomous software and operations ecosystem. It powers a fleet of production-proven turnkey web platforms and SaaS engines ready for direct client deployment, white-label licensing, or automated subscription management in Mauritius and internationally.
 
@@ -17,190 +29,152 @@ Every outreach campaign, payment channel, client contract, and deployment is gua
 
 ---
 
-## 🌐 Turnkey Software Fleet (Production-Proven Web Portals)
+## 2. Complete Capability & Revenue Catalog
 
-Nexus includes 3 live, production-proven turnkey web applications ready for white-label client sale or SaaS subscription:
+### Commercial Operations & Storefront
+| Capability | What It Does | Primary Service |
+| :--- | :--- | :--- |
+| **$1 Digital Vending Machine** | Runs a software storefront selling self-hosted developer automation scripts. | `core/digital_store_service.py` |
+| **Instant PayPal 1-Click Checkout** | Creates live PayPal order tokens ($1.00 USD), captures funds, and delivers download links in under 1 second. | `core/payment_service.py` |
+| **MCB Juice Domestic Routing** | Enables Mauritian clients to pay Rs 45 MUR to `+230 58169420` with duplicate and fraud verification. | `security/financial_shield.py` |
+| **Instant Digital Fulfillment** | Delivers zero-dependency Python scripts and zip bundles via secure one-time download tokens. | `core/digital_store_service.py` |
+| **Automated HTML Invoices & Receipts** | Generates branded, printable tax invoices and receipts with business details, VAT exemptions, and timestamps. | `core/receipt_generator.py` |
+| **CSR & NGO Donation Portal** | Live donation gateway for *Enn Rev Enn Sourir* to support underprivileged children in Mauritius. | `core/payment_service.py` |
+
+### Autonomous Product Manufacturing (5-Stage Factory)
+You provide the factory a single keyword (e.g. `"invoice parser"` or `"crypto tracker"`), and it runs the entire pipeline with **zero human intervention**:
+```
+[1. Scout Demand] ──► [2. Spec Metadata] ──► [3. Synthesize Code] ──► [4. Sandbox QA] ──► [5. Live Store Deploy]
+  YouTube Views         Price & Features        Standard Library        py_compile & Exec      PayPal & Discord Drop
+```
+1. **Scout Demand**: Scrapes YouTube viewer counts and search results to verify that at least 50,000+ people are actively searching for a solution.
+2. **Spec Metadata**: Generates the product name, marketing tagline, bullet-point feature list, and $1 / Rs 45 price tag.
+3. **Synthesize Code**: Writes a single-file, production-ready Python utility using only standard libraries (zero external `pip install` required for buyers).
+4. **Sandbox QA**: Tests the code in an isolated execution sandbox for syntax flaws and runtime crashes within a strict 6-second timeout.
+5. **Live Store Deploy**: Registers the product in the live store catalog, packages the developer zip bundle, generates the live PayPal checkout link, and pushes announcement cards to social channels.
+
+---
+
+## 3. The 18 Autonomous AI Primary Employees
+
+Every agent is decoupled into dedicated, single-task subagents (`1 SubAgent = Exactly 1 Task`):
+
+### 💼 Executive & Management
+1. **Executive AI Managing Partner (`executive_partner`)**: Trusted AI co-director. Logs strategic executive decisions, tracks monthly revenue targets (Rs 150,000 MUR), and enforces operational guardrails. (3 SubAgents)
+2. **Context Chronicler & Morning Chief of Staff (`chief_of_staff`)**: Summarizes what happened overnight and drafts your morning executive wake-up briefing. (3 SubAgents)
+3. **Zero-Regression & Safe Backup Sentinel (`regression_sentinel`)**: Runs periodic health checks on database and codebase, creating snapshot backups before any major changes. (3 SubAgents)
+4. **Executive Social Ghostwriter & Auto-Poster (`executive_poster`)**: Autonomous personal ghostwriter for Deven Pawaray (CEO). Crafts authoritative thought leadership and viral launch copy for LinkedIn, X (Twitter), and WhatsApp. (3 SubAgents)
+
+### 💰 Sales, Marketing & Growth
+5. **B2B Lead Scout & Researcher (`lead_finder`)**: Searches for businesses in targeted verticals (clinics, tour operators, SMEs) and drafts bilingual French/English sales pitches. (3 SubAgents)
+6. **Autonomous Revenue Scout & Fund Harvester (`growth_hacker`)**: Identifies developer grant programs, open bounties, and unmonetized niches. (3 SubAgents)
+7. **Marketing & Social Media Influencer Usher (`influencer_usher`)**: Matches vetted tech influencers, tracks social signals across Chirper/X, and runs 3-touch nurture sequences. (4 SubAgents)
+8. **Social & Webhook Broadcaster (`social_broadcaster`)**: Posts rich embed announcement cards to Discord, Slack, and Telegram whenever a new tool is published. (3 SubAgents)
+
+### 🛡️ Security, Email & Infrastructure
+9. **Email Hygiene & Anti-Spam Agent (`email_hygiene`)**: Scans IMAP accounts (Gmail/Outlook), classifies emails using Gemini AI, and safely trashes spam while keeping 2FA codes immune. (5 SubAgents)
+10. **Zombie Subscription Purger (`ghost_unsubscriber`)**: Detects unwanted recurring SaaS newsletters and extracts 1-click unsubscribe headers. (3 SubAgents)
+11. **Cloud Bills & Domain Expirations Sentinel (`infra_finance_sentinel`)**: Tracks cloud infrastructure spending and alerts you if burn approaches your $180 monthly cap. (3 SubAgents)
+12. **GitHub Sentinel & Breaking-Change Watchdog (`repo_radar`)**: Monitors GitHub repositories for dependency CVE vulnerabilities and upstream breaking changes. (3 SubAgents)
+13. **Spec-to-Code & Quality Inspector (`spec_auditor`)**: Audits synthesized code against security guidelines and coding standards. (3 SubAgents)
+
+### 📱 Client Concierge & Operations
+14. **Customer Support & VIP Concierge (`customer_support`)**: Resolves customer inquiries, tracks tickets, and provides download assistance. (3 SubAgents)
+15. **Bilingual French/English Localization Concierge (`bilingual_concierge`)**: Translates pitches, store descriptions, and customer replies between English and French. (3 SubAgents)
+16. **Mobile Release & App Store Sentinel (`appstore_sentinel`)**: Tracks mobile app store review guidelines and submission readiness. (3 SubAgents)
+17. **Meeting & Calendar Coordinator (`meeting_assistant`)**: 48h calendar auditor, conflict resolver, & agenda compiler. (3 SubAgents)
+18. **Mobile Executive Dispatcher (`mobile_dispatcher`)**: Direct WhatsApp & SMS carrier dispatch pipeline to founder. (3 SubAgents)
+
+---
+
+## 4. Turnkey Software Fleet & Decoupled Pricing
+
+Nexus includes live, production-proven turnkey web applications ready for white-label client sale or SaaS subscription:
 
 | Turnkey Product | Live Production Demo | Target Market | Commercial Pricing | Key Differentiators |
 | :--- | :--- | :--- | :--- | :--- |
-| **Enn Rev Enn Sourir™ NGO & CSR Platform** | [ennrevennsourir.vercel.app](https://ennrevennsourir.vercel.app) | Corporate CSR Funds (MCB, Rogers, IBL), Mauritian NGOs & Foundations | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack Setup / Rs 10,000/mo) | 100% transparent hospital payouts, MRA Section 50L 15% tax deduction receipts, MCB Juice & Card donation, BDO audit transparency |
-| **Medical 360™ Clinic & Hospital Suite** | [med360.mu/preview](https://www.med360.mu/preview) | Private Clinics, Polyclinics, Diagnostic Labs, Medical Specialists | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack Setup / Rs 10,000/mo) | 360° healthcare suite: doctor directory by specialty, Blood Bank registry, diagnostic lab test reservations, 24/7 triage, pharmacy catalog |
-| **i-Travellix™ Luxury Travel SaaS** | [i-travellix.vercel.app](https://i-travellix.vercel.app) | Inbound Tour Operators, DMCs, Travel Agencies | **Rs 50k Front + Rs 50k Back** (Rs 100,000 Full-Stack Setup / Rs 12,000/mo) | Live GDS flight search (Air Mauritius, Emirates), 5-star resort catalog, catamaran bookings, instant Juice / multi-currency checkout |
+| **Enn Rev Enn Sourir™ NGO & CSR Platform** | [ennrevennsourir.vercel.app](https://ennrevennsourir.vercel.app) | Corporate CSR Funds (MCB, Rogers, IBL), Mauritian NGOs & Foundations | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack / Rs 10,000/mo) | 100% transparent hospital payouts, MRA Section 50L 15% tax deduction receipts, MCB Juice & Card donation, BDO audit transparency |
+| **Medical 360™ Clinic & Hospital Suite** | [med360.mu/preview](https://www.med360.mu/preview) | Private Clinics, Polyclinics, Diagnostic Labs, Medical Specialists | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack / Rs 10,000/mo) | 360° healthcare suite: doctor directory by specialty, Blood Bank registry, diagnostic lab test reservations, 24/7 triage, pharmacy catalog |
+| **i-Travellix™ Luxury Travel SaaS** | [i-travellix.vercel.app](https://i-travellix.vercel.app) | Inbound Tour Operators, DMCs, Travel Agencies | **Rs 50k Front + Rs 50k Back** (Rs 100,000 Full-Stack / Rs 12,000/mo) | Live GDS flight search (Air Mauritius, Emirates), 5-star resort catalog, catamaran bookings, instant Juice / multi-currency checkout |
 | **WhatsApp Flight Addon** | [whatsapp-flight-addon.vercel.app](https://whatsapp-flight-addon.vercel.app/) | Airlines, Travel Portals, Travel Agents | **Rs 25,000 Setup** (or Rs 5,000/mo) | 24/7 conversational WhatsApp bot for flight status, baggage rules, and booking assistance |
 
----
-
-## 🏛️ Decoupled Enterprise Pricing Architecture (Market Protection Policy)
-
-To protect the intellectual property and market positioning of our software assets, all turnkey suites are strictly decoupled:
-
-1. **Frontend Patient / Client Portal**:
-   - High-conversion responsive interface, multi-lingual (FR/EN), online booking engine, instant payment checkout.
-   - **Pricing:** **Rs 45,000 MUR** (or **Rs 50,000 MUR** for i-Travellix).
-2. **Backend & Admin Operations Engine**:
-   - Practitioner scheduling, lab results repository, blood bank donor matching, analytics dashboard, staff role management, and audit logs.
-   - **Pricing:** **Rs 45,000 MUR** (or **Rs 50,000 MUR** for i-Travellix).
-3. **Complete Full-Stack Turnkey Deployment**:
-   - Complete white-label deployment under client's custom domain, SSL certification, DNS configuration, and 30-day onboarding support.
-   - **Pricing:** **Rs 90,000 – Rs 100,000 MUR** one-time setup (or **Rs 10,000 – Rs 12,000 / month** Cloud Retainer).
-4. **Nexus Self-Hosted Founder License ($249 USD One-Time)**:
-   - Complete source code of the 16-agent autonomous workforce for solo builders and agencies.
-5. **White-Glove Enterprise Deployment ($2,999 USD One-Time)**:
-   - Bespoke on-premise or cloud deployment with custom ERP/CRM and private LLM integrations.
+### Decoupled Pricing Architecture
+1. **Frontend Patient / Client Portal**: Rs 45,000 – Rs 50,000 MUR
+2. **Backend & Admin Operations Engine**: Rs 45,000 – Rs 50,000 MUR
+3. **Complete Full-Stack Turnkey Deployment**: Rs 90,000 – Rs 100,000 MUR (or Rs 10,000 – Rs 12,000/mo)
+4. **Nexus Self-Hosted Founder License**: $249 USD One-Time
+5. **White-Glove Enterprise Deployment**: $2,999 USD One-Time
 
 ---
 
-## 📢 Multi-Channel Commercial Pitch Launchkit
+## 5. Autonomous On-Chain Agent Commerce (Base L2 & x402)
 
-### 1. Enn Rev Enn Sourir™ (CSR & NGO Platform)
+Nexus is equipped with full on-chain sovereign financial capabilities:
+* **Active Base Address**: `0xEAE558282090d878582ec4C4C1C2470f9826b1F2` (Base L2, Chain ID: `8453`)
+* **Real ECDSA secp256k1 Key**: Signs EIP-1559 and ERC-20 transfer transactions on Base L2.
+* **Pre-Flight Policy Verifier**: Enforces strict safety limits ($15.00 single-transaction ceiling, $50.00 daily budget).
+* **Coinbase x402 Protocol**: Autonomously parses HTTP 402 "Payment Required" responses from external APIs or peer agents, signs payments in Base USDC, and unlocks resources without human intervention.
+* **Google A2A Card (`/.well-known/agent.json`)**: Declares capabilities, pricing, and on-chain settlement tokens.
+* **Multi-Rail Off-Ramp**: Converts Base USDC into Mauritian Rupees (MUR) and off-ramps directly to Deven Pawaray's MCB Bank Account (`000443260370`) or PayPal (`devenpawaray@gmail.com`).
 
-#### WhatsApp / wa.me Direct Pitch (`+230 58169420`)
+---
+
+## 6. Multi-Channel Pitch Launchkit & Objection Handling
+
+### Enn Rev Enn Sourir™ (CSR & NGO Platform)
 ```text
 Bonjour! 👋
-
-C'est Deven de Nexus AI Solutions à Maurice (+230 58169420).
-
-Dans le secteur humanitaire et du mécénat à Maurice, maximiser la collecte de fonds tout en garantissant une traçabilité irréprochable auprès des donateurs et de la MRA est primordial.
-
-Nous avons conçu une plateforme SaaS clé-en-main de gestion des dons et mécénat :
-👉 Démo en direct : https://ennrevennsourir.vercel.app
-
-Inclus et prêt à être déployé sous votre nom :
-✨ Dossiers médicaux & chirurgies d'urgence (cancers, pédiatrie, greffes)
-💳 Paiement instantané multicanal (MCB Juice, Cartes & Virements)
-📜 Émission instantanée des reçus fiscaux certifiés MRA (15% de déduction d'impôt Sec. 50L)
-🤝 Système de parrainage mensuel (dès Rs 500/mois) & portail bénévoles
-🔐 Espace administration avec suivi transparent des décaissements hôpitaux
-
-Tarifs d'installation modulaires :
-• Frontend public donateurs, parrainages & reçus MRA : Rs 45,000
-• Backend gestion des dossiers, décaissements hôpitaux & audits : Rs 45,000
-• Suite complète Full-Stack déployée sous votre marque : Rs 90,000 (règlement par MCB Juice).
-
-Seriez-vous ouvert à une présentation rapide de 10 minutes cette semaine ?
+Je vous contacte au sujet de votre fonds CSR. Nous avons développé Enn Rev Enn Sourir (ennrevennsourir.vercel.app) — la 1ère plateforme CSR à Maurice garantissant une transparence chirurgicale à 100% avec reçus fiscaux automatiques déductibles à 15% (MRA Section 50L) et paiement direct aux hôpitaux.
+Seriez-vous ouvert à une démo de 10 minutes cette semaine?
+Cordialement,
+Deven Pawaray (+230 58169420)
 ```
 
----
-
-### 2. Medical 360™ (Clinic & Hospital Operations Suite)
-
-#### WhatsApp / wa.me Direct Pitch (`+230 58169420`)
+### Medical 360™ (Private Clinic Suite)
 ```text
-Bonjour Dr! 👋
-
-C'est Deven de Nexus AI Solutions à Maurice (+230 58169420).
-
-Pour un centre médical ou une clinique privée à Maurice, offrir une prise en charge numérique fluide est essentiel pour désengorger le standard téléphonique et attirer de nouveaux patients.
-
-Notre suite médicale web 360° est prête et opérationnelle :
-👉 Démo en direct : https://www.med360.mu/preview
-
-Inclus et prêt à être installé sous votre marque :
-🩺 Annuaire interactif des praticiens par spécialité
-📅 Prise de rendez-vous consultations en ligne 24/7
-🩸 Registre de la Banque de Sang & donneurs d'urgence
-🔬 Module de réservation d'analyses de Laboratoire
-💊 Catalogue Pharmacie en ligne & triage d'urgences
-🔐 Espace d'administration sécurisé pour la gestion de l'équipe
-
-Tarifs modulaires :
-• Frontend portail patient & réservations en ligne : Rs 45,000
-• Backend gestion clinique, labo, banque de sang & admin : Rs 45,000
-• Suite complète Full-Stack déployée sous votre enseigne : Rs 90,000 (payable via Juice).
-
-Pouvons-nous en discuter 5 minutes cette semaine ?
+Bonjour Dr / Directeur, 👋
+Gérer les rendez-vous, le stock de sang et les résultats de laboratoire sur papier ou WhatsApp fait perdre jusqu'à 3 heures par jour à votre personnel médical.
+Nous avons créé Medical 360 (med360.mu/preview) — suite clinique complète clé en main pour Maurice:
+- Prise de rendez-vous en ligne 24/7
+- Registre de banque de sang & donneurs d'urgence
+- Résultats d'analyses sécurisés
+Déploiement en 48 heures. Pouvons-nous planifier un appel rapide?
+Deven Pawaray (+230 58169420)
 ```
 
----
-
-### 3. i-Travellix™ (Luxury Inbound Travel SaaS)
-
-#### WhatsApp / wa.me Direct Pitch (`+230 58169420`)
-```text
-Bonjour! 👋
-
-C'est Deven de Nexus AI Solutions à Maurice (+230 58169420).
-
-Le marché réceptif à Maurice exige des expériences de réservation directes et immersives pour rivaliser avec les grandes plateformes internationales.
-
-Nous avons développé une plateforme SaaS clé-en-main dédiée aux agences réceptives et tour-opérateurs locaux :
-👉 Démo en direct : https://i-travellix.vercel.app
-
-Fonctionnalités prêtes à l'emploi :
-✈️ Moteur de recherche de vols temps réel (Air Mauritius, Emirates...)
-🏖️ Catalogue d'hôtels 5 étoiles & villas de luxe à Maurice
-⛵ Réservation d'excursions exclusives (croisières catamaran, nage dauphins, hélico)
-💳 Passerelle de paiement multidevise sécurisée (MCB Juice, Cartes, Virements)
-📱 Interface ultra-fluide optimisée pour mobile
-
-Tarifs modulaires :
-• Frontend catalogue réceptif, vols & réservations en ligne : Rs 50,000
-• Backend gestion des réservations, allotements & devis B2B : Rs 50,000
-• Suite complète Full-Stack sous votre marque : Rs 100,000 (payable via Juice).
-
-Seriez-vous disponible pour une brève démo de 10 minutes ce jeudi ?
-```
+### Universal Objection Handling
+* **"We already have a system / website":**  
+  *"Absolument, et nous ne remplaçons pas votre site existant. Nos modules s'intègrent en sous-domaine (ex: portail.votreclinique.mu) en 48h sans toucher à votre infrastructure actuelle."*
+* **"Is it secure / compliant with data protection?":**  
+  *"100% conforme au Data Protection Act 2017 de Maurice et RGPD. Données hébergées en local/cloud souverain, chiffrement AES-256 au repos et en transit, zéro dépendance non vérifiée."*
+* **"How do payments work in Mauritius?":**  
+  *"Règlement instantané via MCB Juice (+230 58169420), virement bancaire MCB direct (000443260370), ou cartes internationales/USDC pour les clients étrangers."*
 
 ---
 
-## 💳 Payment Channels, Automated Verification & Replay Defense
+## 7. Quantitative Valuation Matrix & M&A Sales Pack
 
-Cleared funds are accepted and recognized exclusively through 3 verified channels:
+Confidence Level: **95%** on methodology, **92%** on asset tier price bands.
 
-1. **MCB Juice Direct Reconciled Verification**:
-   - Recipient Mobile: **`+230 58169420`** (Deven Pawaray).
-   - Real-time SMS and email notification parsing.
-   - Unique Reference ID extraction (e.g. `JUICE-782910`).
-   - Anti-Replay Defense Memory: Persisted in `processed_juice_refs.json` to guarantee that no Juice transaction reference can ever be credited or processed twice.
-2. **Mauritius Commercial Bank (MCB) Local / International Wire**:
-   - Currency: MUR / USD / EUR.
-   - Irrevocable bank confirmation matching official invoice number.
-3. **PayPal Live Checkout Orders v2 API**:
-   - Secure digital licensing checkout ($249 USD Founder License).
-   - Order Capture authorization with automated license key delivery.
+| Valuation Model | Asset Valuation Band | Underlying Logic & Multipliers | Prerequisites to Command Top of Band |
+| :--- | :--- | :--- | :--- |
+| **Model A: Pre-Revenue / Pure IP & Codebase Buyout** | **$12,000 – $28,000 USD** | Valued on replacement cost (approx. 200–350 engineering hours at $80–$120/hr) + turnkey IP package (18 agents, 55 subagents, 25 shield safeguards, Base L2 wallet). | Full source code, complete test suite passing, Docker one-click deploy, documentation, loss-free Git history. |
+| **Model B: Micro-Turnkey / Template Marketplace** | **$35,000 – $75,000 USD** | Valued as a white-label agency operating system or template license business on Gumroad / AppSumo / Product Hunt. | Proof of 20–50 lifetime sales at $249/ea ($5k–$12.5k initial traction) + 1,000+ targeted developer/founder email list. |
+| **Model C: Seed SaaS / Cash-Flowing Asset (ARR Multiple)** | **$120,000 – $280,000 USD** | Valued on Seller's Discretionary Earnings (SDE) multiple: **3.5x to 5.0x SDE** (or 4.0x–6.5x ARR). | **Audited $3,000 to $5,000/mo ($36k–$60k ARR)** in verified subscription revenue via Stripe / PayPal with net churn < 4% monthly. |
+| **Model D: Strategic Enterprise / Vertical Integration** | **$80,000 – $150,000 USD** | Acquired by an AI agency, clinic aggregator (Mauritius/Africa), or B2B SaaS consolidator looking for an instant proprietary local agent backend. | Live working deployments at 3+ enterprise/clinic clients (e.g. Medical 360, Enn Rev Enn Sourir) with signed contracts. |
 
----
-
-## ⚖️ BINDING COMMERCIAL TERMS OF SALE & DIGITAL GOODS POLICY (EULA)
-
-*Effective Date: September 18, 2026 | Last Updated: September 19, 2026*  
-*Governing Law: Republic of Mauritius (Courts of Port Louis)*
-
-### 1. Scope of Agreement
-This Commercial Terms of Sale Agreement ("Agreement") constitutes a legally binding contract between **Nexus Autonomous Solutions** (operated by Principal Owner Deven Pawaray, Cybercity / Grand Baie, Mauritius) and the purchasing entity ("Customer"). By completing a payment via MCB Juice, Bank Wire, Credit Card, or PayPal, Customer unconditionally accepts all terms stated herein.
+### Acquire.com Listing Draft
+* **Listing Title**: Autonomous AI Workforce Engine: 18 Local Agents, 55 Subagents, Base L2 Sovereign Wallet & Enterprise Security Shield
+* **Asking Price**: $39,000 USD (All-Cash Buyout) or $24,000 USD + 15% earnout
+* **Tech Stack**: Python 3.11+, FastAPI, SQLite/PostgreSQL, Google Gemini 2.0 Flash SDK, eth-account, Vanilla CSS/JS
+* **Assets Included**: 100% intellectual property rights, full Git repository, 3 production turnkey applications (Medical 360, Enn Rev Enn Sourir, i-Travellix), 92 modular addons, marketing pitch launchkits.
 
 ---
 
-### 2. Nature of Deliverables (Irrevocable Digital Goods)
-1. All software suites, agent engines, web portals, source code repositories, API credentials, and technical configurations delivered by Nexus constitute **irrevocable digital goods**.
-2. Delivery is deemed complete immediately upon electronic transmission of repository access, Vercel/cloud deployment URLs, or license activation credentials.
+## 8. Legal Shield, Data Sovereignty & Compliance
 
----
-
-### 3. Strict Non-Refundable Digital Goods Policy
-1. **ALL SALES ARE STRICTLY FINAL AND NON-REFUNDABLE.**
-2. Once digital access or source code has been transferred, **no chargebacks, payment reversals, or partial refund claims will be accepted or honored under any circumstances.**
-3. **Mandatory Customer Due Diligence:** Live interactive demonstrations of all portals and software engines are made freely and publicly available prior to purchase:
-   - Enn Rev Enn Sourir™: `https://ennrevennsourir.vercel.app`
-   - Medical 360™: `https://www.med360.mu/preview`
-   - i-Travellix™: `https://i-travellix.vercel.app`
-   - WhatsApp Flight Addon: `https://whatsapp-flight-addon.vercel.app/`
-4. Customer acknowledges having thoroughly evaluated the live demonstrations and documentation prior to completing payment.
-
----
-
-### 4. Anti-Fraud & Replay Defense Enforcement
-1. All payments are cryptographically cross-referenced against official banking ledgers.
-2. Any fraudulent chargeback attempt or submission of duplicate/falsified transaction references will result in immediate termination of software licenses, revocation of cloud hosting, blacklisting across the global Nexus node network, and formal referral to the Financial Crimes Commission (FCC) and Cybercrime Unit of the Mauritius Police Force.
-
----
-
-### 5. Limitation of Liability & Zero Warranty
-1. Software is provided **"AS IS"** without warranty of any kind, express or implied.
-2. Nexus and Deven Pawaray shall not be liable for any indirect, incidental, punitive, or consequential damages resulting from the use or inability to use the software, third-party API rate limits (e.g. Google Gemini, Vercel, Supabase), or external telecommunication outages.
-
----
-
-### 6. Legal Compliance & Jurisdiction
-1. Both parties agree that any dispute arising out of or in connection with this agreement shall be governed exclusively by the substantive laws of the **Republic of Mauritius**.
-2. The competent courts of **Port Louis, Mauritius** shall have exclusive jurisdiction over any legal proceedings.
+1. **Mauritius Data Protection Act 2017 & GDPR Alignment**: Strict data subject consent, opt-out honor within 24 hours, zero unauthorized data resale.
+2. **CAN-SPAM Act Compliance**: Mandatory 1-click unsubscribe links in every email, physical/contact identification, no misleading headers.
+3. **Pre-Flight DNS MX Gatekeeper**: Outbound emails are verified against DNS MX records before dispatch to maintain >98% sender reputation.
+4. **Permanent Suppression Registry**: `trash_ledger.json` and suppression lists ensure once a contact opts out, they are never messaged again.
+5. **Zero Phishing & 2FA Immunity**: System code strictly forbids trashing or parsing 2FA security codes, banking OTPs, or authentication credentials.

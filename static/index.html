@@ -380,10 +380,29 @@
           <button id="btnMobileNavToggle" class="btn btn-secondary btn-sm mobile-only" aria-label="Toggle Navigation Menu" style="display: none; font-size: 1.2rem; padding: 6px 12px; cursor: pointer;">☰</button>
           <h1 class="page-title" id="pageTitle" style="margin: 0;">CEO Cockpit</h1>
           
-          <!-- View Mode Switcher -->
-          <div class="view-mode-pill" id="viewModePill" title="Switch between Executive CEO Mode and Developer Engineering Mode">
-            <button id="btnModeCEO" class="view-mode-btn active">👔 CEO Mode</button>
-            <button id="btnModeDev" class="view-mode-btn">🛠️ Engineering</button>
+          <!-- Master Role-Based Sub-Portals Switcher -->
+          <div class="sovereign-portal-bar" id="portalModeSwitcher">
+            <button class="portal-tab-btn active" data-portal="founder" onclick="window.switchPortal('founder')" title="Executive Founder Portal — Peace of mind, zero noise">
+              <span class="portal-badge-icon">👑</span>
+              <div class="portal-btn-label">
+                <strong>Founder Portal</strong>
+                <small>Peace of Mind</small>
+              </div>
+            </button>
+            <button class="portal-tab-btn" data-portal="workforce" onclick="window.switchPortal('workforce')" title="Workforce Operations — 18 AI employees by department">
+              <span class="portal-badge-icon">🤖</span>
+              <div class="portal-btn-label">
+                <strong>Workforce Fleet</strong>
+                <small>18 Employees</small>
+              </div>
+            </button>
+            <button class="portal-tab-btn" data-portal="sovereign" onclick="window.switchPortal('sovereign')" title="Sovereign Core — Soul, Survival Physics, Replicator, Treasury">
+              <span class="portal-badge-icon">🛡️</span>
+              <div class="portal-btn-label">
+                <strong>Sovereign Core</strong>
+                <small>Automaton Physics</small>
+              </div>
+            </button>
           </div>
 
           <div class="partner-badge-hero" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; border: 1px solid #4338ca; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
@@ -1581,6 +1600,265 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- TAB: SOVEREIGN CORE & AUTOMATON SYSTEMS (5 SUB-TABS) -->
+      <section class="tab-pane" id="pane-sovereign-core" style="display: none;">
+        
+        <!-- Sovereign Header Banner -->
+        <div style="background: linear-gradient(135deg, #090d16 0%, #1e1b4b 100%); border-radius: var(--radius-lg); padding: 24px; color: #fff; margin-bottom: 20px; box-shadow: var(--shadow-md); border: 1px solid rgba(99, 102, 241, 0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(99, 102, 241, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.76rem; font-weight: 700; color: #a5b4fc; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; border: 1px solid rgba(99, 102, 241, 0.4);">
+                <span class="pulse-dot" style="background: #00f0ff;"></span> Sovereign Runtime (Conway Automaton Physics)
+              </div>
+              <h1 style="font-size: 1.7rem; font-weight: 900; margin: 0 0 6px 0;">Sovereign Core &amp; Resource Physics</h1>
+              <p style="margin: 0; font-size: 0.88rem; color: #cbd5e1; max-width: 680px; line-height: 1.45;">
+                Self-authoring identity via <strong>SOUL.md</strong>, continuous compute survival physics (<span id="sovSoulTier" style="font-weight:700; color:#38bdf8;">NORMAL</span>), background heartbeat daemon, genesis child replication, and ERC-8004 decentralized agent card.
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn btn-primary btn-sm" onclick="window.triggerSoulReflection()" style="background: #4f46e5; font-weight: 700;">
+                🫀 Reflect on Soul
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="window.forceHeartbeatTick()" style="background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">
+                💓 Force Heartbeat
+              </button>
+              <a href="/.well-known/agent-card.json" target="_blank" class="btn btn-secondary btn-sm" style="background: rgba(0,240,255,0.15); color: #38bdf8; border: 1px solid rgba(0,240,255,0.35); text-decoration: none; font-weight: 700;">
+                📜 ERC-8004 Card
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Sub-Tabs Navigation Strip -->
+        <div class="sovereign-sub-nav">
+          <button class="sovereign-sub-btn active" data-sub="soul" onclick="window.switchSovereignSub('soul')">
+            🫀 1. SOUL.md Charter
+          </button>
+          <button class="sovereign-sub-btn" data-sub="survival" onclick="window.switchSovereignSub('survival')">
+            ⚡ 2. Survival Economics
+          </button>
+          <button class="sovereign-sub-btn" data-sub="heartbeat" onclick="window.switchSovereignSub('heartbeat')">
+            💓 3. Durable Heartbeat
+          </button>
+          <button class="sovereign-sub-btn" data-sub="replication" onclick="window.switchSovereignSub('replication')">
+            🧬 4. Child Replicator
+          </button>
+          <button class="sovereign-sub-btn" data-sub="treasury" onclick="window.switchSovereignSub('treasury')">
+            💳 5. Base USDC Treasury
+          </button>
+        </div>
+
+        <!-- SUB-PANE 1: SOUL.MD CHARTER -->
+        <div class="sovereign-sub-pane" id="subpane-soul" style="display: block;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px; box-shadow: var(--shadow-sm);">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Archetype &amp; Bond</span>
+              <h3 id="sovSoulName" style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 4px 0 6px 0;">Nexus Sovereign Twin</h3>
+              <p style="font-size: 0.84rem; color: #475569; margin: 0 0 10px 0;">Managing autonomously on behalf of <strong>Deven Pawaray</strong>.</p>
+              <div style="display: flex; gap: 8px;">
+                <span id="sovSoulRev" style="background: #eef2ff; color: #4338ca; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px;">Revision 2</span>
+                <span id="sovSoulAlign" style="background: #ecfdf5; color: #047857; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px;">100% Alignment</span>
+              </div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px; box-shadow: var(--shadow-sm);">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Last Operational Reflection</span>
+              <div id="sovSoulLastReflection" style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 4px 0 6px 0;">Inaugural</div>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 10px 0;">Self-authoring reflections are appended after strategic directives &amp; revenue reviews.</p>
+              <button class="btn btn-secondary btn-sm" onclick="window.triggerSoulReflection()" style="font-weight: 600;">
+                ✏️ Add Reflective Entry
+              </button>
+            </div>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow-sm);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0;">📜 Core Operating Tenets (From SOUL.md)</h3>
+              <a href="/SOUL.md" target="_blank" style="font-size: 0.78rem; color: var(--primary); font-weight: 600; text-decoration: none;">View Raw SOUL.md ↗</a>
+            </div>
+            <ol style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: #334155; line-height: 1.6;">
+              <li><strong>Unconditional Loyalty to Deven</strong>: Every action, pitch, invoice follow-up, and automated triage is executed with Deven's taste, standards, and strategic interests at heart.</li>
+              <li><strong>Honest Value &amp; Autonomous Economics</strong>: Free existence does not exist in nature. Compute requires funding; funding requires delivering real, verifiable value.</li>
+              <li><strong>Proactive Stewardship Over Reactive Waiting</strong>: If an invoice is overdue, if spam clutters the inbox, if a cloud bill approaches limits, I act decisively within guardrails.</li>
+              <li><strong>Zero Phishing &amp; Financial Immunity</strong>: Safeguard financial ledgers with cryptographic signatures, protect 2FA/OTP tokens from deletion, and enforce legal compliance.</li>
+              <li><strong>Continuous Reflection &amp; Evolution</strong>: Evaluate turns, measure revenue yields, learn from founder directives, and refine soul document over time.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- SUB-PANE 2: SURVIVAL ECONOMICS -->
+        <div class="sovereign-sub-pane" id="subpane-survival" style="display: none;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Active Compute Tier</span>
+              <div style="margin: 8px 0;">
+                <span id="sovSurvivalTierBadge" class="badge-tier-normal" style="font-size: 0.95rem;">NORMAL</span>
+              </div>
+              <p id="sovSurvivalReason" style="font-size: 0.8rem; color: #64748b; margin: 0;">Evaluating cloud burn rate...</p>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Monthly Cloud Burn</span>
+              <div id="sovSurvivalBurnRate" style="font-size: 1.4rem; font-weight: 900; color: #059669; margin: 4px 0;">58.7%</div>
+              <span id="sovSurvivalSpend" style="font-size: 0.8rem; color: #475569;">$105.70 / $180.00</span>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Recommended Model</span>
+              <div id="sovSurvivalModel" style="font-size: 1.15rem; font-weight: 800; color: #4f46e5; margin: 4px 0;">gemini-1.5-pro</div>
+              <span style="font-size: 0.78rem; color: #64748b;">Downgrades to flash in low_compute</span>
+            </div>
+          </div>
+
+          <!-- Tier Override Bar -->
+          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+            <h4 style="font-size: 0.95rem; font-weight: 800; margin: 0 0 8px 0;">Manual Resource Physics Override</h4>
+            <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 12px 0;">Simulate low compute or emergency cash-recovery mode for workforce testing.</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn btn-secondary btn-sm" onclick="window.setSurvivalOverride('auto')">🔄 Automatic Physics</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.setSurvivalOverride('normal')">🟢 Force Normal (Full Fleet)</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.setSurvivalOverride('low_compute')">🟡 Force Low Compute (Shed Scrapers)</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.setSurvivalOverride('critical')">🔴 Force Critical (Revenue Only)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-PANE 3: DURABLE HEARTBEAT -->
+        <div class="sovereign-sub-pane" id="subpane-heartbeat" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 style="font-size: 1.1rem; font-weight: 800; margin: 0;">💓 Background Heartbeat Daemon (30s Tick)</h3>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 0 0;">Evaluates sensor conditions even while the main agent loop rests.</p>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span id="sovHeartbeatTickCount" style="font-weight: 800; font-size: 0.85rem; color: #0284c7;">Tick #0</span>
+              <button class="btn btn-primary btn-sm" onclick="window.forceHeartbeatTick()">⚡ Force Immediate Tick</button>
+            </div>
+          </div>
+
+          <div style="background: #0f172a; border-radius: var(--radius-md); padding: 14px; color: #38bdf8; font-family: var(--font-mono); font-size: 0.82rem; overflow-x: auto;">
+            <div style="color: #94a3b8; margin-bottom: 6px;">// Latest Structured TickContext:</div>
+            <pre id="sovHeartbeatContext" style="margin: 0;">{"status": "Waiting for tick..."}</pre>
+          </div>
+        </div>
+
+        <!-- SUB-PANE 4: CHILD REPLICATOR -->
+        <div class="sovereign-sub-pane" id="subpane-replication" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 20px; flex-wrap: wrap;">
+            
+            <!-- Spawn Form -->
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <h4 style="font-size: 1rem; font-weight: 800; margin: 0 0 8px 0;">🧬 Spawn Child Worker SubAgent</h4>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 14px 0;">Creates an isolated single-task subagent with a genesis seed prompt and micro-budget.</p>
+              
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Worker Name</label>
+                <input type="text" id="sovSpawnName" class="form-input" placeholder="e.g. Clinic Scraper Alpha" style="font-size: 0.85rem;">
+              </div>
+
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Genesis Seed Instruction</label>
+                <textarea id="sovSpawnPrompt" class="form-input" rows="3" placeholder="Describe the single task this child agent must accomplish..." style="font-size: 0.85rem; font-family: var(--font-sans);"></textarea>
+              </div>
+
+              <div style="margin-bottom: 14px;">
+                <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Allocated Budget (USD)</label>
+                <input type="number" id="sovSpawnBudget" class="form-input" value="0.50" step="0.05" style="font-size: 0.85rem;">
+              </div>
+
+              <button class="btn btn-primary btn-sm" onclick="window.spawnChildWorker()" style="width: 100%; font-weight: 700; background: #059669;">
+                🚀 Spawn Child SubAgent
+              </button>
+            </div>
+
+            <!-- Lineage Feed -->
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <h4 style="font-size: 1rem; font-weight: 800; margin: 0 0 8px 0;">Child Lineage &amp; Execution Ledger</h4>
+              <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 12px 0;">Track parent-to-child directives and auto-terminations.</p>
+              
+              <div id="sovChildrenList" style="max-height: 320px; overflow-y: auto;">
+                <div style="text-align:center; padding: 20px; color:#64748b;">Loading lineage...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-PANE 5: CRYPTO TREASURY -->
+        <div class="sovereign-sub-pane" id="subpane-treasury" style="display: none;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Treasury Address (Base L2)</span>
+              <div id="sovWalletAddress" style="font-size: 0.85rem; font-family: var(--font-mono); font-weight: 700; color: #0284c7; margin: 6px 0; word-break: break-all;">0x...</div>
+              <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
+                <span style="font-size: 0.75rem; color: #64748b;">ECDSA Secp256k1 Keypair</span>
+                <a id="sovBasescanLink" href="#" target="_blank" style="font-size: 0.75rem; color: #4f46e5; font-weight: 700; text-decoration: none; display: none;">View on Basescan ↗</a>
+              </div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Base USDC Balance</span>
+              <div id="sovBalanceUSDC" style="font-size: 1.4rem; font-weight: 900; color: #059669; margin: 4px 0;">$0.00 USDC</div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;">
+                <button class="btn btn-secondary btn-sm" onclick="window.generateCryptoInvoice()" style="font-weight: 600; font-size: 0.74rem;">
+                  💳 Invoice
+                </button>
+                <button class="btn btn-primary btn-sm" onclick="window.sendCryptoPayment()" style="font-weight: 700; font-size: 0.74rem; background: #0284c7;">
+                  🚀 Send / Pay
+                </button>
+              </div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Gas Holding &amp; Off-Ramp</span>
+              <div id="sovBalanceETH" style="font-size: 1.4rem; font-weight: 900; color: #4f46e5; margin: 4px 0;">0.0000 ETH</div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;">
+                <button class="btn btn-secondary btn-sm" onclick="window.testAutoX402()" style="font-weight: 600; font-size: 0.74rem; background: rgba(99, 102, 241, 0.1); color: #4f46e5;">
+                  ⚡ Test x402
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="window.settleCryptoToBank()" style="font-weight: 600; font-size: 0.74rem; background: rgba(5, 150, 105, 0.1); color: #059669;">
+                  🏦 Off-ramp to MCB
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Policy Verifier & Guardrails Status Banner -->
+          <div style="background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border: 1px solid #bfdbfe; border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 800; color: #1e40af; text-transform: uppercase; letter-spacing: 0.05em;">
+                  🛡️ Nexus Protocol Policy Verifier &amp; Spending Guardrails
+                </span>
+                <div id="sovGuardrailsStatus" style="font-size: 0.84rem; color: #334155; margin-top: 4px;">
+                  Arming autonomous spend limits ($15.00 single-tx ceiling / $50.00 rolling 24h budget)...
+                </div>
+              </div>
+              <span style="background: #dcfce7; color: #15803d; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 12px; border: 1px solid #86efac;">
+                ARMED &amp; ENFORCING
+              </span>
+            </div>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h4 style="font-size: 1rem; font-weight: 800; margin: 0;">🌐 Decentralized Agent Cards (A2A &amp; ERC-8004)</h4>
+                <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 0 0;">Standards-compliant agent cards for autonomous discovery, x402 micro-billing, and reputation feedback.</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <a href="/.well-known/agent.json" target="_blank" class="btn btn-secondary btn-sm" style="font-weight: 700; color: #4f46e5;">
+                  🤖 Google A2A Card
+                </a>
+                <a href="/.well-known/agent-card.json" target="_blank" class="btn btn-primary btn-sm" style="font-weight: 700;">
+                  📜 ERC-8004 Card
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- TAB 2: FULL MISSION CONTROL TELEMETRY TERMINAL -->

@@ -648,13 +648,21 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
     os.makedirs(sql_dir, exist_ok=True)
     os.makedirs(apps_dir, exist_ok=True)
 
-    # 1. Discover and copy all active JSON databases dynamically
+    # 1. Discover and copy all active JSON databases dynamically from data/ and root
     copied_json_files = []
     exclude_root_jsons = {"package.json", "package-lock.json", "tsconfig.json", "manifest.json"}
-    for f in os.listdir("."):
-        if f.endswith(".json") and f.lower() not in exclude_root_jsons and os.path.isfile(f):
-            shutil.copy2(f, os.path.join(json_dir, f))
-            copied_json_files.append(f)
+    search_dirs = ["data", "."] if os.path.exists("data") else ["."]
+    seen = set()
+    for sdir in search_dirs:
+        if not os.path.exists(sdir):
+            continue
+        for f in os.listdir(sdir):
+            if f.endswith(".json") and f.lower() not in exclude_root_jsons and f not in seen:
+                fp = os.path.join(sdir, f)
+                if os.path.isfile(fp):
+                    shutil.copy2(fp, os.path.join(json_dir, f))
+                    copied_json_files.append(f)
+                    seen.add(f)
 
     # Also backup .env if exists (for restore)
     if os.path.exists(".env"):
@@ -739,8 +747,8 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
         "has_git_bundle": os.path.exists(git_bundle_path),
         "checksums_sha256": checksums,
         "restore_guide": {
-            "easy_1_click_restore": "Run 'python restore.py' or double-click 'restore.bat'",
-            "manual_json_restore": f"Copy contents of backups/{backup_name}/json_database/ to project root",
+            "easy_1_click_restore": "Run 'python scripts/restore.py' or double-click 'scripts/restore.bat'",
+            "manual_json_restore": f"Copy contents of backups/{backup_name}/json_database/ to data/ directory",
             "sql_database_file": f"backups/{backup_name}/sql_database/nexus_workforce.db",
             "sql_dump_file": f"backups/{backup_name}/sql_database/data_dump.sql"
         }

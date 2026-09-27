@@ -3,6 +3,85 @@
 
 ---
 
+## [v3.4.0] - 2026-09-27 (J.A.R.V.I.S. Supreme Autonomous Unification, 4 Cohesive Domain Controllers, SQLite WAL Concurrency Engine, AES-256-GCM Vault, Unified Reports & Revenue Intelligence)
+
+### 🤖 J.A.R.V.I.S. Supreme Autonomous Orchestrator (`core/jarvis_service.py`, `core/jarvis_file_engine.py`, `jarvis.py`, `server.py`)
+- **Supreme Orchestration Backbone**:
+  - Unified all operational domains, background daemons, file modifications, report reading, and financial analytics under J.A.R.V.I.S.
+  - Dedicated REST endpoints: `GET /api/jarvis/reports`, `GET /api/jarvis/stats`, `GET /api/jarvis/revenue`, `POST /api/jarvis/chat`, `POST /api/jarvis/command`.
+  - Added full root-level file access and code refactoring engine (`jarvis_file_engine`) with safety snapshots and syntax validation.
+  - Enhanced terminal CLI (`python jarvis.py`) with direct shortcuts: `reports`, `stats`, `revenue`, `read`, `improve`, `audit`, `list`.
+
+### 🏛️ 4 Consolidated Domain Controllers (`core/domains/`, `core/agent_manager.py`)
+- **Resolved Architectural Fragmentation**:
+  - Collapsed 18 disparate pseudo-agents into 4 cohesive, thread-safe domain controllers:
+    1. `CommsDomainController` (`domain_comms`): Email hygiene, WhatsApp gateway, VIP customer support, ghost unsubscriber, bilingual concierge.
+    2. `OperationsDomainController` (`domain_operations`): 24/7 system heartbeat, dynamic compute survival tier, enterprise snapshots, offline regression sentinel.
+    3. `CommerceDomainController` (`domain_commerce`): Typed invoices ledger, PayPal store checkouts, Base USDC crypto treasury, revenue blueprints.
+    4. `ResearchDomainController` (`domain_research`): Emerging tech dossiers, Mauritius B2B lead generation, GitHub CVE security surveillance, social growth poster.
+  - 100% backward compatibility via `DomainProxyAgent` delegation for all 18 legacy agent IDs.
+
+### 💾 High-Concurrency SQLite WAL Engine & DAL (`core/db.py`, `core/dal.py`, `core/paths.py`)
+- **Eliminated Flat-File Race Conditions & Windows NTFS Locks**:
+  - Migrated from bare JSON file writes to SQLite WAL (`data/nexus_workforce.db`) with `PRAGMA journal_mode = WAL;`, `synchronous = NORMAL;`, `busy_timeout = 5000;`.
+  - Single-source deterministic paths in `core/paths.py` permanently prevent root directory pollution.
+  - Windows file lock retry loop (5 attempts) with atomic in-place fallback (`shutil.copyfile`).
+
+### 🔐 Encrypted Keystore Vault (`security/vault.py`, `core/crypto_treasury.py`)
+- **AES-256-GCM Envelope Encryption**:
+  - Encrypted on-disk private keys using Scrypt key derivation function (KDF) + AES-256-GCM.
+  - Private key decrypted strictly in-memory during transaction signing.
+
+---
+
+## [v3.3.0] - 2026-09-27 (Sovereign Autonomous Crypto Treasury & Spending Engine, Coinbase x402 Commerce, Policy Verifier Guardrails & Documentation Fleet Consolidation)
+
+### ⚡ Sovereign Autonomous Crypto Treasury & Real Base L2 Wallet (`core/crypto_treasury.py`, `crypto_wallet.json`, `crypto_keystore.json`)
+- **Real ECDSA Secp256k1 Keypair Generation & Keystore Management**:
+  - Nexus now owns a real cryptographic private key and an active Ethereum-compatible Base L2 address: `0xEAE558282090d878582ec4C4C1C2470f9826b1F2` (Chain ID: 8453).
+  - Uses `eth-account` for standard-compliant key derivation, EIP-1559 transaction construction, and cryptographic signing.
+  - Keys are secured locally in `.env` and `crypto_keystore.json` with strict `.gitignore` exclusion.
+- **Autonomous Spending Engine (`send_crypto_payment`)**:
+  - Live Base JSON-RPC integration via `httpx` (`https://mainnet.base.org`).
+  - Constructs ERC-20 `transfer(to, amount)` for Base USDC (`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`).
+  - Fetches live pending nonces and base gas fees, signs transactions using the agent's private key, and broadcasts via `eth_sendRawTransaction`.
+  - Graceful off-chain signature fallback and internal debit logging if gas balance is zero or network is disconnected.
+- **Multi-Rail Bank Off-Ramp**:
+  - Autonomous off-ramp method `settle_crypto_to_bank` converts Base USDC into Mauritian Rupees (MUR) and dispatches directly to Deven Pawaray's MCB Bank Account (`000443260370`) and PayPal (`devenpawaray@gmail.com`).
+
+### 🛡️ Policy Verifier & Autonomous Spending Guardrails (`core/crypto_verifier.py`, `crypto_spend_history.json`)
+- **Directly Inspired by `nxs-agents/nexus-protocol`**:
+  - Pre-flight gatekeeper evaluating transactions before cryptographic signature generation.
+  - **Per-Transaction Ceiling**: Enforces a strict max cap of **$15.00 USDC** per single autonomous expenditure.
+  - **Rolling 24-Hour Quota**: Limits autonomous spending to max **$50.00 USDC** per rolling 24 hours.
+  - **Address Sanitization**: Strict EVM format verification, blocking zero-address (burn address) drains.
+  - Historical velocity tracking in `crypto_spend_history.json`.
+
+### 🌐 Coinbase x402 Protocol & Google A2A Agent Card (`core/crypto_treasury.py`, `server.py`)
+- **Directly Inspired by `Tonyflam/agent00`**:
+  - **Autonomous x402 Client (`execute_x402_payment`)**: Catches HTTP 402 "Payment Required" responses from external APIs or peer agents, verifies fee parameters against policy guardrails, executes on-chain payment, attaches `X-PAYMENT-HASH` / `Authorization: x402` header, and unlocks the resource.
+  - **Live x402 Pay-Gated Endpoint (`GET /api/v1/x402/service`)**: Gates proprietary market alpha intelligence with a 0.50 USDC fee challenge.
+  - **Google A2A Standard Agent Card (`GET /.well-known/agent.json`)**: Declares agent identity, Base wallet address, supported tokens, and service pricing.
+  - **ERC-8004 Discovery Card (`GET /.well-known/agent-card.json`)**: Machine-readable agent passport.
+
+### 🛠️ Fleet Toolbox Integration (`core/tool_registry.py`)
+- Registered 5 new sovereign finance tools available to all 18 primary agents and child subagents:
+  - `get_crypto_wallet`: Inspects Base address, balances, and gas.
+  - `send_crypto_payment`: Autonomously spends USDC under policy guardrails.
+  - `execute_x402_payment`: Autonomously consumes x402 pay-gated APIs.
+  - `get_crypto_guardrails`: Inspects active spending limits and rolling budget.
+  - `create_crypto_invoice`: Generates on-chain Base USDC payment links.
+
+### 📚 Documentation Fleet Consolidation
+- Streamlined repository documentation down to **only 4 authoritative, non-redundant documents**:
+  1. `README.md`: Master Architecture, System Runbook, Fleet Directory, Base L2 Wallet, and REST API.
+  2. `COMMERCIAL_PLAYBOOK.md`: Consolidated master commercial pack merging `CAN_DO.md` capabilities, `COMMERCIAL_PLAYBOOK.md` turnkey suites, and `COMMERCIAL_VALUATION_AND_SALES_PACK.md` M&A valuation matrix into a single source of truth.
+  3. `SOUL.md`: Autonomous Self-Authoring Sovereign Identity Charter and Operating Tenets.
+  4. `CHANGELOG.md`: Chronological Release History.
+  *(Companion: `PARTNER_OATH.md` — Founding covenant with Deven Pawaray).*
+
+---
+
 ## [v3.2.0] - 2026-09-19 (Enterprise Multi-Format Backup & Disaster Recovery Engine, Collapsible Accordion Navigation & Loss-Free Git Bundles)
 
 ### 🛡️ Enterprise Multi-Format Backup & Disaster Recovery Engine (`core/backup_service.py`, `restore.py`, `restore.bat`, `server.py`)

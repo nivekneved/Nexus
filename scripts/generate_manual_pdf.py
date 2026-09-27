@@ -385,8 +385,11 @@ https://nexusbots-nu.vercel.app              http://127.0.0.1:8000
 """
 
 def generate_pdf():
-    html_file = os.path.abspath("Nexus_User_Manual.html")
-    pdf_file = os.path.abspath("Nexus_User_Manual.pdf")
+    os.makedirs("docs", exist_ok=True)
+    os.makedirs("static", exist_ok=True)
+    html_file = os.path.abspath("docs/Nexus_User_Manual.html")
+    pdf_file = os.path.abspath("docs/Nexus_User_Manual.pdf")
+    static_pdf_file = os.path.abspath("static/Nexus_User_Manual.pdf")
 
     # 1. Write HTML file
     with open(html_file, "w", encoding="utf-8") as f:
@@ -418,10 +421,14 @@ def generate_pdf():
         "--no-pdf-header-footer",
         html_file
     ]
+
     res = subprocess.run(cmd, capture_output=True, text=True)
     if os.path.exists(pdf_file) and os.path.getsize(pdf_file) > 1000:
+        import shutil
+        shutil.copy2(pdf_file, static_pdf_file)
         size_kb = round(os.path.getsize(pdf_file) / 1024, 1)
         print(f"[+] SUCCESS! Generated: {pdf_file} ({size_kb} KB)")
+        print(f"[+] Mirrored to static: {static_pdf_file}")
         return True
     else:
         print(f"[-] PDF compilation error: {res.stderr}")

@@ -38,13 +38,53 @@ SAFEGUARD_METADATA = [
     ("25_circuit_breaker", "Subagent Circuit Breaker Sentinel", "Trips on 3 consecutive failures with 60s cooldown")
 ]
 
+class DomainProxyAgent(BaseAgent):
+    """
+    Lightweight proxy providing 100% backward compatibility for legacy agent IDs.
+    Routes execution, stats, and configurations directly into the consolidated Domain Controllers.
+    """
+    def __init__(self, agent_id: str, name: str, domain_id: str, method_name: str, description: str, icon: str = "bot"):
+        super().__init__(agent_id=agent_id, name=name, description=description, icon=icon)
+        self.domain_id = domain_id
+        self.method_name = method_name
+
+    def run_cycle(self) -> Dict[str, Any]:
+        from core.agent_manager import AgentManager
+        domain = AgentManager().get_agent(self.domain_id)
+        if not domain:
+            raise ValueError(f"Domain controller '{self.domain_id}' not found.")
+        method = getattr(domain, self.method_name, domain.run_cycle)
+        return method()
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        from core.agent_manager import AgentManager
+        domain = AgentManager().get_agent(self.domain_id)
+        return domain.get_stats() if domain else []
+
+    def get_config_schema(self) -> List[Dict[str, Any]]:
+        from core.agent_manager import AgentManager
+        domain = AgentManager().get_agent(self.domain_id)
+        return domain.get_config_schema() if domain else []
+
+    def get_config(self) -> Dict[str, Any]:
+        from core.agent_manager import AgentManager
+        domain = AgentManager().get_agent(self.domain_id)
+        return domain.get_config() if domain else {}
+
+    def save_config(self, new_config: Dict[str, Any]) -> bool:
+        from core.agent_manager import AgentManager
+        domain = AgentManager().get_agent(self.domain_id)
+        return domain.save_config(new_config) if domain else True
+
+
 class AgentManager:
     """
     Central Backbone Orchestrator:
-    1. Dynamic Discovery & Plugin Registry (loads all agents in agents/ folder)
-    2. Multi-Agent Lifecycle Management (Enable/Disable, Trigger Manual Run)
-    3. Universal Addon Integration & 25-Safeguard Defense Shield
-    4. Unified Background Scheduler for each agent's custom interval
+    1. Consolidated Domain Controllers (Comms, Operations, Commerce, Research)
+    2. 100% Backward-Compatible Legacy Proxy Routing (18 legacy agent IDs)
+    3. Multi-Agent Lifecycle Management (Enable/Disable, Trigger Manual Run)
+    4. Universal Addon Integration & 25-Safeguard Defense Shield
+    5. Unified Background Scheduler for autonomous interval execution
     """
     _instance = None
 
@@ -52,10 +92,12 @@ class AgentManager:
         if cls._instance is None:
             cls._instance = super(AgentManager, cls).__new__(cls)
             cls._instance.agents: Dict[str, BaseAgent] = {}
+            cls._instance.domain_controllers: Dict[str, BaseAgent] = {}
             cls._instance.scheduler_thread = None
             cls._instance.stop_event = threading.Event()
             cls._instance.is_scheduler_running = False
             cls._instance._register_security_shield_addons()
+            cls._instance._init_domain_controllers()
         return cls._instance
 
     def _register_security_shield_addons(self):
@@ -69,13 +111,75 @@ class AgentManager:
                 default_active=True
             )
 
-    def register_agent(self, agent: BaseAgent):
+    def _init_domain_controllers(self):
+        """Initializes and registers the 4 core Domain Controllers and 18 legacy proxy routes."""
+        from core.domains.comms import CommsDomainController
+        from core.domains.operations import OperationsDomainController
+        from core.domains.commerce import CommerceDomainController
+        from core.domains.research import ResearchDomainController
+
+        # 1. Register 4 Primary Domain Controllers
+        primary_domains = [
+            CommsDomainController(),
+            OperationsDomainController(),
+            CommerceDomainController(),
+            ResearchDomainController()
+        ]
+        for domain in primary_domains:
+            self.domain_controllers[domain.agent_id] = domain
+            self.register_agent(domain)
+
+        # 2. Register 18 Legacy Aliases / Proxies
+        legacy_specs = [
+            # Comms Domain
+            ("email_hygiene", "Email Hygiene & Anti-Spam", "domain_comms", "run_email_hygiene", "Autonomous multi-inbox cleaner and spam shield", "mail"),
+            ("customer_support", "Customer Support & Concierge", "domain_comms", "run_support_triage", "24/7 client triage and VIP escalation", "support"),
+            ("ghost_unsubscriber", "Zombie Subscription Purger", "domain_comms", "run_ghost_unsub", "Newsletter unsubscription & daily digest", "checklist"),
+            ("mobile_dispatcher", "Mobile Emergency Dispatcher", "domain_comms", "run_cycle", "WhatsApp/SMS urgent notifications", "phone"),
+            ("bilingual_concierge", "Bilingual EN/FR Concierge", "domain_comms", "run_cycle", "Multi-lingual communication assistant", "globe"),
+
+            # Operations Domain
+            ("chief_of_staff", "Chief of Staff & Coordinator", "domain_operations", "run_chief_of_staff", "Workforce coordination and morning standup", "briefcase"),
+            ("heartbeat_daemon", "24/7 System Heartbeat Sentinel", "domain_operations", "run_heartbeat", "System health, database WAL, process telemetry", "pulse"),
+            ("infra_finance_sentinel", "Cloud Bills & Infra Sentinel", "domain_operations", "run_cycle", "Infrastructure cost burn rate and token caps", "trending-down"),
+            ("regression_sentinel", "Regression & Invariant Sentinel", "domain_operations", "run_regression_sentinel", "Offline integrity tests and self-healing", "shield"),
+            ("spec_auditor", "API Contract & Spec Auditor", "domain_operations", "run_regression_sentinel", "OpenAPI schema and security compliance", "check-circle"),
+
+            # Commerce Domain
+            ("executive_partner", "Executive Revenue Partner", "domain_commerce", "run_store_audit", "Strategic monetization and pipeline analysis", "dollar-sign"),
+            ("appstore_sentinel", "App Store & Product Sentinel", "domain_commerce", "run_store_audit", "Product telemetry and store ranking", "smartphone"),
+
+            # Research Domain
+            ("tech_trend_curator", "Emerging Tech Trend Curator", "domain_research", "run_trend_curator", "AI & technology intelligence monitoring", "cpu"),
+            ("lead_finder", "Mauritius B2B Lead Scout", "domain_research", "run_lead_scout", "Corporate lead discovery and qualification", "target"),
+            ("repo_radar", "GitHub Repo Radar & Security", "domain_research", "run_repo_radar", "Dependency vulnerability audit", "github"),
+            ("executive_poster", "Executive Social Ghostwriter", "domain_research", "run_cycle", "Thought leadership and social drafting", "share-2"),
+            ("growth_hacker", "Organic Growth Hacker", "domain_research", "run_cycle", "Viral loop analysis and audience growth", "trending-up"),
+            ("influencer_usher", "Strategic Influencer Usher", "domain_research", "run_cycle", "Affiliate partnerships and outreach", "users"),
+            ("meeting_assistant", "Executive Meeting Assistant", "domain_research", "run_cycle", "Meeting notes and action item synthesis", "calendar"),
+        ]
+
+        for aid, name, dom_id, meth, desc, icon in legacy_specs:
+            proxy = DomainProxyAgent(aid, name, dom_id, meth, desc, icon)
+            self.agents[aid] = proxy
+            addon_registry.register_addon(
+                addon_id=aid,
+                name=name,
+                category="legacy_proxy",
+                description=desc,
+                default_active=True,
+                parent_id=dom_id
+            )
+
+    def register_agent(self, agent: BaseAgent, override: bool = False):
         """Registers an instantiated agent into the central hub and addon registry."""
+        if agent.agent_id in self.agents and not override:
+            return
         self.agents[agent.agent_id] = agent
         addon_registry.register_addon(
             addon_id=agent.agent_id,
             name=agent.name,
-            category="primary_agent",
+            category="primary_agent" if agent.agent_id.startswith("domain_") else "legacy_proxy",
             description=agent.description,
             default_active=agent.is_enabled
         )
@@ -84,7 +188,11 @@ class AgentManager:
     def get_agent(self, agent_id: str) -> Optional[BaseAgent]:
         return self.agents.get(agent_id)
 
-    def list_agents(self) -> List[Dict]:
+    def list_agents(self, primary_only: bool = False) -> List[Dict]:
+        """Lists agents. If primary_only is True, returns only the 4 consolidated Domain Controllers."""
+        if primary_only or len(self.domain_controllers) > 0:
+            # Present the 4 primary domain controllers
+            return [dom.get_info() for dom in self.domain_controllers.values()]
         return [agent.get_info() for agent in self.agents.values()]
 
     def run_agent(self, agent_id: str) -> Dict:
@@ -94,6 +202,15 @@ class AgentManager:
                 "success": False,
                 "agent_id": agent_id,
                 "error": f"Agent '{agent_id}' is deactivated in Addon Registry."
+            }
+
+        from core.survival_engine import survival_engine
+        if not survival_engine.should_run_agent(agent_id):
+            tier_info = survival_engine.get_current_tier()
+            return {
+                "success": False,
+                "agent_id": agent_id,
+                "error": f"Agent blocked: Survival tier '{tier_info['tier']}' active. Task shed to conserve compute ({tier_info['reason']})."
             }
 
         agent = self.get_agent(agent_id)
@@ -106,7 +223,23 @@ class AgentManager:
         try:
             result = agent.run_cycle()
             agent.run_count += 1
-            agent.last_run_status = "Success"
+            
+            # Idle Energy Conservation Check
+            is_idle = False
+            if isinstance(result, dict):
+                if result.get("status") in ("Idle", "No Action", "No Work") or result.get("items_processed") == 0:
+                    is_idle = True
+            
+            if is_idle:
+                agent.consecutive_idle_cycles += 1
+                if agent.consecutive_idle_cycles >= 3:
+                    agent.last_run_status = "Idle-Conserving (Energy Saving)"
+                else:
+                    agent.last_run_status = "Success"
+            else:
+                agent.consecutive_idle_cycles = 0
+                agent.last_run_status = "Success"
+
             return {"success": True, "agent_id": agent_id, "result": result}
         except Exception as e:
             agent.last_run_status = f"Error: {str(e)}"
@@ -183,13 +316,33 @@ class AgentManager:
         last_checks: Dict[str, float] = {}
         active_threads: Dict[str, threading.Thread] = {}
 
+        from core.survival_engine import survival_engine
+
         while not self.stop_event.is_set():
             now = time.time()
+            tier_info = survival_engine.get_current_tier()
+            
+            # If DORMANT, halt all autonomous execution
+            if tier_info["tier"] == "dormant":
+                time.sleep(10)
+                continue
+
+            tier_multiplier = tier_info.get("interval_multiplier", 1.0)
+
             for agent_id, agent in list(self.agents.items()):
                 if not agent.is_enabled or not addon_registry.is_active(agent_id):
                     continue
 
-                interval_sec = agent.schedule_minutes * 60
+                # Survival Shedding Guard
+                if not survival_engine.should_run_agent(agent_id):
+                    continue
+
+                # Scale interval by survival multiplier + idle energy conservation
+                effective_multiplier = tier_multiplier
+                if agent.consecutive_idle_cycles >= 3:
+                    effective_multiplier *= 1.5
+
+                interval_sec = agent.schedule_minutes * 60 * effective_multiplier
                 last_time = last_checks.get(agent_id, 0)
 
                 # Check if the existing thread for this agent is still alive

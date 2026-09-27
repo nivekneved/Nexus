@@ -1,21 +1,18 @@
 """
 Nexus Workforce -- Data Access Layer (DAL)
 ==========================================
-Single unified interface for all runtime data I/O.
-Swap load()/save() internals for Supabase with zero agent/route refactoring.
+Unified interface for all runtime data I/O.
+Backbone powered by SQLite WAL (Write-Ahead Logging) with atomic JSON synchronization.
 """
 
 import json
 import logging
 from pathlib import Path
 from typing import Any
+from core.paths import DATA_DIR, LOGS_DIR
+from core.db import get_state, set_state
 
 logger = logging.getLogger("Nexus.DAL")
-
-DATA_DIR = Path("data")
-LOGS_DIR = Path("logs")
-DATA_DIR.mkdir(exist_ok=True)
-LOGS_DIR.mkdir(exist_ok=True)
 
 _REGISTRY: dict[str, Path] = {
     "invoices":             DATA_DIR / "invoices.json",
@@ -35,6 +32,9 @@ _REGISTRY: dict[str, Path] = {
     "standup_brief":        DATA_DIR / "latest_standup_brief.json",
     "tech_dossier":         DATA_DIR / "latest_tech_dossier.json",
     "newsletter_digest":    DATA_DIR / "daily_newsletter_digest.json",
+    "crypto_wallet":        DATA_DIR / "crypto_wallet.json",
+    "crypto_transactions":  DATA_DIR / "crypto_transactions.json",
+    "crypto_spend_history": DATA_DIR / "crypto_spend_history.json",
 }
 
 
@@ -42,26 +42,38 @@ def path(key: str) -> Path:
     """Return the filesystem path for a given DAL key."""
     p = _REGISTRY.get(key)
     if p is None:
-        raise KeyError(f"Unknown DAL key: {key!r}. Register it in core/dal.py")
+        # Fallback to key filename in DATA_DIR
+        return DATA_DIR / (key if key.endswith(".json") else f"{key}.json")
     return p
 
 
 def exists(key: str) -> bool:
-    """Return True if the backing file exists."""
-    return path(key).exists()
+    """Return True if the backing record exists in SQLite or on disk."""
+    p = path(key)
+    if get_state(p.name) is not None:
+        return True
+    return p.exists()
 
 
 def load(key: str, default: Any = None) -> Any:
     """
-    Load JSON for key. Returns default if missing or malformed.
+    Load data for key. Queries high-concurrency SQLite WAL first, falling back to disk.
     default=None auto-returns [] for safety.
     """
     p = path(key)
+    # 1. Primary: High-speed SQLite state
+    db_val = get_state(p.name)
+    if db_val is not None:
+        return db_val
+
+    # 2. Fallback: Disk load and cache into SQLite
     if not p.exists():
         return default if default is not None else []
     try:
         with open(p, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+        set_state(p.name, data, sync_json=False)
+        return data
     except (json.JSONDecodeError, OSError) as e:
         logger.warning("DAL load failed for %r: %s", key, e)
         return default if default is not None else []
@@ -69,19 +81,14 @@ def load(key: str, default: Any = None) -> Any:
 
 def save(key: str, data: Any) -> None:
     """
-    Persist data as JSON. Uses atomic tmp+rename to prevent corruption on crash.
+    Persist data via SQLite WAL engine and sync atomically to disk.
+    Guarantees ACID transactions across multiple processes.
     """
     p = path(key)
-    tmp = p.with_suffix(".tmp")
-    try:
-        with open(tmp, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-        tmp.replace(p)
-    except OSError as e:
-        logger.error("DAL save failed for %r: %s", key, e)
-        if tmp.exists():
-            tmp.unlink(missing_ok=True)
-        raise
+    success = set_state(p.name, data, sync_json=True)
+    if not success:
+        logger.error(f"DAL save failed for {key}")
+        raise IOError(f"Failed to persist state for {key}")
 
 
 def append(key: str, entry: Any, max_items: int = 500) -> None:
@@ -91,22 +98,3 @@ def append(key: str, entry: Any, max_items: int = 500) -> None:
         items = []
     items.insert(0, entry)
     save(key, items[:max_items])
-
-
-def migrate_root_files() -> dict:
-    """
-    One-shot migration: move legacy root-level JSON files into data/.
-    Safe to call on every boot -- skips files already migrated.
-    Returns {old_path: new_path} for all moved files.
-    """
-    moved = {}
-    for key, dest in _REGISTRY.items():
-        src = Path(dest.name)
-        if src.exists() and not dest.exists():
-            try:
-                src.rename(dest)
-                moved[str(src)] = str(dest)
-                logger.info("Migrated %s to %s", src, dest)
-            except OSError as e:
-                logger.warning("Could not migrate %s: %s", src, e)
-    return moved

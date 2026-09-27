@@ -5,7 +5,8 @@ from datetime import datetime
 from typing import Dict, Any, List
 from core.subagent import BaseSubAgent
 
-BLUEPRINTS_FILE = "revenue_blueprints.json"
+from core.paths import resolve_data_path
+BLUEPRINTS_FILE = str(resolve_data_path("revenue_blueprints.json"))
 
 PROVEN_AI_AGENT_MONETIZATION_MODELS = [
     {

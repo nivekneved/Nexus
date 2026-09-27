@@ -22,6 +22,10 @@ class BaseAgent(ABC):
         self.last_run_status = "Idle"
         self.run_count = 0
         self.subagents: Dict[str, BaseSubAgent] = {}
+        # Conway Automaton ReAct Defenses: Loop & Idle Protection
+        self.recent_tool_calls: List[tuple] = []
+        self.loop_circuit_breaks: int = 0
+        self.consecutive_idle_cycles: int = 0
 
     def register_subagent(self, subagent: BaseSubAgent):
         """Registers a dedicated single-task subagent under this agent."""
@@ -56,7 +60,39 @@ class BaseAgent(ABC):
         return subagent.run(payload)
 
     def call_tool(self, tool_name: str, **kwargs) -> Dict[str, Any]:
-        """Allows any agent to dynamically execute tools from the central Tool Registry."""
+        """
+        Allows any agent to dynamically execute tools from the central Tool Registry.
+        Includes Conway Automaton ReAct Loop Defense to abort runaway 3x tool loops.
+        """
+        import json
+        call_signature = (tool_name, json.dumps(kwargs, sort_keys=True, default=str))
+        self.recent_tool_calls.append(call_signature)
+        if len(self.recent_tool_calls) > 10:
+            self.recent_tool_calls.pop(0)
+
+        # Loop Circuit Breaker: 3 identical tool calls in a row
+        if (
+            len(self.recent_tool_calls) >= 3
+            and self.recent_tool_calls[-1] == self.recent_tool_calls[-2] == self.recent_tool_calls[-3]
+        ):
+            self.loop_circuit_breaks += 1
+            err_msg = (
+                f"Loop Guard Tripped: Tool '{tool_name}' invoked 3 consecutive times with "
+                f"identical parameters. Runaway loop aborted to conserve compute/tokens."
+            )
+            self.log(
+                step="LOOP_CIRCUIT_BREAKER",
+                file_used="core/base_agent.py",
+                message=err_msg,
+                level="WARN"
+            )
+            return {
+                "success": False,
+                "tool": tool_name,
+                "error": err_msg,
+                "loop_aborted": True
+            }
+
         from core.tool_registry import tool_registry
         res = tool_registry.call_tool(tool_name, **kwargs)
         self.log(
@@ -141,6 +177,8 @@ class BaseAgent(ABC):
             "last_run_time": self.last_run_time,
             "last_run_status": self.last_run_status,
             "run_count": self.run_count,
+            "loop_circuit_breaks": self.loop_circuit_breaks,
+            "consecutive_idle_cycles": self.consecutive_idle_cycles,
             "stats": self.get_stats(),
             "config_schema": self.get_config_schema(),
             "current_config": self.get_config(),

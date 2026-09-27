@@ -34,6 +34,10 @@ contact_history.json
 mesh_messages.json
 mesh_contacts.json
 support_tickets.json
+crypto_keystore.json
+crypto_spend_history.json
+crypto_transactions.json
+crypto_wallet.json
 supabase/.temp/
 *.sql
 *.bak

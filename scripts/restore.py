@@ -13,8 +13,12 @@ import hashlib
 from datetime import datetime
 
 if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) if os.path.basename(os.path.dirname(os.path.abspath(__file__))) == "scripts" else os.path.dirname(os.path.abspath(__file__))
+os.chdir(PROJECT_ROOT)
 
 def compute_sha256(filepath: str) -> str:
     h = hashlib.sha256()
@@ -87,11 +91,12 @@ def restore_backup(
     if restore_db:
         # 2. Restore JSON Databases
         json_dir = os.path.join(backup_path, "json_database")
+        os.makedirs("data", exist_ok=True)
         if os.path.exists(json_dir):
-            print("\n📥 Restoring JSON Databases to project root:")
+            print("\n📥 Restoring JSON Databases to data/ directory:")
             for file in os.listdir(json_dir):
                 src = os.path.join(json_dir, file)
-                dst = file
+                dst = os.path.join("data", file)
                 shutil.copy2(src, dst)
                 restored_json_files.append(file)
                 print(f"   ✓ Restored {file}")
@@ -100,16 +105,17 @@ def restore_backup(
             for file in os.listdir(backup_path):
                 if file.endswith(".json") and file != "MANIFEST.json":
                     src = os.path.join(backup_path, file)
-                    shutil.copy2(src, file)
+                    dst = os.path.join("data", file)
+                    shutil.copy2(src, dst)
                     restored_json_files.append(file)
                     print(f"   ✓ Restored {file}")
 
-        # Copy live SQLite DB to project root for instant querying
+        # Copy live SQLite DB to data/ directory for instant querying
         sqlite_src = os.path.join(backup_path, "sql_database", "nexus_workforce.db")
         if os.path.exists(sqlite_src):
-            shutil.copy2(sqlite_src, "nexus_workforce.db")
+            shutil.copy2(sqlite_src, os.path.join("data", "nexus_workforce.db"))
             restored_db = True
-            print("   ✓ Restored live SQLite database -> ./nexus_workforce.db")
+            print("   ✓ Restored live SQLite database -> ./data/nexus_workforce.db")
 
     # 3. Restore Application Source Code if requested
     restored_source = False

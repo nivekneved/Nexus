@@ -18,11 +18,13 @@ if hasattr(sys.stderr, "reconfigure"):
 from email_client import EmailClient
 from spam_classifier import SpamClassifier
 
+from core.paths import resolve_data_path, resolve_log_path, REPORTS_DIR
+
 # Setup logging (safe for both local server and read-only serverless environments like Vercel)
 handlers = [logging.StreamHandler(sys.stdout)]
 try:
-    log_dir = "/tmp" if os.name != "nt" and "VERCEL" in os.environ else "."
-    handlers.insert(0, logging.FileHandler(os.path.join(log_dir, "email_agent.log"), encoding="utf-8"))
+    log_fp = "/tmp/email_agent.log" if os.name != "nt" and "VERCEL" in os.environ else str(resolve_log_path("email_agent.log"))
+    handlers.insert(0, logging.FileHandler(log_fp, encoding="utf-8"))
 except Exception:
     pass
 
@@ -34,8 +36,8 @@ logging.basicConfig(
 logger = logging.getLogger("EmailAgent")
 console = Console(force_terminal=True, legacy_windows=False)
 
-LEDGER_FILE = "trash_ledger.json"
-REPORT_FILE = "daily_report.md"
+LEDGER_FILE = str(resolve_data_path("trash_ledger.json"))
+REPORT_FILE = str(REPORTS_DIR / "daily_report.md")
 
 class EmailSpamAgent:
     """
@@ -222,6 +224,7 @@ class EmailSpamAgent:
             "original_folder": folder
         })
 
+        os.makedirs(os.path.dirname(LEDGER_FILE), exist_ok=True)
         with open(LEDGER_FILE, "w", encoding="utf-8") as f:
             json.dump(ledger, f, indent=2, ensure_ascii=False)
 
@@ -242,6 +245,7 @@ class EmailSpamAgent:
             content += f"| {r['timestamp']} | `{r['sender'][:25]}` | {r['subject'][:30]} | {r['category']} | **{r['action']}** | {unsub_display} |\n"
         content += "\n---\n\n"
 
+        os.makedirs(os.path.dirname(REPORT_FILE), exist_ok=True)
         if not os.path.exists(REPORT_FILE):
             with open(REPORT_FILE, "w", encoding="utf-8") as f:
                 f.write(header + content)

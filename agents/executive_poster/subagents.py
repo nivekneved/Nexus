@@ -71,10 +71,12 @@ EXECUTIVE_PRESET_PROMPTS = [
 ]
 
 
+from core.paths import resolve_data_path
+
 def _get_posts_file_path() -> str:
     if "VERCEL" in os.environ:
         return os.path.join("/tmp", POSTS_STORAGE_FILE)
-    return POSTS_STORAGE_FILE
+    return str(resolve_data_path(POSTS_STORAGE_FILE))
 
 
 def load_posts_ledger() -> List[Dict[str, Any]]:
