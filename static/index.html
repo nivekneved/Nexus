@@ -86,9 +86,156 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="preload" href="/static/style.css?v=3.2.0" as="style">
+  <link rel="preload" href="/static/style.css?v=3.5.0" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css?v=3.2.0">
+  <link rel="stylesheet" href="/static/style.css?v=3.5.0">
+
+  <style>
+    /* CRITICAL WORKSPACE STYLES - GUARANTEED INSTANT RENDERING */
+    .domain-hero-banner {
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 22px;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+    .banner-comms {
+      background: linear-gradient(135deg, #0369a1 0%, #0284c7 60%, #38bdf8 100%) !important;
+      border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    }
+    .banner-ops {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%) !important;
+      border: 1px solid rgba(217, 119, 6, 0.45) !important;
+    }
+    .banner-commerce {
+      background: linear-gradient(135deg, #064e3b 0%, #059669 60%, #10b981 100%) !important;
+      border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    }
+    .banner-research {
+      background: linear-gradient(135deg, #3b0764 0%, #6b21a8 60%, #9333ea 100%) !important;
+      border: 1px solid rgba(168, 85, 247, 0.4) !important;
+    }
+    .domain-hero-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .domain-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(8px);
+    }
+    .domain-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.02em;
+      color: #ffffff !important;
+    }
+    .domain-desc {
+      margin: 0;
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.9) !important;
+      max-width: 650px;
+      line-height: 1.5;
+    }
+    .domain-hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 190px;
+    }
+    .domain-kpi-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)) !important;
+      gap: 16px !important;
+      margin-bottom: 24px !important;
+    }
+    .domain-kpi-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 12px !important;
+      padding: 16px 20px !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03) !important;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .domain-kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07) !important;
+    }
+    .domain-kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .domain-kpi-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .domain-kpi-icon {
+      font-size: 1.25rem;
+    }
+    .domain-kpi-value {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+    .domain-kpi-sub {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .domain-layout-grid {
+      display: grid !important;
+      grid-template-columns: 1.15fr 0.85fr !important;
+      gap: 20px !important;
+    }
+    @media (max-width: 1024px) {
+      .domain-layout-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    .domain-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .domain-feed-container {
+      max-height: 380px;
+      overflow-y: auto;
+      border-top: 1px solid #e2e8f0;
+    }
+    .domain-feed-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e2e8f0;
+      transition: background 0.15s ease;
+    }
+    .domain-feed-item:hover {
+      background: #f8fafc;
+    }
+    .domain-feed-item:last-child {
+      border-bottom: none;
+    }
+  </style>
 
   <!-- JSON-LD Structured Data Graph for Google Rich Snippets and AI Grounding -->
   <script type="application/ld+json">
@@ -356,66 +503,37 @@
     <!-- Main Content Area -->
     <main class="main-content">
       
-      <header class="top-header">
-        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+      <header class="top-header" style="padding: 14px 20px; margin-bottom: 20px; background: #ffffff; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.02);">
+        <div style="display: flex; align-items: center; gap: 14px;">
           <button id="btnMobileNavToggle" class="btn btn-secondary btn-sm mobile-only" aria-label="Toggle Navigation Menu" style="display: none; font-size: 1.2rem; padding: 6px 12px; cursor: pointer;">☰</button>
-          <h1 class="page-title" id="pageTitle" style="margin: 0;">CEO Cockpit</h1>
-          
-          <!-- Master Role-Based Sub-Portals Switcher -->
-          <div class="sovereign-portal-bar" id="portalModeSwitcher">
-            <button class="portal-tab-btn active" data-portal="founder" onclick="window.switchPortal('founder')" title="Executive Founder Portal — Peace of mind, zero noise">
-              <span class="portal-badge-icon">👑</span>
-              <div class="portal-btn-label">
-                <strong>Founder Portal</strong>
-                <small>Peace of Mind</small>
-              </div>
-            </button>
-            <button class="portal-tab-btn" data-portal="workforce" onclick="window.switchPortal('workforce')" title="Workforce Operations — 18 AI employees by department">
-              <span class="portal-badge-icon">🤖</span>
-              <div class="portal-btn-label">
-                <strong>Workforce Fleet</strong>
-                <small>18 Employees</small>
-              </div>
-            </button>
-            <button class="portal-tab-btn" data-portal="sovereign" onclick="window.switchPortal('sovereign')" title="Sovereign Core — Soul, Survival Physics, Replicator, Treasury">
-              <span class="portal-badge-icon">🛡️</span>
-              <div class="portal-btn-label">
-                <strong>Sovereign Core</strong>
-                <small>Automaton Physics</small>
-              </div>
-            </button>
-          </div>
-
-          <div class="partner-badge-hero" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; border: 1px solid #4338ca; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
-            <span class="pulse-dot" style="background: #10b981; box-shadow: 0 0 6px #10b981;"></span>
-            <span style="font-weight: 700;">🤝 Nexus AI</span>
-            <span style="color: #94a3b8; font-weight: 500;">| Managing on behalf of <strong style="color: #38bdf8;">Deven Pawaray</strong></span>
+          <div>
+            <h1 class="page-title" id="pageTitle" style="margin: 0; font-size: 1.45rem; font-weight: 900; color: var(--text-main); letter-spacing: -0.02em;">CEO Executive Cockpit</h1>
+            <div id="pageSubtitle" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Supreme Autonomous Fleet Orchestration &amp; Performance</div>
           </div>
         </div>
 
-        <div class="header-actions">
-          <a href="/manual" target="_blank" class="btn btn-sm" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: linear-gradient(135deg, #4338ca, #312e81); color: #fff; text-decoration: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem;">
-            📄 PDF Manual
-          </a>
-          <a href="/store" target="_blank" class="btn btn-sm" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff; text-decoration: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem;">
-            ⚡ $1 Store
-          </a>
-          <button class="btn btn-sm" onclick="window.navigateToPage('social-war-room')" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff; border: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem; cursor: pointer;">
-            📱 Post On My Behalf
-          </button>
-          <a href="/donations" target="_blank" class="btn btn-sm" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; background: #ef4444; color: #fff; text-decoration: none; border-radius: 8px; padding: 6px 12px; font-size: 0.85rem;">
-            ❤️ Donations
-          </a>
-          <button class="btn btn-primary btn-sm" id="btnOpenPaymentModal" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; background: #000; color: #fff;">
-            💳 Collect Funds
-          </button>
-          <button class="btn btn-secondary btn-sm" id="btnPingMobile" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; background: #fff;">
-            📱 WhatsApp (+230)
-          </button>
-          <div class="daemon-pill" id="daemonPill">
+        <div class="header-actions" style="display: flex; align-items: center; gap: 12px;">
+          <div class="partner-badge-hero" style="display: inline-flex; align-items: center; gap: 8px; background: #0f172a; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; border: 1px solid #334155; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+            <span class="pulse-dot" style="background: #10b981;"></span>
+            <span style="font-weight: 700;">Nexus AI</span>
+            <span style="color: #94a3b8; font-weight: 500;">| Managing for <strong style="color: #38bdf8;">Deven Pawaray</strong></span>
+          </div>
+
+          <div class="daemon-pill" id="daemonPill" style="margin: 0;">
             <span class="daemon-status-dot" id="daemonDot"></span>
             <span class="daemon-label" id="daemonLabel">Scheduler: Stopped</span>
             <button class="btn-daemon-toggle" id="btnToggleDaemon">Start All</button>
+          </div>
+
+          <!-- Hidden anchors to preserve existing JavaScript event bindings safely -->
+          <div style="display: none !important;">
+            <button id="btnOpenPaymentModal"></button>
+            <button id="btnPingMobile"></button>
+            <div id="portalModeSwitcher">
+              <button class="portal-tab-btn" data-portal="founder"></button>
+              <button class="portal-tab-btn" data-portal="workforce"></button>
+              <button class="portal-tab-btn" data-portal="sovereign"></button>
+            </div>
           </div>
         </div>
       </header>
@@ -1116,6 +1234,220 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               </button>
             </div>
+          </div>
+
+          <!-- ================================================================ -->
+          <!-- J.A.R.V.I.S. COGNITIVE NEURAL HUB & EARNINGS PROGRESS MATRIX     -->
+          <!-- ================================================================ -->
+          <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 20px;">
+            
+            <!-- 1. Revenue & Earnings Prime Directive Strip -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(0, 240, 255, 0.35); border-radius: 12px; padding: 20px; box-shadow: 0 0 25px rgba(0, 240, 255, 0.1); backdrop-filter: blur(10px);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.3rem;">🎯</span>
+                  <div>
+                    <h3 style="margin: 0; color: #00f0ff; font-family: var(--font-mono); font-size: 1.05rem; letter-spacing: 0.05em; text-transform: uppercase;">
+                      Prime Financial Directive — Earnings Progress
+                    </h3>
+                    <div style="font-size: 0.78rem; color: #94a3b8;">
+                      Monthly Mandate: <strong style="color: #f8fafc;">Rs 150,000 MUR</strong> (~$3,300 USD) • Managed for Deven Pawaray (Sir)
+                    </div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('How close are we to our 150k earnings goal? Audit finops')" style="background: rgba(0, 240, 255, 0.15); border: 1px solid #00f0ff; color: #00f0ff; font-weight: 700; font-size: 0.76rem; border-radius: 6px; padding: 4px 10px; cursor: pointer;">
+                    📊 Audit FinOps
+                  </button>
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Convene the strategy council and deliberate on our fastest revenue path')" style="background: linear-gradient(135deg, #0284c7, #00f0ff); color: #000; font-weight: 800; font-size: 0.76rem; border: none; border-radius: 6px; padding: 4px 12px; cursor: pointer;">
+                    🧠 Convene Council
+                  </button>
+                </div>
+              </div>
+
+              <!-- Progress Bar -->
+              <div style="margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-family: var(--font-mono); margin-bottom: 6px;">
+                  <span style="color: #38bdf8;">Realized: <strong id="jarvisEarningsRealized">Rs 0 MUR</strong></span>
+                  <span style="color: #fbbf24;">Pipeline: <strong id="jarvisEarningsPipeline">Rs 0 MUR</strong></span>
+                  <span style="color: #94a3b8;">Remaining Gap: <strong id="jarvisEarningsGap" style="color: #ef4444;">Rs 150,000 MUR</strong></span>
+                </div>
+                <div style="height: 12px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; border: 1px solid rgba(0,240,255,0.2); position: relative;">
+                  <div id="jarvisEarningsProgressBar" style="height: 100%; width: 12%; background: linear-gradient(90deg, #00f0ff, #10b981); transition: width 0.5s ease; box-shadow: 0 0 10px #00f0ff;"></div>
+                </div>
+              </div>
+
+              <!-- Payment Rails Fast Status -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; font-size: 0.78rem;">
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between;">
+                  <span style="color: #94a3b8;">🇲🇺 MCB Juice Domestic:</span>
+                  <strong style="color: #38bdf8; font-family: var(--font-mono);">+230 58169420</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between;">
+                  <span style="color: #94a3b8;">💳 PayPal 1-Click:</span>
+                  <strong style="color: #38bdf8; font-family: var(--font-mono);">devenpawaray@gmail.com</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between;">
+                  <span style="color: #94a3b8;">🛡️ Base L2 Treasury:</span>
+                  <strong style="color: #10b981; font-family: var(--font-mono);">0xEAE5...1F2</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Agency Specialist Brains Grid -->
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1.15rem;">🎭</span>
+                  <h3 style="margin: 0; color: #f8fafc; font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono);">
+                    Endowed Agency Specialist Brains
+                  </h3>
+                </div>
+                <span style="font-size: 0.74rem; color: #00f0ff; font-family: var(--font-mono);">
+                  8 Specialists Online • Inspired by The Agency
+                </span>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+                
+                <!-- Specialist 1: Deal Strategist -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 3px solid #10b981; border-radius: 8px; padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                    <div>
+                      <span style="font-size: 1.1rem; margin-right: 4px;">♟️</span>
+                      <strong style="color: #f8fafc; font-size: 0.88rem;">Deal Strategist</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 2px 6px; border-radius: 4px; font-weight: 700;">SALES</span>
+                  </div>
+                  <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 10px 0; line-height: 1.4;">
+                    MEDDPICC qualification, Challenger commercial teaching, and win planning to close Rs 35k B2B retainers.
+                  </p>
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Qualify our top prospective deal using MEDDPICC')" style="width: 100%; font-size: 0.72rem; font-weight: 700; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #6ee7b7; border-radius: 6px; padding: 6px 0; cursor: pointer;">
+                    ⚡ Qualify B2B Retainer Deal
+                  </button>
+                </div>
+
+                <!-- Specialist 2: Rapid Prototyper -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 3px solid #00f0ff; border-radius: 8px; padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                    <div>
+                      <span style="font-size: 1.1rem; margin-right: 4px;">⚡</span>
+                      <strong style="color: #f8fafc; font-size: 0.88rem;">Rapid Prototyper</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; color: #00f0ff; background: rgba(0, 240, 255, 0.15); padding: 2px 6px; border-radius: 4px; font-weight: 700;">ENGINEERING</span>
+                  </div>
+                  <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 10px 0; line-height: 1.4;">
+                    Autonomously codes and catalogs standalone Python utilities for the $1 Vending Machine in seconds.
+                  </p>
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Build a new sellable $1 tool for our digital store right now')" style="width: 100%; font-size: 0.72rem; font-weight: 700; background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); color: #00f0ff; border-radius: 6px; padding: 6px 0; cursor: pointer;">
+                    🛠️ Generate &amp; Publish $1 Product
+                  </button>
+                </div>
+
+                <!-- Specialist 3: Growth Hacker -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 3px solid #a855f7; border-radius: 8px; padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                    <div>
+                      <span style="font-size: 1.1rem; margin-right: 4px;">🚀</span>
+                      <strong style="color: #f8fafc; font-size: 0.88rem;">Growth Hacker</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; color: #a855f7; background: rgba(168, 85, 247, 0.15); padding: 2px 6px; border-radius: 4px; font-weight: 700;">GROWTH</span>
+                  </div>
+                  <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 10px 0; line-height: 1.4;">
+                    Viral loops, low-cost developer distribution, programmatic SEO, and checkout conversion rate optimization.
+                  </p>
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Plan a viral growth loop for our digital vending machine')" style="width: 100%; font-size: 0.72rem; font-weight: 700; background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4); color: #c084fc; border-radius: 6px; padding: 6px 0; cursor: pointer;">
+                    🚀 Deploy Viral Acquisition Loop
+                  </button>
+                </div>
+
+                <!-- Specialist 4: Outbound Prospector -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 3px solid #f59e0b; border-radius: 8px; padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                    <div>
+                      <span style="font-size: 1.1rem; margin-right: 4px;">🎯</span>
+                      <strong style="color: #f8fafc; font-size: 0.88rem;">Outbound Strategist</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; color: #f59e0b; background: rgba(245, 158, 11, 0.15); padding: 2px 6px; border-radius: 4px; font-weight: 700;">PROSPECTING</span>
+                  </div>
+                  <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 10px 0; line-height: 1.4;">
+                    Hyper-personalized 3-touch signal-based cold email sequences targeting Managing Directors in Ebene/Port Louis.
+                  </p>
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Draft a personalized cold pitch for Mauritius enterprise prospects')" style="width: 100%; font-size: 0.72rem; font-weight: 700; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; border-radius: 6px; padding: 6px 0; cursor: pointer;">
+                    ✉️ Draft B2B Outbound Sequence
+                  </button>
+                </div>
+
+                <!-- Specialist 5: Carousel Growth Engine -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 3px solid #ec4899; border-radius: 8px; padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                    <div>
+                      <span style="font-size: 1.1rem; margin-right: 4px;">🎠</span>
+                      <strong style="color: #f8fafc; font-size: 0.88rem;">Carousel Growth</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; color: #ec4899; background: rgba(236, 72, 153, 0.15); padding: 2px 6px; border-radius: 4px; font-weight: 700;">CONTENT</span>
+                  </div>
+                  <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 10px 0; line-height: 1.4;">
+                    Produces viral multi-slide educational carousels with compelling hooks that drive direct store visits.
+                  </p>
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Create a 5-slide viral carousel script on why self-hosted scripts beat cloud SaaS')" style="width: 100%; font-size: 0.72rem; font-weight: 700; background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.4); color: #f472b6; border-radius: 6px; padding: 6px 0; cursor: pointer;">
+                    📱 Generate Viral Slide Deck
+                  </button>
+                </div>
+
+                <!-- Specialist 6: FinOps Optimizer -->
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-top: 3px solid #38bdf8; border-radius: 8px; padding: 14px;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                    <div>
+                      <span style="font-size: 1.1rem; margin-right: 4px;">💰</span>
+                      <strong style="color: #f8fafc; font-size: 0.88rem;">FinOps Optimizer</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 2px 6px; border-radius: 4px; font-weight: 700;">FINANCE</span>
+                  </div>
+                  <p style="font-size: 0.76rem; color: #94a3b8; margin: 0 0 10px 0; line-height: 1.4;">
+                    Tracks cloud spend ($180 budget cap), audits invoices, and calculates exact sales velocity to hit Rs 150k.
+                  </p>
+                  <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Show me our exact formula and unit requirements to hit 150k MUR')" style="width: 100%; font-size: 0.72rem; font-weight: 700; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; border-radius: 6px; padding: 6px 0; cursor: pointer;">
+                    📈 Calculate Sales Target Formula
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 3. 4-Tier Cognitive Memory Telemetry Strip -->
+            <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 14px 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1rem;">🧠</span>
+                  <strong style="color: #f8fafc; font-size: 0.82rem; font-family: var(--font-mono); text-transform: uppercase;">
+                    4-Tier Cognitive Memory Architecture
+                  </strong>
+                </div>
+                <button class="btn btn-sm" onclick="window.jarvisSendDirectCommand('Show me your full cognitive memory status across all 4 tiers')" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; font-size: 0.72rem; border-radius: 4px; padding: 3px 8px; cursor: pointer;">
+                  Inspect Registers
+                </button>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; font-size: 0.74rem;">
+                <div style="border-left: 2px solid #00f0ff; padding-left: 8px;">
+                  <span style="color: #94a3b8; display: block;">1. Working Memory:</span>
+                  <strong style="color: #e2e8f0;" id="jarvisWorkingMemoryFocus">Revenue &amp; Fleet Supervision</strong>
+                </div>
+                <div style="border-left: 2px solid #10b981; padding-left: 8px;">
+                  <span style="color: #94a3b8; display: block;">2. Episodic Recall:</span>
+                  <strong style="color: #e2e8f0;">Durable Recall &amp; Audit Ledger Active</strong>
+                </div>
+                <div style="border-left: 2px solid #a855f7; padding-left: 8px;">
+                  <span style="color: #94a3b8; display: block;">3. Archival Semantic:</span>
+                  <strong style="color: #e2e8f0;">SOUL.md &amp; Rs 150k MUR Mandate Grounded</strong>
+                </div>
+                <div style="border-left: 2px solid #fbbf24; padding-left: 8px;">
+                  <span style="color: #94a3b8; display: block;">4. Procedural Playbooks:</span>
+                  <strong style="color: #e2e8f0;">MEDDPICC + $1 Vending Machine Heuristics</strong>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 

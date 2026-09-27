@@ -2880,6 +2880,58 @@ def api_jarvis_revenue_analysis():
     """Allows J.A.R.V.I.S. to analyze cash flow, invoices, treasury reserves, and monetization blueprints."""
     return jarvis_service.analyze_revenue()
 
+# ═══════════════════════════════════════════════════════
+#    J.A.R.V.I.S. AGENCY SKILLS, MEMORY & EARNINGS APIS
+# ═══════════════════════════════════════════════════════
+
+class JarvisSkillExecReq(BaseModel):
+    skill_id: str
+    payload: Optional[Dict[str, Any]] = {}
+
+class JarvisDeliberateReq(BaseModel):
+    prompt: str
+    specialists: Optional[List[str]] = None
+
+@app.get("/api/jarvis/skills")
+def api_jarvis_get_skills(division: Optional[str] = None):
+    """Returns all specialized Agency skills endowed into J.A.R.V.I.S."""
+    return {
+        "success": True,
+        "skills": jarvis_service.get_skills(division=division)
+    }
+
+@app.post("/api/jarvis/skills/execute")
+def api_jarvis_execute_skill(payload: JarvisSkillExecReq):
+    """Directly triggers an Agency specialist action tool."""
+    return jarvis_service.execute_skill(payload.skill_id, payload.payload or {})
+
+@app.get("/api/jarvis/memory")
+def api_jarvis_get_memory():
+    """Retrieves J.A.R.V.I.S. 4-tier cognitive memory telemetry."""
+    return {
+        "success": True,
+        "memory": jarvis_service.get_memory_telemetry()
+    }
+
+@app.get("/api/jarvis/earnings")
+def api_jarvis_get_earnings():
+    """Returns real-time progress toward Sir Deven's Rs 150,000 MUR earnings target."""
+    from core.jarvis_memory import jarvis_memory
+    return {
+        "success": True,
+        "earnings": jarvis_memory.get_earnings_status()
+    }
+
+@app.post("/api/jarvis/deliberate")
+def api_jarvis_deliberate(payload: JarvisDeliberateReq):
+    """Convenes the cognitive council of specialist brains to evaluate a prompt."""
+    return jarvis_service.deliberate(payload.prompt, specialist_ids=payload.specialists)
+
+@app.get("/api/jarvis/revenue/plan")
+def api_jarvis_revenue_plan():
+    """Returns the actionable revenue acceleration roadmap to hit Rs 150,000 MUR."""
+    return jarvis_service.get_revenue_acceleration_plan()
+
 
 if __name__ == "__main__":
     import uvicorn

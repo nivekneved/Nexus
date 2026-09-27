@@ -1,5 +1,129 @@
 [
   {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "SKILL_EXECUTED:sales_offer_architect",
+    "details": {
+      "summary": "Packaged high-converting $1 offer for 'Nexus™ Instant PDF Invoicer'.",
+      "payload_keys": [
+        "type"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "SKILL_EXECUTED:finance_finops_optimizer",
+    "details": {
+      "summary": "Revenue roadmap compiled: Rs 105,000 MUR remaining to achieve target.",
+      "payload_keys": []
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "COGNITIVE_DELIBERATION_LOCAL",
+    "details": {
+      "prompt": "How can Sir hit the Rs 150,000 MUR earnings target within 14 days?",
+      "gap_mur": 105000.0
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "SKILL_EXECUTED:finance_finops_optimizer",
+    "details": {
+      "summary": "Revenue roadmap compiled: Rs 105,000 MUR remaining to achieve target.",
+      "payload_keys": []
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "SKILL_EXECUTED:marketing_carousel_growth",
+    "details": {
+      "summary": "Created 5-slide viral carousel script on 'Zero Payroll AI Workforce'.",
+      "payload_keys": [
+        "topic"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "SKILL_EXECUTED:marketing_growth_hacker",
+    "details": {
+      "summary": "Engineered 4-channel viral distribution campaign.",
+      "payload_keys": [
+        "asset"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "SKILL_EXECUTED:sales_offer_architect",
+    "details": {
+      "summary": "Packaged Rs 35,000 MUR B2B managed retainer offer.",
+      "payload_keys": [
+        "type"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:41:35",
+    "event_type": "SKILL_EXECUTED:sales_outbound_strategist",
+    "details": {
+      "summary": "Drafted signal-based cold pitch for Mauritius Commercial Bank.",
+      "payload_keys": [
+        "company",
+        "role",
+        "trigger"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:40:02",
+    "event_type": "SKILL_EXECUTED:engineering_rapid_prototyper",
+    "details": {
+      "summary": "Autonomously built and published 'Nexus™ SERP Keyword Tracker' to the Digital Vending Machine.",
+      "payload_keys": [
+        "niche",
+        "name",
+        "description"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:39:50",
+    "event_type": "SKILL_EXECUTED:finance_finops_optimizer",
+    "details": {
+      "summary": "Revenue roadmap compiled: Rs 105,000 MUR remaining to achieve target.",
+      "payload_keys": []
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:39:50",
+    "event_type": "COGNITIVE_DELIBERATION_LOCAL",
+    "details": {
+      "prompt": "How can we hit 150k MUR faster?",
+      "gap_mur": 105000.0
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:39:50",
+    "event_type": "SKILL_EXECUTED:sales_deal_strategist",
+    "details": {
+      "summary": "MEDDPICC close plan generated for Mauritius Bank (Target: Rs 45,000 MUR).",
+      "payload_keys": [
+        "client_name",
+        "deal_value_mur"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-28 00:17:45",
+    "event_type": "NICHE_SCOUTED",
+    "details": {
+      "niche": "crypto price alert",
+      "total_views": 1082,
+      "tier": "🌱 EMERGING NICHE (Low Competition)"
+    }
+  },
+  {
     "timestamp": "2026-09-21 10:37:02",
     "event_type": "NICHE_SCOUTED",
     "details": {

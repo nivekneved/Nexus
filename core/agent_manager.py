@@ -5,7 +5,7 @@ import inspect
 import threading
 import time
 from datetime import datetime
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Any
 
 from core.base_agent import BaseAgent
 from core.addon_registry import addon_registry

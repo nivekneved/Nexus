@@ -19,8 +19,24 @@
         "Standalone single-file architecture with clean CLI output",
         "Commercial usage rights included with $1.00 purchase"
       ]
+    },
+    {
+      "id": "nexus-crypto-price-alert",
+      "name": "Nexus™ Crypto Price Alert",
+      "tagline": "Self-Hosted Crypto Price Alert Automation Utility",
+      "description": "A self-hosted, lightweight Python script to automate crypto price alert. Zero monthly subscriptions.",
+      "price_usd": 1.0,
+      "price_mur": 45.0,
+      "filename": "nexus_crypto_price_alert.py",
+      "badge": "Automated",
+      "features": [
+        "100% self-hosted Python script for crypto price alert",
+        "Zero external subscriptions or recurring API costs",
+        "Standalone single-file architecture with clean CLI output",
+        "Commercial usage rights included with $1.00 purchase"
+      ]
     }
   ],
   "target_price_usd": 1.0,
-  "last_updated": "2026-09-21 10:34:34"
+  "last_updated": "2026-09-28 00:17:45"
 }

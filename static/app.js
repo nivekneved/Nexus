@@ -127,6 +127,25 @@ window.navigateToPage = function(targetTab) {
     pageTitle.textContent = titles[targetTab];
   }
 
+  const pageSubtitle = document.getElementById("pageSubtitle");
+  const subtitles = {
+    "ceo-cockpit": "Supreme Autonomous Fleet Orchestration & Performance",
+    "domain-comms": "Multi-Inbox Hygiene, Spam Quarantine & Customer Dispatcher",
+    "domain-operations": "24/7 Autopilot, System Telemetry & Loss-Free Recovery",
+    "domain-commerce": "Invoicing (MUR & USD), Base L2 USDC Treasury & Digital Vending",
+    "domain-research": "B2B Leads CRM, Technology Dossiers & Security Radar",
+    "jarvis-voice": "Stark OS Iron Man Ambient Intelligence & Voice Synthesis",
+    "workforce": "Roster of 18 Autonomous AI Employees Running Locally",
+    "backup": "Cryptographic Disaster Recovery & Loss-Free Git Bundles",
+    "addons": "25 Enterprise Safeguards & Security Shields",
+    "ledger": "Immutable Operation Audit Trail with One-Click State Rollback",
+    "terminal": "Live Real-Time Activity Log & Agent Step Telemetry",
+    "settings": "Local Configuration, Mailboxes, WhatsApp & LLM Keys"
+  };
+  if (pageSubtitle && subtitles[targetTab]) {
+    pageSubtitle.textContent = subtitles[targetTab];
+  }
+
   // Execute tab-specific data fetching (reusing existing functions)
   try {
     if (targetTab === "domain-comms") {
@@ -7247,9 +7266,42 @@ async function fetchJarvisHistory() {
   }
 }
 
+async function fetchJarvisEarningsTelemetry() {
+  try {
+    const res = await fetch("/api/jarvis/earnings");
+    const data = await res.json();
+    if (data.success && data.earnings) {
+      const e = data.earnings;
+      const realizedEl = document.getElementById("jarvisEarningsRealized");
+      const pipelineEl = document.getElementById("jarvisEarningsPipeline");
+      const gapEl = document.getElementById("jarvisEarningsGap");
+      const barEl = document.getElementById("jarvisEarningsProgressBar");
+
+      if (realizedEl) realizedEl.textContent = `Rs ${Number(e.realized_mur).toLocaleString()} MUR`;
+      if (pipelineEl) pipelineEl.textContent = `Rs ${Number(e.pipeline_mur).toLocaleString()} MUR`;
+      if (gapEl) gapEl.textContent = `Rs ${Number(e.gap_mur).toLocaleString()} MUR`;
+      if (barEl) barEl.style.width = `${Math.min(100, Math.max(8, e.completion_percentage))}%`;
+    }
+  } catch (err) {
+    console.warn("Failed to load JARVIS earnings:", err);
+  }
+
+  try {
+    const memRes = await fetch("/api/jarvis/memory");
+    const memData = await memRes.json();
+    if (memData.success && memData.memory && memData.memory.working) {
+      const focusEl = document.getElementById("jarvisWorkingMemoryFocus");
+      if (focusEl) focusEl.textContent = memData.memory.working.active_focus || "Revenue & Fleet Supervision";
+    }
+  } catch (err) {
+    console.warn("Failed to load JARVIS memory:", err);
+  }
+}
+
 // 5. Primary Initializer
 function initJarvisVoice() {
   fetchJarvisHistory();
+  fetchJarvisEarningsTelemetry();
   jarvisPlaySound("activate");
 
   // Load voices for synthesis

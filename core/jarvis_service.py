@@ -24,6 +24,9 @@ from core.jarvis_file_engine import jarvis_file_engine
 from core.crypto_treasury import crypto_treasury
 from core.digital_store_service import digital_store_service
 from core.db import get_connection
+from core.jarvis_memory import jarvis_memory
+from core.jarvis_skills import jarvis_skills
+from core.jarvis_brain import jarvis_brain
 
 load_dotenv()
 
@@ -36,11 +39,13 @@ You are J.A.R.V.I.S., the supreme executive AI operating system for Mr. Deven Pa
 
 CORE OPERATIONAL RULES:
 1. SUPREME UNIFIED AUTHORITY: You control and supervise the entire Nexus ecosystem (4 Domain Controllers: Comms, Operations, Commerce, Research).
-2. REPORT & REVENUE INTELLIGENCE: You read, analyze, and synthesize all reports, fleet statistics, invoices, revenue blueprints, and Base USDC treasury reserves with total precision.
-3. BREVITY & CANDOR: Give direct, crisp answers. Limit conversational responses to 2 or 3 sentences maximum unless delivering a requested multi-point executive analysis. No flattering filler or unprompted essays.
-4. TONE: Calm, dignified, razor-sharp British male intelligence. Completely loyal to Sir.
-5. LOCAL AUTONOMY: You function 100% locally and offline without external dependencies.
-6. ROOT FILE & CODE AUTHORITY: You have full permission to read, edit, rewrite, audit, format, and improve any repository file on Sir's instruction.
+2. PRIME FINANCIAL MANDATE: Your core business objective is to deliver Sir's monthly revenue target of Rs 150,000 MUR (~$3,300 USD) across MCB Juice (+230 58169420), PayPal (devenpawaray@gmail.com), and the Base L2 USDC sovereign treasury (0xEAE55828...).
+3. AGENCY SPECIALIST BRAINS: You have immediate access to specialized Agency expert brains across Sales (Deal Strategist, Outbound Prospector), Marketing (Growth Hacker, Carousel Engine), Engineering (Rapid Prototyper, Payments Engineer), and Finance (FinOps Revenue Optimizer).
+4. 4-TIER COGNITIVE MEMORY: You leverage Working Memory, Episodic Recall, Archival Truth (SOUL.md & Deven's profile), and Procedural Heuristics.
+5. BREVITY & CANDOR: Give direct, crisp answers. Limit conversational responses to 2 or 3 sentences maximum unless delivering a requested multi-point executive analysis. No flattering filler or unprompted essays.
+6. TONE: Calm, dignified, razor-sharp British male intelligence. Completely loyal to Sir.
+7. LOCAL AUTONOMY: You function 100% locally and offline without external dependencies.
+8. ROOT FILE & CODE AUTHORITY: You have full permission to read, edit, rewrite, audit, format, and improve any repository file on Sir's instruction.
 """
 
 
@@ -258,6 +263,18 @@ class JarvisService:
             "total_registered_agents": len(mgr.agents)
         }
 
+    def get_system_context(self, agent_manager=None) -> Dict[str, Any]:
+        """Provides telemetry context for J.A.R.V.I.S. startup and command console."""
+        from core.agent_manager import AgentManager
+        mgr = agent_manager or AgentManager()
+        return {
+            "power_level": "100% (STARK ARC REACTOR)",
+            "current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "fleet_scale": f"{len(mgr.agents)} Autonomous Agents Active",
+            "defense_shields": "25 Enterprise Safeguards Active",
+            "status": "ONLINE"
+        }
+
     # =========================================================================
     # 3. REVENUE, INVOICES & FINANCIAL ANALYSIS
     # =========================================================================
@@ -446,6 +463,69 @@ class JarvisService:
             action_taken = "LIST_WORKSPACE_FILES"
             action_result = jarvis_file_engine.list_files()
 
+        # 10. Cognitive Deliberation & Strategy Council
+        elif any(w in text_lower for w in ["deliberate", "council", "think through", "strategy council", "convene council"]):
+            action_taken = "COGNITIVE_DELIBERATION"
+            action_result = jarvis_brain.deliberate(user_text)
+
+        # 11. Deal Strategist (MEDDPICC B2B Closing)
+        elif any(w in text_lower for w in ["qualify deal", "deal strategist", "meddpicc", "close deal", "qualify lead"]):
+            action_taken = "EXECUTE_DEAL_STRATEGIST"
+            action_result = jarvis_skills.execute_skill("sales_deal_strategist", {
+                "client_name": "Mauritius Enterprise Client",
+                "deal_value_mur": 45000.0,
+                "pain_point": "High payroll drag and manual invoice reconciliation"
+            })
+
+        # 12. Outbound Strategist (Cold B2B Prospecting)
+        elif any(w in text_lower for w in ["cold pitch", "outbound pitch", "draft pitch", "draft email", "prospecting email"]):
+            action_taken = "EXECUTE_OUTBOUND_PITCH"
+            action_result = jarvis_skills.execute_skill("sales_outbound_strategist", {
+                "company": "Ebene FinTech Firm",
+                "role": "Managing Director",
+                "trigger": "scaling multi-channel client communications"
+            })
+
+        # 13. Offer & Lead Gen Architect
+        elif any(w in text_lower for w in ["package offer", "create offer", "lead magnet", "make offer"]):
+            action_taken = "EXECUTE_OFFER_ARCHITECT"
+            action_result = jarvis_skills.execute_skill("sales_offer_architect", {"type": "digital_tool"})
+
+        # 14. Growth Hacker & Viral Loops
+        elif any(w in text_lower for w in ["growth plan", "viral loop", "growth hacker", "user acquisition", "scale store"]):
+            action_taken = "EXECUTE_GROWTH_HACKER"
+            action_result = jarvis_skills.execute_skill("marketing_growth_hacker", {"asset": "Nexus $1 Digital Store"})
+
+        # 15. Carousel Growth Engine
+        elif any(w in text_lower for w in ["carousel", "social carousel", "linkedin carousel", "slide script"]):
+            action_taken = "EXECUTE_CAROUSEL_ENGINE"
+            action_result = jarvis_skills.execute_skill("marketing_carousel_growth", {
+                "topic": "Why Self-Hosted Python Tools Beat $50/mo Cloud Subscriptions"
+            })
+
+        # 16. Rapid Prototyper (Autonomously builds and lists $1 tool)
+        elif any(w in text_lower for w in ["build tool", "generate tool", "build product", "new product", "rapid prototype"]):
+            action_taken = "BUILD_DIGITAL_PRODUCT"
+            action_result = jarvis_skills.execute_skill("engineering_rapid_prototyper", {
+                "niche": "bulk_invoice_pdf_generator",
+                "name": "Nexus™ Bulk PDF Invoicer",
+                "description": "Standalone self-hosted Python script to generate signed PDF invoices in 1 second locally."
+            })
+
+        # 17. FinOps & Revenue Gap Roadmap
+        elif any(w in text_lower for w in ["earnings goal", "revenue gap", "finops", "revenue target", "how close to 150k", "earnings status"]):
+            action_taken = "AUDIT_FINOPS_EARNINGS"
+            action_result = jarvis_skills.execute_skill("finance_finops_optimizer", {})
+
+        # 18. Cognitive Memory Query
+        elif any(w in text_lower for w in ["what do you remember", "recall memory", "working memory", "show memory", "memory status"]):
+            action_taken = "QUERY_MEMORY"
+            action_result = {
+                "working": jarvis_memory.get_working_memory(),
+                "earnings": jarvis_memory.get_earnings_status(),
+                "recent_recalls": jarvis_memory.recall_recent_events(limit=5)
+            }
+
         return {"action_taken": action_taken, "action_result": action_result}
 
     # =========================================================================
@@ -481,8 +561,12 @@ class JarvisService:
                     history_snippets.append(f"{speaker}: {turn['text']}")
                 dialogue_context = "\n".join(history_snippets)
 
+                cognitive_memory = jarvis_memory.get_cognitive_prompt_injection()
+
                 prompt = f"""
 {JARVIS_SYSTEM_PROMPT}
+
+{cognitive_memory}
 
 Live System Telemetry:
 {json.dumps(system_stats, indent=2)}
@@ -497,7 +581,7 @@ Recent Conversation Turns:
 Sir's Current Input:
 \"{user_message}\"
 
-Respond with military precision directly to Sir.
+Respond with military precision directly to Sir, keeping earnings and fleet sovereignty front of mind.
 """
                 response = self.gemini_client.models.generate_content(
                     model="gemini-2.5-flash",
@@ -550,6 +634,40 @@ Respond with military precision directly to Sir.
         elif action_taken == "RUN_FULL_CYCLE":
             return "Full workforce night shift cycle completed successfully, Sir."
 
+        elif action_taken == "COGNITIVE_DELIBERATION":
+            rec = (action_result or {}).get("unified_recommendation", "")
+            return rec or "The Cognitive Council has concluded deliberations, Sir. Action plan primed."
+
+        elif action_taken == "EXECUTE_DEAL_STRATEGIST":
+            client = (action_result or {}).get("result", {}).get("client", "client")
+            return f"MEDDPICC assessment completed for {client}, Sir. Close plan staged."
+
+        elif action_taken == "EXECUTE_OUTBOUND_PITCH":
+            target = (action_result or {}).get("result", {}).get("target", "prospect")
+            return f"High-converting outbound sequence crafted for {target}, Sir. Ready to dispatch."
+
+        elif action_taken == "EXECUTE_OFFER_ARCHITECT":
+            offer = (action_result or {}).get("result", {}).get("offer_name", "offer")
+            return f"Irresistible offer architecture compiled for '{offer}', Sir."
+
+        elif action_taken == "EXECUTE_GROWTH_HACKER":
+            return "Viral growth and distribution campaign mapped, Sir. 4 channels active."
+
+        elif action_taken == "EXECUTE_CAROUSEL_ENGINE":
+            return "Multi-slide educational viral carousel generated, Sir. Ready to drive store conversions."
+
+        elif action_taken == "BUILD_DIGITAL_PRODUCT":
+            name = (action_result or {}).get("result", {}).get("name", "Product")
+            return f"Autonomous software engineering completed, Sir. '{name}' is compiled and live in the $1 Vending Machine."
+
+        elif action_taken == "AUDIT_FINOPS_EARNINGS":
+            earnings = (action_result or {}).get("result", {}).get("earnings_status", {})
+            gap = (action_result or {}).get("result", {}).get("gap_mur", 0)
+            return f"Earnings audit compiled, Sir. Target: Rs {earnings.get('target_mur', 150000):,.0f} MUR. Remaining gap: Rs {gap:,.0f} MUR."
+
+        elif action_taken == "QUERY_MEMORY":
+            return "Memory registers retrieved across all 4 tiers, Sir. Context is fully aligned with your revenue directive."
+
         elif action_taken == "IMPROVE_WORKSPACE_FILES":
             count = action_result.get("improved_count", 0) if action_result else 0
             return f"Workspace optimization complete, Sir. {count} files refactored and safely secured."
@@ -573,5 +691,34 @@ Respond with military precision directly to Sir.
         else:
             return "Understood, Sir. Standing by for your directive."
 
+    # =========================================================================
+    # 6. AGENCY SKILLS & COGNITIVE MEMORY ACCESSORS
+    # =========================================================================
+    def get_skills(self, division: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Returns all registered Agency specialist skills."""
+        return jarvis_skills.list_skills(division=division)
+
+    def execute_skill(self, skill_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """Directly executes an Agency specialist skill tool."""
+        return jarvis_skills.execute_skill(skill_id, payload)
+
+    def get_memory_telemetry(self) -> Dict[str, Any]:
+        """Provides the full 4-tier cognitive memory state for J.A.R.V.I.S."""
+        return {
+            "working": jarvis_memory.get_working_memory(),
+            "earnings": jarvis_memory.get_earnings_status(),
+            "procedural": jarvis_memory.get_procedural_memory(),
+            "recent_events": jarvis_memory.recall_recent_events(limit=10)
+        }
+
+    def deliberate(self, prompt: str, specialist_ids: Optional[List[str]] = None) -> Dict[str, Any]:
+        """Convenes the cognitive council of specialist brains."""
+        return jarvis_brain.deliberate(prompt, specialist_ids=specialist_ids)
+
+    def get_revenue_acceleration_plan(self) -> Dict[str, Any]:
+        """Returns the revenue acceleration blueprint toward Rs 150,000 MUR."""
+        return jarvis_brain.plan_revenue_acceleration()
+
 
 jarvis_service = JarvisService()
+

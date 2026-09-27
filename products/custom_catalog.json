@@ -1,7 +1,7 @@
 {
   "nexus-invoice-pdf-extractor": {
     "id": "nexus-invoice-pdf-extractor",
-    "name": "Nexus™ Invoice Pdf Extractor",
+    "name": "Nexus\u2122 Invoice Pdf Extractor",
     "tagline": "Self-Hosted Invoice Pdf Extractor Automation Utility",
     "description": "A self-hosted, lightweight Python script to automate invoice pdf extractor. Zero monthly subscriptions.",
     "price_usd": 1.0,
@@ -10,6 +10,38 @@
     "badge": "Automated",
     "features": [
       "100% self-hosted Python script for invoice pdf extractor",
+      "Zero external subscriptions or recurring API costs",
+      "Standalone single-file architecture with clean CLI output",
+      "Commercial usage rights included with $1.00 purchase"
+    ]
+  },
+  "nexus-crypto-price-alert": {
+    "id": "nexus-crypto-price-alert",
+    "name": "Nexus\u2122 Crypto Price Alert",
+    "tagline": "Self-Hosted Crypto Price Alert Automation Utility",
+    "description": "A self-hosted, lightweight Python script to automate crypto price alert. Zero monthly subscriptions.",
+    "price_usd": 1.0,
+    "price_mur": 45.0,
+    "filename": "nexus_crypto_price_alert.py",
+    "badge": "Automated",
+    "features": [
+      "100% self-hosted Python script for crypto price alert",
+      "Zero external subscriptions or recurring API costs",
+      "Standalone single-file architecture with clean CLI output",
+      "Commercial usage rights included with $1.00 purchase"
+    ]
+  },
+  "nexus-seo-keyword-serp-tracker": {
+    "id": "nexus-seo-keyword-serp-tracker",
+    "name": "Nexus\u2122 SERP Keyword Tracker",
+    "tagline": "Self-Hosted Seo Keyword Serp Tracker Automation Utility",
+    "description": "Lightweight Python script to track Google search ranking movements locally without subscriptions.",
+    "price_usd": 1.0,
+    "price_mur": 45.0,
+    "filename": "nexus_seo_keyword_serp_tracker.py",
+    "badge": "Automated",
+    "features": [
+      "100% self-hosted Python script for seo keyword serp tracker",
       "Zero external subscriptions or recurring API costs",
       "Standalone single-file architecture with clean CLI output",
       "Commercial usage rights included with $1.00 purchase"
