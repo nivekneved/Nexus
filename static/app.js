@@ -8266,3 +8266,97 @@ window.renderDynamicWorkspace = async function(tabId) {
 };
 
 
+
+// ============================================================================
+// ⚡ 125 DAILY OPERATIONAL SCENARIOS (25 PER DOMAIN) RENDERER & SEARCH FILTER
+// ============================================================================
+
+window.domainScenariosCache = {};
+
+window.initDomainTaskLaunchpads = async function() {
+  try {
+    const res = await fetch("/api/tasks/catalog");
+    const data = await res.json();
+    const allScenarios = data.scenarios || [];
+
+    const domains = ["ceo", "comms", "operations", "commerce", "research"];
+    domains.forEach(d => {
+      let filtered = allScenarios.filter(s => (s.category || "").toLowerCase() === d);
+      // Fallback for aliases
+      if (d === "research" && filtered.length === 0) {
+        filtered = allScenarios.filter(s => (s.category || "").toLowerCase() === "marketing");
+      }
+      window.domainScenariosCache[d] = filtered;
+      window.renderDomainLaunchpadGrid(d, filtered);
+    });
+  } catch (err) {
+    console.warn("Failed to load 125 task catalog:", err);
+  }
+};
+
+window.renderDomainLaunchpadGrid = function(domain, scenarios) {
+  const container = document.getElementById(`${domain}TaskGrid`);
+  if (!container) return;
+
+  if (!scenarios || scenarios.length === 0) {
+    container.innerHTML = `<div style="grid-column: 1 / -1; padding: 20px; color: #94a3b8; font-size: 0.8rem;">No operational scenarios matching query.</div>`;
+    return;
+  }
+
+  const isDark = domain === "ceo";
+  container.innerHTML = scenarios.map(sc => {
+    const rawTitle = sc.title || sc.headline || "Operational Task";
+    const rawDesc = sc.description || "";
+    const badgeText = sc.platform || sc.urgency || "Operation";
+
+    if (isDark) {
+      return `
+        <button class="task-launch-card" onclick="window.launchTaskSample('${escapeHtml(sc.id)}')" title="${escapeHtml(rawTitle)}">
+          <div class="task-card-icon">${escapeHtml(sc.icon || '⚡')}</div>
+          <div class="task-card-info">
+            <span class="task-card-title">${escapeHtml(rawTitle)}</span>
+            <span class="task-card-desc">${escapeHtml(rawDesc)}</span>
+          </div>
+          <span class="task-card-badge">${escapeHtml(badgeText)}</span>
+        </button>
+      `;
+    } else {
+      return `
+        <button class="domain-launch-btn" onclick="window.launchTaskSample('${escapeHtml(sc.id)}')" title="${escapeHtml(rawTitle)}">
+          <span class="btn-icn">${escapeHtml(sc.icon || '⚡')}</span>
+          <div class="btn-txt">
+            <strong>${escapeHtml(rawTitle)}</strong>
+            <span>${escapeHtml(rawDesc)}</span>
+          </div>
+          <span style="font-size: 0.62rem; font-weight: 800; background: #f1f5f9; color: #475569; padding: 3px 8px; border-radius: 6px; align-self: flex-start; margin-left: 6px; white-space: nowrap; flex-shrink: 0;">
+            ${escapeHtml(badgeText)}
+          </span>
+        </button>
+      `;
+    }
+  }).join("");
+};
+
+window.filterDomainLaunchpad = function(domain, query) {
+  const allForDomain = window.domainScenariosCache[domain] || [];
+  if (!query || !query.trim()) {
+    window.renderDomainLaunchpadGrid(domain, allForDomain);
+    return;
+  }
+  const q = query.toLowerCase().trim();
+  const filtered = allForDomain.filter(s => 
+    (s.title && s.title.toLowerCase().includes(q)) ||
+    (s.description && s.description.toLowerCase().includes(q)) ||
+    (s.platform && s.platform.toLowerCase().includes(q)) ||
+    (s.badge && s.badge.toLowerCase().includes(q)) ||
+    (s.id && s.id.toLowerCase().includes(q))
+  );
+  window.renderDomainLaunchpadGrid(domain, filtered);
+};
+
+// Auto-initialize when DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", window.initDomainTaskLaunchpads);
+} else {
+  window.initDomainTaskLaunchpads();
+}

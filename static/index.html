@@ -393,20 +393,21 @@
     }
     .task-card-title {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       font-weight: 800;
       color: #f8fafc;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal !important;
+      word-break: break-word !important;
+      line-height: 1.35;
+      margin-bottom: 4px;
     }
     .task-card-desc {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.73rem;
       color: #94a3b8;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal !important;
+      word-break: break-word !important;
+      line-height: 1.35;
     }
     .task-card-badge {
       font-size: 0.62rem;
@@ -451,18 +452,22 @@
       min-width: 0;
     }
     .domain-launch-btn .btn-txt strong {
-      font-size: 0.8rem;
+      font-size: 0.86rem;
       color: #0f172a;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal !important;
+      word-break: break-word !important;
+      line-height: 1.35;
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 800;
     }
     .domain-launch-btn .btn-txt span {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: #64748b;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal !important;
+      word-break: break-word !important;
+      line-height: 1.35;
+      display: block;
     }
 
     /* Category Filter Tabs */
@@ -927,94 +932,35 @@
         <!-- ================================================================ -->
         <!-- ⚡ 25 DAILY OPERATIONAL TASKS & DESIGN VETTING LAUNCHPAD (HQ)     -->
         <!-- ================================================================ -->
-        <div class="task-launchpad-container" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: 1px solid #3730a3; border-radius: 12px; padding: 20px; margin-bottom: 22px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); color: #fff;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <!-- ================================================================ -->
+        <!-- ⚡ 25 DAILY OPERATIONAL TASKS & DESIGN VETTING LAUNCHPAD (HQ)     -->
+        <!-- ================================================================ -->
+        <div class="task-launchpad-container" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: 1px solid #3730a3; border-radius: 14px; padding: 22px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); color: #fff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 10px;">
               <span class="pulse-dot" style="background: #38bdf8; width: 10px; height: 10px;"></span>
               <div>
-                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 900; letter-spacing: -0.01em; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
-                  ⚡ Task Operations Launchpad — Human-in-the-Loop Vetting
+                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 900; letter-spacing: -0.01em; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
+                  ⚡ CEO Cockpit — 25 Daily Real-Life Operational Scenarios
                 </h3>
-                <span style="font-size: 0.76rem; color: #94a3b8;">
-                  Click any operation to generate full draft &amp; visual design sample. You vet &amp; approve before anything is posted.
+                <span style="font-size: 0.78rem; color: #94a3b8;">
+                  Click any scenario to generate the live design sample. Sir Deven reviews, edits &amp; approves before execution.
                 </span>
               </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 0.72rem; font-weight: 800; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 10px; border-radius: 14px;">
-                25 Real-Life Scenarios Ready
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <input type="text" placeholder="🔍 Search CEO scenarios..." oninput="window.filterDomainLaunchpad('ceo', this.value)" style="background: rgba(15,23,42,0.85); border: 1px solid #334155; color: #fff; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
+              <span style="font-size: 0.72rem; font-weight: 800; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 14px;">
+                25 Scenarios Armed
               </span>
-              <button onclick="window.toggleAllTasksGrid()" id="btnToggleAllTasks" class="btn btn-sm" style="background: #38bdf8; color: #0f172a; font-weight: 800; border: none; border-radius: 6px; padding: 6px 12px; cursor: pointer;">
-                🚀 View All 25 Operations
-              </button>
             </div>
           </div>
 
-          <!-- Top Executive Daily Scenarios (5 Quick Cards) -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
-            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_morning_standup')">
-              <div class="task-card-icon" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">⚡</div>
-              <div class="task-card-info">
-                <span class="task-card-title">Autonomous Morning Standup</span>
-                <span class="task-card-desc">Cross-fleet ARR &amp; blocker briefing</span>
-              </div>
-              <span class="task-card-badge">CEO • Daily</span>
-            </button>
-
-            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_cross_platform_blitz')">
-              <div class="task-card-icon" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">📢</div>
-              <div class="task-card-info">
-                <span class="task-card-title">Omnichannel Brand Blitz</span>
-                <span class="task-card-desc">Simultaneous LinkedIn, FB &amp; X sample</span>
-              </div>
-              <span class="task-card-badge">Social • Vet</span>
-            </button>
-
-            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_revenue_deliberation')">
-              <div class="task-card-icon" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">💰</div>
-              <div class="task-card-info">
-                <span class="task-card-title">Revenue &amp; Unit Economics</span>
-                <span class="task-card-desc">Target: Rs 150k MUR / &lt;$180 cloud</span>
-              </div>
-              <span class="task-card-badge">FinOps</span>
-            </button>
-
-            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_partner_sla')">
-              <div class="task-card-icon" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">🤝</div>
-              <div class="task-card-info">
-                <span class="task-card-title">Partner SLA Health Audit</span>
-                <span class="task-card-desc">1-in-5 Clinic / NGO partner check</span>
-              </div>
-              <span class="task-card-badge">Partners</span>
-            </button>
-
-            <button class="task-launch-card" onclick="window.launchTaskSample('ceo_emergency_lockdown')">
-              <div class="task-card-icon" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">🔒</div>
-              <div class="task-card-info">
-                <span class="task-card-title">Emergency System Lockdown</span>
-                <span class="task-card-desc">Zero-trust worker revoke &amp; vault lock</span>
-              </div>
-              <span class="task-card-badge" style="color: #f87171; border-color: rgba(239, 68, 68, 0.3);">Security</span>
-            </button>
-          </div>
-
-          <!-- Collapsible Full 25-Task Explorer with Category Filter Tabs -->
-          <div id="allTasksExplorer" style="display: none; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.12);">
-            <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
-              <button class="task-filter-tab active" onclick="window.filterCatalogCategory('all')">All 25 Tasks</button>
-              <button class="task-filter-tab" onclick="window.filterCatalogCategory('marketing')">Marketing &amp; Social (5)</button>
-              <button class="task-filter-tab" onclick="window.filterCatalogCategory('communications')">Communications (5)</button>
-              <button class="task-filter-tab" onclick="window.filterCatalogCategory('commerce')">Commerce &amp; Store (5)</button>
-              <button class="task-filter-tab" onclick="window.filterCatalogCategory('operations')">Operations &amp; SRE (5)</button>
-              <button class="task-filter-tab" onclick="window.filterCatalogCategory('executive')">Executive HQ (5)</button>
-            </div>
-            <div id="catalogGridContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
-              <!-- Dynamically populated by app.js -->
-            </div>
+          <!-- Dynamic 25 Scenarios Grid -->
+          <div id="ceoTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
+            <div style="padding: 20px; color: #94a3b8; font-size: 0.8rem;">Loading 25 CEO operational scenarios...</div>
           </div>
         </div>
-
-        <!-- ================================================================ -->
         <!-- CEO VISUAL ORIENTATION STRIP: "SEE YOUR EMPIRE IN 3 SECONDS"      -->
         <!-- ================================================================ -->
         <div style="background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
@@ -1929,38 +1875,30 @@
 
         
         <!-- ⚡ Domain Operations Launchpad: Communications -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 1.1rem;">⚡</span>
-              <strong style="font-size: 0.88rem; color: #082f49; text-transform: uppercase; letter-spacing: 0.04em;">Communications Launchpad (Human-in-the-Loop)</strong>
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.2rem;">⚡</span>
+                <strong style="font-size: 1.05rem; color: #082f49; letter-spacing: -0.01em;">Communications Command — 25 Daily Real-Life Operational Scenarios</strong>
+              </div>
+              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
+                Generates draft &amp; visual preview • Sir Deven reviews and vets before dispatch.
+              </span>
             </div>
-            <span style="font-size: 0.72rem; color: #64748b;">Generates draft &amp; visual preview • Sir Deven vets before dispatch</span>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <input type="text" placeholder="🔍 Search 25 Comms scenarios..." oninput="window.filterDomainLaunchpad('comms', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
+              <span style="font-size: 0.72rem; font-weight: 800; background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; padding: 4px 10px; border-radius: 14px;">
+                25 Scenarios Ready
+              </span>
+            </div>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_vip_broadcast')">
-              <span class="btn-icn" style="color: #0284c7;">👑</span>
-              <div class="btn-txt"><strong>VIP Investor Broadcast</strong><span>Runway &amp; milestone letter</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_cold_outbound')">
-              <span class="btn-icn" style="color: #6366f1;">🎯</span>
-              <div class="btn-txt"><strong>Cold B2B Sequence</strong><span>3-touch signal outreach draft</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_support_reply')">
-              <span class="btn-icn" style="color: #10b981;">💬</span>
-              <div class="btn-txt"><strong>VIP Support Reply</strong><span>Instant tier-1 empathetic reply</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_spam_sweep')">
-              <span class="btn-icn" style="color: #e11d48;">🛡️</span>
-              <div class="btn-txt"><strong>Anti-Spam Sweep</strong><span>Quarantine &amp; inbox security</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comms_whatsapp_dispatch')">
-              <span class="btn-icn" style="color: #25d366;">📱</span>
-              <div class="btn-txt"><strong>WhatsApp Dispatch</strong><span>Executive notification to Sir</span></div>
-            </button>
+
+          <!-- Dynamic 25 Comms Scenarios Grid -->
+          <div id="commsTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
+            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Communications scenarios...</div>
           </div>
         </div>
-
         <!-- Comms KPI Strip -->
         <div class="domain-kpi-grid">
           <div class="domain-kpi-card">
@@ -2114,38 +2052,30 @@
 
         
         <!-- ⚡ Domain Operations Launchpad: Operations & SRE -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #d97706; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 1.1rem;">⚡</span>
-              <strong style="font-size: 0.88rem; color: #451a03; text-transform: uppercase; letter-spacing: 0.04em;">Operations &amp; SRE Launchpad (Human-in-the-Loop)</strong>
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #d97706; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.2rem;">⚡</span>
+                <strong style="font-size: 1.05rem; color: #451a03; letter-spacing: -0.01em;">Operations &amp; SRE — 25 Daily Real-Life Operational Scenarios</strong>
+              </div>
+              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
+                Generates execution manifest &amp; validation plan • Sir Deven reviews before running.
+              </span>
             </div>
-            <span style="font-size: 0.72rem; color: #64748b;">Generates execution plan &amp; manifest • Sir Deven reviews before running</span>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <input type="text" placeholder="🔍 Search 25 Operations scenarios..." oninput="window.filterDomainLaunchpad('operations', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
+              <span style="font-size: 0.72rem; font-weight: 800; background: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 4px 10px; border-radius: 14px;">
+                25 Scenarios Armed
+              </span>
+            </div>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_crypto_snapshot')">
-              <span class="btn-icn" style="color: #d97706;">💾</span>
-              <div class="btn-txt"><strong>Cryptographic Snapshot</strong><span>Loss-free WAL + state backup</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_codebase_audit')">
-              <span class="btn-icn" style="color: #6366f1;">🔍</span>
-              <div class="btn-txt"><strong>Clean Code Audit</strong><span>Linter, AST &amp; leak detector</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_shields_verify')">
-              <span class="btn-icn" style="color: #10b981;">🛡️</span>
-              <div class="btn-txt"><strong>Zero-Trust Shields</strong><span>25 security rule verification</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_finops_cloud_cap')">
-              <span class="btn-icn" style="color: #0284c7;">☁️</span>
-              <div class="btn-txt"><strong>Cloud FinOps Audit</strong><span>Under $180 hard compute ceiling</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('ops_disaster_recovery_dryrun')">
-              <span class="btn-icn" style="color: #ef4444;">🔄</span>
-              <div class="btn-txt"><strong>DR Failover Dry-Run</strong><span>Sandbox restore validation</span></div>
-            </button>
+
+          <!-- Dynamic 25 Operations Scenarios Grid -->
+          <div id="operationsTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
+            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Operations scenarios...</div>
           </div>
         </div>
-
         <!-- Ops KPI Strip -->
         <div class="domain-kpi-grid">
           <div class="domain-kpi-card">
@@ -2336,38 +2266,30 @@
 
         
         <!-- ⚡ Domain Operations Launchpad: Commerce & Treasury -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #059669; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 1.1rem;">⚡</span>
-              <strong style="font-size: 0.88rem; color: #064e3b; text-transform: uppercase; letter-spacing: 0.04em;">Commerce &amp; Treasury Launchpad (Human-in-the-Loop)</strong>
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #059669; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.2rem;">⚡</span>
+                <strong style="font-size: 1.05rem; color: #064e3b; letter-spacing: -0.01em;">Commerce &amp; Treasury — 25 Daily Real-Life Operational Scenarios</strong>
+              </div>
+              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
+                Generates invoice, tool, or promo sample • Sir Deven reviews and vets before live broadcast.
+              </span>
             </div>
-            <span style="font-size: 0.72rem; color: #64748b;">Generates invoice / tool / promo sample • Sir Deven vets before live release</span>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <input type="text" placeholder="🔍 Search 25 Commerce scenarios..." oninput="window.filterDomainLaunchpad('commerce', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
+              <span style="font-size: 0.72rem; font-weight: 800; background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; padding: 4px 10px; border-radius: 14px;">
+                25 Scenarios Ready
+              </span>
+            </div>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_vending_tool')">
-              <span class="btn-icn" style="color: #059669;">⚡</span>
-              <div class="btn-txt"><strong>$1 Python Tool</strong><span>Generate digital vending product</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_issue_invoice')">
-              <span class="btn-icn" style="color: #0284c7;">🧾</span>
-              <div class="btn-txt"><strong>B2B Retainer Invoice</strong><span>MUR (MCB Juice) &amp; USD invoice</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_treasury_audit')">
-              <span class="btn-icn" style="color: #3b82f6;">⛓️</span>
-              <div class="btn-txt"><strong>Base L2 Treasury Audit</strong><span>USDC vault &amp; gas check</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_dunning_notice')">
-              <span class="btn-icn" style="color: #f59e0b;">📢</span>
-              <div class="btn-txt"><strong>Dunning Recovery</strong><span>Gentle receivable reminder</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('comm_flash_sale')">
-              <span class="btn-icn" style="color: #ec4899;">🏷️</span>
-              <div class="btn-txt"><strong>Flash Sale Campaign</strong><span>24-hour urgency promo blast</span></div>
-            </button>
+
+          <!-- Dynamic 25 Commerce Scenarios Grid -->
+          <div id="commerceTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
+            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Commerce scenarios...</div>
           </div>
         </div>
-
         <!-- Commerce KPI Strip -->
         <div class="domain-kpi-grid">
           <div class="domain-kpi-card">
@@ -2574,38 +2496,30 @@
 
         
         <!-- ⚡ Domain Operations Launchpad: Marketing & Social -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #7c3aed; border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 1.1rem;">⚡</span>
-              <strong style="font-size: 0.88rem; color: #1e1b4b; text-transform: uppercase; letter-spacing: 0.04em;">Content &amp; Lead Generation Launchpad (Human-in-the-Loop)</strong>
+        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #7c3aed; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.2rem;">⚡</span>
+                <strong style="font-size: 1.05rem; color: #1e1b4b; letter-spacing: -0.01em;">Research &amp; Market Intelligence — 25 Daily Real-Life Operational Scenarios</strong>
+              </div>
+              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
+                Generates high-intent lead dossier &amp; social campaign sample • Sir Deven vets before release.
+              </span>
             </div>
-            <span style="font-size: 0.72rem; color: #64748b;">Generates draft &amp; design sample first • Sir Deven vets before posting</span>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <input type="text" placeholder="🔍 Search 25 Research scenarios..." oninput="window.filterDomainLaunchpad('research', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
+              <span style="font-size: 0.72rem; font-weight: 800; background: #ede9fe; color: #6d28d9; border: 1px solid #ddd6fe; padding: 4px 10px; border-radius: 14px;">
+                25 Scenarios Armed
+              </span>
+            </div>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_linkedin_post')">
-              <span class="btn-icn" style="color: #0077b5;">💼</span>
-              <div class="btn-txt"><strong>LinkedIn Post</strong><span>Thought leadership draft &amp; card</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_facebook_post')">
-              <span class="btn-icn" style="color: #1877f2;">📘</span>
-              <div class="btn-txt"><strong>Facebook Campaign</strong><span>Store viral hook &amp; mockup</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_x_thread')">
-              <span class="btn-icn" style="color: #0f172a;">✖</span>
-              <div class="btn-txt"><strong>X / Twitter Thread</strong><span>Tech breakdown &amp; alpha thread</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_carousel_post')">
-              <span class="btn-icn" style="color: #7c3aed;">📑</span>
-              <div class="btn-txt"><strong>Carousel Deck</strong><span>5-slide visual PDF / image deck</span></div>
-            </button>
-            <button class="domain-launch-btn" onclick="window.launchTaskSample('mkt_b2b_lead_dossier')">
-              <span class="btn-icn" style="color: #059669;">🎯</span>
-              <div class="btn-txt"><strong>B2B Lead Dossier</strong><span>MEDDPICC qualified prospect plan</span></div>
-            </button>
+
+          <!-- Dynamic 25 Research Scenarios Grid -->
+          <div id="researchTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
+            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Research scenarios...</div>
           </div>
         </div>
-
         <!-- Research KPI Strip -->
         <div class="domain-kpi-grid">
           <div class="domain-kpi-card">
