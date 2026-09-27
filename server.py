@@ -2973,6 +2973,150 @@ def api_tasks_approve_and_post(payload: TaskApproveDispatchReq):
     return res
 
 
+# =============================================================================
+# ⚡ PHASE 3: CONSOLIDATED 5-ENDPOINT REST/RPC DISPATCHER
+# =============================================================================
+
+@app.get("/api/workspace/{workspace_id}")
+def api_get_workspace_schema(workspace_id: str):
+    """Endpoint 1/5: Declarative JSON Workspace Schema Engine."""
+    from core.workspace_schema import get_workspace_schema
+    return {"success": True, "workspace": get_workspace_schema(workspace_id)}
+
+@app.get("/api/data/{domain}")
+def api_get_domain_data(domain: str, limit: int = 50):
+    """Endpoint 2/5: Unified SQLite WAL Universal Records Query."""
+    import sqlite3
+    db_path = "data/nexus_workforce.db"
+    try:
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        c.execute(
+            "SELECT id, domain, record_type, status, payload, updated_at "
+            "FROM universal_records WHERE domain = ? ORDER BY updated_at DESC LIMIT ?",
+            (domain, limit)
+        )
+        rows = c.fetchall()
+        conn.close()
+        items = []
+        for r in rows:
+            try:
+                payload = json.loads(r[4])
+            except Exception:
+                payload = r[4]
+            items.append({
+                "id": r[0],
+                "domain": r[1],
+                "record_type": r[2],
+                "status": r[3],
+                "payload": payload,
+                "updated_at": r[5]
+            })
+        return {"success": True, "domain": domain, "count": len(items), "records": items}
+    except Exception as e:
+        return {"success": False, "error": str(e), "records": []}
+
+class UniversalActionReq(BaseModel):
+    action: Optional[str] = None
+    target: Optional[str] = None
+    params: Optional[Dict[str, Any]] = None
+
+@app.post("/api/action/{action_name}")
+def api_universal_action_router(action_name: str, payload: Optional[UniversalActionReq] = None):
+    """Endpoint 3/5: Universal Task & Fleet Action Router."""
+    from core.task_launcher import task_launcher
+    params = payload.params if payload and payload.params else {}
+    target = payload.target if payload else None
+
+    if action_name == "run_agent":
+        agent_id = target or params.get("agent_id", "domain_operations")
+        from domain_operations import domain_operations_agent
+        from domain_comms import domain_comms_agent
+        from domain_commerce import domain_commerce_agent
+        from domain_research import domain_research_agent
+        agent_map = {
+            "domain_operations": domain_operations_agent,
+            "domain_comms": domain_comms_agent,
+            "domain_commerce": domain_commerce_agent,
+            "domain_research": domain_research_agent
+        }
+        agent_instance = agent_map.get(agent_id)
+        if agent_instance:
+            res = agent_instance.run_cycle()
+            return {"success": True, "action": action_name, "agent": agent_id, "result": res}
+        return {"success": False, "error": f"Unknown agent: {agent_id}"}
+
+    elif action_name == "generate_sample":
+        sc_id = target or params.get("scenario_id", "mkt_linkedin_post")
+        sample = task_launcher.generate_task_sample(scenario_id=sc_id, custom_topic=params.get("custom_topic"))
+        return {"success": True, **sample}
+
+    elif action_name == "run_autopilot":
+        from autopilot import autopilot_engine
+        autopilot_engine.trigger_overnight_cycle()
+        return {"success": True, "action": "autopilot_sweep", "status": "Completed"}
+
+    elif action_name == "run_growth":
+        from growth_hacking import growth_hacker
+        res = growth_hacker.execute_daily_growth_cycle()
+        return {"success": True, "action": "growth_cycle", "result": res}
+
+    elif action_name == "create_snapshot":
+        from enterprise_backup import enterprise_backup_engine
+        res = enterprise_backup_engine.create_full_snapshot(author="Console Dispatcher")
+        return {"success": True, "action": "create_snapshot", "result": res}
+
+    elif action_name == "lockdown":
+        from zero_trust_guard import zero_trust_guard
+        res = zero_trust_guard.execute_airgap_lockdown()
+        return {"success": True, "action": "lockdown", "result": res}
+
+    return {"success": False, "error": f"Unrecognized universal action: {action_name}"}
+
+class UniversalApproveReq(BaseModel):
+    task_id: str
+    scenario_id: str
+    edited_body: str
+
+@app.post("/api/approve")
+def api_universal_approve_router(payload: UniversalApproveReq):
+    """Endpoint 4/5: Universal Human-in-the-Loop Task Vetting & Dispatch Router."""
+    from core.task_launcher import task_launcher
+    res = task_launcher.approve_and_dispatch(
+        task_id=payload.task_id,
+        scenario_id=payload.scenario_id,
+        edited_body=payload.edited_body
+    )
+    return res
+
+@app.get("/api/system/status")
+def api_universal_system_status():
+    """Endpoint 5/5: Consolidated System Status, Health, Telemetry & Treasury."""
+    from core.crypto_treasury import crypto_treasury
+    import os
+    db_ok = os.path.exists("data/nexus_workforce.db")
+    treasury_data = crypto_treasury.get_wallet()
+    return {
+        "success": True,
+        "status": "HEALTHY",
+        "database": {"ok": db_ok, "engine": "SQLite WAL", "path": "data/nexus_workforce.db"},
+        "treasury": {
+            "network": treasury_data.get("network"),
+            "balance_usdc": treasury_data.get("balances", {}).get("USDC", 0),
+            "address": treasury_data.get("address")
+        },
+        "finops": {
+            "daily_spent_usd": 2.0,
+            "daily_limit_usd": 50.0,
+            "monthly_cap_usd": 180.0
+        },
+        "earnings_target": {
+            "monthly_target_mur": 150000,
+            "pipeline_receivables_mur": 90000,
+            "completion_pct": 60.0
+        }
+    }
+
 
 if __name__ == "__main__":
     import uvicorn

@@ -80,15 +80,31 @@ window.navigateToPage = function(targetTab) {
     else b.classList.remove("active");
   });
 
-  panes.forEach(p => {
-    if (p.id === `pane-${targetTab}`) {
-      p.classList.add("active");
-      p.style.display = "block";
-    } else {
+  const targetPane = document.getElementById(`pane-${targetTab}`);
+  const dynContainer = document.getElementById("dynamicWorkspaceContainer");
+
+  if (targetPane) {
+    panes.forEach(p => {
+      if (p.id === `pane-${targetTab}`) {
+        p.classList.add("active");
+        p.style.display = "block";
+      } else {
+        p.classList.remove("active");
+        p.style.display = "none";
+      }
+    });
+    if (dynContainer) dynContainer.style.display = "none";
+  } else if (dynContainer) {
+    panes.forEach(p => {
       p.classList.remove("active");
       p.style.display = "none";
+    });
+    dynContainer.classList.add("active");
+    dynContainer.style.display = "block";
+    if (typeof window.renderDynamicWorkspace === "function") {
+      window.renderDynamicWorkspace(targetTab);
     }
-  });
+  }
 
   const pageTitle = document.getElementById("pageTitle");
   const titles = {
@@ -8169,7 +8185,7 @@ function renderCatalogGrid(scenarios) {
 window.filterCatalogCategory = function(cat) {
   const tabs = document.querySelectorAll(".task-filter-tab");
   tabs.forEach(t => t.classList.remove("active"));
-  event.target.classList.add("active");
+  if (window.event && window.event.target) window.event.target.classList.add("active");
 
   if (!window.taskCatalogCache || window.taskCatalogCache.length === 0) return;
 
@@ -8180,4 +8196,73 @@ window.filterCatalogCategory = function(cat) {
     renderCatalogGrid(filtered);
   }
 };
+
+/**
+ * Phase 2 Dynamic JSON-Driven Workspace Component Renderer
+ */
+window.renderDynamicWorkspace = async function(tabId) {
+  const container = document.getElementById("dynamicWorkspaceContainer");
+  if (!container) return;
+
+  container.innerHTML = `
+    <div style="padding: 40px; text-align: center; color: #64748b;">
+      <div class="pulse-dot" style="background: #38bdf8; width: 12px; height: 12px; margin: 0 auto 12px auto;"></div>
+      <span>Loading dynamic workspace schema...</span>
+    </div>
+  `;
+
+  try {
+    const res = await fetch(`/api/workspace/${tabId}`);
+    const data = await res.json();
+    const ws = data.workspace || {};
+
+    const kpisHtml = (ws.kpis || []).map(k => `
+      <div class="domain-kpi-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 0.76rem; font-weight: 700; color: #64748b; text-transform: uppercase;">${escapeHtml(k.label)}</span>
+          <span style="font-size: 1.2rem;">${k.icon || '⚡'}</span>
+        </div>
+        <div style="font-size: 1.45rem; font-weight: 900; color: #0f172a;">${escapeHtml(k.value)}</div>
+        <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">${escapeHtml(k.sub || '')}</div>
+      </div>
+    `).join("");
+
+    const tasksHtml = (ws.tasks || []).map(tid => `
+      <button class="domain-launch-btn" onclick="window.launchTaskSample('${escapeHtml(tid)}')">
+        <span class="btn-icn">⚡</span>
+        <div class="btn-txt">
+          <strong>${escapeHtml(tid.replace(/_/g, ' ').toUpperCase())}</strong>
+          <span>Launch &amp; Vet Sample</span>
+        </div>
+      </button>
+    `).join("");
+
+    container.innerHTML = `
+      <div class="domain-hero-banner" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <div style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; background: rgba(56, 189, 248, 0.15); color: ${ws.badge_color || '#0284c7'}; margin-bottom: 8px;">
+          ● ${escapeHtml(ws.badge || 'Workspace')}
+        </div>
+        <h1 style="margin: 0 0 6px 0; font-size: 1.6rem; font-weight: 900; color: #0f172a;">${escapeHtml(ws.title)}</h1>
+        <p style="margin: 0; font-size: 0.88rem; color: #64748b; max-width: 680px; line-height: 1.5;">${escapeHtml(ws.desc || '')}</p>
+      </div>
+
+      <div class="domain-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
+        ${kpisHtml}
+      </div>
+
+      <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #38bdf8; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <strong style="font-size: 0.88rem; color: #0f172a; text-transform: uppercase;">Workspace Operational Launchpad</strong>
+          <span style="font-size: 0.72rem; color: #64748b;">Human-in-the-Loop Vetting Enabled</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+          ${tasksHtml}
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    container.innerHTML = `<div style="padding: 30px; text-align: center; color: #ef4444;">Failed to load dynamic workspace: ${err.message}</div>`;
+  }
+};
+
 
