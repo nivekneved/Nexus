@@ -2662,6 +2662,18 @@ def api_housekeeper_tidy():
         raise HTTPException(status_code=403, detail="Root Housekeeper addon is disabled.")
     return root_housekeeper.execute_full_hygiene_sweep()
 
+@app.post("/api/microwork/run-online-jobs")
+def api_run_online_micro_jobs():
+    """Sends autonomous worker online to scan exchanges, execute small digital jobs, and mint invoices."""
+    from core.autonomous_micro_task_worker import autonomous_micro_task_worker
+    return autonomous_micro_task_worker.scan_and_execute_small_jobs()
+
+@app.get("/api/microwork/ledger")
+def api_get_microwork_ledger():
+    """Returns all completed digital micro-tasks and settled online earnings."""
+    from core.autonomous_micro_task_worker import autonomous_micro_task_worker
+    return {"success": True, "jobs": autonomous_micro_task_worker.get_ledger()}
+
 
 
 # Static Files
