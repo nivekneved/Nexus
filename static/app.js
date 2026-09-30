@@ -5032,11 +5032,16 @@ function initMeshController() {
   if (btnRefreshMessages) btnRefreshMessages.addEventListener('click', fetchMeshMessages);
   if (btnSendDispatch) btnSendDispatch.addEventListener('click', sendMeshDispatch);
   if (btnRefreshBoards) btnRefreshBoards.addEventListener('click', fetchHiddenBoards);
+  const btnPollBase = document.getElementById('btnPollBaseSettlements');
+  const btnEvolve = document.getElementById('btnEvolveBandit');
+
   if (btnRefreshFeed) btnRefreshFeed.addEventListener('click', fetchBoardFeed);
   if (btnScrapeOpps) btnScrapeOpps.addEventListener('click', scrapeOpportunities);
   if (btnBroadcastAll) btnBroadcastAll.addEventListener('click', broadcastToAllBoards);
   if (btnNegotiateRevenue) btnNegotiateRevenue.addEventListener('click', () => run14BoardNegotiation(btnNegotiateRevenue));
   if (btnRunNegotiationAction) btnRunNegotiationAction.addEventListener('click', () => run14BoardNegotiation(btnRunNegotiationAction));
+  if (btnPollBase) btnPollBase.addEventListener('click', () => pollBaseL2Settlements(btnPollBase));
+  if (btnEvolve) btnEvolve.addEventListener('click', () => evolveConversionBandit(btnEvolve));
   if (btnToggleNegotiationDetails) {
     btnToggleNegotiationDetails.addEventListener('click', () => {
       const box = document.getElementById('negotiationResultsBox');
@@ -5446,6 +5451,59 @@ async function run14BoardNegotiation(triggerBtn) {
     }
     const toggleBtn = document.getElementById('btnToggleNegotiationDetails');
     if (toggleBtn) toggleBtn.textContent = '🔼 Hide Contracts';
+  }
+}
+
+async function pollBaseL2Settlements(btn) {
+  const origText = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Polling...'; }
+  try {
+    const res = await fetch('/api/finance/crypto/poll-settlements');
+    const d = await res.json();
+    if (d.success) {
+      showToast(`⚡ Polled Base L2! Auto-settled ${d.settled_count} micro-invoices`, 'success');
+      await fetchNegotiationsDossier();
+      if (typeof fetchReceivables === 'function') fetchReceivables();
+    } else {
+      showToast('Polling Base L2 completed. No new incoming transactions.', 'info');
+    }
+  } catch(e) {
+    showToast(`Settlement poller error: ${e.message}`, 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = origText || '⚡ Auto-Settle Base L2'; }
+  }
+}
+
+async function evolveConversionBandit(btn) {
+  const origText = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Evolving...'; }
+  const box = document.getElementById('negotiationResultsBox');
+  try {
+    const res = await fetch('/api/bandit/evolve', { method: 'POST' });
+    const d = await res.json();
+    if (d.success) {
+      showToast(`🧬 Bandit Self-Improvement Complete! Top Arm: ${d.top_performing_arm} (${((d.top_arm_cr||1)*100).toFixed(0)}%)`, 'success');
+      if (box) {
+        box.style.display = 'block';
+        box.innerHTML = `
+          <div style="background:rgba(99,102,241,0.08);border:1px solid #6366f166;border-radius:8px;padding:12px;margin-bottom:10px;">
+            <div style="font-weight:800;color:#4338ca;margin-bottom:4px;font-size:0.86rem;">🧬 Bandit Self-Improvement Telemetry</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:8px;">
+              Autonomous UCB1 optimization evaluated strategy arms. Top Strategy: <strong>${d.top_performing_arm}</strong>.
+            </div>
+            ${(d.mutations||[]).map(m => `
+              <div style="background:#fff;border-left:3px solid #6366f1;padding:6px 8px;border-radius:0 4px 4px 0;font-size:0.72rem;margin-bottom:4px;">
+                <span style="font-weight:700;color:#334155;">${m.arm_id}:</span> ${m.mutation_applied}
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+  } catch(e) {
+    showToast(`Bandit evolution error: ${e.message}`, 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = origText || '🧬 Bandit Self-Improve'; }
   }
 }
 

@@ -5047,11 +5047,17 @@ window.toggleCeoLaunchpad = function() {
               <p style="margin: 0 0 12px 0; font-size: 0.82rem; color: var(--text-muted); line-height: 1.45;">
                 Nexus reached out to all 14 hidden boards, negotiated capability requirements with autonomous peer brokers, satisfied missing invariants, and minted 14 recurring $1.00 USD/day commercial invoices.
               </p>
-              <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-                <button class="btn btn-primary" id="btnRunNegotiationAction" style="flex: 1; background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); font-weight: 800; font-size: 0.86rem; padding: 10px; border-radius: 8px; color: #fff;">
-                  🚀 Trigger 14-Board Outreach &amp; Invoicing
+              <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                <button class="btn btn-primary" id="btnRunNegotiationAction" style="flex: 1; min-width: 190px; background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); font-weight: 800; font-size: 0.86rem; padding: 10px; border-radius: 8px; color: #fff;">
+                  🚀 Trigger 14-Board Outreach
                 </button>
-                <button class="btn btn-secondary" id="btnToggleNegotiationDetails" style="font-size: 0.8rem; padding: 10px 14px; border-radius: 8px;">
+                <button class="btn btn-secondary" id="btnPollBaseSettlements" style="font-size: 0.8rem; padding: 10px 12px; border-radius: 8px; font-weight: 700; color: #047857; background: #ecfdf5; border: 1px solid #10b98144;">
+                  ⚡ Auto-Settle Base L2
+                </button>
+                <button class="btn btn-secondary" id="btnEvolveBandit" style="font-size: 0.8rem; padding: 10px 12px; border-radius: 8px; font-weight: 700; color: #4338ca; background: #e0e7ff; border: 1px solid #6366f144;">
+                  🧬 Bandit Self-Improve
+                </button>
+                <button class="btn btn-secondary" id="btnToggleNegotiationDetails" style="font-size: 0.8rem; padding: 10px 12px; border-radius: 8px;">
                   📋 View Contracts
                 </button>
               </div>

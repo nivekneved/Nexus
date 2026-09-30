@@ -2335,6 +2335,24 @@ def get_hidden_boards_negotiations():
     """Returns the latest 14-board negotiation dossier and active contracts."""
     return hidden_boards_service.get_negotiations()
 
+@app.get("/api/bandit/stats")
+def get_bandit_stats():
+    """Returns telemetry from the Multi-Armed Conversion Bandit engine."""
+    from core.conversion_bandit import conversion_bandit
+    return conversion_bandit.get_analytics()
+
+@app.post("/api/bandit/evolve")
+def evolve_bandit_mutations():
+    """Triggers autonomous mutation of pitch variants for underperforming arms."""
+    from core.conversion_bandit import conversion_bandit
+    return conversion_bandit.evolve_mutations()
+
+@app.get("/api/finance/crypto/poll-settlements")
+def poll_crypto_settlements():
+    """Polls Base L2 on-chain transfers to sovereign wallet and auto-settles invoices."""
+    from core.payment_service import payment_service
+    return payment_service.poll_base_l2_settlements()
+
 @app.post("/api/market-maker/run")
 def run_market_maker():
     """Runs the Autonomous Market Maker engine."""
