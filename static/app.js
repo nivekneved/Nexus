@@ -1,5 +1,27 @@
 // Nexus Workforce Engine — Multi-Agent Frontend Controller with Live Telemetry & Dynamic Settings
 
+window.runFactoryDemo = function(niche) {
+  if (typeof window.showToast === "function") window.showToast("Factory demo triggered for: " + (niche || "Niche"), "success");
+  else alert("Factory demo triggered: " + (niche || "Niche"));
+};
+
+window.runSpamDemo = function(type) {
+  if (typeof window.showToast === "function") window.showToast("Spam shredder simulation: " + type, "success");
+  else alert("Spam shredder simulation: " + type);
+};
+
+window.triggerCeoSocialChip = function(topic) {
+  if (typeof window.showToast === "function") window.showToast("CEO social broadcast generated for: " + topic, "success");
+  else alert("CEO social broadcast: " + topic);
+};
+
+if (typeof window.navigateToPage !== "function") {
+  window.navigateToPage = function(tabId) {
+    if (typeof window.switchTab === "function") window.switchTab(tabId);
+    else console.warn("navigateToPage fallback:", tabId);
+  };
+}
+
 // Global Auth & Fetch Interceptor: attaches Bearer token automatically
 (function() {
   function getDashboardToken() {

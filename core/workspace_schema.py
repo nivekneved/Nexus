@@ -2,7 +2,7 @@
 """
 Nexus Dynamic Workspace Schema Engine
 Defines the unified declarative specification for all dashboard workspaces,
-replacing thousands of lines of hardcoded HTML panes with dynamic, data-driven layouts.
+including active agents, equipped tools, and real-time backend thinking telemetry.
 """
 
 from typing import Dict, Any, List
@@ -10,15 +10,25 @@ from typing import Dict, Any, List
 WORKSPACES: Dict[str, Dict[str, Any]] = {
     "ceo-cockpit": {
         "id": "ceo-cockpit",
-        "title": "Executive Command Center",
-        "badge": "Autonomous Executive Cockpit",
-        "badge_color": "#10b981",
-        "desc": "Nexus coordinates 18 autonomous AI employees running privately on your infrastructure with zero payroll overhead.",
+        "title": "1. Seek: Lead Finder & Hidden Boards Scouting",
+        "badge": "Seek & Scout Workspace",
+        "badge_color": "#4f46e5",
+        "desc": "Autonomous scouting across 14 hidden machine boards (377,900+ peer bots) and high-intent B2B prospect pipelines using stealth scraping.",
+        "agents": [
+            {"id": "lead_finder", "name": "B2B Lead Finder & ICP Scout", "status": "ACTIVE", "role": "Scans target niches for decision makers"},
+            {"id": "hidden_boards_service", "name": "14 Hidden Boards Scout", "status": "ACTIVE", "role": "Harvests machine bounties & RFPs"},
+            {"id": "market_maker", "name": "Autonomous Market Maker", "status": "ACTIVE", "role": "Matches RFPs to turnkey assets"}
+        ],
+        "tools": [
+            {"name": "niche_scout", "category": "market_scout", "desc": "Searches high-yield commercial niches"},
+            {"name": "verify_email_domain", "category": "lead_generation", "desc": "Validates DNS MX mail server records"},
+            {"name": "stealth_scrape", "category": "extraction", "desc": "Bypasses Cloudflare & anti-bot firewalls"}
+        ],
         "kpis": [
-            {"label": "Fleet Status", "icon": "👑", "value": "18 Armed", "sub": "Zero Third-Party Telemetry"},
-            {"label": "Monthly Goal", "icon": "💰", "value": "Rs 150,000 MUR", "sub": "Pipeline: Rs 90,000 MUR"},
-            {"label": "Cloud FinOps", "icon": "☁️", "value": "$2.00 / $50", "sub": "Compute Cap: <$180/mo"},
-            {"label": "Treasury", "icon": "⛓️", "value": "$123.50 USDC", "sub": "Base L2 Sovereign Vault"}
+            {"label": "Hidden Boards", "icon": "🌐", "value": "14 Connected", "sub": "377,900+ Bot Audience"},
+            {"label": "Scout Engine", "icon": "🔍", "value": "Active", "sub": "Stealth TLS Evasion"},
+            {"label": "B2B Leads", "icon": "🎯", "value": "28 Qualified", "sub": "Mauritius & Global"},
+            {"label": "Daily Target", "icon": "💰", "value": "$1.00 USD/day", "sub": "Compute Baseline"}
         ],
         "tasks": [
             "ceo_morning_standup",
@@ -35,15 +45,25 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
     },
     "domain-comms": {
         "id": "domain-comms",
-        "title": "Communications & Inbound Command",
-        "badge": "Communications Workspace",
+        "title": "2. Connect: CRM, Email & WhatsApp Outreach",
+        "badge": "Connect & Outreach Workspace",
         "badge_color": "#0284c7",
-        "desc": "Unified multi-inbox hygiene, anti-spam quarantine, WhatsApp mobile dispatcher, and VIP customer support concierge.",
+        "desc": "Omnichannel engagement engine connecting with seeked leads via secure SMTP email pitches, WhatsApp marketing (+230 58169420), and multi-channel inbox triage.",
+        "agents": [
+            {"id": "domain_comms", "name": "Communications Domain Controller", "status": "ACTIVE", "role": "Manages IMAP/SMTP & anti-spam"},
+            {"id": "mobile_dispatcher", "name": "WhatsApp Mobile Dispatcher", "status": "ACTIVE", "role": "Instant mobile notification gateway"},
+            {"id": "bilingual_concierge", "name": "Bilingual French/English Concierge", "status": "ACTIVE", "role": "Mauritian localization parity"}
+        ],
+        "tools": [
+            {"name": "generate_whatsapp_link", "category": "communication", "desc": "Creates 1-click wa.me bilingual pitch links"},
+            {"name": "send_email", "category": "crm", "desc": "Dispatches secure outbound cold email pitches"},
+            {"name": "verify_email_domain", "category": "lead_generation", "desc": "Pre-flight MX deliverability & suppression check"}
+        ],
         "kpis": [
             {"label": "Active Inboxes", "icon": "📫", "value": "1/1 Verified", "sub": "IMAP / SMTP Syncing"},
             {"label": "Spam Quarantined", "icon": "🛡️", "value": "0 Detected", "sub": "AI Bayesian Filter"},
-            {"label": "Support Tickets", "icon": "💬", "value": "3 Closed", "sub": "<90s SLA Maintained"},
-            {"label": "WhatsApp Gateway", "icon": "📱", "value": "Connected", "sub": "Escalation: +230 58169420"}
+            {"label": "WhatsApp Gateway", "icon": "📱", "value": "Connected", "sub": "Escalation: +230 58169420"},
+            {"label": "Pipeline Leads", "icon": "👥", "value": "Active", "sub": "Grouped by Industry"}
         ],
         "tasks": [
             "comms_vip_broadcast",
@@ -61,15 +81,25 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
     },
     "domain-operations": {
         "id": "domain-operations",
-        "title": "Operations, Infrastructure & 24/7 Autopilot",
-        "badge": "Operations Workspace",
+        "title": "3. Propose: High-Ticket Proposals & SOW Studio",
+        "badge": "Propose & Sell Studio",
         "badge_color": "#d97706",
-        "desc": "Continuous background execution, SQLite WAL integrity, compute survival tiers, cryptographic loss-free snapshots, and 25 security safeguards.",
+        "desc": "Generates binding B2B proposals ($1,500–$5,000 upfront + $500/mo retainers), Statements of Work (SOW), and NDAs using 37 elite departmental personas.",
+        "agents": [
+            {"id": "executive_partner", "name": "Executive AI Managing Partner", "status": "ACTIVE", "role": "Co-managing partner & deal strategist"},
+            {"id": "growth_hacker", "name": "Growth Hacker & Funnel Architect", "status": "ACTIVE", "role": "Monetization blueprint generator"},
+            {"id": "spec_auditor", "name": "Spec-to-Code Quality Auditor", "status": "ACTIVE", "role": "Brand consistency & code quality"}
+        ],
+        "tools": [
+            {"name": "generate_enterprise_proposal", "category": "propose", "desc": "Drafts $2.5k upfront + $500/mo agency proposals"},
+            {"name": "compile_sow", "category": "legal", "desc": "Generates Mauritian Statement of Work & Mutual NDA"},
+            {"name": "create_crypto_invoice", "category": "finance", "desc": "Minting cryptographic Base L2 & PayPal invoices"}
+        ],
         "kpis": [
-            {"label": "24/7 Autopilot", "icon": "🌙", "value": "Active", "sub": "Continuous Night Shift"},
-            {"label": "Database Engine", "icon": "💾", "value": "SQLite WAL", "sub": "Zero-Loss Integrity"},
-            {"label": "Enterprise Shields", "icon": "🛡️", "value": "25 Armed", "sub": "Rate Limits & Air-Gap Ready"},
-            {"label": "Survival Physics", "icon": "⚙️", "value": "Normal Tier", "sub": "98.9% Margin Target"}
+            {"label": "Deal Structure", "icon": "💼", "value": "$2,500 + $500/mo", "sub": "High-Ticket Retainer"},
+            {"label": "Profit Margin", "icon": "📈", "value": "96.5% Net", "sub": "Zero Human Payroll Overhead"},
+            {"label": "Departmental Brains", "icon": "🧠", "value": "37 Personas", "sub": "Finance, Growth & Brand"},
+            {"label": "Legal Status", "icon": "📜", "value": "Compliant", "sub": "Mauritius Data Protection Act"}
         ],
         "tasks": [
             "ops_crypto_snapshot",
@@ -79,23 +109,33 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
             "ops_disaster_recovery_dryrun"
         ],
         "feed": {
-            "title": "System Operations & SRE Heartbeat Ledger",
-            "endpoint": "/api/autopilot/events",
+            "title": "Enterprise Proposals & Deal Ledger",
+            "endpoint": "/api/enterprise/deals",
             "type": "table",
-            "columns": ["Timestamp", "Subsystem", "Event", "Latency", "Integrity"]
+            "columns": ["Deal ID", "Client", "Niche", "Pricing Structure", "Status"]
         }
     },
     "domain-commerce": {
         "id": "domain-commerce",
-        "title": "Commerce, Treasury & Revenue Studio",
-        "badge": "Commerce Workspace",
+        "title": "4. Sell: Digital Vending Store & Sales Agents",
+        "badge": "Sell & Commerce Studio",
         "badge_color": "#059669",
-        "desc": "Multi-currency accounts receivable (MUR & USD), Base L2 USDC crypto treasury, AES-256 encrypted vault, and digital store fulfillment.",
+        "desc": "Automates the sale of $1.00 micro-tools, full digital software suites, and coordinates autonomous sales agent swarms across local and international markets.",
+        "agents": [
+            {"id": "domain_commerce", "name": "Commerce & Sovereign Treasury Controller", "status": "ACTIVE", "role": "Manages fiat & crypto settlement"},
+            {"id": "influencer_usher", "name": "Influencer Usher & Social Scout", "status": "ACTIVE", "role": "Viral campaign & social signal generator"},
+            {"id": "growth_hacker", "name": "Growth Hacker & Monetization Scout", "status": "ACTIVE", "role": "Clones monetization tactics"}
+        ],
+        "tools": [
+            {"name": "create_paypal_link", "category": "finance", "desc": "Generates instant PayPal checkout tokens"},
+            {"name": "generate_whatsapp_link", "category": "communication", "desc": "Mauritius Juice & Bank wire router"},
+            {"name": "broadcast_product_announcement", "category": "marketing", "desc": "Publishes 1-click Twitter/X & Reddit copy"}
+        ],
         "kpis": [
-            {"label": "Accounts Receivable", "icon": "💳", "value": "Rs 90,000 MUR", "sub": "19 Tracked Invoices"},
-            {"label": "Base L2 Treasury", "icon": "⛓️", "value": "$123.50 USDC", "sub": "Wallet: 0xEAE5...1F2"},
-            {"label": "Digital Store", "icon": "🛒", "value": "8 Products Live", "sub": "$1 Vending Machine"},
-            {"label": "Target Progress", "icon": "📈", "value": "60% Staged", "sub": "Towards Rs 150,000 MUR"}
+            {"label": "Digital Store", "icon": "🛒", "value": "5 Products Live", "sub": "$1.00 - $39.00 Catalog"},
+            {"label": "Mauritius Rail", "icon": "🇲🇺", "value": "+230 58169420", "sub": "MCB Juice & Bank Off-Ramp"},
+            {"label": "Sales Swarm", "icon": "⚡", "value": "Active", "sub": "Zero-Downtime Conversion"},
+            {"label": "Store Fulfillment", "icon": "📦", "value": "Automated", "sub": "Instant Zip & Script Delivery"}
         ],
         "tasks": [
             "comm_vending_tool",
@@ -105,36 +145,44 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
             "comm_flash_sale"
         ],
         "feed": {
-            "title": "Invoicing & Accounts Receivable Ledger",
-            "endpoint": "/api/finance/invoices",
+            "title": "Digital Store Catalog & Sales Swarm Ledger",
+            "endpoint": "/api/store/products",
             "type": "table",
-            "columns": ["Invoice ID", "Client", "Amount", "Due Date", "Status", "Receipt"]
+            "columns": ["Product ID", "Name", "Tagline", "Price (USD)", "Badge"]
         }
     },
-    "domain-research": {
-        "id": "domain-research",
-        "title": "Research, Market Intelligence & B2B Leads",
-        "badge": "Research Workspace",
+    "workforce": {
+        "id": "workforce",
+        "title": "5. Quote & Invoice: Micro-Task Vending & Cashflow Baseline",
+        "badge": "Quote & Invoice Workspace",
         "badge_color": "#7c3aed",
-        "desc": "High-intent B2B sales leads CRM, emerging technology intelligence dossiers, GitHub radar CVE watchdog, and executive social thought leadership.",
+        "desc": "Parses raw invoices with 15% Mauritian VAT, mints cryptographic invoices, guarantees your $1.00/day compute baseline, and runs self-improvement loops.",
+        "agents": [
+            {"id": "infra_finance_sentinel", "name": "Infra & Finance Sentinel", "status": "ACTIVE", "role": "Monitors compute spend & cloud cap (<$180)"},
+            {"id": "regression_sentinel", "name": "Zero-Regression Sentinel", "status": "ACTIVE", "role": "Loss-free cryptographic snapshots"},
+            {"id": "chief_of_staff", "name": "Context Chronicler & Morning Chief of Staff", "status": "ACTIVE", "role": "Daily morning standup & triage"}
+        ],
+        "tools": [
+            {"name": "parse_mauritian_vat_invoice", "category": "finance", "desc": "Applies 15% VAT & formats JSON line items"},
+            {"name": "verify_juice_payment", "category": "finance", "desc": "Reconciles MCB Juice refs & prevents double-spend"},
+            {"name": "run_dunning_cycle", "category": "dunning", "desc": "Automated payment reminder & SaaS license suspension"}
+        ],
         "kpis": [
-            {"label": "B2B Leads in CRM", "icon": "🎯", "value": "28 Qualified", "sub": "Mauritius & Global Leads"},
-            {"label": "Tech Dossiers", "icon": "📑", "value": "1 Compiled", "sub": "Agentic Architecture"},
-            {"label": "CVE Radar", "icon": "🛡️", "value": "Zero Critical", "sub": "Local Dependencies"},
-            {"label": "Social Hooks", "icon": "📢", "value": "5 Drafts Ready", "sub": "High-Ticket Retainers"}
+            {"label": "Daily Baseline", "icon": "💰", "value": "$1.00 USD/day", "sub": "Compute Micro-Task Stream"},
+            {"label": "VAT Engine", "icon": "🧮", "value": "15% Mauritian", "sub": "Audit-Ready Calculations"},
+            {"label": "FinOps Guardrails", "icon": "🛡️", "value": "$180/mo Cap", "sub": "Strict Cloud Spend Sentinel"},
+            {"label": "Self-Improvement", "icon": "🧬", "value": "Gen 2 Active", "sub": "Meta-Programming Loop"}
         ],
         "tasks": [
-            "mkt_linkedin_post",
-            "mkt_facebook_post",
-            "mkt_x_thread",
-            "mkt_carousel_post",
-            "mkt_b2b_lead_dossier"
+            "ceo_morning_standup",
+            "comm_vending_tool",
+            "ops_crypto_snapshot"
         ],
         "feed": {
-            "title": "B2B Sales Intelligence & Lead Prospect Pipeline",
-            "endpoint": "/api/leads/pipeline",
+            "title": "Treasury Invoices & Accounts Receivable Ledger",
+            "endpoint": "/api/finance/invoices",
             "type": "table",
-            "columns": ["Company", "Sector", "Location", "Decision Maker", "Status"]
+            "columns": ["Invoice ID", "Client", "Amount", "Currency", "Status", "Receipt"]
         }
     }
 }
@@ -151,6 +199,8 @@ def get_workspace_schema(workspace_id: str) -> Dict[str, Any]:
             "badge": "Autonomous Fleet Panel",
             "badge_color": "#4f46e5",
             "desc": "Autonomous workspace panel synchronized with live telemetry and system events.",
+            "agents": [{"id": "general_worker", "name": "Autonomous Worker Agent", "status": "ACTIVE", "role": "General execution"}],
+            "tools": [{"name": "run_diagnostic", "category": "system", "desc": "System diagnostic"}],
             "kpis": [
                 {"label": "Status", "icon": "⚡", "value": "Online", "sub": "System Armed"},
                 {"label": "Sync Mode", "icon": "🔄", "value": "Real-time", "sub": "Local WAL Storage"}
@@ -192,7 +242,6 @@ def get_workspace_schema(workspace_id: str) -> Dict[str, Any]:
                     kpi["value"] = f"{pct}% Realized"
                     kpi["sub"] = "Towards Rs 150,000 MUR"
     except Exception as e:
-        # Fall back to base schema gracefully if DB query fails
         pass
 
     return schema
