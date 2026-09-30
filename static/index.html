@@ -2390,6 +2390,13 @@ window.toggleCeoLaunchpad = function() {
       </section>
 
       <script>
+        if (typeof window.escapeHtml !== "function") {
+          window.escapeHtml = function(str) {
+            return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+          };
+        }
+        const escapeHtml = window.escapeHtml;
+
         window.loadConnectLeadsPipeline = async function() {
           try {
             const res = await fetch("/api/leads/pipeline");
