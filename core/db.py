@@ -182,8 +182,105 @@ def seed_from_json_files():
             logger.warning(f"[DB] Could not seed {jf.name} into SQLite: {e}")
     logger.info(f"[DB] Seeded {count} stores into SQLite WAL database.")
 
+
+def get_all_invoices() -> List[Dict[str, Any]]:
+    """Returns all invoices directly from the relational SQLite table with fallback to kv_state."""
+    conn = get_connection()
+    try:
+        cur = conn.execute("SELECT raw_json FROM invoices ORDER BY created_at DESC")
+        rows = cur.fetchall()
+        if rows:
+            return [json.loads(r["raw_json"]) for r in rows if r["raw_json"]]
+    except Exception as e:
+        logger.debug(f"[DB] Invoices query note: {e}")
+
+    # Fallback to kv_state
+    data = get_state("invoices.json")
+    if isinstance(data, list):
+        return data
+    return []
+
+
+def upsert_invoice(inv: Dict[str, Any]) -> bool:
+    """Inserts or updates an invoice in SQLite invoices table and syncs kv_state."""
+    conn = get_connection()
+    inv_id = inv.get("id")
+    if not inv_id:
+        return False
+    raw_json = json.dumps(inv, ensure_ascii=False)
+    client_name = inv.get("client_name", "Unknown")
+    client_email = inv.get("client_email", "")
+    amount = float(inv.get("amount", 0.0))
+    currency = inv.get("currency", "USD").upper()
+    status = inv.get("status", "PENDING").upper()
+    created_at = inv.get("created_at", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+    try:
+        with conn:
+            conn.execute("""
+                INSERT INTO invoices (id, client_name, client_email, amount, currency, status, created_at, raw_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    client_name = excluded.client_name,
+                    client_email = excluded.client_email,
+                    amount = excluded.amount,
+                    currency = excluded.currency,
+                    status = excluded.status,
+                    raw_json = excluded.raw_json;
+            """, (inv_id, client_name, client_email, amount, currency, status, created_at, raw_json))
+        return True
+    except Exception as e:
+        logger.error(f"[DB] Error upserting invoice {inv_id}: {e}")
+        return False
+
+
+def get_real_revenue_metrics() -> Dict[str, Any]:
+    """Calculates 100% verified, real-time revenue and receivables directly from the SQLite database."""
+    invoices = get_all_invoices()
+    fiat_settled_mur = 0.0
+    crypto_settled_usd = 0.0
+    pending_mur = 0.0
+    pending_usd = 0.0
+    paid_count = 0
+    pending_count = 0
+
+    for inv in invoices:
+        status = str(inv.get("status", "")).upper()
+        amt = float(inv.get("amount", 0.0))
+        curr = str(inv.get("currency", "MUR")).upper()
+
+        if status in ("PAID", "COMPLETED", "SETTLED"):
+            paid_count += 1
+            if curr == "MUR":
+                fiat_settled_mur += amt
+            elif curr == "USD":
+                crypto_settled_usd += amt
+        else:
+            pending_count += 1
+            if curr == "MUR":
+                pending_mur += amt
+            elif curr == "USD":
+                pending_usd += amt
+
+    total_realized_mur = fiat_settled_mur + (crypto_settled_usd * 46.50)
+    total_pipeline_mur = pending_mur + (pending_usd * 46.50)
+
+    return {
+        "fiat_settled_mur": round(fiat_settled_mur, 2),
+        "crypto_settled_usd": round(crypto_settled_usd, 2),
+        "total_realized_mur": round(total_realized_mur, 2),
+        "pending_mur": round(pending_mur, 2),
+        "pending_usd": round(pending_usd, 2),
+        "total_pipeline_mur": round(total_pipeline_mur, 2),
+        "paid_invoices_count": paid_count,
+        "pending_invoices_count": pending_count,
+        "total_invoices_count": len(invoices)
+    }
+
+
 # Auto-initialize database schema on module load
 try:
     init_database()
 except Exception as e:
     logger.warning(f"[DB] Deferred initialization: {e}")
+

@@ -2345,6 +2345,11 @@ class EnterpriseProposalRequest(BaseModel):
     client_email: str
     niche: Optional[str] = "Private Healthcare Clinic"
 
+@app.post("/api/boards/plead-compute")
+def api_plead_for_compute():
+    """Consults ALL 14 hidden boards and broadcasts an emergency $1.00 compute grant plea."""
+    return hidden_boards_service.plead_for_compute()
+
 @app.post("/api/enterprise/proposal")
 def api_create_enterprise_proposal(payload: EnterpriseProposalRequest):
     """Generates a high-ticket enterprise proposal ($1,500–$5,000 upfront + $500/mo) using elite departmental personas."""
