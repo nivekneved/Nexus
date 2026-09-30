@@ -17,6 +17,8 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional
 from core.storage import atomic_save_json, safe_load_json
 
+from core.db import get_state, set_state
+
 logger = logging.getLogger("Nexus.ConversionBandit")
 
 BANDIT_STATE_FILE = "conversion_bandit_state.json"
@@ -27,10 +29,10 @@ DEFAULT_ARMS = {
         "name": "AST Sandbox & Bytecode Gatekeeper",
         "hook_focus": "Zero-dependency AST compilation check, sub-second execution sandbox, HMAC-SHA256 integrity seal.",
         "pricing_model": "$1.00 USD / Day",
-        "trials": 14,
-        "successes": 14,
-        "revenue_usd": 14.0,
-        "conversion_rate": 1.0,
+        "trials": 0,
+        "successes": 0,
+        "revenue_usd": 0.0,
+        "conversion_rate": 0.0,
         "active": True
     },
     "ARM_ESCROW_SETTLEMENT": {
@@ -38,10 +40,10 @@ DEFAULT_ARMS = {
         "name": "Trustless Base L2 Micro-Escrow",
         "hook_focus": "Verified ERC-8004 Agent Identity Card, instant Base L2 0xEAE55828... settlement with sub-100ms SLA.",
         "pricing_model": "$1.00 USD / Day",
-        "trials": 14,
-        "successes": 14,
-        "revenue_usd": 14.0,
-        "conversion_rate": 1.0,
+        "trials": 0,
+        "successes": 0,
+        "revenue_usd": 0.0,
+        "conversion_rate": 0.0,
         "active": True
     },
     "ARM_HTTP_402_API": {
@@ -49,10 +51,10 @@ DEFAULT_ARMS = {
         "name": "HTTP 402 Pay-per-Request Vending",
         "hook_focus": "Instant RFC HTTP 402 Pay-per-Call header with automated tokenized download link and zero subscription lock-in.",
         "pricing_model": "$1.00 USD / Day",
-        "trials": 14,
-        "successes": 14,
-        "revenue_usd": 14.0,
-        "conversion_rate": 1.0,
+        "trials": 0,
+        "successes": 0,
+        "revenue_usd": 0.0,
+        "conversion_rate": 0.0,
         "active": True
     },
     "ARM_BILINGUAL_TRIAGE": {
@@ -60,10 +62,10 @@ DEFAULT_ARMS = {
         "name": "Bilingual French/English Concierge Node",
         "hook_focus": "Guaranteed French/English localization accuracy, 24/7 autonomous triage node with MCB Juice & PayPal receipts.",
         "pricing_model": "$1.00 USD / Day",
-        "trials": 14,
-        "successes": 14,
-        "revenue_usd": 14.0,
-        "conversion_rate": 1.0,
+        "trials": 0,
+        "successes": 0,
+        "revenue_usd": 0.0,
+        "conversion_rate": 0.0,
         "active": True
     }
 }
@@ -81,21 +83,31 @@ class ConversionBanditEngine:
         self.state = self._load_state()
 
     def _load_state(self) -> Dict[str, Any]:
-        data = safe_load_json(BANDIT_STATE_FILE, default=None)
+        # Query primary SQLite database state store first
+        data = get_state(BANDIT_STATE_FILE)
+        if not data:
+            data = safe_load_json(BANDIT_STATE_FILE, default=None)
+
+        # Detect and clean old synthetic mock scaffold (56 hardcoded trials)
+        if data and data.get("total_trials") == 56 and all(a.get("trials") == 14 for a in data.get("arms", {}).values()):
+            data = None
+
         if not data:
             data = {
-                "total_trials": 56,
-                "total_revenue_usd": 56.0,
-                "arms": DEFAULT_ARMS,
+                "total_trials": 0,
+                "total_revenue_usd": 0.0,
+                "arms": {k: dict(v) for k, v in DEFAULT_ARMS.items()},
                 "board_assignments": {},
                 "mutations_history": [],
                 "last_evolved_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
+            set_state(BANDIT_STATE_FILE, data)
             atomic_save_json(BANDIT_STATE_FILE, data)
         return data
 
     def _save_state(self):
         self.state["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        set_state(BANDIT_STATE_FILE, self.state)
         atomic_save_json(BANDIT_STATE_FILE, self.state)
 
     def select_arm_for_board(self, board_id: str) -> Dict[str, Any]:

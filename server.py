@@ -403,10 +403,10 @@ def get_crypto_treasury_endpoint():
     wallet = dict(treasury_engine.crypto.get_wallet())
     consolidated = treasury_engine.get_consolidated_balances()
     wallet["success"] = True
-    wallet["fiat_mur"] = consolidated.get("fiat_mur", 45000.0)
-    wallet["crypto_usdc"] = consolidated.get("crypto_usdc", 123.5)
-    wallet["total_liquid_mur"] = consolidated.get("total_liquid_mur", 50742.75)
-    wallet["total_estimated_usd"] = consolidated.get("total_estimated_usd", 1091.24)
+    wallet["fiat_mur"] = consolidated.get("fiat_mur", 0.0)
+    wallet["crypto_usdc"] = consolidated.get("crypto_usdc", 0.0)
+    wallet["total_liquid_mur"] = consolidated.get("total_liquid_mur", 0.0)
+    wallet["total_estimated_usd"] = consolidated.get("total_estimated_usd", 0.0)
     wallet["consolidated"] = consolidated
     return wallet
 
