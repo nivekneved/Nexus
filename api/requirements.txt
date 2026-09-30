@@ -1,0 +1,9 @@
+# Nexus Autonomous AI Workforce Suite - Dependencies
+google-genai>=0.1.1
+python-dotenv>=1.0.0
+schedule>=1.2.0
+rich>=13.0.0
+fastapi>=0.115.0
+uvicorn>=0.30.0
+httpx>=0.27.0
+pydantic>=2.0.0

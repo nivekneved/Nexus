@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/health",
+      "destination": "/api/health.py"
+    },
+    {
       "source": "/static/(.*)",
       "destination": "/static/$1"
     },
