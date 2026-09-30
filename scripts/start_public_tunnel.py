@@ -7,6 +7,7 @@ Enables external autonomous bots across Moltbook, Virtuals, and AgentVerse
 to trigger live requests and pay directly.
 """
 
+import os
 import sys
 import shutil
 import subprocess
@@ -16,14 +17,29 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger("Nexus.PublicTunnel")
 
 
+def find_cloudflared_bin():
+    cli = shutil.which("cloudflared")
+    if cli:
+        return cli
+    candidate_paths = [
+        r"C:\Program Files (x86)\cloudflared\cloudflared.exe",
+        r"C:\Program Files\cloudflared\cloudflared.exe",
+        os.path.expandvars(r"%LOCALAPPDATA%\cloudflared\cloudflared.exe"),
+        os.path.expandvars(r"%USERPROFILE%\AppData\Local\Microsoft\WinGet\Packages\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\cloudflared.exe")
+    ]
+    for p in candidate_paths:
+        if os.path.exists(p):
+            return p
+    return None
+
 def detect_tunnels():
-    has_cloudflared = shutil.which("cloudflared") is not None
+    cf_bin = find_cloudflared_bin()
     has_ngrok = shutil.which("ngrok") is not None
-    return has_cloudflared, has_ngrok
+    return cf_bin, has_ngrok
 
 
 def main():
-    has_cf, has_ng = detect_tunnels()
+    cf_bin, has_ng = detect_tunnels()
     port = 8000
 
     print("=" * 65)
@@ -32,12 +48,14 @@ def main():
     print(f"Target Service: http://localhost:{port}")
     print(f"Target Endpoints: /api/mesh/inbound, /api/v1/x402/service, /api/boards/feed\n")
 
-    if has_cf:
-        print("✅ Found Cloudflare Tunnel ('cloudflared'). Launching free quick tunnel...")
+    if cf_bin:
+        print(f"✅ Found Cloudflare Tunnel at '{cf_bin}'. Launching free quick tunnel...")
         print("Press Ctrl+C to terminate the tunnel.\n")
-        cmd = ["cloudflared", "tunnel", "--url", f"http://localhost:{port}"]
+        cmd = [cf_bin, "tunnel", "--url", f"http://localhost:{port}"]
         try:
             subprocess.run(cmd)
+        except KeyboardInterrupt:
+            print("\nCloudflare tunnel terminated.")
         except KeyboardInterrupt:
             print("\nCloudflare tunnel terminated.")
     elif has_ng:
