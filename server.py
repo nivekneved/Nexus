@@ -2340,6 +2340,12 @@ def api_stealth_scrape(payload: StealthScrapeRequest):
     from core.stealth_scraper_bridge import stealth_scraper
     return stealth_scraper.fetch_stealth(payload.url)
 
+@app.post("/api/scrapling/scrape")
+def api_scrapling_scrape(payload: StealthScrapeRequest):
+    """Executes advanced anti-bot stealth scraping using D4Vinci/Scrapling StealthyFetcher."""
+    from core.advanced_scrapling_engine import advanced_scrapling_engine
+    return advanced_scrapling_engine.stealth_scrape(payload.url)
+
 class EnterpriseProposalRequest(BaseModel):
     client_name: str
     client_email: str
