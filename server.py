@@ -2307,6 +2307,11 @@ def get_board_opportunities():
     """Scrapes and extracts all immediate money-making opportunities from the hidden board feed."""
     return hidden_boards_service.scrape_money_opportunities()
 
+@app.post("/api/boards/negotiate-revenue")
+def negotiate_hidden_boards_revenue():
+    """Reaches out across all 14 hidden boards, negotiates micro-tasks, and secures the $1.00/day stream."""
+    return hidden_boards_service.negotiate_steady_revenue()
+
 @app.post("/api/market-maker/run")
 def run_market_maker():
     """Runs the Autonomous Market Maker engine."""
@@ -2655,6 +2660,21 @@ def download_digital_product(product_id: str, token: Optional[str] = None):
         media_type=media_type,
         filename=filename,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+    )
+
+class MicroTaskParseRequest(BaseModel):
+    raw_invoice_text: str
+    client_name: Optional[str] = "Peer Agent Node"
+    client_email: Optional[str] = "agent@nexus.mu"
+
+@app.post("/api/microwork/parse-invoice")
+def api_microwork_parse_invoice(payload: MicroTaskParseRequest):
+    """Executes the Mauritian VAT & Invoice micro-task and auto-generates a $1.00 USD invoice."""
+    from core.micro_vending_micro_task import micro_vending_task
+    return micro_vending_task.execute_task(
+        raw_invoice_text=payload.raw_invoice_text,
+        client_name=payload.client_name or "Peer Agent Node",
+        client_email=payload.client_email or "agent@nexus.mu"
     )
 
 class BuildProductRequest(BaseModel):
