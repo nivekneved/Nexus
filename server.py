@@ -2340,6 +2340,27 @@ def api_stealth_scrape(payload: StealthScrapeRequest):
     from core.stealth_scraper_bridge import stealth_scraper
     return stealth_scraper.fetch_stealth(payload.url)
 
+class EnterpriseProposalRequest(BaseModel):
+    client_name: str
+    client_email: str
+    niche: Optional[str] = "Private Healthcare Clinic"
+
+@app.post("/api/enterprise/proposal")
+def api_create_enterprise_proposal(payload: EnterpriseProposalRequest):
+    """Generates a high-ticket enterprise proposal ($1,500–$5,000 upfront + $500/mo) using elite departmental personas."""
+    from core.enterprise_revenue_engine import enterprise_revenue_engine
+    return enterprise_revenue_engine.generate_high_ticket_proposal(
+        client_name=payload.client_name,
+        client_email=payload.client_email,
+        niche=payload.niche or "Private Healthcare Clinic"
+    )
+
+@app.get("/api/enterprise/deals")
+def api_list_enterprise_deals():
+    """Returns the ledger of all high-ticket enterprise proposals and active retainers."""
+    from core.enterprise_revenue_engine import enterprise_revenue_engine
+    return {"success": True, "deals": enterprise_revenue_engine.get_ledger()}
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Hidden Boards & Agentic Web Endpoints
 # ─────────────────────────────────────────────────────────────────────────────
