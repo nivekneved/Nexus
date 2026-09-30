@@ -6321,7 +6321,8 @@ function initSidebarControllers() {
     { headerId: "navRevenueHeader", groupId: "navGroupRevenue", chevronId: "revenueChevron" },
     { headerId: "navOpsHeader", groupId: "navGroupOps", chevronId: "opsChevron" },
     { headerId: "navSystemHeader", groupId: "navGroupSystem", chevronId: "systemChevron" },
-    { headerId: "navDevHeader", groupId: "navGroupDev", chevronId: "devChevron" }
+    { headerId: "navDevHeader", groupId: "navGroupDev", chevronId: "devChevron" },
+    { headerId: "navExtrasHeader", groupId: "navGroupExtras", chevronId: "extrasChevron" }
   ];
 
   accordions.forEach(({ headerId, groupId, chevronId }) => {
