@@ -8462,6 +8462,69 @@ window.renderDynamicWorkspace = async function(tabId) {
     </div>
   `;
 
+  if (tabId === 'domain-operations') {
+    container.innerHTML = `
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <div style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; background: rgba(217, 119, 6, 0.15); color: #d97706; margin-bottom: 8px;">
+          ● Propose &amp; Sell Studio ($1.5k–$5k Deals)
+        </div>
+        <h1 style="margin: 0 0 6px 0; font-size: 1.6rem; font-weight: 900; color: #0f172a;">3. Enterprise Proposal &amp; Document Generator Studio</h1>
+        <p style="margin: 0; font-size: 0.88rem; color: #64748b; max-width: 720px; line-height: 1.5;">
+          Generate binding B2B proposals, Statements of Work (SOW), Non-Disclosure Agreements (NDA), Service Level Agreements (SLA), and official tax invoices instantly using our 37 elite departmental personas.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+        <div class="card-panel" style="padding: 22px;">
+          <h3 style="margin: 0 0 14px 0; font-size: 1.1rem; font-weight: 800;">📝 Client &amp; Deal Specification</h3>
+
+          <label class="form-label" style="font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; display: block;">Client / Organization Name</label>
+          <input type="text" id="propClientName" class="form-input" placeholder="e.g., Dr. Alain Wong (Clinic 360)" style="margin-bottom: 12px; font-size: 0.85rem;">
+
+          <label class="form-label" style="font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; display: block;">Client Email</label>
+          <input type="text" id="propClientEmail" class="form-input" placeholder="e.g., alain@clinic360.mu" style="margin-bottom: 12px; font-size: 0.85rem;">
+
+          <label class="form-label" style="font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; display: block;">Industry / Commercial Niche</label>
+          <input type="text" id="propClientNiche" class="form-input" value="Mauritian Private Clinic &amp; Diagnostics" style="margin-bottom: 12px; font-size: 0.85rem;">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; display: block;">Upfront Deployment ($)</label>
+              <input type="number" id="propUpfrontFee" class="form-input" value="2500" style="font-size: 0.85rem;">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; display: block;">Monthly Retainer ($/mo)</label>
+              <input type="number" id="propRetainerFee" class="form-input" value="500" style="font-size: 0.85rem;">
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button class="btn btn-primary" onclick="window.generateEnterpriseProposalDoc()" style="font-weight: 800; background: #d97706; width: 100%;">
+              ⚡ Generate Enterprise Proposal &amp; Invoice
+            </button>
+            <button class="btn btn-secondary" onclick="window.generateLegalSOW()" style="font-weight: 700; width: 100%;">
+              📜 Generate Statement of Work (SOW) &amp; NDA
+            </button>
+          </div>
+        </div>
+
+        <div class="card-panel" style="padding: 22px; background: #f8fafc; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800;">📄 Generated Document Preview</h3>
+            <button class="btn btn-secondary btn-sm" onclick="window.copyProposalPreview()" style="font-size: 0.72rem; padding: 4px 10px;">📋 Copy Text</button>
+          </div>
+          <textarea id="propPreviewArea" class="form-input" rows="12" readonly placeholder="Fill out client details and click 'Generate Enterprise Proposal & Invoice' to compile binding commercial agreement..." style="font-family: var(--font-mono); font-size: 0.78rem; flex: 1; resize: none; background: #ffffff;"></textarea>
+          <div id="propPaymentLinkContainer" style="margin-top: 12px; display: none;">
+            <a id="propPaymentLinkBtn" href="#" target="_blank" class="btn btn-primary btn-sm" style="background: #10b981; font-weight: 700; text-align: center; display: block; text-decoration: none;">
+              💳 Open Live PayPal / Juice Payment Link ➔
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
   try {
     const res = await fetch(`/api/workspace/${tabId}`);
     const data = await res.json();
@@ -8514,6 +8577,55 @@ window.renderDynamicWorkspace = async function(tabId) {
   } catch (err) {
     container.innerHTML = `<div style="padding: 30px; text-align: center; color: #ef4444;">Failed to load dynamic workspace: ${err.message}</div>`;
   }
+};
+
+window.generateEnterpriseProposalDoc = async function() {
+  const name = document.getElementById("propClientName").value.trim() || "Valued Client";
+  const email = document.getElementById("propClientEmail").value.trim() || "client@organization.mu";
+  const niche = document.getElementById("propClientNiche").value.trim() || "Digital Operations";
+  const upfront = document.getElementById("propUpfrontFee").value || "2500";
+  const retainer = document.getElementById("propRetainerFee").value || "500";
+
+  try {
+    const res = await fetch("/api/enterprise/proposal", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ client_name: name, client_email: email, niche: niche })
+    });
+    const data = await res.json();
+    if (data.success) {
+      const p = data.proposal;
+      const text = \`=== NEXUS ENTERPRISE PROPOSAL & COMMERCIAL AGREEMENT ===\\nDeal ID: \${p.deal_id}\\nClient: \${p.client_name} (\${p.client_email})\\nNiche: \${p.niche}\\n\\n\${p.pitch_copy}\\n\\nInvoice Ref: \${p.invoice.id}\\nPayment URL: \${p.invoice.payment_url}\\nStatus: \${p.status}\\n=====================================================\`;
+      document.getElementById("propPreviewArea").value = text;
+      const linkContainer = document.getElementById("propPaymentLinkContainer");
+      const linkBtn = document.getElementById("propPaymentLinkBtn");
+      if (linkContainer && linkBtn && p.invoice && p.invoice.payment_url) {
+        linkBtn.href = p.invoice.payment_url;
+        linkContainer.style.display = "block";
+      }
+      if (typeof window.showToast === "function") window.showToast("Enterprise proposal & invoice generated!", "success");
+    } else {
+      alert("Proposal generation failed.");
+    }
+  } catch (e) {
+    alert("Error: " + e.message);
+  }
+};
+
+window.generateLegalSOW = function() {
+  const name = document.getElementById("propClientName").value.trim() || "Valued Client";
+  const niche = document.getElementById("propClientNiche").value.trim() || "Digital Operations";
+  const text = \`=== STATEMENT OF WORK (SOW) & MUTUAL NDA ===\\nClient: \${name}\\nProject: Turnkey \${niche} Deployment\\nProvider: Nexus Sovereign Engineering (Grand Baie, Mauritius)\\n\\n1. SCOPE OF WORK:\\nDeployment of sovereign AI multi-agent software suite, automated WhatsApp dispatch, and bilingual LLM concierge.\\n\\n2. INTELLECTUAL PROPERTY & TRANSFER:\\nFull white-label IP transfer upon complete settlement of upfront deployment fee.\\n\\n3. MAINTENANCE & SLA:\\n24/7 autonomous heartbeat monitoring with 99.9% uptime SLA.\\n\\n4. GOVERNING LAW:\\nLaws of the Republic of Mauritius.\\n\\nSigned by Authorized Nexus AI Managing Partner.\\n=============================================\`;
+  document.getElementById("propPreviewArea").value = text;
+  if (typeof window.showToast === "function") window.showToast("SOW & NDA compiled successfully!", "success");
+};
+
+window.copyProposalPreview = function() {
+  const area = document.getElementById("propPreviewArea");
+  if (!area || !area.value) return;
+  navigator.clipboard.writeText(area.value);
+  if (typeof window.showToast === "function") window.showToast("Proposal text copied to clipboard!", "success");
+  else alert("Copied to clipboard!");
 };
 
 
