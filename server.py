@@ -778,8 +778,20 @@ async def stream_events(request: Request):
         }
     )
 
+# Health & Status Endpoints
+@app.get("/api/health")
+@app.get("/health")
+def get_health():
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat(),
+        "serverless": bool(os.getenv("VERCEL")),
+        "scheduler_running": manager.is_scheduler_running
+    }
+
 # Email Agent Specific Endpoints
 @app.get("/api/status")
+@app.get("/status")
 def get_status():
     load_dotenv(override=True)
     return {

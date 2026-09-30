@@ -1,44 +1,51 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/api/health",
-      "destination": "/api/health.py"
+      "src": "api/index.py",
+      "use": "@vercel/python"
     },
     {
-      "source": "/static/(.*)",
-      "destination": "/static/$1"
+      "src": "static/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
     {
-      "source": "/store",
-      "destination": "/static/store.html"
+      "src": "/store",
+      "dest": "/static/store.html"
     },
     {
-      "source": "/manual",
-      "destination": "/static/Nexus_User_Manual.pdf"
+      "src": "/manual",
+      "dest": "/static/Nexus_User_Manual.pdf"
     },
     {
-      "source": "/donate",
-      "destination": "/static/donations.html"
+      "src": "/donate",
+      "dest": "/static/donations.html"
     },
     {
-      "source": "/donations",
-      "destination": "/static/donations.html"
+      "src": "/donations",
+      "dest": "/static/donations.html"
     },
     {
-      "source": "/license",
-      "destination": "/static/license.html"
+      "src": "/license",
+      "dest": "/static/license.html"
     },
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "src": "/api/(.*)",
+      "dest": "api/index.py"
     },
     {
-      "source": "/download/(.*)",
-      "destination": "/api/index.py"
+      "src": "/download/(.*)",
+      "dest": "api/index.py"
     },
     {
-      "source": "/",
-      "destination": "/static/index.html"
+      "src": "/",
+      "dest": "/static/index.html"
     }
   ]
 }
