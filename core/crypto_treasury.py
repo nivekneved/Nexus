@@ -20,7 +20,10 @@ import time
 import secrets
 from typing import Dict, Any, List, Optional, Tuple
 import httpx
-from eth_account import Account
+try:
+    from eth_account import Account
+except ImportError:
+    Account = None
 from core.crypto_verifier import crypto_verifier
 from core.telemetry import telemetry
 
