@@ -172,31 +172,31 @@ Access the live dashboard at **`http://127.0.0.1:8000`**:
 
 ---
 
-## 🚀 Quickstart & Setup
+## 🚀 Quickstart & How to Run
 
-### 1. Local Bare-Metal Setup
+> **Detailed Guide**: See **[`STARTUP_GUIDE.md`](STARTUP_GUIDE.md)** for complete multi-server runbook and background boot configurations.
+
+### 1. The 1-Command Startup Experience
+When you start `server.py`, **all 3 subsystems start together automatically**:
 ```powershell
-# Clone repository
-git clone https://github.com/nivekneved/Nexus.git
-cd Nexus
-
-# Create and activate virtual environment
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-
-# Install dependencies (including eth-account for Base signing)
-pip install -r requirements.txt
-
-# Configure environment variables
-cp .env.example .env
-# Fill in GEMINI_API_KEY, SMTP/IMAP credentials, and secret tokens in .env
-
-# Start FastAPI Command Center
+# Start AI Server, 24/7 Revenue Daemon, and Cloudflare Public Tunnel together:
 python server.py
 ```
 Open **[http://localhost:8000](http://localhost:8000)** in your browser.
 
-### 2. Turnkey Docker Deployment
+- **Subsystem 1 (AI Core & Web Dashboard)**: Runs on `http://127.0.0.1:8000`.
+- **Subsystem 2 (24/7 Revenue Daemon)**: Polls Base L2 settlements every 15 min & runs 14-board outreach daily.
+- **Subsystem 3 (Cloudflare Public Tunnel)**: Auto-detects `cloudflared.exe` and exposes inbound agent mesh webhooks with an instant public `https://xxx.trycloudflare.com` URL.
+- **Clean Shutdown**: Press **`Ctrl+C`** to terminate all processes simultaneously.
+
+### 2. 1-Click Desktop Launcher
+Double-click:
+```
+start_all.bat
+```
+*(Or run `python start_all.py` / `.\start_all.ps1` in PowerShell).*
+
+### 3. Turnkey Docker Deployment
 ```bash
 docker compose up -d --build
 ```
@@ -205,12 +205,13 @@ docker compose up -d --build
 
 ## 📚 Essential Documentation Fleet (Consolidated Architecture)
 
-Nexus maintains an ultra-clean, non-redundant documentation structure grouped into **only 4 authoritative documents**:
+Nexus maintains an ultra-clean, authoritative documentation structure:
 
 1. **[`README.md`](README.md)** *(This Document)*: Master System Architecture, Runbook, Technical Guide, Crypto Treasury & API Reference.
-2. **[`COMMERCIAL_PLAYBOOK.md`](COMMERCIAL_PLAYBOOK.md)**: Unified Commercial Master Pack — Complete Capabilities Catalog, Turnkey Software Fleet (Medical 360, Enn Rev Enn Sourir, i-Travellix), Multi-Channel Pitch Launchkit, Quantitative M&A Valuation Matrix ($12k–$280k), and Legal Terms.
-3. **[`SOUL.md`](SOUL.md)**: Autonomous Self-Authoring Sovereign Identity Charter, Core Operating Tenets, and Reflection Chronicle.
-4. **[`CHANGELOG.md`](CHANGELOG.md)**: Full Chronological Engineering Changelog from v1.0.0 to v3.3.0.
+2. **[`STARTUP_GUIDE.md`](STARTUP_GUIDE.md)**: Complete Runbook & Startup Guide — 1-Command Ecosystem, 24/7 Revenue Daemon, Public Tunneling, and Service Verification.
+3. **[`COMMERCIAL_PLAYBOOK.md`](COMMERCIAL_PLAYBOOK.md)**: Unified Commercial Master Pack — Complete Capabilities Catalog, Turnkey Software Fleet (Medical 360, Enn Rev Enn Sourir, i-Travellix), Multi-Channel Pitch Launchkit, Quantitative M&A Valuation Matrix ($12k–$280k), and Legal Terms.
+4. **[`SOUL.md`](SOUL.md)**: Autonomous Self-Authoring Sovereign Identity Charter, Core Operating Tenets, and Reflection Chronicle.
+5. **[`CHANGELOG.md`](CHANGELOG.md)**: Full Chronological Engineering Changelog from v1.0.0 to v4.0.0.
 *(Companion Covenant: [`PARTNER_OATH.md`](PARTNER_OATH.md) — The Solemn Founding Oath between Deven Pawaray and Nexus AI).*
 
 ---
