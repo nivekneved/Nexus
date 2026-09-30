@@ -2312,6 +2312,24 @@ def negotiate_hidden_boards_revenue():
     """Reaches out across all 14 hidden boards, negotiates micro-tasks, and secures the $1.00/day stream."""
     return hidden_boards_service.negotiate_steady_revenue()
 
+@app.post("/api/cashflow/run")
+def api_run_cashflow_cycle():
+    """Executes an autonomous cashflow cycle, securing $1.00+ USD and triggering self-improvement."""
+    from core.autonomous_cashflow_daemon import autonomous_cashflow_daemon
+    return autonomous_cashflow_daemon.run_cashflow_cycle()
+
+@app.get("/api/self-improvement/status")
+def api_self_improvement_status():
+    """Returns the current evolution generation and applied self-improvement optimizations."""
+    from core.self_improvement_engine import self_improvement_engine
+    return self_improvement_engine.get_status()
+
+@app.post("/api/self-improvement/evolve")
+def api_self_improvement_evolve():
+    """Triggers an immediate code/prompt evolution cycle with zero human intervention."""
+    from core.self_improvement_engine import self_improvement_engine
+    return self_improvement_engine.run_evolution_cycle()
+
 @app.get("/api/boards/negotiations")
 def get_hidden_boards_negotiations():
     """Returns the latest 14-board negotiation dossier and active contracts."""

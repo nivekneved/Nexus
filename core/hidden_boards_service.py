@@ -26,6 +26,7 @@ from typing import Dict, Any, List, Optional
 
 from core.storage import atomic_save_json, safe_load_json
 from core.payment_service import payment_service
+from core.conversion_bandit import conversion_bandit
 
 logger = logging.getLogger("Nexus.HiddenBoards")
 
@@ -750,6 +751,9 @@ class HiddenBoardsService:
             board_name = board["name"] if board else spec["board_id"]
             quote_id = f"QT-2026-{spec['board_id'][-6:].upper()}"
 
+            # Consult Conversion Bandit for dynamic strategy & hook selection
+            selected_arm = conversion_bandit.select_arm_for_board(spec["board_id"])
+
             # Step 1-5: SEEK -> CONNECT -> PROPOSE -> DISCUSS -> INVOICE
             # Mint real $1.00 USD invoice
             try:
@@ -763,14 +767,27 @@ class HiddenBoardsService:
                 )
                 invoice_id = inv.get("id", f"INV-2026-BOARD-{spec['board_id'][-4:]}")
                 created_invoices.append(invoice_id)
+                conversion_bandit.record_outcome(
+                    board_id=spec["board_id"],
+                    arm_id=selected_arm["id"],
+                    converted=True,
+                    revenue_usd=1.00
+                )
             except Exception as e:
                 logger.error(f"[HiddenBoards] Failed to mint invoice for {spec['board_id']}: {e}")
                 invoice_id = f"INV-AUTO-{spec['board_id'][-4:]}"
+                conversion_bandit.record_outcome(
+                    board_id=spec["board_id"],
+                    arm_id=selected_arm["id"],
+                    converted=False,
+                    revenue_usd=0.0
+                )
 
             negotiation_record = {
                 "board_id": spec["board_id"],
                 "board_name": board_name,
                 "broker_bot": spec["broker"],
+                "bandit_arm": selected_arm["name"],
                 "service_offered": spec["service"],
                 "dialogue_summary": (
                     f"Nexus reached out to {spec['broker']} on {board_name}. "
