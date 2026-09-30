@@ -705,17 +705,32 @@ def update_agent_config(agent_id: str, new_config: Dict[str, Any]):
     success = agent.save_config(new_config)
     return {"success": success, "message": f"Updated settings for {agent.name}"}
 
+@app.get("/api/scheduler/status")
+def get_scheduler_status():
+    """Returns real-time status of central multi-agent scheduler and background daemons."""
+    return {
+        "success": True,
+        "scheduler_running": manager.is_scheduler_running,
+        "daemon_running": ecosystem_orchestrator.get_status().get("daemon_running", False),
+        "tunnel_active": ecosystem_orchestrator.get_status().get("tunnel_active", False),
+        "message": "Scheduler Active (24/7)" if manager.is_scheduler_running else "Scheduler Stopped"
+    }
+
 @app.post("/api/scheduler/toggle")
 def toggle_central_scheduler():
-    """Starts or stops the central multi-agent scheduler."""
+    """Starts or stops the central multi-agent scheduler and ensures background daemons are aligned."""
     if manager.is_scheduler_running:
         manager.stop_scheduler()
     else:
         manager.start_scheduler()
+        try:
+            ecosystem_orchestrator.start_all(port=8000)
+        except Exception as e:
+            print(f"[Ecosystem] Start notice: {e}")
     return {
         "success": True,
         "scheduler_running": manager.is_scheduler_running,
-        "message": "Scheduler running" if manager.is_scheduler_running else "Scheduler stopped"
+        "message": "Scheduler Active (24/7)" if manager.is_scheduler_running else "Scheduler Stopped"
     }
 
 # Real-Time Telemetry Streaming Endpoint (SSE)
@@ -3329,6 +3344,21 @@ def api_universal_approve_router(payload: UniversalApproveReq):
         edited_body=payload.edited_body
     )
     return res
+
+@app.get("/api/departmental/personas")
+def api_get_departmental_personas(department: Optional[str] = None):
+    """Returns 40+ departmental agent persona specifications integrated from alacambra/one-man-company."""
+    from core.departmental_personas import departmental_personas
+    return {"success": True, "personas": departmental_personas.get_personas(department=department)}
+
+@app.get("/api/departmental/personas/{persona_id}")
+def api_get_departmental_persona_detail(persona_id: str):
+    """Returns full content and prompt specification for a specific departmental persona."""
+    from core.departmental_personas import departmental_personas
+    detail = departmental_personas.get_persona_detail(persona_id)
+    if not detail:
+        raise HTTPException(status_code=404, detail="Persona not found")
+    return {"success": True, "persona": detail}
 
 class RevenueTrackReq(BaseModel):
     event_name: str

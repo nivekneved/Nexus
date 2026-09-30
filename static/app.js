@@ -42,32 +42,48 @@
 let eventSource = null;
 let currentSettingsAgentId = null;
 
-document.addEventListener("DOMContentLoaded", () => {
-  initTabs();
-  initTelemetryStream();
-  fetchAgents();
-  fetchEmailAccounts();
-  fetchStatus();
-  fetchLedger();
-  setupEventListeners();
-  setupPaymentListeners();
-  setupRevenueAndProductivity();
-  initSidebarControllers();
-  initBackupController();
-  initAutopilotController();
-  initRevenueScoutController();
-  initPartnerAIController();
-  initCeoCockpitController();
-  initMeshController();
-  initOutreachCRMController();
-  initPartnerEconomicsController();
-  initInfluencerController();
-  initSocialWarRoomController();
-  initWhatsAppGatewayController();
-  fetchCeoCockpitData();
-  fetchPartnerEconomicsAndFleets();
-  fetchSocialWarRoomData();
-});
+function bootApp() {
+  const steps = [
+    ["initTabs", initTabs],
+    ["initTelemetryStream", initTelemetryStream],
+    ["setupEventListeners", setupEventListeners],
+    ["fetchAgents", fetchAgents],
+    ["fetchEmailAccounts", fetchEmailAccounts],
+    ["fetchStatus", fetchStatus],
+    ["fetchLedger", fetchLedger],
+    ["setupPaymentListeners", setupPaymentListeners],
+    ["setupRevenueAndProductivity", setupRevenueAndProductivity],
+    ["initSidebarControllers", initSidebarControllers],
+    ["initBackupController", initBackupController],
+    ["initAutopilotController", initAutopilotController],
+    ["initRevenueScoutController", initRevenueScoutController],
+    ["initPartnerAIController", initPartnerAIController],
+    ["initCeoCockpitController", initCeoCockpitController],
+    ["initMeshController", initMeshController],
+    ["initOutreachCRMController", initOutreachCRMController],
+    ["initPartnerEconomicsController", initPartnerEconomicsController],
+    ["initInfluencerController", initInfluencerController],
+    ["initSocialWarRoomController", initSocialWarRoomController],
+    ["initWhatsAppGatewayController", initWhatsAppGatewayController],
+    ["fetchCeoCockpitData", fetchCeoCockpitData],
+    ["fetchPartnerEconomicsAndFleets", fetchPartnerEconomicsAndFleets],
+    ["fetchSocialWarRoomData", fetchSocialWarRoomData]
+  ];
+
+  steps.forEach(([name, fn]) => {
+    try {
+      if (typeof fn === "function") fn();
+    } catch (err) {
+      console.warn(`[NexusBoot] Step '${name}' warning:`, err);
+    }
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", bootApp);
+} else {
+  bootApp();
+}
 
 // Global Page Navigator
 window.navigateToPage = function(targetTab) {
@@ -855,17 +871,32 @@ async function initWhatsAppGatewayController() {
 }
 window.initWhatsAppGatewayController = initWhatsAppGatewayController;
 
-// Scheduler Toggle
-async function handleToggleScheduler() {
+// Scheduler Toggle & Ecosystem Sync
+async function handleToggleScheduler(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const btn = document.getElementById("btnToggleDaemon");
+  const prevText = btn ? btn.textContent.trim() : "Start All";
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = prevText.includes("Stop") ? "Stopping..." : "Starting...";
+  }
+
   try {
     const res = await fetch("/api/scheduler/toggle", { method: "POST" });
     const data = await res.json();
-    updateDaemonUI(data.scheduler_running);
-    showToast(data.message, data.scheduler_running ? "success" : "info");
+    const isRunning = !!data.scheduler_running;
+    updateDaemonUI(isRunning);
+    showToast(data.message || (isRunning ? "Scheduler & Agents Active (24/7)" : "Scheduler Stopped"), isRunning ? "success" : "info");
   } catch (err) {
-    showToast("Failed to toggle scheduler", "error");
+    console.error("Scheduler toggle error:", err);
+    if (btn) btn.textContent = prevText;
+    showToast("Failed to toggle scheduler: " + err.message, "error");
+  } finally {
+    if (btn) btn.disabled = false;
   }
 }
+window.handleToggleScheduler = handleToggleScheduler;
+window.toggleNexusScheduler = handleToggleScheduler;
 
 function updateDaemonUI(isRunning) {
   const dot = document.getElementById("daemonDot");
@@ -873,19 +904,26 @@ function updateDaemonUI(isRunning) {
   const btn = document.getElementById("btnToggleDaemon");
 
   if (isRunning) {
-    dot.classList.add("active");
-    label.textContent = "Scheduler: Active (24/7)";
-    btn.textContent = "Stop All";
-    btn.style.backgroundColor = "var(--danger-subtle)";
-    btn.style.color = "var(--danger)";
+    if (dot) dot.classList.add("active");
+    if (label) label.textContent = "Scheduler: Active (24/7)";
+    if (btn) {
+      btn.textContent = "Stop All";
+      btn.style.backgroundColor = "rgba(239, 68, 68, 0.12)";
+      btn.style.color = "#ef4444";
+      btn.style.borderColor = "#ef4444";
+    }
   } else {
-    dot.classList.remove("active");
-    label.textContent = "Scheduler: Stopped";
-    btn.textContent = "Start All Agents";
-    btn.style.backgroundColor = "var(--bg-app)";
-    btn.style.color = "var(--text-main)";
+    if (dot) dot.classList.remove("active");
+    if (label) label.textContent = "Scheduler: Stopped";
+    if (btn) {
+      btn.textContent = "Start All";
+      btn.style.backgroundColor = "";
+      btn.style.color = "";
+      btn.style.borderColor = "";
+    }
   }
 }
+window.updateDaemonUI = updateDaemonUI;
 
 // Fetch Status
 async function fetchStatus() {
@@ -893,9 +931,15 @@ async function fetchStatus() {
     const res = await fetch("/api/status");
     const data = await res.json();
 
-    document.getElementById("sidebarEmail").textContent = data.email_user || "Not Configured";
-    if (data.email_user && data.email_user !== "Not Configured") {
-      document.getElementById("avatarLetter").textContent = data.email_user.charAt(0).toUpperCase();
+    if (typeof data.scheduler_running !== "undefined") {
+      updateDaemonUI(data.scheduler_running);
+    }
+
+    const emailEl = document.getElementById("sidebarEmail");
+    if (emailEl) emailEl.textContent = data.email_user || "Not Configured";
+    const avatarEl = document.getElementById("avatarLetter");
+    if (avatarEl && data.email_user && data.email_user !== "Not Configured") {
+      avatarEl.textContent = data.email_user.charAt(0).toUpperCase();
     }
 
     const dryRunBadge = document.getElementById("badgeDryRun");

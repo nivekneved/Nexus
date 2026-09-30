@@ -732,8 +732,83 @@
         <div class="daemon-pill" id="daemonPill" style="margin: 0; width: 100%; justify-content: space-between; background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 6px 10px; border-radius: 8px;">
           <span class="daemon-status-dot" id="daemonDot"></span>
           <span class="daemon-label" id="daemonLabel" style="font-size: 0.72rem;">Scheduler: Stopped</span>
-          <button class="btn-daemon-toggle" id="btnToggleDaemon" style="font-size: 0.7rem; padding: 3px 8px;">Start All</button>
+          <button class="btn-daemon-toggle" id="btnToggleDaemon" onclick="toggleNexusScheduler(this)" title="Start or Stop all 24/7 autonomous agents & ecosystem background daemon" style="font-size: 0.7rem; padding: 3px 8px; cursor: pointer; transition: all 0.2s;">Start All</button>
         </div>
+        <script>
+          async function toggleNexusScheduler(btnEl) {
+            const btn = btnEl || document.getElementById("btnToggleDaemon");
+            const label = document.getElementById("daemonLabel");
+            const dot = document.getElementById("daemonDot");
+            const prevText = btn ? btn.textContent.trim() : "Start All";
+            if (btn) {
+              btn.disabled = true;
+              btn.textContent = prevText.includes("Stop") ? "Stopping..." : "Starting...";
+            }
+            try {
+              const res = await fetch("/api/scheduler/toggle", { method: "POST" });
+              const data = await res.json();
+              const isRunning = !!data.scheduler_running;
+              if (dot) {
+                if (isRunning) dot.classList.add("active");
+                else dot.classList.remove("active");
+              }
+              if (label) {
+                label.textContent = isRunning ? "Scheduler: Active (24/7)" : "Scheduler: Stopped";
+              }
+              if (btn) {
+                btn.textContent = isRunning ? "Stop All" : "Start All";
+                btn.style.backgroundColor = isRunning ? "rgba(239, 68, 68, 0.12)" : "";
+                btn.style.color = isRunning ? "#ef4444" : "";
+                btn.style.borderColor = isRunning ? "#ef4444" : "";
+              }
+              if (typeof window.updateDaemonUI === "function") {
+                window.updateDaemonUI(isRunning);
+              }
+              if (typeof window.showToast === "function") {
+                window.showToast(data.message || (isRunning ? "Scheduler & Agents Active" : "Scheduler Stopped"), isRunning ? "success" : "info");
+              }
+            } catch (err) {
+              console.error("Scheduler toggle failed:", err);
+              if (btn) btn.textContent = prevText;
+              if (typeof window.showToast === "function") {
+                window.showToast("Scheduler error: " + err.message, "error");
+              } else {
+                alert("Failed to toggle scheduler: " + err.message);
+              }
+            } finally {
+              if (btn) btn.disabled = false;
+            }
+          }
+          window.toggleNexusScheduler = toggleNexusScheduler;
+          window.handleToggleScheduler = toggleNexusScheduler;
+
+          // Sync initial state immediately as DOM renders
+          (async function syncSchedulerStateImmediate() {
+            try {
+              const res = await fetch("/api/status");
+              if (res.ok) {
+                const d = await res.json();
+                const isRunning = !!d.scheduler_running;
+                const dot = document.getElementById("daemonDot");
+                const label = document.getElementById("daemonLabel");
+                const btn = document.getElementById("btnToggleDaemon");
+                if (dot) {
+                  if (isRunning) dot.classList.add("active");
+                  else dot.classList.remove("active");
+                }
+                if (label) {
+                  label.textContent = isRunning ? "Scheduler: Active (24/7)" : "Scheduler: Stopped";
+                }
+                if (btn) {
+                  btn.textContent = isRunning ? "Stop All" : "Start All";
+                  btn.style.backgroundColor = isRunning ? "rgba(239, 68, 68, 0.12)" : "";
+                  btn.style.color = isRunning ? "#ef4444" : "";
+                  btn.style.borderColor = isRunning ? "#ef4444" : "";
+                }
+              }
+            } catch (e) {}
+          })();
+        </script>
       </div>
 
       <nav class="nav-menu" id="mainNavMenu">
@@ -5511,7 +5586,7 @@ window.toggleCeoLaunchpad = function() {
 
   <script src="/static/revenue_engine.js" defer></script>
   <script src="/static/dal.js" defer></script>
-  <script src="/static/app.js?v=3.2.0" defer></script>
+  <script src="/static/app.js?v=4.0.0" defer></script>
   <script src="/static/morning_triage.js" defer></script>
   <script src="/static/load_dashboard.js" defer></script>
 
