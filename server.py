@@ -2686,6 +2686,22 @@ def api_get_advanced_microwork_ledger():
     from core.advanced_autonomous_micro_task_worker import advanced_micro_task_worker
     return {"success": True, "contracts": advanced_micro_task_worker.get_ledger()}
 
+class PipelineRunRequest(BaseModel):
+    industry: Optional[str] = "Private Medical Clinics"
+
+@app.post("/api/pipeline/run")
+def api_run_full_pipeline(payload: Optional[PipelineRunRequest] = None):
+    """Executes the complete 5-stage commercial pipeline: Seek ➔ Connect ➔ Propose ➔ Sell ➔ Quote & Invoice."""
+    from core.end_to_end_pipeline_controller import end_to_end_pipeline_controller
+    ind = payload.industry if payload and payload.industry else "Private Medical Clinics"
+    return end_to_end_pipeline_controller.run_full_commercial_pipeline(target_industry=ind)
+
+@app.get("/api/pipeline/status")
+def api_get_pipeline_status():
+    """Returns total metrics across all executed commercial pipelines."""
+    from core.end_to_end_pipeline_controller import end_to_end_pipeline_controller
+    return {"success": True, "status": end_to_end_pipeline_controller.get_status()}
+
 
 
 # Static Files
