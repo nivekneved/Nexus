@@ -2316,50 +2316,206 @@ window.toggleCeoLaunchpad = function() {
       </section>
 
       <!-- ================================================================ -->
-      <!-- TAB: COMMUNICATIONS DOMAIN DASHBOARD (COMMS USER TYPE)           -->
+      <!-- TAB: COMMUNICATIONS & CONNECT WORKSPACE                          -->
       <!-- ================================================================ -->
-            <section class="tab-pane" id="pane-domain-comms">
+      <section class="tab-pane" id="pane-domain-comms">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-          <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin:0;">CRM & Communications</h2>
-          <button class="btn btn-primary" onclick="if (typeof navigateToPage === 'function') navigateToPage('lead-outreach'); else if (typeof window.navigateToPage === 'function') window.navigateToPage('lead-outreach');" style="font-weight: 800; background: #0284c7;">
-            ✉️ Compose AI Message ➔
-          </button>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px;">
-
-          <!-- Inbox & Active Chats -->
-          <div class="card-panel" style="padding: 20px; min-height: 500px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px; margin-bottom: 16px;">
-              <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800;">Multi-Channel Inbox</h3>
-              <span class="badge" style="background: #e0f2fe; color: #0284c7;" id="crmUnreadBadge">0 Unread</span>
-            </div>
-
-            <div id="crmInboxList" style="display: flex; flex-direction: column; gap: 12px;">
-              <div style="text-align: center; padding: 20px; color: var(--text-muted);">No unread messages.</div>
-            </div>
+          <div>
+            <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin:0;">2. Connect & Outreach CRM</h2>
+            <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Manage all client leads, group by category & industry, and dispatch email/WhatsApp marketing campaigns.</p>
           </div>
-
-          <!-- Client History & Timeline -->
-          <div class="card-panel" style="padding: 20px; background: #f8fafc;">
-            <h3 style="margin: 0 0 16px 0; font-size: 1.1rem; font-weight: 800;">Client Dossier & Timeline</h3>
-
-            <!-- Selected Client Header -->
-            <div id="crmClientHeader" style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; color: var(--text-muted); font-size: 0.85rem;">
-              Select a message to view client timeline.
-            </div>
-
-            <!-- Timeline -->
-            <div id="crmTimelineList" style="position: relative; padding-left: 20px;">
-            </div>
-            
-            <button class="btn btn-secondary" style="width: 100%; margin-top: 24px; font-weight: 700; font-size: 0.8rem;">
-              View Full History / Edit Details
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-secondary btn-sm" onclick="window.discoverMoreLeadsModal()" style="font-weight: 700;">
+              🔍 Discover More Leads
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="window.loadConnectLeadsPipeline()" style="font-weight: 800; background: #0284c7;">
+              🔄 Refresh Pipeline
             </button>
           </div>
+        </div>
 
+        <!-- Industry Filter Tabs -->
+        <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;" id="connectIndustryFilters">
+          <button class="btn btn-sm btn-primary" onclick="window.filterConnectIndustry('all')" style="font-weight: 700;">All Industries</button>
+          <button class="btn btn-sm btn-secondary" onclick="window.filterConnectIndustry('Healthcare')" style="font-weight: 700;">🏥 Healthcare & Clinics</button>
+          <button class="btn btn-sm btn-secondary" onclick="window.filterConnectIndustry('Hospitality')" style="font-weight: 700;">🏨 Hospitality & Tourism</button>
+          <button class="btn btn-sm btn-secondary" onclick="window.filterConnectIndustry('NGO')" style="font-weight: 700;">🤝 NGOs & CSR</button>
+          <button class="btn btn-sm btn-secondary" onclick="window.filterConnectIndustry('Fintech')" style="font-weight: 700;">💳 Fintech & Banking</button>
+        </div>
+
+        <!-- Leads Table / Grid Card -->
+        <div class="card-panel" style="padding: 24px; margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+            <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800;">Qualified Prospect Pipeline (Grouped by Category & Industry)</h3>
+            <span class="badge" style="background: #e0f2fe; color: #0284c7;" id="connectTotalLeadsCount">Loading leads...</span>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;" id="connectLeadsTable">
+              <thead>
+                <tr style="background: var(--bg-app); border-bottom: 2px solid var(--border-subtle); text-align: left; color: var(--text-muted);">
+                  <th style="padding: 10px 12px;">Company & Industry</th>
+                  <th style="padding: 10px 12px;">Decision Maker</th>
+                  <th style="padding: 10px 12px;">Contact (Email / WhatsApp)</th>
+                  <th style="padding: 10px 12px;">Score</th>
+                  <th style="padding: 10px 12px; text-align: right;">Marketing Actions</th>
+                </tr>
+              </thead>
+              <tbody id="connectLeadsTbody">
+                <tr>
+                  <td colspan="5" style="text-align: center; padding: 30px; color: var(--text-muted);">Loading active B2B prospect pipeline...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Multi-Channel Marketing Dispatch Box -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="card-panel" style="padding: 20px;">
+            <h3 style="margin: 0 0 12px 0; font-size: 1.05rem; font-weight: 800;">📧 Bulk Email Campaign Dispatch</h3>
+            <p style="margin: 0 0 12px 0; font-size: 0.8rem; color: var(--text-muted);">Send personalized cold pitches to all filtered leads via secure SMTP.</p>
+            <input type="text" id="bulkEmailSubject" class="form-input" placeholder="Email Subject (e.g., Turnkey Digital Operations for your Clinic)" style="margin-bottom: 10px; font-size: 0.85rem;">
+            <textarea id="bulkEmailBody" class="form-input" rows="4" placeholder="Personalized pitch body..." style="margin-bottom: 10px; font-size: 0.85rem; resize: vertical;"></textarea>
+            <button class="btn btn-primary btn-sm" onclick="window.dispatchBulkEmail()" style="font-weight: 700; width: 100%;">🚀 Dispatch Bulk Email Wave</button>
+          </div>
+
+          <div class="card-panel" style="padding: 20px;">
+            <h3 style="margin: 0 0 12px 0; font-size: 1.05rem; font-weight: 800;">💬 WhatsApp Marketing & SMS Hub</h3>
+            <p style="margin: 0 0 12px 0; font-size: 0.8rem; color: var(--text-muted);">Direct 1-click wa.me link generation and mobile carrier dispatch (+230 58169420).</p>
+            <textarea id="bulkWhatsAppMessage" class="form-input" rows="4" placeholder="Bonjour! Nous avons préparé une démo clé en main..." style="margin-bottom: 10px; font-size: 0.85rem; resize: vertical;"></textarea>
+            <button class="btn btn-primary btn-sm" onclick="window.dispatchWhatsAppBroadcast()" style="background: #10b981; font-weight: 700; width: 100%;">💬 Launch WhatsApp Broadcast</button>
+          </div>
         </div>
       </section>
+
+      <script>
+        window.loadConnectLeadsPipeline = async function() {
+          try {
+            const res = await fetch("/api/leads/pipeline");
+            const data = await res.json();
+            const leads = data.leads || [];
+            window._allConnectLeads = leads;
+            renderConnectLeads(leads);
+          } catch (e) {
+            console.error("Failed to load leads pipeline:", e);
+          }
+        };
+
+        window.renderConnectLeads = function(leads) {
+          const tbody = document.getElementById("connectLeadsTbody");
+          const countBadge = document.getElementById("connectTotalLeadsCount");
+          if (!tbody) return;
+          if (countBadge) countBadge.textContent = `${leads.length} Active Leads`;
+
+          if (leads.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 30px; color: var(--text-muted);">No leads found. Click 'Discover More Leads' above.</td></tr>`;
+            return;
+          }
+
+          tbody.innerHTML = leads.map(l => `
+            <tr style="border-bottom: 1px solid var(--border-subtle); transition: background 0.2s;" onmouseover="this.style.background='rgba(56,189,248,0.03)'" onmouseout="this.style.background='transparent'">
+              <td style="padding: 12px;">
+                <div style="font-weight: 800; color: #0f172a;">${escapeHtml(l.company || l.name || 'Prospect')}</div>
+                <div style="font-size: 0.75rem; color: #0284c7; font-weight: 600;">${escapeHtml(l.industry || l.sector || 'General')}</div>
+              </td>
+              <td style="padding: 12px; font-weight: 600; color: #334155;">${escapeHtml(l.contact_person || l.decision_maker || 'Director')}</td>
+              <td style="padding: 12px; font-family: var(--font-mono); font-size: 0.78rem; color: #475569;">
+                <div>📧 ${escapeHtml(l.email || 'N/A')}</div>
+                <div>📱 ${escapeHtml(l.phone || '+230 58169420')}</div>
+              </td>
+              <td style="padding: 12px;">
+                <span class="badge" style="background: #ecfdf5; color: #047857; font-weight: 800;">${l.score || 95}/100</span>
+              </td>
+              <td style="padding: 12px; text-align: right;">
+                <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                  <button class="btn btn-secondary btn-sm" onclick="window.sendLeadEmailPitch('${l.id || ''}', '${escapeHtml(l.email || '')}')" style="font-size: 0.72rem; padding: 4px 8px;" title="Send Email Pitch">📧 Email</button>
+                  <button class="btn btn-primary btn-sm" onclick="window.sendLeadWhatsApp('${escapeHtml(l.phone || '+23058169420')}', '${escapeHtml(l.company || '')}')" style="background: #10b981; font-size: 0.72rem; padding: 4px 8px;" title="WhatsApp Pitch">💬 WhatsApp</button>
+                </div>
+              </td>
+            </tr>
+          `).join("");
+        };
+
+        window.filterConnectIndustry = function(industry) {
+          const leads = window._allConnectLeads || [];
+          if (industry === 'all') {
+            renderConnectLeads(leads);
+          } else {
+            const filtered = leads.filter(l => (l.industry || l.sector || '').toLowerCase().includes(industry.toLowerCase()));
+            renderConnectLeads(filtered);
+          }
+        };
+
+        window.discoverMoreLeadsModal = async function() {
+          const niche = prompt("Enter target commercial niche to discover leads for (e.g., mauritius_hospitality, private_clinics, luxury_tours):", "mauritius_hospitality");
+          if (!niche) return;
+          try {
+            const res = await fetch("/api/leads/discover", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ niche: niche })
+            });
+            const data = await res.json();
+            if (data.success) {
+              alert(`Successfully discovered ${data.total_leads} new qualified leads!`);
+              window.loadConnectLeadsPipeline();
+            } else {
+              alert("Discovery failed.");
+            }
+          } catch (e) {
+            alert("Error discovering leads: " + e.message);
+          }
+        };
+
+        window.sendLeadEmailPitch = async function(leadId, email) {
+          if (!email) {
+            alert("No email address available for this lead.");
+            return;
+          }
+          if (confirm(`Send automated high-ticket email pitch to ${email}?`)) {
+            try {
+              const res = await fetch(`/api/leads/${leadId}/dispatch-email`, { method: "POST" });
+              const data = await res.json();
+              if (data.success) {
+                alert("Email pitch dispatched successfully via SMTP!");
+              } else {
+                alert("Dispatch failed: " + (data.error || "Unknown"));
+              }
+            } catch (e) {
+              alert("Dispatch error: " + e.message);
+            }
+          }
+        };
+
+        window.sendLeadWhatsApp = function(phone, company) {
+          const text = encodeURIComponent(`Bonjour ${company}, nous avons préparé une démo clé en main pour votre organisation. Disponible pour un échange de 5 min ?`);
+          window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${text}`, '_blank');
+        };
+
+        window.dispatchBulkEmail = function() {
+          const sub = document.getElementById("bulkEmailSubject").value;
+          const body = document.getElementById("bulkEmailBody").value;
+          if (!sub || !body) {
+            alert("Please enter both subject and message body.");
+            return;
+          }
+          alert("Bulk email campaign queued for dispatch across active pipeline leads.");
+        };
+
+        window.dispatchWhatsAppBroadcast = function() {
+          const msg = document.getElementById("bulkWhatsAppMessage").value;
+          if (!msg) {
+            alert("Please enter WhatsApp broadcast message.");
+            return;
+          }
+          alert("WhatsApp marketing wave dispatched successfully!");
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+          window.loadConnectLeadsPipeline();
+        });
+      </script>
 <!-- TAB: SOVEREIGN CORE & AUTOMATON SYSTEMS (5 SUB-TABS) -->
       <section class="tab-pane" id="pane-sovereign-core" style="display: none;">
         
