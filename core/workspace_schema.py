@@ -139,18 +139,60 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
     }
 }
 
+import copy
+
 def get_workspace_schema(workspace_id: str) -> Dict[str, Any]:
-    """Retrieve declarative schema for a given workspace."""
-    return WORKSPACES.get(workspace_id, {
-        "id": workspace_id,
-        "title": f"Workspace: {workspace_id.replace('-', ' ').title()}",
-        "badge": "Autonomous Fleet Panel",
-        "badge_color": "#4f46e5",
-        "desc": "Autonomous workspace panel synchronized with live telemetry and system events.",
-        "kpis": [
-            {"label": "Status", "icon": "⚡", "value": "Online", "sub": "System Armed"},
-            {"label": "Sync Mode", "icon": "🔄", "value": "Real-time", "sub": "Local WAL Storage"}
-        ],
-        "tasks": ["ceo_morning_standup", "comm_vending_tool", "ops_crypto_snapshot"],
-        "feed": {"title": "System Activity Log", "endpoint": "/api/autopilot/events", "type": "briefing"}
-    })
+    """Retrieve declarative schema for a given workspace populated with real-time DB metrics."""
+    base_schema = WORKSPACES.get(workspace_id)
+    if not base_schema:
+        return {
+            "id": workspace_id,
+            "title": f"Workspace: {workspace_id.replace('-', ' ').title()}",
+            "badge": "Autonomous Fleet Panel",
+            "badge_color": "#4f46e5",
+            "desc": "Autonomous workspace panel synchronized with live telemetry and system events.",
+            "kpis": [
+                {"label": "Status", "icon": "⚡", "value": "Online", "sub": "System Armed"},
+                {"label": "Sync Mode", "icon": "🔄", "value": "Real-time", "sub": "Local WAL Storage"}
+            ],
+            "tasks": ["ceo_morning_standup", "comm_vending_tool", "ops_crypto_snapshot"],
+            "feed": {"title": "System Activity Log", "endpoint": "/api/autopilot/events", "type": "briefing"}
+        }
+
+    schema = copy.deepcopy(base_schema)
+
+    # Query real database metrics and live Base L2 balance
+    try:
+        from core.db import get_real_revenue_metrics
+        from core.crypto_treasury import crypto_treasury
+        metrics = get_real_revenue_metrics()
+        wallet = crypto_treasury.get_wallet()
+        onchain_usdc = float(wallet.get("balance_usdc", 0.0))
+        wallet_addr = wallet.get("address", "0xEAE558282090d878582ec4C4C1C2470f9826b1F2")
+        short_addr = f"{wallet_addr[:6]}...{wallet_addr[-3:]}"
+
+        if workspace_id == "ceo-cockpit":
+            for kpi in schema.get("kpis", []):
+                if kpi.get("label") == "Monthly Goal":
+                    kpi["value"] = f"Rs {metrics['total_realized_mur']:,.0f} MUR"
+                    kpi["sub"] = f"Pipeline: Rs {metrics['total_pipeline_mur']:,.0f} MUR"
+                elif kpi.get("label") == "Treasury":
+                    kpi["value"] = f"${onchain_usdc:.2f} USDC"
+                    kpi["sub"] = "Base L2 Sovereign Vault"
+        elif workspace_id == "domain-commerce":
+            for kpi in schema.get("kpis", []):
+                if kpi.get("label") == "Accounts Receivable":
+                    kpi["value"] = f"Rs {metrics['total_pipeline_mur']:,.0f} MUR"
+                    kpi["sub"] = f"{metrics['total_invoices_count']} Tracked Invoices"
+                elif kpi.get("label") == "Base L2 Treasury":
+                    kpi["value"] = f"${onchain_usdc:.2f} USDC"
+                    kpi["sub"] = f"Wallet: {short_addr}"
+                elif kpi.get("label") == "Target Progress":
+                    pct = min(100, int((metrics["total_realized_mur"] / 150000.0) * 100)) if metrics["total_realized_mur"] > 0 else 0
+                    kpi["value"] = f"{pct}% Realized"
+                    kpi["sub"] = "Towards Rs 150,000 MUR"
+    except Exception as e:
+        # Fall back to base schema gracefully if DB query fails
+        pass
+
+    return schema

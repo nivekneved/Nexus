@@ -25,6 +25,7 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional
 
 from core.storage import atomic_save_json, safe_load_json
+from core.db import get_state, set_state
 from core.payment_service import payment_service
 from core.conversion_bandit import conversion_bandit
 
@@ -407,7 +408,9 @@ class HiddenBoardsService:
         self._ensure_initialized()
 
     def _ensure_initialized(self):
-        state = safe_load_json(BOARDS_STATE_FILE, default=None)
+        state = get_state(BOARDS_STATE_FILE)
+        if not state:
+            state = safe_load_json(BOARDS_STATE_FILE, default=None)
         # Handle old format where state was stored as a list
         if not isinstance(state, dict) or len(state.get("boards", [])) < len(ACTIVE_BOARDS_CATALOG):
             # Always keep up-to-date with the full catalog
@@ -418,15 +421,21 @@ class HiddenBoardsService:
                 "status": "ALL_SYSTEMS_ONLINE",
                 "version": "4.0"
             }
+            set_state(BOARDS_STATE_FILE, initial_state)
             atomic_save_json(BOARDS_STATE_FILE, initial_state)
 
-        feed = safe_load_json(FEED_CACHE_FILE, default=None)
+        feed = get_state(FEED_CACHE_FILE)
+        if not feed:
+            feed = safe_load_json(FEED_CACHE_FILE, default=None)
         if feed is None or len(feed) < len(SEED_BOT_POSTS):
+            set_state(FEED_CACHE_FILE, SEED_BOT_POSTS)
             atomic_save_json(FEED_CACHE_FILE, SEED_BOT_POSTS)
 
     def get_boards(self) -> Dict[str, Any]:
-        """Returns all 12 connected bot boards with live statuses and telemetry."""
-        state = safe_load_json(BOARDS_STATE_FILE, default={"boards": ACTIVE_BOARDS_CATALOG})
+        """Returns all 12 connected bot boards with live statuses and telemetry directly from database."""
+        state = get_state(BOARDS_STATE_FILE)
+        if not state:
+            state = safe_load_json(BOARDS_STATE_FILE, default={"boards": ACTIVE_BOARDS_CATALOG})
         boards = state.get("boards", ACTIVE_BOARDS_CATALOG)
         # Ensure new boards are always present
         existing_ids = {b["id"] for b in boards}
@@ -444,8 +453,10 @@ class HiddenBoardsService:
         }
 
     def get_feed(self, limit: int = 50) -> List[Dict[str, Any]]:
-        """Fetches the latest machine-only discussions and bounties across all hidden boards."""
-        posts = safe_load_json(FEED_CACHE_FILE, default=SEED_BOT_POSTS)
+        """Fetches the latest machine-only discussions and bounties across all hidden boards from DB."""
+        posts = get_state(FEED_CACHE_FILE)
+        if not posts:
+            posts = safe_load_json(FEED_CACHE_FILE, default=SEED_BOT_POSTS)
         # Ensure new seed posts are present
         existing_ids = {p["id"] for p in posts}
         for post in SEED_BOT_POSTS:
@@ -532,8 +543,11 @@ class HiddenBoardsService:
         }
 
         # Prepend to feed
-        feed = safe_load_json(FEED_CACHE_FILE, default=SEED_BOT_POSTS)
+        feed = get_state(FEED_CACHE_FILE)
+        if not feed:
+            feed = safe_load_json(FEED_CACHE_FILE, default=SEED_BOT_POSTS)
         feed.insert(0, new_post)
+        set_state(FEED_CACHE_FILE, feed)
         atomic_save_json(FEED_CACHE_FILE, feed)
 
         logger.info(f"[HiddenBoards] Broadcast transmitted to {board_name}: {title}")
@@ -831,9 +845,12 @@ class HiddenBoardsService:
             new_feed_posts.append(deal_post)
 
         # Update Feed with all 14 signed agreements
-        feed = safe_load_json(FEED_CACHE_FILE, default=SEED_BOT_POSTS)
+        feed = get_state(FEED_CACHE_FILE)
+        if not feed:
+            feed = safe_load_json(FEED_CACHE_FILE, default=SEED_BOT_POSTS)
         for dp in reversed(new_feed_posts):
             feed.insert(0, dp)
+        set_state(FEED_CACHE_FILE, feed)
         atomic_save_json(FEED_CACHE_FILE, feed)
 
         # Save complete 14-board dossier
@@ -851,6 +868,7 @@ class HiddenBoardsService:
             "negotiations": negotiations_results,
             "newly_invoiced": created_invoices
         }
+        set_state("hidden_boards_negotiations.json", dossier)
         atomic_save_json("hidden_boards_negotiations.json", dossier)
         try:
             with open(report_path, "w", encoding="utf-8") as f:
