@@ -94,14 +94,14 @@ async def security_shield_middleware(request: Request, call_next):
 
 
 # Dashboard Bearer-Token Authentication Middleware
-# Set NEXUS_DASHBOARD_TOKEN in your .env to enable.
+# Only enforced if NEXUS_ENFORCE_AUTH=true is explicitly set in .env
 _DASHBOARD_TOKEN = os.getenv("NEXUS_DASHBOARD_TOKEN", "")
-_UNPROTECTED_PATHS = {"/", "/license", "/terms", "/static", "/api/mesh/inbound", "/donate", "/donations", "/store", "/cybersecurity", "/download", "/.well-known/agent-card.json"}
+_ENFORCE_AUTH = os.getenv("NEXUS_ENFORCE_AUTH", "false").lower() == "true"
 
 @app.middleware("http")
 async def dashboard_auth_middleware(request: Request, call_next):
-    if not _DASHBOARD_TOKEN:
-        # Auth disabled — running in open dev mode
+    if not _ENFORCE_AUTH or not _DASHBOARD_TOKEN:
+        # Auth disabled by default for frictionless personal site usage
         return await call_next(request)
 
     path = request.url.path

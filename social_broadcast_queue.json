@@ -1,5 +1,45 @@
 [
   {
+    "timestamp": "2026-09-30 18:01:25",
+    "product_name": "\ud83d\uded2 1-Click $1 Python Script Compilation & Store Publishing",
+    "price": "$1.00 USD",
+    "checkout_url": "http://127.0.0.1:8000/store",
+    "status": "QUEUED_LOCAL",
+    "note": "Queued locally. Add DISCORD_WEBHOOK_URL to .env to push live automatically."
+  },
+  {
+    "timestamp": "2026-09-30 18:01:16",
+    "product_name": "\ud83d\udcca Daily Cash Flow & Liquidity Report for Sir Deven",
+    "price": "$1.00 USD",
+    "checkout_url": "http://127.0.0.1:8000/store",
+    "status": "QUEUED_LOCAL",
+    "note": "Queued locally. Add DISCORD_WEBHOOK_URL to .env to push live automatically."
+  },
+  {
+    "timestamp": "2026-09-30 18:01:05",
+    "product_name": "\ud83d\udcb3 PayPal 1-Click Invoice Generation for International Client",
+    "price": "$1.00 USD",
+    "checkout_url": "http://127.0.0.1:8000/store",
+    "status": "QUEUED_LOCAL",
+    "note": "Queued locally. Add DISCORD_WEBHOOK_URL to .env to push live automatically."
+  },
+  {
+    "timestamp": "2026-09-30 17:59:29",
+    "product_name": "\ud83d\udee1\ufe0f Automated Daily SQLite WAL Backup & SHA-256 Stamp",
+    "price": "$1.00 USD",
+    "checkout_url": "http://127.0.0.1:8000/store",
+    "status": "QUEUED_LOCAL",
+    "note": "Queued locally. Add DISCORD_WEBHOOK_URL to .env to push live automatically."
+  },
+  {
+    "timestamp": "2026-09-30 17:59:12",
+    "product_name": "\ud83d\udcac WhatsApp Flight Addon White-Label Pitch (Rs 40k + Rs 15k/yr)",
+    "price": "$1.00 USD",
+    "checkout_url": "http://127.0.0.1:8000/store",
+    "status": "QUEUED_LOCAL",
+    "note": "Queued locally. Add DISCORD_WEBHOOK_URL to .env to push live automatically."
+  },
+  {
     "timestamp": "2026-09-29 19:32:40",
     "product_name": "\ud83c\udfdd\ufe0f Mauritius Niche Lead Scouting: Inbound Travel DMCs & Villas",
     "price": "$1.00 USD",
