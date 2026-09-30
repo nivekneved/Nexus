@@ -5651,13 +5651,13 @@ window.toggleCeoLaunchpad = function() {
 
       <div class="jarvis-capsule-footer">
         <span style="font-size: 0.65rem; color: #64748b; font-family: var(--font-mono);">Shortcut: [Alt + J]</span>
-        <button id="btnJarvisCapsuleDrawer" title="Open Full Console" style="background: transparent; border: none; color: #38bdf8; font-size: 0.68rem; cursor: pointer; text-decoration: underline;">Open Console ↗</button>
+        <button id="btnJarvisCapsuleDrawer" onclick="window.navigateToPage('jarvis-voice')" title="Open Full Console" style="background: transparent; border: none; color: #38bdf8; font-size: 0.68rem; cursor: pointer; text-decoration: underline;">Open Console ↗</button>
       </div>
     </div>
 
     <!-- Master Floating Arc Reactor Mic Button -->
     <div class="jarvis-floating-orb-container">
-      <button class="jarvis-floating-orb" id="jarvisFloatingOrb" onclick="window.toggleJarvisListening()" title="J.A.R.V.I.S. Voice Assistant (Press Alt+J or Click to Speak)">
+      <button class="jarvis-floating-orb" id="jarvisFloatingOrb" onclick="window.navigateToPage('jarvis-voice'); window.toggleJarvisListening();" title="J.A.R.V.I.S. Voice Assistant (Press Alt+J or Click to Speak)">
         <svg viewBox="0 0 100 100" width="34" height="34" style="pointer-events: none;">
           <circle cx="50" cy="50" r="42" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="12 6"/>
           <circle cx="50" cy="50" r="28" fill="none" stroke="#38bdf8" stroke-width="2"/>
