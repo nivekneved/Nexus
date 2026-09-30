@@ -1,12 +1,13 @@
-import sys
-import os
+from fastapi import FastAPI
 
-# Enforce Vercel runtime flag
-os.environ["VERCEL"] = "1"
+app = FastAPI()
 
-# Add root directory to sys.path so server and core modules import cleanly on Vercel
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
+@app.get("/api/status")
+@app.get("/status")
+def status():
+    return {"status": "ok", "message": "Direct minimal api/index works"}
 
-from server import app
+@app.get("/api/health")
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
