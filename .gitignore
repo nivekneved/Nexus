@@ -1,105 +1,162 @@
-# ──────────────────────────────────────────────
-# NEXUS WORKFORCE — .gitignore
-# ──────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# NEXUS SOVEREIGN ENGINE — .gitignore
+# ─────────────────────────────────────────────────────────────────────────────
+# Principle of Least Privilege:
+# Only the public application codebase, schemas, and templates are tracked.
+# All client PII, lead pipelines, commercial ledgers, private keys, wallet
+# keystores, internal logs, and environment secrets are strictly excluded.
+# ─────────────────────────────────────────────────────────────────────────────
 
-# Environment secrets — NEVER COMMIT
+# ─── 1. Environment Secrets & API Credentials (NEVER COMMIT) ─────────────────
 .env
-.env.local
-.env.*.local
-.vercel
+.env.*
+!.env.example
+*.env
 *.key
 *.pem
-
-# Runtime-generated data (auto-created by agents)
-data/
-logs/
-backups/
-.shadow_bak/
-reports/
-scratch/
-*.tmp
-
-# Live config & credentials — NEVER COMMIT
-email_accounts.json
-*.log
+*.cert
+*.crt
+*.pfx
+*.p12
 *.token
+id_rsa*
+id_ed25519*
+credentials*.json
+client_secret*.json
+service_account*.json
+firebase-adminsdk*.json
+email_accounts.json
+.vercel
 
-# Financial, Customer & Private Ledgers — NEVER COMMIT
+# ─── 2. Financial, Customer & Commercial Ledgers (Client Data Privacy) ──────
+data/
+data/**
 invoices.json
+*invoices*.json
+leads_pipeline.json
+contact_history.json
+abandoned_leads.json
+support_tickets.json
+vetted_tasks_history.json
 trash_ledger.json
 processed_juice_refs.json
 financial_audit.log
-leads_pipeline.json
-contact_history.json
-mesh_messages.json
-mesh_contacts.json
-support_tickets.json
+
+# ─── 3. Sovereign Crypto Wallet, Keys & Transactions ─────────────────────────
 crypto_keystore.json
 crypto_spend_history.json
 crypto_transactions.json
 crypto_wallet.json
 revenue_events.json
-abandoned_leads.json
-vetted_tasks_history.json
-supabase/.temp/
-*.sql
-*.bak
 
-# Dynamic Agent Runtime State & Briefs
+# ─── 4. Machine Mesh, Hidden Boards & Learning State ─────────────────────────
+mesh_messages.json
+mesh_contacts.json
+hidden_boards_feed.json
+hidden_boards_state.json
+hidden_boards_negotiations.json
+conversion_bandit_state.json
+self_improvement_state.json
 autopilot_state.json
-daily_newsletter_digest.json
-daily_newsletter_digest.md
+daily_brief_state.json
+jarvis_chat_history.json
+influencer_campaigns.json
+social_signals.json
+addons_state.json
+partner_decisions.json
+partner_directives.json
+revenue_blueprints.json
+spec_audit_reports.json
+localization_audit.json
 infra_finance_audit.json
+repo_radar_alerts.json
+subscriptions_catalog.json
+overnight_activity.json
 latest_standup_brief.json
 latest_tech_dossier.json
 latest_tech_dossier.md
+daily_newsletter_digest.json
+daily_newsletter_digest.md
 mobile_notifications.json
-overnight_activity.json
-repo_radar_alerts.json
-subscriptions_catalog.json
-addons_state.json
-localization_audit.json
-partner_decisions.json
-partner_directives.json
-spec_audit_reports.json
-revenue_blueprints.json
 projects.json
-hidden_boards_feed.json
-hidden_boards_state.json
-influencer_campaigns.json
-social_signals.json
-daily_brief_state.json
-jarvis_chat_history.json
 
+# ─── 5. Logs, Backups, Reports & Runtime Scratchpad ─────────────────────────
+logs/
+logs/**
+*.log
+reports/
+reports/**
+backups/
+backups/**
+.shadow_bak/
+.shadow_bak/**
+scratch/
+scratch/**
+*.tmp
+*.bak
+*.pid
+*.swp
+*~
+supabase/.temp/
 
+# ─── 6. Cloudflare & Tunnel Caches ───────────────────────────────────────────
+.cloudflared/
+*.lnk
 
+# ─── 7. Databases & Storage Artifacts ─────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+*.sql
 
-# Python bytecode & cache
+# ─── 8. Python Runtime & Virtual Environments ────────────────────────────────
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 .Python
-
-# Virtual environments
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 venv/
 .venv/
 env/
 ENV/
 
-# SQLite database (runtime state)
-*.db
-*.sqlite3
+# ─── 9. Testing & Quality Assurance ──────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
 
-# OS noise
+# ─── 10. Node.js & Webpack ───────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── 11. IDE & OS Artifacts ──────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 desktop.ini
-
-# IDE
 .idea/
+.vscode/*
+!.vscode/settings.json
 *.suo
 *.user
-
-.vercel
-.env*
+*.useros
