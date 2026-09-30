@@ -38,6 +38,11 @@ BASE_USDC_CONTRACT = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
 USDC_DECIMALS = 6
 
 
+class SecurityException(Exception):
+    """Raised when security guardrails, approvals, or validation checks fail."""
+    pass
+
+
 class CryptoTreasury:
     """
     Manages Nexus's sovereign on-chain identity, cryptographic key vault,
@@ -157,7 +162,7 @@ class CryptoTreasury:
             "settlement_rate_mur": bank_cfg["settlement_rate_mur"],
             "wallet_type": "ECDSA_SECP256K1_SOVEREIGN",
             "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-            "owner": "Deven Pawaray (Nexus Sovereign Partner)"
+            "owner": os.getenv("FOUNDER_NAME", "Founder")
         }
         try:
             with open(self.wallet_path, "w", encoding="utf-8") as f:
@@ -174,12 +179,12 @@ class CryptoTreasury:
 
         return {
             "bank_name": "The Mauritius Commercial Bank (MCB)",
-            "account_name": os.getenv("MCB_ACCOUNT_NAME", "Deven Pawaray").strip(),
-            "account_number": os.getenv("MCB_ACCOUNT_NUMBER", "000443260370").strip(),
+            "account_name": os.getenv("MCB_ACCOUNT_NAME", os.getenv("FOUNDER_NAME", "Founder")).strip(),
+            "account_number": os.getenv("MCB_ACCOUNT_NUMBER", os.getenv("OFFRAMP_BANK_REF", "Configured in .env")).strip(),
             "iban": os.getenv("MCB_IBAN", "MU57MCBL0944000443260370000MUR").strip(),
             "swift": os.getenv("MCB_SWIFT", "MCBLMUMU").strip(),
-            "juice_mobile": os.getenv("MCB_JUICE_PHONE", "+230 58169420").strip(),
-            "paypal_email": os.getenv("PAYPAL_MERCHANT_EMAIL", "devenpawaray@gmail.com").strip(),
+            "juice_mobile": os.getenv("MCB_JUICE_PHONE", os.getenv("FOUNDER_WHATSAPP", "+23058169420")).strip(),
+            "paypal_email": os.getenv("PAYPAL_MERCHANT_EMAIL", os.getenv("FOUNDER_EMAIL", "Configured in .env")).strip(),
             "settlement_rate_mur": rate,
             "status": "CONNECTED_AND_VERIFIED"
         }
@@ -289,13 +294,33 @@ class CryptoTreasury:
         recipient_address: str,
         amount_usdc: float,
         reason: str,
-        token: str = "USDC"
+        token: str = "USDC",
+        requires_founder_approval: bool = True,
+        approval_token: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         AUTONOMOUSLY SPENDS FROM NEXUS'S WALLET.
-        Executes pre-flight guardrail verification, builds the EIP-1559 transaction,
+        Executes explicit confirmation/authorization check, pre-flight guardrail verification, builds the EIP-1559 transaction,
         signs it with Nexus's real private key, broadcasts to Base L2, and records the debit.
         """
+        # 0. Explicit Confirmation / Authorization Check (Crypto Treasury Guardrails)
+        if requires_founder_approval:
+            approved_env = os.getenv("NEXUS_FOUNDER_APPROVED", "false").strip().lower()
+            expected_token = os.getenv("FOUNDER_APPROVAL_TOKEN", "").strip()
+            is_authorized = False
+            if approved_env == "true":
+                is_authorized = True
+            elif expected_token and approval_token and approval_token == expected_token:
+                is_authorized = True
+
+            if not is_authorized:
+                raise SecurityException(
+                    "SecurityException: On-chain transaction execution blocked. "
+                    "Explicit founder approval is missing or unauthorized (requires_founder_approval=True, "
+                    "NEXUS_FOUNDER_APPROVED != true, and invalid/missing approval token). "
+                    "Protected against prompt-injection exfiltration."
+                )
+
         # 1. Pre-flight verification by CryptoVerifier guardrails
         is_allowed, justification = crypto_verifier.verify_spend(
             amount_usd=amount_usdc,

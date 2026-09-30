@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DAILY_BRIEF_STATE_FILE = "daily_brief_state.json"
-PHONE_TARGET = "+23058169420"
+PHONE_TARGET = os.getenv("FOUNDER_WHATSAPP", "+23058169420")
 
 class DailyBriefService:
     def __init__(self):

@@ -236,4 +236,41 @@ class LegalGuardrailsService:
             "reason": "Passed all legal, deliverability, and rate-limit guardrails"
         }
 
+    def prepare_outbound_email(
+        self,
+        to_email: str,
+        subject: str,
+        body: str,
+        additional_headers: Optional[Dict[str, str]] = None
+    ) -> Tuple[str, str, Dict[str, str]]:
+        """
+        Performs strict suppression list validation and outbound email preparation:
+        1. Strict suppression list validation before any dispatch occurs.
+        2. CAN-SPAM / GDPR opt-out footer injection.
+        3. Automatic injection of RFC 2369 List-Unsubscribe and List-Unsubscribe-Post headers.
+        """
+        clean_email = (to_email or "").strip().lower()
+
+        # Strict suppression list validation before dispatch
+        is_supp, supp_reason = self.is_suppressed(clean_email)
+        if is_supp:
+            raise ValueError(f"Strict Suppression List Violation: Dispatch to '{clean_email}' is blocked. Reason: {supp_reason}")
+
+        # Pre-flight check (suppression, cooldown, quota, MX records)
+        check = self.pre_flight_check(clean_email)
+        if not check.get("allowed"):
+            raise ValueError(f"Legal Guardrail Dispatch Blocked ({check.get('code')}): {check.get('reason')}")
+
+        # Append opt-out footer
+        compliant_body = self.append_opt_out_footer(body, clean_email)
+
+        # Inject RFC 2369 List-Unsubscribe headers
+        headers = additional_headers.copy() if additional_headers else {}
+        unsub_url = f"https://nexus-workforce.vercel.app/unsubscribe?email={clean_email}"
+        unsub_mailto = f"mailto:unsubscribe@nexus-workforce.com?subject=unsubscribe-{clean_email}"
+        headers["List-Unsubscribe"] = f"<{unsub_mailto}>, <{unsub_url}>"
+        headers["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
+
+        return subject, compliant_body, headers
+
 legal_guardrails = LegalGuardrailsService()

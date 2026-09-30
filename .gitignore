@@ -38,6 +38,9 @@ crypto_keystore.json
 crypto_spend_history.json
 crypto_transactions.json
 crypto_wallet.json
+revenue_events.json
+abandoned_leads.json
+vetted_tasks_history.json
 supabase/.temp/
 *.sql
 *.bak

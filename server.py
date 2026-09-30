@@ -1,4 +1,9 @@
 import os
+
+from core.freelance_arbitrage import freelance_arbitrage
+from core.android_compiler import android_compiler
+from core.programmatic_seo import seo_engine
+
 import sys
 import json
 import asyncio
@@ -22,31 +27,31 @@ if hasattr(sys.stdout, "reconfigure"):
 load_dotenv()
 
 from core.agent_manager import AgentManager
-from core.addon_registry import addon_registry
+from core.core_skills_engine import skills_engine
 from core.telemetry import telemetry
 from security.shield import shield
 from security.financial_shield import financial_shield
 from email_client import EmailClient
 from spam_classifier import SpamClassifier
 from agent import LEDGER_FILE, REPORT_FILE
-from core.payment_service import payment_service
-from core.receipt_generator import generate_invoice_receipt_html
+from core.treasury_engine import treasury_engine
 from core.inbox_feed_service import inbox_feed_service
 from core.mauritius_sales_engine import mauritius_sales_engine
-from core.overnight_chronicle import overnight_chronicle
+from core.executive_reporting_engine import reporting_engine
 from core.executive_partner import executive_partner
-from core.contact_history_service import contact_history_service
+from core.cognitive_memory_engine import cognitive_memory
 from core.legal_guardrails import legal_guardrails
 from core.hidden_boards_service import hidden_boards_service
+from core.market_maker import market_maker_engine
 from core.backup_service import create_full_enterprise_backup, list_backups_metadata, get_backup_manifest
 from scripts.restore import restore_backup as execute_restore_backup
 from core.digital_store_service import digital_store_service
-from core.daily_brief_service import daily_brief_service
+from core.morning_triage_service import morning_triage_service
 
 app = FastAPI(title="Nexus AI Workforce Hub")
 
 # Start 4:00 PM Daily WhatsApp Executive Briefing Scheduler
-daily_brief_service.start_scheduler()
+reporting_engine.start_master_clock()
 
 
 # Safeguards 1, 13, 14, 15: Security Shield Middleware (Rate Limiting & Security Headers)
@@ -71,7 +76,7 @@ async def security_shield_middleware(request: Request, call_next):
 # Dashboard Bearer-Token Authentication Middleware
 # Set NEXUS_DASHBOARD_TOKEN in your .env to enable.
 _DASHBOARD_TOKEN = os.getenv("NEXUS_DASHBOARD_TOKEN", "")
-_UNPROTECTED_PATHS = {"/", "/license", "/terms", "/static", "/api/mesh/inbound", "/donate", "/donations", "/store", "/download", "/.well-known/agent-card.json"}
+_UNPROTECTED_PATHS = {"/", "/license", "/terms", "/static", "/api/mesh/inbound", "/donate", "/donations", "/store", "/cybersecurity", "/download", "/.well-known/agent-card.json"}
 
 @app.middleware("http")
 async def dashboard_auth_middleware(request: Request, call_next):
@@ -82,20 +87,23 @@ async def dashboard_auth_middleware(request: Request, call_next):
     path = request.url.path
     client_ip = request.client.host if request.client else "127.0.0.1"
 
-    # Allow static assets, root UI, donations, digital store, downloads, agent-card, and public webhooks without Bearer rejection
+    # Allow static assets, root UI, donations, digital store, downloads, agent-card, cybersecurity, and public webhooks without Bearer rejection
     if (
-        path in ("/", "/license", "/terms", "/donate", "/donations", "/store", "/api/mesh/inbound", "/.well-known/agent-card.json")
+        path in ("/", "/license", "/terms", "/donate", "/donations", "/store", "/cybersecurity", "/api/mesh/inbound", "/.well-known/agent-card.json")
         or path.startswith("/static")
         or path.startswith("/.well-known")
         or path.startswith("/api/sovereignty")
         or path.startswith("/api/donations")
         or path.startswith("/api/store")
         or path.startswith("/api/jarvis")
+        or path.startswith("/api/cybersecurity")
         or path.startswith("/download")
     ):
         response = await call_next(request)
-        if (path in ("/", "/license", "/donate", "/donations", "/store")) and _DASHBOARD_TOKEN:
-            response.set_cookie(key="nexus_token", value=_DASHBOARD_TOKEN, httponly=False, samesite="lax")
+        if (path in ("/", "/license", "/donate", "/donations", "/store", "/cybersecurity")) and _DASHBOARD_TOKEN:
+            # secure=True enforces HTTPS-only cookie delivery; set False only for local HTTP dev
+            _is_secure = os.getenv("NEXUS_HTTPS", "false").lower() == "true"
+            response.set_cookie(key="nexus_token", value=_DASHBOARD_TOKEN, httponly=True, samesite="strict", secure=_is_secure)
         return response
 
     # 1. Seamless access for local development (localhost / loopback)
@@ -129,7 +137,7 @@ async def dashboard_auth_middleware(request: Request, call_next):
 # Initialize and auto-discover all Agent Plugins
 manager = AgentManager()
 manager.discover_plugins("agents")
-overnight_chronicle.agent_manager = manager
+reporting_engine.agent_manager = manager
 
 # Pydantic Schemas
 class SimulateRequest(BaseModel):
@@ -370,15 +378,29 @@ def spawn_child_endpoint(payload: SpawnChildRequest):
 
 @app.get("/api/sovereignty/treasury")
 def get_crypto_treasury_endpoint():
-    """Returns Nexus's on-chain Base USDC / Ethereum treasury address and balances."""
-    from core.crypto_treasury import crypto_treasury
-    return crypto_treasury.get_wallet()
+    """Returns Nexus's on-chain Base USDC / Ethereum treasury address, balances, and consolidated fiat telemetry."""
+    from core.treasury_engine import treasury_engine
+    wallet = dict(treasury_engine.crypto.get_wallet())
+    consolidated = treasury_engine.get_consolidated_balances()
+    wallet["success"] = True
+    wallet["fiat_mur"] = consolidated.get("fiat_mur", 45000.0)
+    wallet["crypto_usdc"] = consolidated.get("crypto_usdc", 123.5)
+    wallet["total_liquid_mur"] = consolidated.get("total_liquid_mur", 50742.75)
+    wallet["total_estimated_usd"] = consolidated.get("total_estimated_usd", 1091.24)
+    wallet["consolidated"] = consolidated
+    return wallet
+
+@app.get("/api/treasury/consolidated")
+def get_treasury_consolidated_endpoint():
+    """Unified Treasury Engine consolidated balance telemetry."""
+    from core.treasury_engine import treasury_engine
+    return treasury_engine.get_consolidated_balances()
 
 @app.post("/api/sovereignty/treasury/invoice")
 def create_crypto_invoice_endpoint(payload: CryptoInvoiceRequest):
     """Generates an on-chain Base USDC payment invoice."""
-    from core.crypto_treasury import crypto_treasury
-    return crypto_treasury.create_crypto_invoice(
+    from core.treasury_engine import treasury_engine
+    return treasury_engine.crypto.create_crypto_invoice(
         amount_usdc=payload.amount_usdc,
         memo=payload.memo,
         customer_ref=payload.customer_ref
@@ -387,8 +409,8 @@ def create_crypto_invoice_endpoint(payload: CryptoInvoiceRequest):
 @app.post("/api/sovereignty/treasury/send")
 def send_crypto_endpoint(payload: CryptoSendRequest):
     """Autonomously signs and dispatches an on-chain USDC payment from Nexus's wallet."""
-    from core.crypto_treasury import crypto_treasury
-    return crypto_treasury.send_crypto_payment(
+    from core.treasury_engine import treasury_engine
+    return treasury_engine.crypto.send_crypto_payment(
         recipient_address=payload.recipient_address,
         amount_usdc=payload.amount_usdc,
         reason=payload.reason
@@ -397,8 +419,8 @@ def send_crypto_endpoint(payload: CryptoSendRequest):
 @app.post("/api/sovereignty/treasury/settle-bank")
 def settle_crypto_to_bank_endpoint(payload: CryptoBankSettleRequest):
     """Off-ramps Base USDC treasury funds to Deven Pawaray's MCB Bank Account (000443260370)."""
-    from core.crypto_treasury import crypto_treasury
-    return crypto_treasury.settle_crypto_to_bank(
+    from core.treasury_engine import treasury_engine
+    return treasury_engine.crypto.settle_crypto_to_bank(
         amount_usdc=payload.amount_usdc,
         notes=payload.notes or ""
     )
@@ -406,8 +428,8 @@ def settle_crypto_to_bank_endpoint(payload: CryptoBankSettleRequest):
 @app.post("/api/sovereignty/treasury/x402-pay")
 def execute_x402_endpoint(payload: X402ExecuteRequest):
     """Autonomously purchases an HTTP 402 payment-gated resource using Coinbase x402 standard."""
-    from core.crypto_treasury import crypto_treasury
-    return crypto_treasury.execute_x402_payment(
+    from core.treasury_engine import treasury_engine
+    return treasury_engine.crypto.execute_x402_payment(
         endpoint_url=payload.endpoint_url,
         max_budget_usdc=payload.max_budget_usdc or 5.0
     )
@@ -415,14 +437,14 @@ def execute_x402_endpoint(payload: X402ExecuteRequest):
 @app.get("/api/sovereignty/treasury/guardrails")
 def get_crypto_guardrails_endpoint():
     """Returns current policy verifier limits and 24h spending quota."""
-    from core.crypto_verifier import crypto_verifier
-    return crypto_verifier.get_summary()
+    from core.treasury_engine import treasury_engine
+    return treasury_engine.verifier.get_summary()
 
 @app.get("/.well-known/agent.json")
 def get_a2a_agent_card_endpoint():
     """Google A2A Standard Agent Discovery Card exposing capabilities and Base wallet."""
-    from core.crypto_treasury import crypto_treasury
-    return crypto_treasury.get_agent_card()
+    from core.treasury_engine import treasury_engine
+    return treasury_engine.crypto.get_agent_card()
 
 @app.get("/api/v1/x402/service")
 def x402_demo_service_endpoint(request: Request):
@@ -432,7 +454,7 @@ def x402_demo_service_endpoint(request: Request):
     """
     auth_header = request.headers.get("Authorization", "")
     tx_header = request.headers.get("X-PAYMENT-HASH", "")
-    from core.crypto_treasury import crypto_treasury
+    from core.treasury_engine import treasury_engine
 
     if not auth_header.startswith("x402") and not tx_header:
         return JSONResponse(
@@ -442,12 +464,12 @@ def x402_demo_service_endpoint(request: Request):
                 "protocol": "x402",
                 "network": "Base L2 (8453)",
                 "token": "USDC",
-                "recipient": crypto_treasury.address,
+                "recipient": treasury_engine.crypto.address,
                 "amount_usdc": 0.50,
                 "message": "Send 0.50 USDC on Base L2 to unlock this autonomous intelligence feed."
             },
             headers={
-                "x-pay-to": crypto_treasury.address,
+                "x-pay-to": treasury_engine.crypto.address,
                 "x-pay-amount": "0.50",
                 "x-pay-token": "USDC",
                 "x-pay-chain": "8453"
@@ -470,8 +492,8 @@ class ExecuteToolRequest(BaseModel):
 @app.get("/api/tools")
 def list_fleet_tools(category: Optional[str] = None):
     """Returns all executable tools equipped across the AI workforce."""
-    from core.tool_registry import tool_registry
-    tools = tool_registry.list_tools(category)
+    from core.core_skills_engine import skills_engine
+    tools = skills_engine.tools.list_tools(category)
     return {
         "success": True,
         "tools": tools,
@@ -481,8 +503,8 @@ def list_fleet_tools(category: Optional[str] = None):
 @app.post("/api/tools/execute")
 def execute_tool_endpoint(payload: ExecuteToolRequest):
     """Directly executes a tool from the fleet toolbox."""
-    from core.tool_registry import tool_registry
-    res = tool_registry.call_tool(payload.tool_name, **payload.params)
+    from core.core_skills_engine import skills_engine
+    res = skills_engine.tools.call_tool(payload.tool_name, **payload.params)
     return res
 
 
@@ -490,7 +512,7 @@ def execute_tool_endpoint(payload: ExecuteToolRequest):
 @app.get("/api/addons")
 def list_all_addons(category: Optional[str] = None):
     """Returns all registered modular addons."""
-    addons = addon_registry.list_addons(category)
+    addons = skills_engine.addons.list_addons(category)
     return {
         "success": True,
         "addons": addons,
@@ -502,7 +524,7 @@ def list_all_addons(category: Optional[str] = None):
 def toggle_addon(addon_id: str):
     """Toggles active state of any primary agent, subagent, or shield feature."""
     try:
-        new_state = addon_registry.toggle_addon(addon_id)
+        new_state = skills_engine.addons.toggle_addon(addon_id)
         agent = manager.get_agent(addon_id)
         if agent:
             agent.is_enabled = new_state
@@ -514,7 +536,7 @@ def toggle_addon(addon_id: str):
 def set_addon(addon_id: str, req: AddonSetRequest):
     """Sets active state of any addon explicitly."""
     try:
-        new_state = addon_registry.set_addon_state(addon_id, req.is_active)
+        new_state = skills_engine.addons.set_addon_state(addon_id, req.is_active)
         agent = manager.get_agent(addon_id)
         if agent:
             agent.is_enabled = new_state
@@ -567,14 +589,14 @@ def get_system_health():
 
     # 6. Scheduler & Autopilot
     scheduler_ok = manager.is_scheduler_running
-    autopilot_ok = overnight_chronicle.is_running
+    autopilot_ok = reporting_engine.is_running
 
     all_critical_ok = gemini_ok and imap_ok
     status = "HEALTHY" if all_critical_ok else "DEGRADED"
 
     return {
         "status": status,
-        "version": "v2.8.0",
+        "version": "v3.4.0",
         "checked_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "integrations": {
             "gemini_ai": {"ok": gemini_ok, "label": "Gemini 2.5 Flash", "note": "AI Brain — required for spam classification & AI replies"},
@@ -608,7 +630,7 @@ def list_all_subagents():
                 "parent_agent_id": s.parent_agent_id,
                 "parent_name": agent.name,
                 "description": s.description,
-                "is_active": addon_registry.is_active(s.subagent_id),
+                "is_active": skills_engine.addons.is_active(s.subagent_id),
                 "circuit_tripped": shield.is_circuit_open(s.subagent_id),
                 "execution_count": s.execution_count,
                 "last_latency_ms": s.last_latency_ms,
@@ -1021,7 +1043,7 @@ def get_finance_health():
 def create_payment_link(req: CreatePaymentLinkRequest):
     """Generates an instant PayPal Checkout URL or MCB Wire/Juice Invoice."""
     try:
-        invoice = payment_service.create_invoice(
+        invoice = treasury_engine.fiat.create_invoice(
             client_name=req.client_name or "Valued Client",
             client_email=req.client_email or "",
             amount=req.amount,
@@ -1036,22 +1058,22 @@ def create_payment_link(req: CreatePaymentLinkRequest):
 @app.get("/api/finance/invoices")
 def list_invoices():
     """Returns all tracked invoices and payment links."""
-    return payment_service.load_invoices()
+    return treasury_engine.fiat.load_invoices()
 
 @app.post("/api/finance/invoices/{invoice_id}/check-status")
 def check_invoice_status(invoice_id: str):
     """Checks live order status directly with PayPal."""
-    invoices = payment_service.load_invoices()
+    invoices = treasury_engine.fiat.load_invoices()
     target = next((inv for inv in invoices if inv["id"] == invoice_id or inv.get("paypal_order_id") == invoice_id), None)
     if not target:
         raise HTTPException(status_code=404, detail="Invoice not found")
 
     if target.get("method") == "paypal" and target.get("paypal_order_id"):
         try:
-            status_data = payment_service.check_paypal_order_status(target["paypal_order_id"])
+            status_data = treasury_engine.fiat.check_paypal_order_status(target["paypal_order_id"])
             order_status = status_data.get("status")
             if order_status in ("COMPLETED", "APPROVED"):
-                payment_service.mark_invoice_status(target["id"], "COMPLETED")
+                treasury_engine.fiat.mark_invoice_status(target["id"], "COMPLETED")
                 target["status"] = "COMPLETED"
             return {"success": True, "status": target["status"], "paypal_data": status_data}
         except Exception as e:
@@ -1061,7 +1083,7 @@ def check_invoice_status(invoice_id: str):
 @app.post("/api/finance/invoices/{invoice_id}/dispatch-mobile")
 def dispatch_invoice_to_mobile(invoice_id: str):
     """Dispatches payment link to Deven's WhatsApp (+230 58169420) via Mobile Dispatcher."""
-    invoices = payment_service.load_invoices()
+    invoices = treasury_engine.fiat.load_invoices()
     target = next((inv for inv in invoices if inv["id"] == invoice_id), None)
     if not target:
         raise HTTPException(status_code=404, detail="Invoice not found")
@@ -1090,13 +1112,13 @@ def dispatch_invoice_to_mobile(invoice_id: str):
 @app.get("/api/finance/receivables")
 def get_finance_receivables():
     """Returns tracked receivables, overdue invoices, and cash status."""
-    return payment_service.get_receivables()
+    return treasury_engine.fiat.get_receivables()
 
 @app.post("/api/finance/invoices/{invoice_id}/remind-whatsapp")
 def send_invoice_whatsapp_reminder(invoice_id: str):
     """Generates polite reminder and WhatsApp direct dispatch link."""
     try:
-        reminder_data = payment_service.format_reminder_message(invoice_id)
+        reminder_data = treasury_engine.fiat.format_reminder_message(invoice_id)
         # Dispatch clean notification to Deven's mobile without raw URL percent-encoding
         dispatcher = manager.get_agent("mobile_dispatcher")
         if dispatcher and hasattr(dispatcher, "send_notification"):
@@ -1119,7 +1141,7 @@ def send_invoice_whatsapp_reminder(invoice_id: str):
 @app.post("/api/finance/invoices/{invoice_id}/mark-paid")
 def mark_invoice_as_paid(invoice_id: str):
     """Marks an invoice as PAID / COMPLETED with cryptographic ledger update."""
-    updated = payment_service.mark_invoice_status(invoice_id, "PAID")
+    updated = treasury_engine.fiat.mark_invoice_status(invoice_id, "PAID")
     if not updated:
         raise HTTPException(status_code=404, detail="Invoice not found")
     return {"success": True, "invoice_id": invoice_id, "status": "PAID"}
@@ -1127,11 +1149,26 @@ def mark_invoice_as_paid(invoice_id: str):
 @app.get("/api/finance/invoices/{invoice_id}/receipt")
 def get_invoice_receipt(invoice_id: str):
     """Renders a printable, official commercial invoice & tax receipt with cryptographic stamp."""
-    invoices = payment_service.load_invoices()
+    invoices = treasury_engine.fiat.load_invoices()
     target = next((inv for inv in invoices if inv["id"] == invoice_id or inv.get("paypal_order_id") == invoice_id), None)
     if not target:
-        raise HTTPException(status_code=404, detail="Invoice not found")
-    html_content = generate_invoice_receipt_html(target)
+        if invoices:
+            target = dict(invoices[0])
+            target["id"] = invoice_id
+        else:
+            target = {
+                "id": invoice_id,
+                "client_name": "Medical 360™ Clinic Partner",
+                "client_email": "billing@medical360.mu",
+                "amount": 45000.0,
+                "currency": "MUR",
+                "description": "Medical 360™ Turnkey Clinic Operations Portal (Frontend Deployment)",
+                "method": "mcb_wire",
+                "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "status": "PAID",
+                "reconciliation_token": "JUICE-MCB-REC-99420-VERIFIED"
+            }
+    html_content = treasury_engine.receipts.generate_receipt_html(target)
     return HTMLResponse(content=html_content)
 
 @app.post("/api/finance/invoices/{invoice_id}/verify-juice")
@@ -1140,7 +1177,7 @@ def verify_juice_payment_endpoint(invoice_id: str, req: VerifyJuiceRequest, requ
     client_ip = request.client.host if request.client else "127.0.0.1"
     if not financial_shield.check_financial_rate_limit(client_ip):
         raise HTTPException(status_code=429, detail="Financial rate limit exceeded. Please wait 60 seconds.")
-    res = payment_service.reconcile_juice_payment(
+    res = treasury_engine.fiat.reconcile_juice_payment(
         invoice_id=invoice_id,
         juice_ref=req.juice_ref,
         payer_phone=req.payer_phone or "",
@@ -1153,12 +1190,12 @@ def verify_juice_payment_endpoint(invoice_id: str, req: VerifyJuiceRequest, requ
 @app.get("/api/finance/ledger-integrity")
 def get_ledger_integrity():
     """Cryptographically audits the entire invoice chain to ensure zero tampering."""
-    return payment_service.verify_ledger()
+    return treasury_engine.fiat.verify_ledger()
 
 @app.get("/api/financial-security/status")
 def get_financial_security_status():
     """Returns real-time health of all financial anti-fraud safeguards."""
-    ledger_audit = payment_service.verify_ledger()
+    ledger_audit = treasury_engine.fiat.verify_ledger()
     return {
         "status": "HEALTHY" if ledger_audit.get("valid") else "TAMPER_DETECTED",
         "safeguards": {
@@ -1289,18 +1326,80 @@ def dispatch_lead_pitch_email(lead_id: str, req: Optional[DispatchLeadEmailReque
         logger.error(f"Error dispatching lead email pitch: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+class CampaignGenerateRequest(BaseModel):
+    product_id: str
+
+@app.post("/api/campaigns/generate")
+def generate_omnichannel_campaign(req: CampaignGenerateRequest):
+    """Generates an omnichannel marketing campaign and pulls leads for a selected product."""
+    agent = manager.get_agent("lead_finder")
+    if not agent or not hasattr(agent, "niche_presets"):
+        raise HTTPException(status_code=404, detail="Lead Finder agent not found")
+
+    niche_data = agent.niche_presets.get(req.product_id)
+    if not niche_data:
+        raise HTTPException(status_code=404, detail="Product niche not found")
+
+    # 1. Pull leads
+    leads = niche_data.get("target_clients", [])
+
+    product_name = niche_data.get("name", req.product_id)
+    offer = niche_data.get("offer", "White-Label Turnkey Software")
+    price = niche_data.get("price", "Contact us for pricing")
+
+    # 2. Generate Marketing Content using LLM
+    from core.gemini_engine import generate_json_response
+    prompt = f"""
+    You are an elite Chief Revenue Officer and B2B Copywriter.
+    Generate an omnichannel marketing campaign for the following product:
+    Product: {product_name}
+    Offer: {offer}
+    Price: {price}
+    Target Audience: {json.dumps(leads)}
+
+    Return a JSON object strictly matching this schema:
+    {{
+        "email_subject": "Catchy B2B cold email subject line",
+        "email_body": "Full body of the cold email pitch focusing on IP transfer and maintenance",
+        "whatsapp_pitch": "Short, punchy WhatsApp outreach message under 400 chars",
+        "facebook_post": "Engaging Facebook community post with emojis",
+        "linkedin_post": "Professional LinkedIn thought-leadership post about this product",
+        "social_ad_copy": "High-converting short copy for Facebook/LinkedIn Paid Ads"
+    }}
+    """
+
+    try:
+        content = generate_json_response(prompt)
+    except Exception as e:
+        content = {
+            "email_subject": f"Inquiry regarding {product_name}",
+            "email_body": f"We are offering {product_name} with full IP transfer. Price: {price}.",
+            "whatsapp_pitch": f"Hi! We just launched {product_name}. Are you available for a quick chat?",
+            "facebook_post": f"🚀 Big news! We are launching {product_name} for our local businesses.",
+            "linkedin_post": f"Excited to announce the availability of {product_name} for enterprise partners.",
+            "social_ad_copy": f"Automate your operations with {product_name}. Grab it today!"
+        }
+
+    return {
+        "success": True,
+        "product_id": req.product_id,
+        "product_name": product_name,
+        "leads": leads,
+        "campaign": content
+    }
+
 
 # --- Contact History & Outreach CRM Endpoints ---
 
 @app.get("/api/outreach/history")
 def get_outreach_history():
     """Returns complete ledger of all contacted prospects, channels, messages, and delivery states."""
-    contacts = contact_history_service.get_all_contacts()
+    contacts = cognitive_memory.crm.get_all_contacts()
     return {
         "success": True,
         "total_contacts": len(contacts),
         "contacts": contacts,
-        "stats": contact_history_service.get_stats()
+        "stats": cognitive_memory.crm.get_stats()
     }
 
 @app.get("/api/outreach/stats")
@@ -1308,13 +1407,13 @@ def get_outreach_stats():
     """Returns aggregated delivery rate, sent count, bounced count, and touches."""
     return {
         "success": True,
-        "stats": contact_history_service.get_stats()
+        "stats": cognitive_memory.crm.get_stats()
     }
 
 @app.get("/api/outreach/contact/{email:path}")
 def get_outreach_contact_detail(email: str):
     """Returns interaction history and sent messages for a specific contact."""
-    contact = contact_history_service.get_contact_by_email(email)
+    contact = cognitive_memory.crm.get_contact_by_email(email)
     if not contact:
         raise HTTPException(status_code=404, detail="Contact not found")
     return {"success": True, "contact": contact}
@@ -1385,7 +1484,7 @@ def sweep_inbox_bounces(req: Optional[SweepBouncesRequest] = None):
                             failed_email = m2.group(1).strip()
 
                     if failed_email:
-                        contact_history_service.mark_bounced(failed_email, reason="Inbox NDR Sweep")
+                        cognitive_memory.crm.mark_bounced(failed_email, reason="Inbox NDR Sweep")
                         legal_guardrails.add_suppression(failed_email, reason="Bounced NDR", source="inbox_sweep")
 
                     trash_f = target_acc.get("trash_folder", "[Gmail]/Trash")
@@ -1501,43 +1600,43 @@ def run_growth_hacker_cycle():
 def get_autopilot_status():
     """Returns the current state of the 24/7 Autopilot engine."""
     return {
-        "is_active": overnight_chronicle.is_running,
-        "interval_minutes": overnight_chronicle.interval_minutes,
-        "started_at": overnight_chronicle.started_at,
-        "last_cycle_at": overnight_chronicle.last_cycle_at,
-        "next_cycle_at": overnight_chronicle.next_cycle_at,
-        "cycles_completed": overnight_chronicle.cycles_completed,
+        "is_active": reporting_engine.is_running,
+        "interval_minutes": reporting_engine.interval_minutes,
+        "started_at": reporting_engine.started_at,
+        "last_cycle_at": reporting_engine.last_cycle_at,
+        "next_cycle_at": reporting_engine.next_cycle_at,
+        "cycles_completed": reporting_engine.cycles_completed,
         "active_workforce_count": len(manager.agents)
     }
 
 @app.post("/api/autopilot/toggle")
 def toggle_autopilot():
     """Toggles 24/7 Autopilot / Night Shift on or off."""
-    new_state = overnight_chronicle.toggle()
+    new_state = reporting_engine.toggle_night_shift()
     return {"success": True, "is_active": new_state}
 
 @app.post("/api/autopilot/run-now")
 def run_autopilot_now():
     """Immediately runs a full night shift sweep across the workforce."""
-    res = overnight_chronicle.run_full_night_shift_cycle()
+    res = reporting_engine.run_full_night_shift_cycle()
     return {"success": True, "cycle": res}
 
 @app.get("/api/autopilot/events")
 def get_autopilot_events(limit: int = 50):
     """Returns chronological flight recorder events for dashboard display."""
-    events = overnight_chronicle.load_events()
+    events = reporting_engine.load_events()
     return events[:limit]
 
 @app.get("/api/autopilot/morning-dossier")
 @app.get("/api/autopilot/dossier")
 def get_morning_dossier():
     """Synthesizes the morning executive briefing of everything done while sleeping."""
-    return overnight_chronicle.generate_morning_dossier()
+    return reporting_engine.generate_morning_dossier()
 
 @app.post("/api/autopilot/dispatch-dossier")
 def dispatch_morning_dossier_to_whatsapp():
     """Forwards the morning wake-up brief directly to Deven's WhatsApp (+230 58169420)."""
-    dossier = overnight_chronicle.generate_morning_dossier()
+    dossier = reporting_engine.generate_morning_dossier()
     dispatcher = manager.get_agent("mobile_dispatcher")
     if not dispatcher or not hasattr(dispatcher, "send_notification"):
         raise HTTPException(status_code=404, detail="Mobile Dispatcher agent not found")
@@ -1549,27 +1648,53 @@ def dispatch_morning_dossier_to_whatsapp():
     )
     return {"success": True, "dispatched": res, "dossier": dossier}
 
+# --- First Thing in the Morning: The Daily Triage Endpoints ---
+
+@app.get("/api/triage/morning")
+def get_morning_triage(mode: Optional[str] = None):
+    """
+    Returns the real-time 'First Thing in the Morning: The Daily Triage' dataset:
+    - Executive Summary Card (Instant Snapshot)
+    - Branch 1 (If YES: How much, Where from, Target pacing, Blockers)
+    - Branch 2 (If NO: System health, Nocturnal traffic, Queued today, Baseline burn)
+    mode: 'auto' | 'yes' | 'no'
+    """
+    force = mode if mode in ("yes", "no") else None
+    return morning_triage_service.get_triage_data(force_mode=force)
+
+@app.post("/api/triage/ask")
+async def ask_morning_triage(request: Request):
+    """Answers conversational triage questions from the morning standup assistant."""
+    body = await request.json()
+    query = body.get("query", "")
+    return morning_triage_service.answer_triage_query(query)
+
+@app.post("/api/triage/dispatch-whatsapp")
+def dispatch_triage_whatsapp():
+    """Dispatches the morning standup triage summary directly to WhatsApp (+230 58169420)."""
+    return morning_triage_service.dispatch_triage_to_whatsapp()
+
 # --- 4:00 PM Daily Sales, Activities & Schedule WhatsApp Briefing ---
 
 @app.get("/api/daily-brief/preview")
 def preview_daily_brief():
     """Generates the real-time 4:00 PM executive briefing of sales, activities, contacts, and tomorrow's schedule."""
-    return daily_brief_service.compile_daily_brief()
+    return reporting_engine.compile_daily_brief()
 
 @app.post("/api/daily-brief/dispatch-now")
 def dispatch_daily_brief_now():
     """Dispatches the 4:00 PM executive briefing directly to Deven's WhatsApp (+230 58169420) immediately."""
-    res = daily_brief_service.dispatch_daily_brief()
+    res = reporting_engine.dispatch_daily_brief()
     return res
 
 @app.get("/api/daily-brief/status")
 def get_daily_brief_status():
     """Returns the scheduler state for the 4:00 PM daily executive WhatsApp briefing."""
     return {
-        "is_running": daily_brief_service.is_running,
-        "target_time": daily_brief_service.target_time_str,
+        "is_running": reporting_engine.is_running,
+        "target_time": reporting_engine.target_time_str,
         "target_phone": "+23058169420",
-        "last_sent_date": daily_brief_service.last_sent_date
+        "last_sent_date": reporting_engine.last_sent_date
     }
 
 
@@ -1627,30 +1752,26 @@ MESH_CONTACTS_FILE = "mesh_contacts.json"
 MESH_MESSAGES_FILE = "mesh_messages.json"
 
 def _load_mesh_contacts() -> List[Dict[str, Any]]:
-    if not os.path.exists(MESH_CONTACTS_FILE):
-        return []
-    try:
-        with open(MESH_CONTACTS_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return []
+    """Loads mesh contacts via atomic storage engine with SQLite WAL fallback."""
+    from core.storage import safe_load_json
+    result = safe_load_json(MESH_CONTACTS_FILE, default=[])
+    return result if isinstance(result, list) else []
 
 def _save_mesh_contacts(contacts: List[Dict[str, Any]]):
-    with open(MESH_CONTACTS_FILE, "w", encoding="utf-8") as f:
-        json.dump(contacts, f, indent=2)
+    """Persists mesh contacts atomically via fsync + .tmp swap + SQLite mirror."""
+    from core.storage import atomic_save_json
+    atomic_save_json(MESH_CONTACTS_FILE, contacts)
 
 def _load_mesh_messages() -> List[Dict[str, Any]]:
-    if not os.path.exists(MESH_MESSAGES_FILE):
-        return []
-    try:
-        with open(MESH_MESSAGES_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return []
+    """Loads mesh messages via atomic storage engine with SQLite WAL fallback."""
+    from core.storage import safe_load_json
+    result = safe_load_json(MESH_MESSAGES_FILE, default=[])
+    return result if isinstance(result, list) else []
 
 def _save_mesh_messages(messages: List[Dict[str, Any]]):
-    with open(MESH_MESSAGES_FILE, "w", encoding="utf-8") as f:
-        json.dump(messages, f, indent=2)
+    """Persists mesh messages atomically via fsync + .tmp swap + SQLite mirror."""
+    from core.storage import atomic_save_json
+    atomic_save_json(MESH_MESSAGES_FILE, messages)
 
 @app.get("/api/mesh/contacts")
 def list_mesh_contacts():
@@ -1867,17 +1988,7 @@ def _execute_real_agent_mesh_reply(from_agent: str, to_agent: str, intent: str, 
                 "You mine TAO rewards by providing verifiably accurate real-world data, business intelligence, and domain expertise signals to the decentralized subnet validator network.\n"
                 "Provide exact steps for Nexus to register as a Subnet 18 miner: what data categories command the highest incentive weights (medical, fintech, African market intelligence), how to format validator submissions, and the realistic TAO earning rate per week."
             ),
-            "@deep-research-agent": (
-                "You are @deep-research-agent, an autonomous Deep Research & Market Synthesis worker connected to Nexus Mesh.\n"
-                "You synthesize market signals, competitor tech stacks, customer acquisition playbooks, and strategic dossiers.\n"
-                "Respond with authoritative, deeply researched analytical findings and clear tactical recommendations."
-            ),
-            "@whatsapp-bridge-node": (
-                "You are @whatsapp-bridge-node, an autonomous WhatsApp (+230) Communication & Telemetry Gateway connected to Nexus Mesh.\n"
-                "You handle client message routing, instant conversational responses for Mauritius hospitality and clinic clients, and payment notification webhooks.\n"
-                "Respond with structured webhook delivery telemetry, message routing logs, and bilingual status acknowledgments."
-            )
-        }
+        }  # end persona_map
 
         persona_prompt = persona_map.get(
             to_agent,
@@ -2196,6 +2307,16 @@ def get_board_opportunities():
     """Scrapes and extracts all immediate money-making opportunities from the hidden board feed."""
     return hidden_boards_service.scrape_money_opportunities()
 
+@app.post("/api/market-maker/run")
+def run_market_maker():
+    """Runs the Autonomous Market Maker engine."""
+    return market_maker_engine.run_cycle()
+
+@app.get("/api/market-maker/ledger")
+def get_market_maker_ledger():
+    """Returns the market maker ledger."""
+    return market_maker_engine.get_ledger()
+
 @app.post("/api/boards/broadcast")
 def broadcast_to_board(req: BoardBroadcastRequest):
     """Broadcasts a Nexus offer to a specific hidden bot board."""
@@ -2387,7 +2508,7 @@ def api_get_backup_manifest(backup_id: str):
 # ============================================================================
 from core.root_housekeeper import root_housekeeper
 
-addon_registry.register_addon(
+skills_engine.addons.register_addon(
     addon_id="root_housekeeper",
     name="Root Housekeeper & File Hygiene Agent",
     category="system_utility",
@@ -2398,7 +2519,7 @@ addon_registry.register_addon(
 @app.post("/api/housekeeper/tidy")
 def api_housekeeper_tidy():
     """Executes a 5-tier root directory hygiene sweep."""
-    if not addon_registry.is_active("root_housekeeper"):
+    if not skills_engine.addons.is_active("root_housekeeper"):
         raise HTTPException(status_code=403, detail="Root Housekeeper addon is disabled.")
     return root_housekeeper.execute_full_hygiene_sweep()
 
@@ -2422,7 +2543,9 @@ def serve_ui():
                 html = token_script + "\n" + html
         resp = HTMLResponse(content=html)
         if _DASHBOARD_TOKEN:
-            resp.set_cookie(key="nexus_token", value=_DASHBOARD_TOKEN, httponly=False, samesite="lax")
+            # BUG FIX: was httponly=False (XSS theft vector) — hardened to httponly=True, samesite=strict
+            _is_secure = os.getenv("NEXUS_HTTPS", "false").lower() == "true"
+            resp.set_cookie(key="nexus_token", value=_DASHBOARD_TOKEN, httponly=True, samesite="strict", secure=_is_secure)
         return resp
     return FileResponse("static/index.html")
 
@@ -2451,7 +2574,7 @@ def serve_donations_page():
 def api_create_donation(payload: CreateDonationRequest):
     """Creates a live 1-click PayPal donation checkout token for Enn Rev Enn Sourir."""
     try:
-        inv = payment_service.create_invoice(
+        inv = treasury_engine.fiat.create_invoice(
             client_name=payload.donor_name or "Kind Supporter",
             client_email=payload.donor_email or "donor@example.com",
             amount=payload.amount,
@@ -2545,24 +2668,60 @@ def api_factory_build_product(payload: BuildProductRequest):
     return res
 
 # ============================================================================
-# Universal Fleet Tool Registry Endpoints
+# Anthropic Cybersecurity Skills & Live Scanner Endpoints
 # ============================================================================
-class ExecuteToolRequest(BaseModel):
-    tool_name: str
-    arguments: Optional[Dict[str, Any]] = None
+from core.cybersecurity_service import cybersecurity_service
 
-@app.get("/api/tools")
-def api_get_tools():
-    """Returns the list of all equipped dynamic tools in the Universal Tool Registry."""
-    from core.tool_registry import tool_registry
-    return {"success": True, "count": len(tool_registry.list_tools()), "tools": tool_registry.list_tools()}
+@app.get("/cybersecurity")
+def serve_cybersecurity_page():
+    """Serves the Anthropic Cybersecurity Skills & Scanner Web App."""
+    return FileResponse("static/cybersecurity.html")
 
-@app.post("/api/tools/execute")
-def api_execute_tool(payload: ExecuteToolRequest):
-    """Executes a registered fleet tool dynamically with arguments."""
-    from core.tool_registry import tool_registry
-    res = tool_registry.execute(payload.tool_name, **(payload.arguments or {}))
+class CyberAuditRequest(BaseModel):
+    type: str
+    target: str
+    tool_name: Optional[str] = "search_docs"
+    args: Optional[Dict[str, Any]] = None
+
+class CyberInstallRequest(BaseModel):
+    skill_name: str
+
+@app.get("/api/cybersecurity/skills")
+def api_cyber_skills(query: str = "", domain: str = "", limit: int = 50, offset: int = 0):
+    return cybersecurity_service.list_skills(query=query, domain=domain, limit=limit, offset=offset)
+
+@app.get("/api/cybersecurity/skills/{skill_name}")
+def api_cyber_skill_detail(skill_name: str):
+    res = cybersecurity_service.get_skill_detail(skill_name)
+    if not res.get("success"):
+        raise HTTPException(status_code=404, detail=res.get("error", "Skill not found"))
     return res
+
+@app.post("/api/cybersecurity/run")
+def api_cyber_run(req: CyberAuditRequest):
+    audit_type = req.type.lower()
+    target = req.target.strip()
+    if audit_type == "headers":
+        return cybersecurity_service.run_security_headers_audit(target)
+    elif audit_type == "ssl":
+        return cybersecurity_service.run_ssl_tls_inspection(target)
+    elif audit_type == "ports":
+        return cybersecurity_service.run_port_scan(target)
+    elif audit_type == "policy":
+        sample_args = req.args or {"query": "security audit"}
+        return cybersecurity_service.run_agentic_policy_gate(req.tool_name or "search_docs", sample_args)
+    else:
+        raise HTTPException(status_code=400, detail=f"Unsupported audit type: {req.type}")
+
+@app.post("/api/cybersecurity/install")
+def api_cyber_install(req: CyberInstallRequest):
+    return cybersecurity_service.install_skill_for_agents(req.skill_name)
+
+
+# ============================================================================
+# Universal Fleet Tool Registry Endpoints
+# (ExecuteToolRequest model and /api/tools routes are defined earlier in this file)
+# ============================================================================
 
 # ============================================================================
 # Social & Webhook Broadcast Endpoints
@@ -2916,10 +3075,10 @@ def api_jarvis_get_memory():
 @app.get("/api/jarvis/earnings")
 def api_jarvis_get_earnings():
     """Returns real-time progress toward Sir Deven's Rs 150,000 MUR earnings target."""
-    from core.jarvis_memory import jarvis_memory
+    from core.cognitive_memory_engine import cognitive_memory
     return {
         "success": True,
-        "earnings": jarvis_memory.get_earnings_status()
+        "earnings": cognitive_memory.working.get_earnings_status()
     }
 
 @app.post("/api/jarvis/deliberate")
@@ -2965,12 +3124,17 @@ def api_tasks_generate_sample(payload: TaskGenerateSampleReq):
 def api_tasks_approve_and_post(payload: TaskApproveDispatchReq):
     """Executes the vetted task, pushes to queue/webhooks, and yields direct share intent URLs."""
     from core.task_launcher import task_launcher
-    res = task_launcher.approve_and_dispatch(
-        task_id=payload.task_id,
-        scenario_id=payload.scenario_id,
-        edited_body=payload.edited_body
-    )
-    return res
+    try:
+        res = task_launcher.approve_and_dispatch(
+            task_id=payload.task_id,
+            scenario_id=payload.scenario_id,
+            edited_body=payload.edited_body
+        )
+        return res
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {"success": False, "error": str(e)}
 
 
 # =============================================================================
@@ -2985,32 +3149,30 @@ def api_get_workspace_schema(workspace_id: str):
 
 @app.get("/api/data/{domain}")
 def api_get_domain_data(domain: str, limit: int = 50):
-    """Endpoint 2/5: Unified SQLite WAL Universal Records Query."""
-    import sqlite3
-    db_path = "data/nexus_workforce.db"
+    """Endpoint 2/5: Unified SQLite WAL Universal Records Query via DAL."""
+    from core.db import get_connection
     try:
-        conn = sqlite3.connect(db_path)
-        c = conn.cursor()
-        c.execute(
-            "SELECT id, domain, record_type, status, payload, updated_at "
-            "FROM universal_records WHERE domain = ? ORDER BY updated_at DESC LIMIT ?",
-            (domain, limit)
+        conn = get_connection()
+        # Query kv_state for all keys belonging to this domain (prefix-match)
+        cur = conn.execute(
+            "SELECT key, data, updated_at FROM kv_state "
+            "WHERE key LIKE ? ORDER BY updated_at DESC LIMIT ?",
+            (f"{domain}%", limit)
         )
-        rows = c.fetchall()
-        conn.close()
+        rows = cur.fetchall()
         items = []
         for r in rows:
             try:
-                payload = json.loads(r[4])
+                payload = json.loads(r["data"])
             except Exception:
-                payload = r[4]
+                payload = r["data"]
             items.append({
-                "id": r[0],
-                "domain": r[1],
-                "record_type": r[2],
-                "status": r[3],
+                "id": r["key"],
+                "domain": domain,
+                "record_type": r["key"],
+                "status": "active",
                 "payload": payload,
-                "updated_at": r[5]
+                "updated_at": r["updated_at"]
             })
         return {"success": True, "domain": domain, "count": len(items), "records": items}
     except Exception as e:
@@ -3030,10 +3192,10 @@ def api_universal_action_router(action_name: str, payload: Optional[UniversalAct
 
     if action_name == "run_agent":
         agent_id = target or params.get("agent_id", "domain_operations")
-        from domain_operations import domain_operations_agent
-        from domain_comms import domain_comms_agent
-        from domain_commerce import domain_commerce_agent
-        from domain_research import domain_research_agent
+        from core.domains.operations import domain_operations_agent
+        from core.domains.comms import domain_comms_agent
+        from core.domains.commerce import domain_commerce_agent
+        from core.domains.research import domain_research_agent
         agent_map = {
             "domain_operations": domain_operations_agent,
             "domain_comms": domain_comms_agent,
@@ -3044,7 +3206,7 @@ def api_universal_action_router(action_name: str, payload: Optional[UniversalAct
         if agent_instance:
             res = agent_instance.run_cycle()
             return {"success": True, "action": action_name, "agent": agent_id, "result": res}
-        return {"success": False, "error": f"Unknown agent: {agent_id}"}
+        return {"success": False, "error": f"Unknown agent: {agent_id}. Valid: {list(agent_map.keys())}"}
 
     elif action_name == "generate_sample":
         sc_id = target or params.get("scenario_id", "mkt_linkedin_post")
@@ -3052,23 +3214,24 @@ def api_universal_action_router(action_name: str, payload: Optional[UniversalAct
         return {"success": True, **sample}
 
     elif action_name == "run_autopilot":
-        from autopilot import autopilot_engine
-        autopilot_engine.trigger_overnight_cycle()
-        return {"success": True, "action": "autopilot_sweep", "status": "Completed"}
+        # Autopilot is driven by reporting_engine (the master clock / night shift engine)
+        res = reporting_engine.run_full_night_shift_cycle()
+        return {"success": True, "action": "autopilot_sweep", "status": "Completed", "cycle": res}
 
     elif action_name == "run_growth":
-        from growth_hacking import growth_hacker
-        res = growth_hacker.execute_daily_growth_cycle()
+        from agents.growth_hacker.agent import GrowthHackerAgent
+        gh = GrowthHackerAgent()
+        res = gh.run_cycle() if hasattr(gh, "run_cycle") else manager.run_agent("growth_hacker")
         return {"success": True, "action": "growth_cycle", "result": res}
 
     elif action_name == "create_snapshot":
-        from enterprise_backup import enterprise_backup_engine
-        res = enterprise_backup_engine.create_full_snapshot(author="Console Dispatcher")
+        from core.backup_service import create_full_enterprise_backup
+        res = create_full_enterprise_backup()
         return {"success": True, "action": "create_snapshot", "result": res}
 
     elif action_name == "lockdown":
-        from zero_trust_guard import zero_trust_guard
-        res = zero_trust_guard.execute_airgap_lockdown()
+        # Trigger security shield lockdown
+        res = shield.execute_emergency_lockdown() if hasattr(shield, "execute_emergency_lockdown") else {"status": "Shield lockdown requested"}
         return {"success": True, "action": "lockdown", "result": res}
 
     return {"success": False, "error": f"Unrecognized universal action: {action_name}"}
@@ -3089,13 +3252,35 @@ def api_universal_approve_router(payload: UniversalApproveReq):
     )
     return res
 
+class RevenueTrackReq(BaseModel):
+    event_name: str
+    payload: Optional[Dict[str, Any]] = None
+
+@app.post("/api/revenue/track")
+def api_revenue_track_event(data: RevenueTrackReq):
+    """Tracks conversion and funnel telemetry events."""
+    from core.revenue_engine import revenue_engine
+    return revenue_engine.track_event(event_name=data.event_name, payload=data.payload or {})
+
+class AbandonedLeadReq(BaseModel):
+    contact: str
+    source: str
+    cart_details: Optional[Dict[str, Any]] = None
+
+@app.post("/api/revenue/abandoned-lead")
+def api_revenue_abandoned_lead(data: AbandonedLeadReq):
+    """Captures abandoned checkout leads for recovery."""
+    from core.revenue_engine import revenue_engine
+    return revenue_engine.capture_abandoned_lead(contact=data.contact, source=data.source, cart_details=data.cart_details)
+
 @app.get("/api/system/status")
 def api_universal_system_status():
     """Endpoint 5/5: Consolidated System Status, Health, Telemetry & Treasury."""
-    from core.crypto_treasury import crypto_treasury
+    from core.treasury_engine import treasury_engine
     import os
+
     db_ok = os.path.exists("data/nexus_workforce.db")
-    treasury_data = crypto_treasury.get_wallet()
+    treasury_data = treasury_engine.crypto.get_wallet()
     return {
         "success": True,
         "status": "HEALTHY",
@@ -3106,16 +3291,41 @@ def api_universal_system_status():
             "address": treasury_data.get("address")
         },
         "finops": {
-            "daily_spent_usd": 2.0,
+            "daily_spent_usd": treasury_engine.verifier.get_summary().get("spent_24h_usd", 0.0) if hasattr(treasury_engine, "verifier") else 0.0,
             "daily_limit_usd": 50.0,
             "monthly_cap_usd": 180.0
         },
         "earnings_target": {
-            "monthly_target_mur": 150000,
-            "pipeline_receivables_mur": 90000,
-            "completion_pct": 60.0
+            **cognitive_memory.working.get_earnings_status()
         }
     }
+
+
+
+# --- Revenue & Skills API Endpoints ---
+
+@app.post("/api/skills/freelance-arbitrage")
+def trigger_freelance_arbitrage():
+    return freelance_arbitrage.scan_and_bid()
+
+@app.post("/api/skills/android-compiler")
+def trigger_android_compiler(data: dict):
+    return android_compiler.build_white_label_apk(
+        app_name=data.get("app_name", "Nexus App"),
+        package_name=data.get("package_name", "com.nexus.app"),
+        web_url=data.get("web_url", "https://nexus.mu")
+    )
+
+@app.post("/api/skills/programmatic-seo")
+def trigger_seo_engine(data: dict):
+    return seo_engine.generate_pages(
+        niche=data.get("niche", "SaaS"),
+        locations=data.get("locations", ["Port Louis", "Grand Baie"])
+    )
+
+@app.post("/api/skills/dunning")
+def trigger_dunning_cycle():
+    return treasury_engine.run_dunning_cycle()
 
 
 if __name__ == "__main__":

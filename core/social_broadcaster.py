@@ -29,7 +29,9 @@ class SocialBroadcaster:
         price: str = "$1.00 USD",
         checkout_url: str = "http://127.0.0.1:8000/store",
         features: Optional[List[str]] = None,
-        webhook_url: Optional[str] = None
+        webhook_url: Optional[str] = None,
+        price_usd: Optional[float] = None,
+        custom_blurb: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Dispatches an automated rich announcement card to a Discord/Slack webhook.

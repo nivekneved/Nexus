@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Command Hub — Anthropic Skills & Live Scanner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #06090e;
+      --bg-surface: #0c121e;
+      --bg-card: rgba(16, 24, 40, 0.75);
+      --bg-card-hover: rgba(22, 34, 56, 0.85);
+      --border-subtle: rgba(0, 243, 255, 0.15);
+      --border-glow: rgba(0, 243, 255, 0.4);
+      --cyan-neon: #00f3ff;
+      --green-neon: #00ff9d;
+      --magenta-neon: #ff0055;
+      --purple-neon: #a855f7;
+      --text-main: #f0f6fc;
+      --text-muted: #8b9bb4;
+      --text-dim: #4b5872;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 45%),
+        linear-gradient(rgba(6, 9, 14, 0.95), rgba(6, 9, 14, 0.95)),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 243, 255, 0.015) 2px, rgba(0, 243, 255, 0.015) 4px);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(12, 18, 30, 0.85);
+      backdrop-filter: blur(16px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #00f3ff 0%, #a855f7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #06090e;
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title span {
+      color: var(--cyan-neon);
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .nav-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
+
+    .nav-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--cyan-neon);
+      color: var(--cyan-neon);
+    }
+
+    .nav-btn-primary {
+      background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(168, 85, 247, 0.2));
+      border: 1px solid var(--cyan-neon);
+      color: var(--cyan-neon);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+    }
+
+    .nav-btn-primary:hover {
+      background: linear-gradient(135deg, #00f3ff, #a855f7);
+      color: #06090e;
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(12, 18, 30, 0.95), rgba(18, 28, 48, 0.95));
+      border: 1px solid var(--border-glow);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 100%;
+      background: radial-gradient(circle at 100% 50%, rgba(0, 243, 255, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--cyan-neon);
+      background: rgba(0, 243, 255, 0.1);
+      border: 1px solid var(--border-subtle);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: rgba(6, 9, 14, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .stat-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--cyan-neon);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Layout Sections */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.75rem;
+    }
+
+    .panel-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Scanners Hub */
+    .scan-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .form-input, .form-select {
+      background: rgba(6, 9, 14, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 0.7rem 0.9rem;
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--cyan-neon);
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.25);
+    }
+
+    .scan-btn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .action-btn {
+      background: rgba(0, 243, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      color: var(--cyan-neon);
+      padding: 0.75rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .action-btn:hover {
+      background: var(--cyan-neon);
+      color: #06090e;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
+    }
+
+    .action-btn.active {
+      background: var(--cyan-neon);
+      color: #06090e;
+    }
+
+    /* Terminal Console */
+    .terminal-container {
+      background: #04060a;
+      border: 1px solid rgba(0, 243, 255, 0.25);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 380px;
+    }
+
+    .terminal-bar {
+      background: #090e18;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.4rem 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .terminal-body {
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #38ef7d;
+      overflow-y: auto;
+      flex: 1;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    /* Skills Browser */
+    .skills-filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-chip:hover, .filter-chip.active {
+      background: rgba(0, 243, 255, 0.15);
+      border-color: var(--cyan-neon);
+      color: var(--cyan-neon);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .skill-item {
+      background: rgba(6, 9, 14, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 0.9rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .skill-item:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-glow);
+      transform: translateX(4px);
+    }
+
+    .skill-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .skill-item-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cyan-neon);
+    }
+
+    .skill-badge {
+      font-size: 0.68rem;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      color: #d8b4fe;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .skill-item-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #0c121e;
+      border: 1px solid var(--cyan-neon);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 40px rgba(0, 243, 255, 0.3);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      color: var(--cyan-neon);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+
+    .modal-body pre {
+      background: #04060a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      margin: 1rem 0;
+      font-size: 0.8rem;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 243, 255, 0.2);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 243, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">🛡️</div>
+      <div class="brand-title">NEXUS <span>CYBERSECURITY</span> HUB</div>
+    </div>
+    <div class="nav-actions">
+      <a href="/" class="nav-btn nav-btn-secondary">← Back to Workspace</a>
+      <a href="https://github.com/mukul975/Anthropic-Cybersecurity-Skills" target="_blank" class="nav-btn nav-btn-secondary">GitHub Repo</a>
+      <button class="nav-btn nav-btn-primary" onclick="runQuickSelfAudit()">⚡ Audit Local Host</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <span class="hero-tag">AGENTSKILLS.IO VERIFIED · 818 PRODUCTION SKILLS</span>
+      <h1 class="hero-title">Anthropic Cybersecurity Skills Engine</h1>
+      <p class="hero-desc">
+        Integrated AI security library mapping to 6 industry frameworks: MITRE ATT&CK v19.1, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF, and MITRE F3. Run live security inspections, audit web defenses, and deploy automated security skills directly to your agents.
+      </p>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-val" id="stat-skills">818</div>
+          <div class="stat-label">Production Skills</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-domains">34</div>
+          <div class="stat-label">Security Domains</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">6</div>
+          <div class="stat-label">Mapped Frameworks</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">1,096</div>
+          <div class="stat-label">Python Automations</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" style="color: var(--green-neon);">ONLINE</div>
+          <div class="stat-label">Live Threat Engine</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="app-layout">
+
+      <!-- Left Column: Live Scanners & Execution -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">⚡ Live Security Scanner Bay</div>
+          <span style="font-size: 0.75rem; color: var(--green-neon);">● ENGINE READY</span>
+        </div>
+
+        <div class="scan-form">
+          <div class="form-group">
+            <label class="form-label" for="target-input">Target URL / Hostname</label>
+            <input type="text" id="target-input" class="form-input" value="https://example.com" placeholder="e.g. https://yourdomain.com or google.com">
+          </div>
+
+          <div class="scan-btn-grid">
+            <button class="action-btn" onclick="executeAudit('headers')">
+              <span style="font-size: 1.2rem;">🔒</span>
+              <span>Headers Audit</span>
+            </button>
+            <button class="action-btn" onclick="executeAudit('ssl')">
+              <span style="font-size: 1.2rem;">📜</span>
+              <span>SSL/TLS Probe</span>
+            </button>
+            <button class="action-btn" onclick="executeAudit('ports')">
+              <span style="font-size: 1.2rem;">🌐</span>
+              <span>Port Surface</span>
+            </button>
+            <button class="action-btn" onclick="executeAudit('policy')">
+              <span style="font-size: 1.2rem;">🤖</span>
+              <span>AI Policy Gate</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Terminal Output -->
+        <div class="terminal-container">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+            </div>
+            <div id="terminal-status">STATUS: STANDBY</div>
+            <div>UTF-8</div>
+          </div>
+          <div class="terminal-body" id="terminal-body">[+] Cybersecurity Engine online.
+[+] Ready to execute live security scripts from anthropic-cybersecurity-skills.
+[+] Click any scanner above or select a skill from the repository on the right.
+</div>
+        </div>
+      </div>
+
+      <!-- Right Column: Skills Explorer -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-title">📚 818 Skills Explorer</div>
+          <span id="skill-count-badge" style="font-size: 0.75rem; color: var(--cyan-neon);">Loading...</span>
+        </div>
+
+        <!-- Search input -->
+        <div class="form-group">
+          <input type="text" id="skill-search" class="form-input" placeholder="🔍 Search by name, CVE, MITRE ATT&CK ID, or keyword..." oninput="handleSearch()">
+        </div>
+
+        <!-- Domain filter chips -->
+        <div class="skills-filter-bar" id="domain-chips">
+          <span class="filter-chip active" onclick="filterDomain('all', this)">All (818)</span>
+          <span class="filter-chip" onclick="filterDomain('Web Application Security', this)">Web Security</span>
+          <span class="filter-chip" onclick="filterDomain('Cloud Security', this)">Cloud Security</span>
+          <span class="filter-chip" onclick="filterDomain('AI Security', this)">AI Security</span>
+          <span class="filter-chip" onclick="filterDomain('Threat Hunting', this)">Threat Hunting</span>
+          <span class="filter-chip" onclick="filterDomain('Digital Forensics', this)">Forensics</span>
+          <span class="filter-chip" onclick="filterDomain('Cryptography', this)">Crypto/SSL</span>
+          <span class="filter-chip" onclick="filterDomain('Red Teaming', this)">Red Teaming</span>
+        </div>
+
+        <!-- Skills List -->
+        <div class="skills-list" id="skills-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Skill Detail Modal -->
+  <div class="modal-overlay" id="skill-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-skill-name">Skill Detail</div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-skill-content">
+        <!-- Rendered markdown / content -->
+      </div>
+      <div class="modal-footer">
+        <button class="nav-btn nav-btn-secondary" onclick="closeModal()">Close</button>
+        <button class="nav-btn nav-btn-primary" id="modal-install-btn" onclick="installActiveSkill()">📥 Install to Agents</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allSkills = [];
+    let currentDomain = "all";
+    let activeSkillName = null;
+
+    // Load skills index on startup
+    async function loadSkills() {
+      try {
+        const res = await fetch('/api/cybersecurity/skills?limit=100');
+        const data = await res.json();
+        if (data.skills) {
+          allSkills = data.skills;
+          document.getElementById('stat-skills').innerText = data.total || 818;
+          document.getElementById('skill-count-badge').innerText = `${data.total || 818} Available`;
+          renderSkills(allSkills);
+        }
+      } catch (err) {
+        console.error("Failed to load skills:", err);
+      }
+    }
+
+    function renderSkills(skills) {
+      const container = document.getElementById('skills-container');
+      if (!skills.length) {
+        container.innerHTML = '<div style="color: var(--text-muted); padding: 1rem; text-align: center;">No matching cybersecurity skills found.</div>';
+        return;
+      }
+
+      container.innerHTML = skills.map(s => `
+        <div class="skill-item" onclick="openSkillDetail('${s.name}')">
+          <div class="skill-item-header">
+            <span class="skill-item-name">${s.name}</span>
+            <span class="skill-badge">${s.inferred_domain || 'Cybersecurity'}</span>
+          </div>
+          <div class="skill-item-desc">${s.description || 'Production-grade security workflow.'}</div>
+        </div>
+      `).join('');
+    }
+
+    async function handleSearch() {
+      const query = document.getElementById('skill-search').value.trim();
+      const res = await fetch(`/api/cybersecurity/skills?query=${encodeURIComponent(query)}&domain=${encodeURIComponent(currentDomain)}&limit=60`);
+      const data = await res.json();
+      renderSkills(data.skills || []);
+    }
+
+    function filterDomain(domain, el) {
+      currentDomain = domain;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      handleSearch();
+    }
+
+    async function openSkillDetail(name) {
+      activeSkillName = name;
+      const modal = document.getElementById('skill-modal');
+      const title = document.getElementById('modal-skill-name');
+      const body = document.getElementById('modal-skill-content');
+      
+      title.innerText = `🛡️ ${name}`;
+      body.innerHTML = '<div style="color: var(--cyan-neon);">Loading skill specification & playbook...</div>';
+      modal.classList.add('active');
+
+      try {
+        const res = await fetch(`/api/cybersecurity/skills/${encodeURIComponent(name)}`);
+        const data = await res.json();
+        if (data.success) {
+          body.innerHTML = `
+            <div style="margin-bottom: 1rem;">
+              <strong>Directory:</strong> <code>${data.directory}</code><br>
+              <strong>Scripts:</strong> ${data.scripts.length ? data.scripts.map(s => `<code>${s}</code>`).join(', ') : 'None'}<br>
+              <strong>References:</strong> ${data.references.length ? data.references.map(r => `<code>${r}</code>`).join(', ') : 'None'}
+            </div>
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;">
+            <pre style="white-space: pre-wrap; font-size: 0.8rem; max-height: 400px; overflow-y: auto;">${escapeHtml(data.skill_md)}</pre>
+          `;
+        } else {
+          body.innerHTML = `<div style="color: #ff5f56;">Error: ${data.error}</div>`;
+        }
+      } catch (err) {
+        body.innerHTML = `<div style="color: #ff5f56;">Failed to load detail: ${err}</div>`;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('skill-modal').classList.remove('active');
+      activeSkillName = null;
+    }
+
+    async function installActiveSkill() {
+      if (!activeSkillName) return;
+      const btn = document.getElementById('modal-install-btn');
+      btn.innerText = "⏳ Installing...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/cybersecurity/install', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({skill_name: activeSkillName})
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(`✅ Skill '${activeSkillName}' successfully installed for Antigravity & AI agents!`);
+          btn.innerText = "✓ Installed";
+        } else {
+          alert(`❌ Install error: ${data.error}`);
+          btn.innerText = "📥 Install to Agents";
+          btn.disabled = false;
+        }
+      } catch (err) {
+        alert(`❌ Install error: ${err}`);
+        btn.innerText = "📥 Install to Agents";
+        btn.disabled = false;
+      }
+    }
+
+    // Execution Console
+    async function executeAudit(type) {
+      const target = document.getElementById('target-input').value.trim();
+      const term = document.getElementById('terminal-body');
+      const status = document.getElementById('terminal-status');
+
+      status.innerText = "STATUS: EXECUTING LIVE AUDIT...";
+      term.innerHTML = `[+] Initiating ${type.toUpperCase()} execution against: ${target}\n[+] Invoking python script from anthropic-cybersecurity-skills...\n`;
+
+      try {
+        const res = await fetch('/api/cybersecurity/run', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({type: type, target: target})
+        });
+        const data = await res.json();
+
+        status.innerText = "STATUS: COMPLETED";
+        term.innerHTML += `\n[+] Output Received:\n` + JSON.stringify(data, null, 2);
+        term.scrollTop = term.scrollHeight;
+      } catch (err) {
+        status.innerText = "STATUS: ERROR";
+        term.innerHTML += `\n[!] Error during execution: ${err}`;
+      }
+    }
+
+    function runQuickSelfAudit() {
+      document.getElementById('target-input').value = "http://127.0.0.1:8000";
+      executeAudit('headers');
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    window.addEventListener('DOMContentLoaded', loadSkills);
+  </script>
+</body>
+</html>

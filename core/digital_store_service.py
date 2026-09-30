@@ -134,8 +134,8 @@ class DigitalStoreService:
                     "1. nexus_email_guardian.py   - IMAP spam cleaner & 2FA protector\n"
                     "2. nexus_whatsapp_bot_starter.py - FastAPI WhatsApp business bot\n"
                     "3. nexus_b2b_lead_scraper.py - DNS MX record gatekeeper & verifier\n\n"
-                    "Created with pride by Deven Pawaray & Nexus AI.\n"
-                    "Support & Questions: devenpawaray@gmail.com | WhatsApp: +230 58169420\n"
+                    f"Created with pride by {os.getenv('FOUNDER_NAME', 'Founder')} & Nexus AI.\n"
+                    f"Support & Questions: {os.getenv('FOUNDER_EMAIL', 'Configured in .env')} | WhatsApp: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
                 )
                 zf.writestr("README.txt", readme_content)
         except Exception as e:
@@ -330,8 +330,8 @@ class DigitalStoreService:
             f"3. No monthly subscription, no vendor lock-in. You own the script forever.\n\n"
             f"If you ever need any assistance or custom automation, feel free to reply directly to this email.\n\n"
             f"Warm regards,\n"
-            f"Deven Pawaray & Nexus AI Team\n"
-            f"Grand Baie, Mauritius | WhatsApp: +230 58169420\n"
+            f"{os.getenv('FOUNDER_NAME', 'Founder')} & Nexus AI Team\n"
+            f"Grand Baie, Mauritius | WhatsApp: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
         )
 
         html_body = f"""
@@ -362,8 +362,8 @@ class DigitalStoreService:
 
             <hr style="border: none; border-top: 1px solid #334155; margin: 25px 0;">
             <p style="font-size: 12px; color: #64748b;">
-              Created with pride by Deven Pawaray | Grand Baie, Mauritius<br>
-              WhatsApp Support: +230 58169420 | Email: devenpawaray@gmail.com
+              Created with pride by {os.getenv('FOUNDER_NAME', 'Founder')} | Grand Baie, Mauritius<br>
+              WhatsApp Support: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')} | Email: {os.getenv('FOUNDER_EMAIL', 'Configured in .env')}
             </p>
           </div>
         </body>
@@ -375,7 +375,7 @@ class DigitalStoreService:
                 to_email=buyer_email,
                 subject=subject,
                 body=body_text,
-                from_name="Nexus Micro-Store (Deven Pawaray)",
+                from_name=f"Nexus Micro-Store ({os.getenv('FOUNDER_NAME', 'Founder')})",
                 html_body=html_body
             )
         except Exception as e:

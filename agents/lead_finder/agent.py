@@ -34,33 +34,20 @@ class LeadFinderAgent(BaseAgent):
         }
         self.niche_presets = {
             "whatsapp_flight_addon": {
-                "name": "✈️ WhatsApp Flight Addon™ Conversational Booking & Status Bot",
-                "offer": "Turnkey WhatsApp Flight Status, PNR & Booking Engine (https://whatsapp-flight-addon.vercel.app)",
-                "price": "Rs 25,000 Setup + Rs 5,000/mo (or Rs 45,000 Full Buyout)",
+                "name": "💬 WhatsApp Flight Addon",
+                "offer": "Turnkey WhatsApp Flight Status, PNR & Booking Engine with full IP Transfer",
+                "price": "Rs 15k Front + Rs 25k Back = Rs 40,000 Upfront (+ Rs 15k/yr Maintenance)",
                 "currency": "MUR",
                 "target_clients": [
-                    {"company": "Air Mauritius Digital Sales", "contact_name": "Laurent L'Entêté", "contact_role": "Head of Commercial & Digital", "email": "commercial@airmauritius.com", "location": "Port Louis, Mauritius"},
-                    {"company": "Rogers Aviation Mauritius", "contact_name": "Alexandre de Chazal", "contact_role": "General Manager Travel & Cargo", "email": "travel@rogers-aviation.com", "location": "Port Louis, Mauritius"},
-                    {"company": "BlueSky Travel Agency", "contact_name": "Karine Hardy", "contact_role": "Corporate Travel Director", "email": "corporate@bluesky.mu", "location": "Ébène Cybercity, Mauritius"},
-                    {"company": "Silver Wings Travels", "contact_name": "Sameer Kazi", "contact_role": "Managing Director", "email": "info@silverwingstravels.com", "location": "Port Louis, Mauritius"}
-                ]
-            },
-            "whatsapp_restaurant_sme": {
-                "name": "🍽️ WhatsApp Restaurant, Cafe & SME Retail Booking Bot",
-                "offer": "24/7 Automated WhatsApp Table Reservations, Daily Menu & Takeaway Orders with MCB Juice Clearing",
-                "price": "Rs 15,000 Setup + Rs 3,000/mo (or Rs 25,000 Flat Lifetime)",
-                "currency": "MUR",
-                "target_clients": [
-                    {"company": "Le Capitaine Restaurant Grand Baie", "contact_name": "Didier Rousset", "contact_role": "General Manager & Proprietor", "email": "reservation@lecapitaine.mu", "location": "Grand Baie, Mauritius"},
-                    {"company": "L'Atelier Gourmand Mauritius", "contact_name": "Mathieu Bernard", "contact_role": "Executive Chef & Owner", "email": "contact@lateliergourmand.mu", "location": "Port Louis, Mauritius"},
-                    {"company": "La Table du Château", "contact_name": "Fabien Morel", "contact_role": "Operations & Events Manager", "email": "table@chateau-labourdonnais.com", "location": "Mapou, Mauritius"},
-                    {"company": "Luigi's Italian Pizzeria & Pasta Bar", "contact_name": "Luigi Rossi", "contact_role": "Owner & Managing Director", "email": "luigi@luigispizza.mu", "location": "Grand Baie, Mauritius"}
+                    {"company": "Air Mauritius Digital Sales", "contact_name": "Laurent L'Entêté", "contact_role": "Head of Commercial", "email": "commercial@airmauritius.com", "location": "Port Louis, Mauritius"},
+                    {"company": "Rogers Aviation Mauritius", "contact_name": "Alexandre de Chazal", "contact_role": "General Manager Travel", "email": "travel@rogers-aviation.com", "location": "Port Louis, Mauritius"},
+                    {"company": "BlueSky Travel Agency", "contact_name": "Karine Hardy", "contact_role": "Corporate Travel Director", "email": "corporate@bluesky.mu", "location": "Ébène Cybercity, Mauritius"}
                 ]
             },
             "itravellix_saas": {
-                "name": "🌟 i-Travellix™ Enterprise Travel Platform (Rs 100k Front + Rs 100k Back = Rs 200k Web | + Rs 25k iOS + Rs 25k Android = Rs 250k)",
-                "offer": "Complete White-Label Next.js Booking Platform + Native iOS & Android Apps (https://i-travellix.vercel.app)",
-                "price": "Rs 100k Front + Rs 100k Back (Rs 200k Web) | + Rs 25k iOS & Rs 25k Android (Rs 250k Total)",
+                "name": "✈️ i-Travellix™ Luxury Travel SaaS",
+                "offer": "Complete White-Label Next.js Booking Platform with Live GDS and IP Transfer",
+                "price": "Rs 50k Front + Rs 67k Back = Rs 117,000 Upfront (+ Rs 15k/yr Maintenance)",
                 "currency": "MUR",
                 "target_clients": [
                     {"company": "Mauritius Discovery Tours DMC", "contact_name": "Patrick Laroche", "contact_role": "Managing Director", "email": "p.laroche@mru-discovery.mu", "location": "Port Louis, Mauritius"},
@@ -69,48 +56,24 @@ class LeadFinderAgent(BaseAgent):
                 ]
             },
             "ennrevennsourir_ngo": {
-                "name": "❤️ Enn Rev Enn Sourir™ Turnkey NGO & CSR Crowdfunding Portal (Rs 45k Front + Rs 45k Back = Rs 90,000)",
-                "offer": "Transparent Medical Crowdfunding & NGO Suite (https://ennrevennsourir.vercel.app)",
-                "price": "Rs 45,000 Frontend + Rs 45,000 Backend (Rs 90,000 Full-Stack)",
+                "name": "🤝 Enn Rev Enn Sourir™ NGO Platform",
+                "offer": "Transparent CSR & Medical Crowdfunding Portal (MRA Sec. 50L) with IP Transfer",
+                "price": "Rs 45k Front + Rs 60k Back = Rs 105,000 Upfront (+ Rs 15k/yr Maintenance)",
                 "currency": "MUR",
                 "target_clients": [
-                    {"company": "MCB Forward Foundation", "contact_name": "Jean-François Desvaux", "contact_role": "Head of CSR & Philanthropy", "email": "csr@mcb.mu", "location": "Port Louis, Mauritius"},
-                    {"company": "Rogers Capital Corporate CSR", "contact_name": "Corinne Chung", "contact_role": "CSR & Sustainability Director", "email": "c.chung@rogers.mu", "location": "Port Louis, Mauritius"},
-                    {"company": "Fondation CIEL Nouveau Regard", "contact_name": "Delphine Bouic", "contact_role": "Executive Foundation Lead", "email": "dbouic@cielgroup.com", "location": "Ébène, Mauritius"},
-                    {"company": "IBL Foundation", "contact_name": "Marie-Laurence Dupont", "contact_role": "CSR Program Coordinator", "email": "mdupont@iblgroup.com", "location": "Port Louis, Mauritius"}
+                    {"company": "MCB Forward Foundation", "contact_name": "Jean-François Desvaux", "contact_role": "Head of CSR", "email": "csr@mcb.mu", "location": "Port Louis, Mauritius"},
+                    {"company": "Rogers Capital Corporate CSR", "contact_name": "Corinne Chung", "contact_role": "Sustainability Director", "email": "c.chung@rogers.mu", "location": "Port Louis, Mauritius"},
+                    {"company": "Fondation CIEL Nouveau Regard", "contact_name": "Delphine Bouic", "contact_role": "Executive Foundation Lead", "email": "dbouic@cielgroup.com", "location": "Ébène, Mauritius"}
                 ]
             },
             "medical360_portal": {
-                "name": "🩺 Medical 360™ Complete Hospital & Clinic Operations Portal (Rs 45k Front + Rs 45k Back = Rs 90,000)",
-                "offer": "360° Healthcare Web Portal & Clinic Operations Suite (https://www.med360.mu/preview)",
-                "price": "Rs 45,000 Frontend + Rs 45,000 Backend (Rs 90,000 Full-Stack)",
+                "name": "🏥 Medical 360™ Clinic Suite",
+                "offer": "360° Healthcare Web Portal & Clinic Operations Suite with full IP Transfer",
+                "price": "Rs 45k Front + Rs 60k Back = Rs 105,000 Upfront (+ Rs 15k/yr Maintenance)",
                 "currency": "MUR",
                 "target_clients": [
-                    {"company": "Clinique du Nord", "contact_name": "Dr. Alain Wong", "contact_role": "Medical Director", "email": "direction@cliniquedunord.mu", "location": "Baie du Tombeau / Grand Baie, Mauritius"},
-                    {"company": "Clinique Bon Pasteur", "contact_name": "Christine Koenig", "contact_role": "Chief Executive / Operations", "email": "direction@bonpasteur.mu", "location": "Rose-Hill, Mauritius"},
-                    {"company": "City Clinic Group", "contact_name": "Dr. Patrick Chui Wan Cheong", "contact_role": "Managing Director", "email": "contact@cityclinic.mu", "location": "Port Louis, Mauritius"},
-                    {"company": "Ébène Diagnostic & Medical Center", "contact_name": "Dr. Salim Joomun", "contact_role": "Clinical Lead", "email": "info@ebenediagnostic.mu", "location": "Ébène Cybercity, Mauritius"}
-                ]
-            },
-            "mauritius_hospitality": {
-                "name": "🏝️ Mauritius Luxury Villas & Boutique Hotels",
-                "offer": "VillaFlow SaaS + WhatsApp AI Concierge",
-                "price": "Rs 25,000 Setup + Rs 5,000/mo Retainer",
-                "currency": "MUR",
-                "target_clients": [
-                    {"company": "Le Morne Sunset Luxury Villas", "contact_name": "Jean-Pierre Duval", "contact_role": "Managing Director", "email": "jp@lemorne-villas.mu", "location": "Le Morne, Mauritius"},
-                    {"company": "Belle Mare Azure Beach Resort", "contact_name": "Sophie Ramdin", "contact_role": "Guest Experience Director", "email": "sophie@bellemare-azure.mu", "location": "Belle Mare, Mauritius"},
-                    {"company": "Chamarel Eco-Lodge & Suites", "contact_name": "Arnaud Laurent", "contact_role": "Owner & General Manager", "email": "arnaud@chamarel-lodge.mu", "location": "Chamarel, Mauritius"}
-                ]
-            },
-            "mauritius_tourism": {
-                "name": "🚗 Mauritius Excursions, Car Rentals & Boat Charters",
-                "offer": "WhatsApp 24/7 Booking Triage & Instant Quotation Bot",
-                "price": "Rs 15,000 Flat Setup",
-                "currency": "MUR",
-                "target_clients": [
-                    {"company": "Blue Lagoon Catamaran Cruises", "contact_name": "Fabrice Collet", "contact_role": "Fleet Operations Manager", "email": "fabrice@bluelagoon-cruises.mu", "location": "Grand Baie, Mauritius"},
-                    {"company": "Apex Island Car Rentals", "contact_name": "Rishi Goolam", "contact_role": "Operations Director", "email": "rishi@apexrentals.mu", "location": "Plaine Magnien, Mauritius"}
+                    {"company": "Clinique du Nord", "contact_name": "Dr. Alain Wong", "contact_role": "Medical Director", "email": "direction@cliniquedunord.mu", "location": "Grand Baie, Mauritius"},
+                    {"company": "Clinique Bon Pasteur", "contact_name": "Christine Koenig", "contact_role": "Chief Executive", "email": "direction@bonpasteur.mu", "location": "Rose-Hill, Mauritius"}
                 ]
             },
             "global_startups": {

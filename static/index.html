@@ -30,25 +30,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
   <!-- Primary SEO Metadata -->
-  <title>Nexus Workforce — 18 Autonomous AI Employees for Founders &amp; Developers</title>
-  <meta name="description" content="Sovereign AI workforce engine running locally. 18 autonomous agents, 55 subagents, 25 safety guardrails for email triage, B2B sales CRM, invoicing, and 24/7 autopilot. $249 one-time license.">
-  <meta name="keywords" content="autonomous AI workforce, AI employees, local AI agent, B2B sales automation, email triage AI, invoice automation, Mauritius software, medical clinic software, NGO management, FastAPI AI, local LLM agents">
+  <title>Nexus Principal Engineering — Elite Software Engineering &amp; White-Label Turnkey Solutions</title>
+  <meta name="description" content="Boutique software engineering consultancy led by Deven Pawaray. Specializing in bespoke turnkey web systems, private clinic software, NGO platforms, and complete IP transfer.">
+  <meta name="keywords" content="software engineering consultancy, turnkey software, white-label software, medical clinic software, NGO management software, Mauritius software agency, Deven Pawaray, custom web development, IP transfer software">
   <meta name="author" content="Deven Pawaray">
-  <meta name="creator" content="Nexus AI Workforce">
+  <meta name="creator" content="Nexus Principal Engineering">
   <meta name="publisher" content="Deven Pawaray">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://nexus-workforce.vercel.app">
 
-  <!-- AI Engine & LLM Search Engine Discovery -->
-  <link rel="help" type="text/markdown" href="/llms.txt" title="LLM Context Specification">
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml" title="Sitemap">
-
   <!-- Open Graph / Social Graph Meta -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Nexus AI Workforce Hub">
-  <meta property="og:title" content="Nexus Workforce — 18 Autonomous AI Employees">
-  <meta property="og:description" content="Local-first autonomous AI workforce replacing operational overhead. Email triage, B2B CRM, finance, and 24/7 overnight autopilot.">
+  <meta property="og:site_name" content="Nexus Principal Engineering Hub">
+  <meta property="og:title" content="Nexus Principal Engineering — Elite Software Engineering &amp; Turnkey Solutions">
+  <meta property="og:description" content="Boutique software engineering consultancy led by Deven Pawaray. Specializing in bespoke turnkey web systems, private clinic software, NGO platforms, and complete IP transfer.">
   <meta property="og:url" content="https://nexus-workforce.vercel.app">
   <meta property="og:locale" content="en_US">
   <meta property="og:image" content="https://nexus-workforce.vercel.app/static/og-banner.png">
@@ -59,8 +55,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@nexusagent">
   <meta name="twitter:creator" content="@devenpawaray">
-  <meta name="twitter:title" content="Nexus Workforce — 18 Autonomous AI Employees">
-  <meta name="twitter:description" content="Local-first AI fleet: email triage, B2B sales, invoice reconciliation, 24/7 autopilot. $249 one-time founder license.">
+  <meta name="twitter:title" content="Nexus Principal Engineering — Elite Software Engineering">
+  <meta name="twitter:description" content="Boutique software engineering consultancy led by Deven Pawaray. Specializing in turnkey solutions and complete IP transfer.">
   <meta name="twitter:image" content="https://nexus-workforce.vercel.app/static/og-banner.png">
 
   <!-- Geographic Meta Tags (Local Mauritius + Global Targeting) -->
@@ -728,119 +724,54 @@
         </button>
       </div>
 
-      <nav class="nav-menu" id="mainNavMenu">
-        
-        <!-- ========================================== -->
-        <!-- CORE USER TYPE WORKSPACES (UNCLUTTERED)     -->
-        <!-- ========================================== -->
-        <div class="nav-section-header" style="cursor: default;">
-          <span class="nav-section-title">User Workspaces</span>
+      <!-- Under Logo: Dashboard Title & Scheduler / Start All Button -->
+      <div style="padding: 14px 16px; border-bottom: 1px solid var(--border-subtle); background: rgba(15,23,42,0.02);">
+        <div style="font-size: 0.85rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+          <span>⚡</span> Dashboard
         </div>
+        <div class="daemon-pill" id="daemonPill" style="margin: 0; width: 100%; justify-content: space-between; background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 6px 10px; border-radius: 8px;">
+          <span class="daemon-status-dot" id="daemonDot"></span>
+          <span class="daemon-label" id="daemonLabel" style="font-size: 0.72rem;">Scheduler: Stopped</span>
+          <button class="btn-daemon-toggle" id="btnToggleDaemon" style="font-size: 0.7rem; padding: 3px 8px;">Start All</button>
+        </div>
+      </div>
+
+      <nav class="nav-menu" id="mainNavMenu">
+
+        <div class="nav-section-header" style="cursor: default;">
+          <span class="nav-section-title">Nexus Control Hub</span>
+        </div>
+
         <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px;">
-          <!-- Executive / JARVIS Command -->
-          <button class="nav-item active" data-tab="ceo-cockpit" id="navItemJarvisHQ" title="J.A.R.V.I.S. Command & Executive Cockpit">
+          <!-- 1. CEO Cockpit -->
+          <button class="nav-item active" data-tab="ceo-cockpit" id="navItemJarvisHQ" title="Solo Founder Dashboard">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <span>J.A.R.V.I.S. Command</span>
+            <span>CEO Cockpit</span>
             <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: #4f46e5; color: #fff; padding: 1px 7px; border-radius: 10px;">HQ</span>
           </button>
 
-          <!-- 1. COMMUNICATIONS USER TYPE -->
-          <button class="nav-item" data-tab="domain-comms" id="navItemComms" title="Communications: Multi-Inbox, Anti-Spam & WhatsApp Dispatcher">
+          <!-- 2. CRM & Communications -->
+          <button class="nav-item" data-tab="domain-comms" id="navItemComms" title="CRM & Communications">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <span>Communications</span>
-            <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: #0284c7; color: #fff; padding: 1px 7px; border-radius: 10px;">Comms</span>
+            <span>Communications (CRM)</span>
           </button>
 
-          <!-- 2. OPERATIONS USER TYPE -->
-          <button class="nav-item" data-tab="domain-operations" id="navItemOps" title="Operations: 24/7 Autopilot, Database Health, Survival Tiers & Recovery">
+          <!-- 3. Operations & Lead Gen -->
+          <button class="nav-item" data-tab="domain-operations" id="navItemOps" title="Operations & Lead Generation">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            <span>Operations</span>
-            <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: #d97706; color: #fff; padding: 1px 7px; border-radius: 10px;">Ops</span>
+            <span>Operations & Leads</span>
           </button>
 
-          <!-- 3. COMMERCE USER TYPE -->
-          <button class="nav-item" data-tab="domain-commerce" id="navItemCommerce" title="Commerce: Invoicing (MUR/USD), Base L2 USDC Treasury & Digital Store">
+          <!-- 4. Treasury & Markets -->
+          <button class="nav-item" data-tab="domain-commerce" id="navItemCommerce" title="Treasury & Markets">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/><path d="M12 14v2"/><path d="M10 15h4"/></svg>
-            <span>Commerce</span>
-            <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: #059669; color: #fff; padding: 1px 7px; border-radius: 10px;">Finance</span>
+            <span>Treasury & Markets</span>
           </button>
 
-          <!-- 4. RESEARCH USER TYPE -->
-          <button class="nav-item" data-tab="domain-research" id="navItemResearch" title="Research: B2B Leads CRM, Tech Dossiers & CVE Radar">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/><circle cx="12" cy="12" r="2"/></svg>
-            <span>Research</span>
-            <span style="margin-left: auto; font-size: 0.65rem; font-weight: 800; background: #7c3aed; color: #fff; padding: 1px 7px; border-radius: 10px;">Intel</span>
-          </button>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SPECIALIZED FLEETS & EXPANDED VIEWS        -->
-        <!-- ========================================== -->
-        <div class="nav-section-header" id="navExecHeader" title="Click to toggle specialized fleet panels">
-          <span class="nav-section-title">Specialized Fleets</span>
-          <span class="nav-section-chevron rotated" id="execChevron">▼</span>
-        </div>
-        <div id="navGroupExec" class="nav-collapsible collapsed">
-          <button class="nav-item" data-tab="jarvis-voice" id="navItemJarvis">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6" stroke-dasharray="2 2"/><circle cx="12" cy="12" r="2" fill="#00f0ff"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
-            </svg>
-            <span>J.A.R.V.I.S. Voice AI</span>
-            <span style="margin-left: auto; font-size: 0.62rem; font-weight: 800; background: #0284c7; color: #fff; padding: 1px 5px; border-radius: 6px;">Iron Man</span>
-          </button>
-          <button class="nav-item" data-tab="partner-fleets">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
-            <span>Partner Fleets</span>
-            <span style="margin-left: auto; font-size: 0.62rem; font-weight: 800; background: #059669; color: #fff; padding: 1px 5px; border-radius: 6px;">Clinic/NGO</span>
-          </button>
-          <button class="nav-item" data-tab="workforce">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>Autonomous Fleet</span>
-            <span style="margin-left: auto; font-size: 0.62rem; font-weight: 800; background: #4f46e5; color: #fff; padding: 1px 5px; border-radius: 6px;">18 Agents</span>
-          </button>
-          <button class="nav-item" data-tab="social-war-room">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
-            <span>Social War Room</span>
-          </button>
-          <button class="nav-item" data-tab="mesh">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-            <span>Agent Mesh (A2A)</span>
-          </button>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SYSTEM RECOVERY, TOOLS & TELEMETRY         -->
-        <!-- ========================================== -->
-        <div class="nav-section-header" id="navSystemHeader" title="Click to toggle System & Recovery">
-          <span class="nav-section-title">System &amp; Recovery</span>
-          <span class="nav-section-chevron rotated" id="systemChevron">▼</span>
-        </div>
-        <div id="navGroupSystem" class="nav-collapsible collapsed">
-          <button class="nav-item" data-tab="backup">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-            <span>Loss-Free Backups</span>
-            <span style="margin-left: auto; font-size: 0.62rem; font-weight: 800; background: #0284c7; color: #fff; padding: 1px 5px; border-radius: 6px;">Git Bundles</span>
-          </button>
-          <button class="nav-item" data-tab="addons">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>Security Fortress</span>
-            <span style="margin-left: auto; font-size: 0.62rem; font-weight: 800; background: #10b981; color: #fff; padding: 1px 5px; border-radius: 6px;">25 Shields</span>
-          </button>
-          <button class="nav-item" data-tab="ledger">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
-            <span>Audit Ledger &amp; Undo</span>
-          </button>
-          <button class="nav-item" data-tab="terminal">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
-            <span>Raw Activity Log</span>
-          </button>
-          <button class="nav-item" data-tab="devops">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <span>Git &amp; CI/CD</span>
-          </button>
-          <button class="nav-item" data-tab="settings">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            <span>System Settings</span>
+          <!-- 5. System Ops & Fleet -->
+          <button class="nav-item" data-tab="workforce" id="navItemWorkforce" title="Agent Workforce & Settings">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Agent Workforce & Ops</span>
           </button>
         </div>
       </nav>
@@ -859,187 +790,414 @@
     <!-- Main Content Area -->
     <main class="main-content">
       
-      <header class="top-header" style="padding: 14px 20px; margin-bottom: 20px; background: #ffffff; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.02);">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <button id="btnMobileNavToggle" class="btn btn-secondary btn-sm mobile-only" aria-label="Toggle Navigation Menu" style="display: none; font-size: 1.2rem; padding: 6px 12px; cursor: pointer;">☰</button>
-          <div>
-            <h1 class="page-title" id="pageTitle" style="margin: 0; font-size: 1.45rem; font-weight: 900; color: var(--text-main); letter-spacing: -0.02em;">CEO Executive Cockpit</h1>
-            <div id="pageSubtitle" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 2px;">Supreme Autonomous Fleet Orchestration &amp; Performance</div>
-          </div>
+      <!-- Hidden anchors & meta elements to preserve existing JavaScript bindings safely -->
+      <div style="display: none !important;">
+        <h1 id="pageTitle">Solo Founder Dashboard</h1>
+        <div id="pageSubtitle">Micro-SaaS Portfolio Orchestration & Automation</div>
+        <button id="btnOpenPaymentModal"></button>
+        <button id="btnPingMobile"></button>
+        <button id="btnMobileNavToggle"></button>
+        <div id="portalModeSwitcher">
+          <button class="portal-tab-btn" data-portal="founder"></button>
+          <button class="portal-tab-btn" data-portal="workforce"></button>
+          <button class="portal-tab-btn" data-portal="sovereign"></button>
         </div>
-
-        <div class="header-actions" style="display: flex; align-items: center; gap: 12px;">
-          <div class="partner-badge-hero" style="display: inline-flex; align-items: center; gap: 8px; background: #0f172a; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; border: 1px solid #334155; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
-            <span class="pulse-dot" style="background: #10b981;"></span>
-            <span style="font-weight: 700;">Nexus AI</span>
-            <span style="color: #94a3b8; font-weight: 500;">| Managing for <strong style="color: #38bdf8;">Deven Pawaray</strong></span>
-          </div>
-
-          <div class="daemon-pill" id="daemonPill" style="margin: 0;">
-            <span class="daemon-status-dot" id="daemonDot"></span>
-            <span class="daemon-label" id="daemonLabel">Scheduler: Stopped</span>
-            <button class="btn-daemon-toggle" id="btnToggleDaemon">Start All</button>
-          </div>
-
-          <!-- Hidden anchors to preserve existing JavaScript event bindings safely -->
-          <div style="display: none !important;">
-            <button id="btnOpenPaymentModal"></button>
-            <button id="btnPingMobile"></button>
-            <div id="portalModeSwitcher">
-              <button class="portal-tab-btn" data-portal="founder"></button>
-              <button class="portal-tab-btn" data-portal="workforce"></button>
-              <button class="portal-tab-btn" data-portal="sovereign"></button>
-            </div>
-          </div>
-        </div>
-      </header>
+      </div>
 
       <!-- DYNAMIC JSON-DRIVEN WORKSPACE CONTAINER (PHASE 2 ENGINE) -->
       <section class="tab-pane" id="dynamicWorkspaceContainer" style="display: none;"></section>
 
-      <!-- TAB 0: CEO EXECUTIVE COCKPIT -->
+      <!-- TAB 0: SOLO FOUNDER DASHBOARD -->
       <section class="tab-pane active" id="pane-ceo-cockpit">
         
-        <!-- CEO Hero Banner -->
-        <div class="ceo-hero-banner">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+        <!-- ========================================================================= -->
+        <!-- ☀️ FIRST THING IN THE MORNING: THE DAILY TRIAGE & EXECUTIVE SNAPSHOT      -->
+        <!-- ========================================================================= -->
+        <div class="morning-triage-panel" style="background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin-bottom: 26px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); position: relative; overflow: hidden;">
+          
+          <!-- Top Accent Light Bar -->
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #f59e0b, #38bdf8, #10b981);"></div>
+
+          <!-- Section Header & Fast Actions -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
             <div>
-              <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.2);">
-                <span class="pulse-dot" style="background: #10b981;"></span> Autonomous Executive Cockpit
+              <div style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 800; background: #fef3c7; color: #b45309; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+                ☀️ Morning Protocol • Wake-Up Standup &amp; Audit
               </div>
-              <h1 style="font-size: 1.85rem; font-weight: 900; margin: 0 0 8px 0; letter-spacing: -0.02em;">
-                Executive Command Center
-              </h1>
-              <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; max-width: 680px; line-height: 1.5;">
-                Nexus coordinates <strong>17 autonomous AI employees</strong> running privately on your infrastructure. Your workforce proactively sources B2B deals, answers inquiries 24/7, and guarantees enterprise compliance with <strong>zero payroll overhead</strong>.
+              <h2 style="margin: 0; font-size: 1.45rem; font-weight: 900; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+                First Thing in the Morning: The Daily Triage
+              </h2>
+              <p style="margin: 4px 0 0 0; font-size: 0.84rem; color: #64748b;">
+                Overnight revenue audit, real-time gateway health verification, and operational run-rate triage.
               </p>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 8px; min-width: 200px;">
-              <button class="btn btn-primary btn-sm" id="btnCeoRunStandup" style="background: #10b981; color: #ffffff; font-weight: 700; border: none; padding: 10px 16px; border-radius: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35); display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-                ⚡ Trigger Morning Standup
+
+            <!-- Quick Action Toolbar -->
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <button class="btn btn-secondary btn-sm" onclick="window.loadMorningTriage()" title="Refresh live overnight telemetry" style="font-weight: 700; font-size: 0.76rem; background: #fff;">
+                🔄 Refresh Triage
               </button>
-              <button class="btn btn-secondary btn-sm" id="btnCeoWhatsAppBrief" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); font-weight: 600; padding: 8px 14px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-                📱 WhatsApp Executive Brief
+              <button class="btn btn-secondary btn-sm" onclick="window.dispatchTriageWhatsApp()" title="Forward triage brief to Deven (+230 58169420)" style="font-weight: 700; font-size: 0.76rem; background: #ecfdf5; color: #047857; border-color: #a7f3d0;">
+                📱 WhatsApp Brief
               </button>
-              <button class="btn btn-secondary btn-sm" id="btnCeoOpenPartnerEconomics" style="background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.4); font-weight: 700; padding: 8px 14px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-                🤝 Partner Economics (1/5 SLA)
-              </button>
+              <div style="display: inline-flex; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; background: #fff;">
+                <button class="btn btn-sm" id="btnToggleSimYes" onclick="window.loadMorningTriage('yes')" style="font-size: 0.7rem; padding: 4px 8px; border: none; border-right: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 700;" title="Preview Revenue Inflow Tree">Sim YES</button>
+                <button class="btn btn-sm" id="btnToggleSimNo" onclick="window.loadMorningTriage('no')" style="font-size: 0.7rem; padding: 4px 8px; border: none; background: #fff; color: #475569; font-weight: 700;" title="Preview Zero Revenue / Health Tree">Sim NO</button>
+              </div>
             </div>
           </div>
-        </div>
 
+          <!-- ======================================================================= -->
+          <!-- EXECUTIVE SUMMARY CARD (INSTANT SNAPSHOT)                               -->
+          <!-- ======================================================================= -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 22px;">
+            
+            <!-- Snapshot 1: Overnight Revenue -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+              <div style="font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">
+                Overnight Revenue
+              </div>
+              <div style="display: flex; align-items: baseline; gap: 8px;">
+                <span id="triageOvernightRev" style="font-size: 1.65rem; font-weight: 900; color: #0f172a;">$0.00</span>
+                <span id="triageOvernightMur" style="font-size: 0.85rem; font-weight: 800; color: #10b981;">Rs 0</span>
+              </div>
+              <div id="triageOvernightSub" style="font-size: 0.73rem; color: #64748b; margin-top: 3px;">
+                Zero revenue overnight
+              </div>
+            </div>
 
-        <!-- ================================================================ -->
-        <!-- ⚡ 25 DAILY OPERATIONAL TASKS & DESIGN VETTING LAUNCHPAD (HQ)     -->
-        <!-- ================================================================ -->
-        <!-- ================================================================ -->
-        <!-- ⚡ 25 DAILY OPERATIONAL TASKS & DESIGN VETTING LAUNCHPAD (HQ)     -->
-        <!-- ================================================================ -->
-        <div class="task-launchpad-container" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: 1px solid #3730a3; border-radius: 14px; padding: 22px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); color: #fff;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span class="pulse-dot" style="background: #38bdf8; width: 10px; height: 10px;"></span>
+            <!-- Snapshot 2: Run Rate vs Target -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #38bdf8; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em;">Run Rate vs. Target</span>
+                <span id="triageRunRateBadge" style="font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 10px; border: 1px solid #bfdbfe; background: #eff6ff; color: #1d4ed8;">On Track</span>
+              </div>
+              <div id="triageRunRateSub" style="font-size: 0.78rem; font-weight: 700; color: #334155; margin-top: 6px;">
+                Target: Rs 150,000 / month
+              </div>
+              <!-- Mini progress bar -->
+              <div style="height: 5px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 8px;">
+                <div id="triageRunRateBar" style="height: 100%; width: 42%; background: linear-gradient(90deg, #38bdf8, #10b981); border-radius: 3px;"></div>
+              </div>
+            </div>
+
+            <!-- Snapshot 3: Critical Alerts -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #f59e0b; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+              <div style="font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">
+                Critical Alerts
+              </div>
               <div>
-                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 900; letter-spacing: -0.01em; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
-                  ⚡ CEO Cockpit — 25 Daily Real-Life Operational Scenarios
-                </h3>
-                <span style="font-size: 0.78rem; color: #94a3b8;">
-                  Click any scenario to generate the live design sample. Sir Deven reviews, edits &amp; approves before execution.
+                <span id="triageAlertsBadge" style="display: inline-block; font-size: 0.8rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; border: 1px solid #a7f3d0; background: #ecfdf5; color: #047857;">
+                  ● 0 errors detected
                 </span>
               </div>
+              <div id="triageAlertsSub" style="font-size: 0.73rem; color: #64748b; margin-top: 6px;">
+                Payment gateways &amp; APIs 100% up
+              </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-              <input type="text" placeholder="🔍 Search CEO scenarios..." oninput="window.filterDomainLaunchpad('ceo', this.value)" style="background: rgba(15,23,42,0.85); border: 1px solid #334155; color: #fff; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
-              <span style="font-size: 0.72rem; font-weight: 800; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 10px; border-radius: 14px;">
-                25 Scenarios Armed
-              </span>
+
+            <!-- Snapshot 4: Next Action Required -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #8b5cf6; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+              <div style="font-size: 0.72rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">
+                Next Action Required
+              </div>
+              <div id="triageNextAction" style="font-size: 0.8rem; font-weight: 800; color: #0f172a; line-height: 1.35; min-height: 32px;">
+                Review morning outbound pipeline &amp; trigger 15 clinic pitches
+              </div>
+              <div style="margin-top: 6px;">
+                <button class="btn btn-primary btn-sm" onclick="window.handleTriageAction('next_action')" style="font-size: 0.7rem; padding: 2px 10px; font-weight: 800; background: #4f46e5;">
+                  ⚡ Run Priority Action
+                </button>
+              </div>
             </div>
+
           </div>
 
-          <!-- Dynamic 25 Scenarios Grid -->
-          <div id="ceoTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
-            <div style="padding: 20px; color: #94a3b8; font-size: 0.8rem;">Loading 25 CEO operational scenarios...</div>
-          </div>
-        </div>
-        <!-- CEO VISUAL ORIENTATION STRIP: "SEE YOUR EMPIRE IN 3 SECONDS"      -->
-        <!-- ================================================================ -->
-        <div style="background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 1.25rem;">👑</span>
-              <h2 style="margin: 0; font-size: 1.05rem; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: 0.04em;">
-                CEO Visual Compass — How Your Business Operates
-              </h2>
-            </div>
-            <span style="font-size: 0.76rem; font-weight: 700; background: #ecfdf5; color: #047857; padding: 4px 10px; border-radius: 20px; border: 1px solid #a7f3d0;">
-              ● All 18 Autonomous Employees Online &amp; Armed
-            </span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          <!-- ======================================================================= -->
+          <!-- DAILY TRIAGE DECISION TREE (INTERACTIVE BRANCHING)                     -->
+          <!-- ======================================================================= -->
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
             
-            <!-- Pillar 1: The Store -->
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-top: 4px solid #0284c7; border-radius: 8px; padding: 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-weight: 800; font-size: 0.85rem; color: #0284c7;">🛒 1. DIGITAL VENDING MACHINE</span>
-                <span style="font-size: 0.72rem; font-weight: 700; color: #059669;">5 Tools Live</span>
+            <!-- Primary Question Bar & Branch Switcher -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.25rem;">❓</span>
+                <strong style="font-size: 1.05rem; color: #0f172a;">1. "Did we make any money last night?"</strong>
               </div>
-              <p style="font-size: 0.8rem; color: #475569; margin: 0 0 10px 0; line-height: 1.45;">
-                Sells self-hosted Python tools for <strong>$1.00 USD (or Rs 45 MUR)</strong> with 1-click PayPal &amp; MCB Juice. Files are delivered to buyers automatically in 1 second.
-              </p>
+              
+              <!-- Branch Switcher Buttons -->
               <div style="display: flex; gap: 6px;">
-                <a href="/store" target="_blank" class="btn btn-primary btn-sm" style="flex: 1; font-size: 0.75rem; font-weight: 700; background: #0284c7; color: #fff; text-decoration: none; text-align: center;">
-                  👉 Visit Storefront
-                </a>
-                <a href="/manual" target="_blank" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; font-weight: 600; text-decoration: none;">
-                  📄 PDF Manual
-                </a>
-              </div>
-            </div>
-
-            <!-- Pillar 2: B2B CRM -->
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-top: 4px solid #4f46e5; border-radius: 8px; padding: 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-weight: 800; font-size: 0.85rem; color: #4f46e5;">💼 2. B2B SALES ENGINE</span>
-                <span style="font-size: 0.72rem; font-weight: 700; color: #4f46e5;">20 Deals Sourced</span>
-              </div>
-              <p style="font-size: 0.8rem; color: #475569; margin: 0 0 10px 0; line-height: 1.45;">
-                Scouts clinics, hotels, and SMEs across Mauritius. Generates bilingual French/English sales pitches and opens direct WhatsApp discovery chats.
-              </p>
-              <div style="display: flex; gap: 6px;">
-                <button class="btn btn-primary btn-sm" onclick="window.navigateToPage('outreach')" style="flex: 1; font-size: 0.75rem; font-weight: 700; background: #4f46e5; color: #fff;">
-                  👉 Open B2B CRM
+                <button id="btnTriageTabYes" class="btn btn-sm" onclick="window.switchTriageBranch('yes')" style="font-size: 0.76rem; font-weight: 800; padding: 5px 12px; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; color: #64748b; transition: all 0.2s;">
+                  💰 IF YES (Revenue Inflow)
                 </button>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('payments')" style="font-size: 0.75rem; font-weight: 600;">
-                  💳 Invoices
+                <button id="btnTriageTabNo" class="btn btn-sm" onclick="window.switchTriageBranch('no')" style="font-size: 0.76rem; font-weight: 800; padding: 5px 12px; border-radius: 6px; border: 1px solid #0369a1; background: #0284c7; color: #ffffff; transition: all 0.2s;">
+                  🔍 IF NO (Health, Traffic &amp; Burn)
                 </button>
               </div>
             </div>
 
-            <!-- Pillar 3: Night Shift -->
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-top: 4px solid #10b981; border-radius: 8px; padding: 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-weight: 800; font-size: 0.85rem; color: #047857;">🛡️ 3. NIGHT SHIFT DEFENSE</span>
-                <span style="font-size: 0.72rem; font-weight: 700; color: #047857;">5 Inboxes Guarded</span>
+            <!-- BRANCH 1: IF YES -->
+            <div id="triageBranchYes" style="display: none; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+              
+              <!-- Card 1: How much? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <strong style="font-size: 0.85rem; color: #047857;">💵 "How much?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b;">Net Revenue &amp; Units</span>
+                </div>
+                <div id="triageHowMuchValue" style="font-size: 1.55rem; font-weight: 900; color: #10b981; margin: 4px 0;">+$0.00</div>
+                <div id="triageHowMuchSub" style="font-size: 0.74rem; color: #64748b; line-height: 1.35;">0 unit sales between close-of-business yesterday and wake-up time.</div>
               </div>
-              <p style="font-size: 0.8rem; color: #475569; margin: 0 0 10px 0; line-height: 1.45;">
-                Runs every 30 minutes while you sleep. Destroys spam, preserves banking OTPs/2FA codes, caps cloud burn at $180, and prepares your morning standup.
-              </p>
-              <div style="display: flex; gap: 6px;">
-                <button class="btn btn-primary btn-sm" onclick="window.navigateToPage('autopilot')" style="flex: 1; font-size: 0.75rem; font-weight: 700; background: #059669; color: #fff;">
-                  👉 Night Shift Log
-                </button>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('dashboard')" style="font-size: 0.75rem; font-weight: 600;">
-                  📥 Inbox Triage
-                </button>
+
+              <!-- Card 2: Where did it come from? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="font-size: 0.85rem; color: #0369a1;">🎯 "Where did it come from?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b;">Top Products &amp; Funnels</span>
+                </div>
+                <div id="triageSourcesList">
+                  <div style="font-size: 0.74rem; color: #94a3b8; padding: 10px 0; text-align: center;">Loading revenue sources...</div>
+                </div>
               </div>
+
+              <!-- Card 3: How far are we from target? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <strong style="font-size: 0.85rem; color: #6d28d9;">📈 "How far are we from target?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b;">Daily &amp; Monthly Goals</span>
+                </div>
+                <div id="triageTargetMessage" style="font-size: 0.82rem; font-weight: 800; color: #4338ca; line-height: 1.4; margin: 6px 0;">
+                  Pacing toward daily target...
+                </div>
+                <div style="height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 8px;">
+                  <div id="triageTargetDailyBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #818cf8, #4f46e5); border-radius: 3px;"></div>
+                </div>
+                <div id="triageTargetDailyText" style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Pacing vs. daily Rs 5,000 target</div>
+              </div>
+
+              <!-- Card 4: Are there blockers? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="font-size: 0.85rem; color: #b45309;">⚠️ "Are there blockers?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b;">Fulfillment &amp; Webhooks</span>
+                </div>
+                <div id="triageBlockersList">
+                  <div style="font-size: 0.74rem; color: #94a3b8; padding: 10px 0; text-align: center;">Scanning blockers...</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- BRANCH 2: IF NO -->
+            <div id="triageBranchNo" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+              
+              <!-- Card 1: Is anything broken? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="font-size: 0.85rem; color: #0284c7;">🩺 "Is anything broken?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #047857;">Gateways &amp; Webhooks</span>
+                </div>
+                <div id="triageHealthChecksList">
+                  <div style="font-size: 0.74rem; color: #94a3b8; padding: 10px 0; text-align: center;">Checking payment rails...</div>
+                </div>
+              </div>
+
+              <!-- Card 2: Did traffic show up? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <strong style="font-size: 0.85rem; color: #0284c7;">👥 "Did traffic show up?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b;">Midnight Sessions &amp; Cart</span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
+                  <span id="triageTrafficSessions" style="font-size: 1.55rem; font-weight: 900; color: #0f172a;">24</span>
+                  <span style="font-size: 0.8rem; color: #64748b;">sessions</span>
+                  <span style="font-size: 0.72rem; font-weight: 800; background: #fee2e2; color: #b91c1c; padding: 2px 6px; border-radius: 4px;">
+                    <span id="triageTrafficDropoff">12.5%</span> drop-off
+                  </span>
+                </div>
+                <div id="triageTrafficSummary" style="font-size: 0.74rem; color: #64748b; line-height: 1.35;">
+                  68 nocturnal pageviews • Primary: /store ($1 Digital Vending Machine)
+                </div>
+              </div>
+
+              <!-- Card 3: What is queued up to change that today? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="font-size: 0.85rem; color: #0284c7;">📅 "What is queued today?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b;">Pitches, Proposals &amp; Ads</span>
+                </div>
+                <div id="triageQueuedList">
+                  <div style="font-size: 0.74rem; color: #94a3b8; padding: 10px 0; text-align: center;">Loading day schedule...</div>
+                </div>
+              </div>
+
+              <!-- Card 4: What's the burn? -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="font-size: 0.85rem; color: #0284c7;">💸 "What’s the burn?"</strong>
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b;">8h Baseline Cloud Spend</span>
+                </div>
+                <div id="triageBurnValue" style="font-size: 1.45rem; font-weight: 900; color: #0f172a; margin: 2px 0;">$1.17 USD</div>
+                <div id="triageBurnSub" style="font-size: 0.72rem; color: #64748b; margin-bottom: 8px;">~Rs 53 MUR baseline night compute</div>
+                <div id="triageBurnItemized">
+                  <!-- Itemized lines -->
+                </div>
+              </div>
+
             </div>
 
           </div>
+
+          <!-- ======================================================================= -->
+          <!-- CONVERSATIONAL STANDUP ASSISTANT                                        -->
+          <!-- ======================================================================= -->
+          <div style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 10px; padding: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 1.15rem;">💬</span>
+                <strong style="font-size: 0.85rem; color: #1e1b4b;">Ask Standup Assistant (Instant Morning Q&amp;A):</strong>
+              </div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button class="btn btn-secondary btn-sm" onclick="window.askTriageAssistant('Did we make any money last night?')" style="font-size: 0.68rem; padding: 2px 8px; background: #fff; font-weight: 700;">💰 Did we make money?</button>
+                <button class="btn btn-secondary btn-sm" onclick="window.askTriageAssistant('Is anything broken?')" style="font-size: 0.68rem; padding: 2px 8px; background: #fff; font-weight: 700;">🩺 Is anything broken?</button>
+                <button class="btn btn-secondary btn-sm" onclick="window.askTriageAssistant('Did traffic show up?')" style="font-size: 0.68rem; padding: 2px 8px; background: #fff; font-weight: 700;">👥 Did traffic show up?</button>
+                <button class="btn btn-secondary btn-sm" onclick="window.askTriageAssistant('What is queued up today?')" style="font-size: 0.68rem; padding: 2px 8px; background: #fff; font-weight: 700;">📅 What's queued today?</button>
+                <button class="btn btn-secondary btn-sm" onclick="window.askTriageAssistant('What is the burn?')" style="font-size: 0.68rem; padding: 2px 8px; background: #fff; font-weight: 700;">💸 What’s the burn?</button>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="triageAssistantInput" class="form-input" placeholder="Or ask your own morning question (e.g., 'What is our top revenue source?')..." style="flex: 1; font-size: 0.82rem; padding: 6px 12px;" onkeydown="if(event.key==='Enter') window.askTriageAssistant()">
+              <button class="btn btn-primary btn-sm" onclick="window.askTriageAssistant()" style="font-weight: 800; font-size: 0.78rem; background: #0f172a; white-space: nowrap;">
+                Ask Assistant ➔
+              </button>
+            </div>
+
+            <!-- Dynamic Answer Renderer -->
+            <div id="triageAssistantAnswer" style="display: none; margin-top: 10px; padding: 12px; background: #ffffff; border: 1px solid #94a3b8; border-radius: 8px;"></div>
+          </div>
+
         </div>
 
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+          <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin:0;">Live Sales & Revenue</h2>
+          <button class="btn btn-primary" onclick="window.navigateToPage('customer-directory')" style="font-weight: 800; background: #0f172a;">
+            👥 View Customer Directory ➔
+          </button>
+        </div>
+
+        <!-- Sales KPI Grid -->
+        <div class="ceo-kpi-grid" style="margin-bottom: 24px;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('today')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="ceo-kpi-badge" style="background: #ecfdf5; color: #047857;">Today's Sales</span>
+            <div style="font-size: 1.75rem; font-weight: 900; color: #0f172a;" id="kpiTodaySales">Rs 0</div>
+            <div style="font-size: 0.8rem; color: #10b981; font-weight: 600;" id="kpiTodaySub">Loading...</div>
+          </div>
+          <div class="ceo-kpi-card" style="border-left: 4px solid #3b82f6; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('yesterday')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="ceo-kpi-badge" style="background: #eff6ff; color: #1d4ed8;">Yesterday</span>
+            <div style="font-size: 1.75rem; font-weight: 900; color: #0f172a;" id="kpiYesterdaySales">Rs 0</div>
+            <div style="font-size: 0.8rem; color: #64748b;" id="kpiYesterdaySub">Loading...</div>
+          </div>
+          <div class="ceo-kpi-card" style="border-left: 4px solid #8b5cf6; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('week')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="ceo-kpi-badge" style="background: #f5f3ff; color: #6d28d9;">This Week</span>
+            <div style="font-size: 1.75rem; font-weight: 900; color: #0f172a;" id="kpiWeekSales">Rs 0</div>
+            <div style="font-size: 0.8rem; color: #8b5cf6; font-weight: 600;" id="kpiWeekSub">Loading...</div>
+          </div>
+          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('all')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="ceo-kpi-badge" style="background: #fffbeb; color: #b45309;">Monthly Target</span>
+            <div style="font-size: 1.75rem; font-weight: 900; color: #0f172a;" id="kpiMonthTarget">Rs 0</div>
+            <div style="font-size: 0.8rem; color: #b45309; font-weight: 600;" id="kpiMonthSub">Loading...</div>
+          </div>
+        </div>
+
+        <!-- Daily Products Sold & Recent Activity -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+
+          <!-- Recent Sales Table -->
+          <div class="card-panel" style="padding: 20px;">
+            <h3 style="margin: 0 0 16px 0; font-size: 1.1rem; font-weight: 800; color: var(--text-main);">Products Sold (Today & Yesterday)</h3>
+            <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.85rem;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border-subtle); color: var(--text-muted);">
+                  <th style="padding: 8px;">Date</th>
+                  <th style="padding: 8px;">Product</th>
+                  <th style="padding: 8px;">Qty</th>
+                  <th style="padding: 8px;">Revenue</th>
+                  <th style="padding: 8px;">Status</th>
+                  <th style="padding: 8px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 12px 8px; color: var(--text-muted);">Today, 10:42 AM</td>
+                  <td style="padding: 12px 8px; font-weight: 700; color: var(--text-main);">Medical 360™ Clinic Suite</td>
+                  <td style="padding: 12px 8px; color: var(--text-main);">1</td>
+                  <td style="padding: 12px 8px; color: #10b981; font-weight: 700;">Rs 45,000</td>
+                  <td style="padding: 12px 8px;"><span class="badge" style="background: #ecfdf5; color: #047857;">Paid (Juice)</span></td>
+                  <td style="padding: 12px 8px;"><button class="btn btn-secondary btn-sm" style="font-size:0.7rem; padding: 4px 8px;" onclick="viewInvoice('INV-001')">👁️ View</button></td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 12px 8px; color: var(--text-muted);">Today, 08:15 AM</td>
+                  <td style="padding: 12px 8px; font-weight: 700; color: var(--text-main);">WhatsApp SME Bot</td>
+                  <td style="padding: 12px 8px; color: var(--text-main);">1</td>
+                  <td style="padding: 12px 8px; color: #10b981; font-weight: 700;">Rs 15,000</td>
+                  <td style="padding: 12px 8px;"><span class="badge" style="background: #eff6ff; color: #1d4ed8;">Paid (PayPal)</span></td>
+                  <td style="padding: 12px 8px;"><button class="btn btn-secondary btn-sm" style="font-size:0.7rem; padding: 4px 8px;" onclick="viewInvoice('INV-002')">👁️ View</button></td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                  <td style="padding: 12px 8px; color: var(--text-muted);">Yesterday, 14:30 PM</td>
+                  <td style="padding: 12px 8px; font-weight: 700; color: var(--text-main);">WhatsApp Flight Addon</td>
+                  <td style="padding: 12px 8px; color: var(--text-main);">1</td>
+                  <td style="padding: 12px 8px; color: #10b981; font-weight: 700;">Rs 15,000</td>
+                  <td style="padding: 12px 8px;"><span class="badge" style="background: #ecfdf5; color: #047857;">Paid (Juice)</span></td>
+                  <td style="padding: 12px 8px;"><button class="btn btn-secondary btn-sm" style="font-size:0.7rem; padding: 4px 8px;" onclick="viewInvoice('INV-001')">👁️ View</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Micro-SaaS Portfolio MRR -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); color: var(--text-main);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+              <span style="font-size: 1.3rem;">💸</span>
+              <div>
+                <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--text-main);">Portfolio MRR</h3>
+                <p style="margin: 2px 0 0 0; font-size: 0.76rem; color: var(--text-muted);">Current active subscriptions</p>
+              </div>
+            </div>
+
+            <div id="portfolioMrrContainer">
+              <div style="text-align: center; padding: 20px; color: var(--text-muted);">Loading active subscriptions...</div>
+            </div>
+        </div>
+
+        <script>
+          
+window.filterSalesTable = function(period) {
+    alert("Filtering Sales Table for: " + period.toUpperCase());
+    // Implementation can show/hide rows based on the period string
+};
+
+window.viewInvoice = function(invoiceId) {
+    alert("Viewing " + invoiceId + "... Routing to Treasury Engine Invoice Renderer.");
+};
+
+window.toggleCeoLaunchpad = function() {
+            const grid = document.getElementById("ceoTaskGrid");
+            const btn = document.getElementById("btnToggleCeoLaunchpad");
+            if (!grid || !btn) return;
+            const isHidden = grid.style.display === "none";
+            if (isHidden) {
+              grid.style.display = "flex";
+              btn.textContent = "[-] Close";
+            } else {
+              grid.style.display = "none";
+              btn.textContent = "[+] Open";
+            }
+          };
+        </script>
         <!-- ================================================================ -->
-        <!-- CEO 1-CLICK INTERACTIVE LAB: "CLICK TO SEE IT HAPPEN"             -->
+        <!-- FOUNDER 1-CLICK INTERACTIVE LAB: "CLICK TO SEE IT HAPPEN"             -->
         <!-- ================================================================ -->
         <div style="background: #ffffff; border: 2px solid #6366f133; border-radius: 12px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(99, 102, 241, 0.05);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
@@ -1047,7 +1205,7 @@
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.3rem;">🧪</span>
                 <h3 style="margin: 0; font-size: 1.15rem; font-weight: 900; color: #1e1b4b;">
-                  CEO 1-Click Interactive Lab (Zero Typing Required)
+                  Indie Hacker 1-Click Interactive Lab (Zero Typing Required)
                 </h3>
               </div>
               <p style="margin: 3px 0 0 0; font-size: 0.82rem; color: #64748b;">
@@ -1128,12 +1286,12 @@
               </div>
             </div>
 
-            <!-- Lab 3: Post on My Behalf (CEO Ghostwriter) -->
+            <!-- Lab 3: Post on My Behalf (Solo Ghostwriter) -->
             <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 8px; padding: 14px; grid-column: 1 / -1;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-weight: 800; font-size: 0.85rem; color: #86198f;">📱 3. Post on My Behalf (CEO Ghostwriter)</span>
-                  <span class="badge" style="background: #fae8ff; color: #a21caf; font-size: 0.68rem; font-weight: 700;">Employee #19 Active</span>
+                  <span style="font-weight: 800; font-size: 0.85rem; color: #86198f;">📱 3. Post on My Behalf (Solo Founder Ghostwriter)</span>
+                  <span class="badge" style="background: #fae8ff; color: #a21caf; font-size: 0.68rem; font-weight: 700;">Agent Active</span>
                 </div>
                 <button class="btn btn-sm" onclick="window.navigateToPage('social-war-room')" style="background: #a21caf; color: #fff; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: none; cursor: pointer;">
                   Open Social War Room ➔
@@ -1166,55 +1324,55 @@
           </div>
         </div>
 
-        <!-- 4 Core Executive ROI KPI Cards -->
+        <!-- 4 Core Indie Hacker KPI Cards -->
         <div class="ceo-kpi-grid">
           
-          <!-- KPI 1: Pipeline -->
+          <!-- KPI 1: MRR & Growth -->
           <div class="ceo-kpi-card" style="border-left: 4px solid #4f46e5;">
-            <span class="ceo-kpi-badge" style="background: #eef2ff; color: #4338ca;">Active Revenue</span>
-            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Commercial Pipeline</span>
+            <span class="ceo-kpi-badge" style="background: #eef2ff; color: #4338ca;">MRR & Growth</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Monthly Recurring Revenue</span>
             <div style="font-size: 1.75rem; font-weight: 900; color: #0f172a; letter-spacing: -0.02em;" id="ceoKpiPipeline">
-              Rs 1,850,000
+              $2,550
             </div>
             <div style="font-size: 0.8rem; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 4px;">
-              <span>▲ 20 Qualified B2B Deals</span>
-              <span style="color: #64748b; font-weight: 400;">· 3 Turnkey Assets</span>
+              <span>▲ 15% MoM Growth</span>
+              <span style="color: #64748b; font-weight: 400;">· 45 Active Subs</span>
             </div>
           </div>
 
-          <!-- KPI 2: Labor Cost Replacement -->
-          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981;">
-            <span class="ceo-kpi-badge" style="background: #ecfdf5; color: #047857;">Cost Efficiency</span>
-            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Human Payroll Saved</span>
+          <!-- KPI 2: Burn & Runway -->
+          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('today')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="ceo-kpi-badge" style="background: #ecfdf5; color: #047857;">Runway</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Monthly SaaS Burn Rate</span>
             <div style="font-size: 1.75rem; font-weight: 900; color: #047857; letter-spacing: -0.02em;">
-              Rs 120,000 <span style="font-size: 0.95rem; font-weight: 600; color: #64748b;">/ mo</span>
+              $120 <span style="font-size: 0.95rem; font-weight: 600; color: #64748b;">/ mo</span>
             </div>
             <div style="font-size: 0.8rem; color: #64748b;">
-              Replaces <strong>3 Full-Time Roles</strong> (SDR, Support, Ops)
+              <strong>18+ Months</strong> of runway remaining
             </div>
           </div>
 
-          <!-- KPI 3: Autonomous Work Volume -->
+          <!-- KPI 3: Traffic & Conversion -->
           <div class="ceo-kpi-card" style="border-left: 4px solid #0284c7;">
-            <span class="ceo-kpi-badge" style="background: #f0f9ff; color: #0369a1;">Zero-Fatigue</span>
-            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Autonomous Operations</span>
+            <span class="ceo-kpi-badge" style="background: #f0f9ff; color: #0369a1;">Acquisition</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Unique Visitors (30d)</span>
             <div style="font-size: 1.75rem; font-weight: 900; color: #0f172a; letter-spacing: -0.02em;" id="ceoKpiOps">
-              1,248 Tasks
+              12,450
             </div>
             <div style="font-size: 0.8rem; color: #0284c7; font-weight: 600;">
-              ⚡ 24/7 Night Shift Active · 30m Auto-Sweeps
+              ⚡ 4.2% Conversion Rate · $5 CAC
             </div>
           </div>
 
-          <!-- KPI 4: Sovereign Security -->
-          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b;">
-            <span class="ceo-kpi-badge" style="background: #fffbeb; color: #b45309;">Sovereignty</span>
-            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Security Fortress</span>
+          <!-- KPI 4: Time Leveraged -->
+          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('all')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="ceo-kpi-badge" style="background: #fffbeb; color: #b45309;">Leverage</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">AI Hours Saved</span>
             <div style="font-size: 1.75rem; font-weight: 900; color: #0f172a; letter-spacing: -0.02em;">
-              25 / 25 Shield
+              142 hrs
             </div>
             <div style="font-size: 0.8rem; color: #10b981; font-weight: 600;">
-              🛡️ 100% Guardrails Enforced · 0 Leakage Risk
+              🤖 Automating SDR, Support & Deployments
             </div>
           </div>
 
@@ -1225,131 +1383,131 @@
           <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 14px;">
             <div>
               <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0;">
-                Autonomous Business Units &amp; Org Structure
+                Indie Hacker AI Automation Units
               </h2>
               <p style="font-size: 0.85rem; color: #64748b; margin: 2px 0 0 0;">
-                How the autonomous workforce is structured to operate your enterprise end-to-end
+                How your AI workforce multiplies your solo output across all business domains.
               </p>
             </div>
             <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('workforce')" style="font-weight: 700; font-size: 0.8rem;">
-              👥 View Complete Org Chart
+              🤖 View AI Agents
             </button>
           </div>
 
           <div class="dept-business-grid">
             
-            <!-- Unit 1: Commercial & Sales -->
+            <!-- Unit 1: Development & Engineering -->
             <div class="dept-business-card" style="border-top: 4px solid #4f46e5;">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span class="dept-tag" style="background: #eef2ff; color: #4338ca;">💼 Department 1</span>
+                  <span class="dept-tag" style="background: #eef2ff; color: #4338ca;">🛠️ Engine Room</span>
                   <span style="font-size: 0.75rem; font-weight: 700; color: #10b981;">● Online</span>
                 </div>
                 <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">
-                  Commercial &amp; Revenue Operations
+                  Development &amp; Engineering
                 </h3>
                 <p style="font-size: 0.82rem; color: #475569; line-height: 1.5; margin-bottom: 14px;">
-                  Autonomously scouts B2B corporate leads across Mauritius and Africa, qualifies ICP fit, drafts bespoke commercial proposals, and monitors receivable settlement via MCB Juice and PayPal.
+                  Automates boilerplate code, reviews PRs, deploys bug fixes, and maintains the CI/CD pipeline. Your AI dev team never sleeps.
                 </p>
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; font-size: 0.78rem; display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;">
-                  <div><strong>Key Agents:</strong> B2B Lead Scout (#11), Revenue Scout (#8)</div>
-                  <div><strong>Pipeline Value:</strong> Rs 1,850,000 MUR in vetted opportunities</div>
-                  <div><strong>Settlement:</strong> Instant MCB Juice (+230 58169420) &amp; PayPal</div>
+                  <div><strong>Active Agents:</strong> Code Reviewer AI, DevOps Bot</div>
+                  <div><strong>Pipeline:</strong> 4 PRs reviewed, 12 successful deploys (24h)</div>
+                  <div><strong>Focus:</strong> Shipping the Invoice PDF Extractor MVP</div>
                 </div>
               </div>
               <div style="display: flex; gap: 8px;">
                 <button class="btn btn-primary btn-sm" onclick="window.navigateToPage('outreach')" style="flex: 1; font-weight: 700; background: #4f46e5; color: #fff;">
-                  Open CRM
+                  Git Dashboard
                 </button>
                 <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('payments')" style="font-weight: 600;">
-                  Invoices
+                  Deployments
                 </button>
               </div>
             </div>
 
-            <!-- Unit 2: Marketing & Growth -->
+            <!-- Unit 2: Marketing & Distribution -->
             <div class="dept-business-card" style="border-top: 4px solid #ec4899;">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span class="dept-tag" style="background: #fdf2f8; color: #be185d;">📢 Department 2</span>
+                  <span class="dept-tag" style="background: #fdf2f8; color: #be185d;">📢 Distribution</span>
                   <span style="font-size: 0.75rem; font-weight: 700; color: #10b981;">● Online</span>
                 </div>
                 <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">
-                  Marketing &amp; Brand Expansion
+                  Marketing &amp; Distribution
                 </h3>
                 <p style="font-size: 0.82rem; color: #475569; line-height: 1.5; margin-bottom: 14px;">
-                  Monitors social velocity across X, LinkedIn, and Chirper; identifies trending topics; ranks high-ROI influencers; and crafts ready-to-post viral campaigns for Medical 360 and Nexus licensing.
+                  Handles X/Twitter ghostwriting, LinkedIn posts, Reddit replies, and SEO article generation to drive organic traffic to your Micro-SaaS products.
                 </p>
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; font-size: 0.78rem; display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;">
-                  <div><strong>Key Agents:</strong> Marketing &amp; Influencer Usher (#9), Trend Curator (#17)</div>
-                  <div><strong>Active Output:</strong> 3 Multi-Platform Campaigns Drafted</div>
-                  <div><strong>Radar:</strong> 8 Live Social Signals &amp; Trend Feeds Monitored</div>
+                  <div><strong>Active Agents:</strong> Social Ghostwriter AI, SEO Blog Bot</div>
+                  <div><strong>Active Output:</strong> 5 Scheduled Posts, 2 SEO Articles Drafted</div>
+                  <div><strong>Impact:</strong> +15% WoW Traffic Growth</div>
                 </div>
               </div>
               <div style="display: flex; gap: 8px;">
                 <button class="btn btn-primary btn-sm" onclick="window.navigateToPage('influencers')" style="flex: 1; font-weight: 700; background: #ec4899; color: #fff;">
-                  Marketing Suite
+                  Content Hub
                 </button>
                 <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('revenue')" style="font-weight: 600;">
-                  Bounties
+                  Analytics
                 </button>
               </div>
             </div>
 
-            <!-- Unit 3: 24/7 Operations & Support -->
+            <!-- Unit 3: Support & QA -->
             <div class="dept-business-card" style="border-top: 4px solid #10b981;">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span class="dept-tag" style="background: #ecfdf5; color: #047857;">🛡️ Department 3</span>
+                  <span class="dept-tag" style="background: #ecfdf5; color: #047857;">🛡️ CX & Support</span>
                   <span style="font-size: 0.75rem; font-weight: 700; color: #10b981;">● Online</span>
                 </div>
                 <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">
-                  24/7 Operations &amp; Client Success
+                  Support &amp; Customer Success
                 </h3>
                 <p style="font-size: 0.82rem; color: #475569; line-height: 1.5; margin-bottom: 14px;">
-                  Handles VIP customer inquiries around the clock, enforces zero-spam email hygiene, runs 30-minute overnight sweeps, and provides automatic failover with atomic snapshot backups.
+                  Triage incoming emails, auto-respond to basic queries, and organize feature requests for the roadmap. Keeps churn low and customers happy.
                 </p>
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; font-size: 0.78rem; display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;">
-                  <div><strong>Key Agents:</strong> Customer Support Concierge (#4), Email Hygiene (#5)</div>
-                  <div><strong>Autopilot:</strong> Night Shift 24/7 (30-min heartbeat sweeps)</div>
-                  <div><strong>Response Time:</strong> Instant triage &amp; draft resolution (&lt;5s)</div>
+                  <div><strong>Active Agents:</strong> Support AI, Feedback Analyzer</div>
+                  <div><strong>Metrics:</strong> 25 Tickets closed, 98% CSAT</div>
+                  <div><strong>SLA:</strong> &lt; 5 min response time</div>
                 </div>
               </div>
               <div style="display: flex; gap: 8px;">
                 <button class="btn btn-primary btn-sm" onclick="window.navigateToPage('autopilot')" style="flex: 1; font-weight: 700; background: #059669; color: #fff;">
-                  Night Shift
+                  Helpdesk
                 </button>
                 <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('dashboard')" style="font-weight: 600;">
-                  Inbox
+                  Feature Requests
                 </button>
               </div>
             </div>
 
-            <!-- Unit 4: Executive Governance -->
+            <!-- Unit 4: Strategy & Finance -->
             <div class="dept-business-card" style="border-top: 4px solid #0f172a;">
               <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span class="dept-tag" style="background: #f1f5f9; color: #0f172a;">⚖️ Department 4</span>
+                  <span class="dept-tag" style="background: #f1f5f9; color: #0f172a;">📈 Finance</span>
                   <span style="font-size: 0.75rem; font-weight: 700; color: #10b981;">● Online</span>
                 </div>
                 <h3 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin: 0 0 6px 0;">
-                  Executive Governance &amp; Strategy
+                  Strategy &amp; Financial Tracking
                 </h3>
                 <p style="font-size: 0.82rem; color: #475569; line-height: 1.5; margin-bottom: 14px;">
-                  Translates CEO strategic goals into coordinated multi-agent execution waves. Synthesizes daily git pulses, compiles executive dossiers, and delivers morning audio/WhatsApp updates.
+                  Monitors MRR across Stripe, synthesizes daily progress, tracks server costs, and gives you a single pane of glass on profitability.
                 </p>
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; font-size: 0.78rem; display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;">
-                  <div><strong>Key Agents:</strong> Chief of Staff (#3), Managing Partner AI (#6)</div>
-                  <div><strong>Reporting:</strong> Executive Standup Brief &amp; Tech Dossiers</div>
-                  <div><strong>Execution:</strong> Strategic Multi-Agent Fleet Wave Dispatch</div>
+                  <div><strong>Active Agents:</strong> Finance Tracker, Solo AI Advisor</div>
+                  <div><strong>Health:</strong> Cashflow positive ($2,550 MRR)</div>
+                  <div><strong>Alerts:</strong> No anomalies detected in Stripe.</div>
                 </div>
               </div>
               <div style="display: flex; gap: 8px;">
                 <button class="btn btn-primary btn-sm" onclick="window.navigateToPage('workforce')" style="flex: 1; font-weight: 700; background: #0f172a; color: #fff;">
-                  Fleet Directives
+                  Financial Dashboard
                 </button>
                 <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('addons')" style="font-weight: 600;">
-                  Shield
+                  Stripe Log
                 </button>
               </div>
             </div>
@@ -1365,7 +1523,7 @@
             <div class="card-header" style="border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 1.2rem;">🎯</span>
-                <h3 style="margin: 0; font-size: 1rem; font-weight: 800; color: #1e1b4b;">CEO Strategic Directives</h3>
+                <h3 style="margin: 0; font-size: 1rem; font-weight: 800; color: #1e1b4b;">Solo Founder Strategic Directives</h3>
               </div>
               <button class="btn btn-secondary btn-sm" id="btnCeoRefreshDirectives" style="font-size: 0.72rem;">🔄 Refresh</button>
             </div>
@@ -1847,1294 +2005,49 @@
       <!-- ================================================================ -->
       <!-- TAB: COMMUNICATIONS DOMAIN DASHBOARD (COMMS USER TYPE)           -->
       <!-- ================================================================ -->
-      <section class="tab-pane" id="pane-domain-comms">
-        <div class="domain-hero-banner banner-comms">
-          <div class="domain-hero-content">
-            <div>
-              <div class="domain-badge badge-comms">
-                <span class="pulse-dot" style="background: #0284c7;"></span> Communications Workspace
-              </div>
-              <h1 class="domain-title">Communications &amp; Inbound Command</h1>
-              <p class="domain-desc">
-                Unified multi-inbox hygiene, anti-spam quarantine, WhatsApp mobile dispatcher, and VIP customer support concierge. All operating locally with zero third-party leakage.
-              </p>
-            </div>
-            <div class="domain-hero-actions">
-              <button class="btn btn-primary btn-sm" id="btnCommsRunSweep" style="background: #0284c7; color: #fff;">
-                ⚡ Run Comms Sweep
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnCommsRefresh">
-                🔄 Refresh Inboxes
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnCommsGoInbox" onclick="window.navigateToPage('dashboard')">
-                📥 Priority Inbox
-              </button>
-            </div>
-          </div>
+            <section class="tab-pane" id="pane-domain-comms">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+          <h2 style="font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin:0;">CRM & Communications</h2>
+          <button class="btn btn-primary" onclick="alert('Opening AI Email Studio...')" style="font-weight: 800; background: #0284c7;">
+            ✉️ Compose AI Message ➔
+          </button>
         </div>
 
-        
-        <!-- ⚡ Domain Operations Launchpad: Communications -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.2rem;">⚡</span>
-                <strong style="font-size: 1.05rem; color: #082f49; letter-spacing: -0.01em;">Communications Command — 25 Daily Real-Life Operational Scenarios</strong>
-              </div>
-              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
-                Generates draft &amp; visual preview • Sir Deven reviews and vets before dispatch.
-              </span>
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px;">
+
+          <!-- Inbox & Active Chats -->
+          <div class="card-panel" style="padding: 20px; min-height: 500px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px; margin-bottom: 16px;">
+              <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800;">Multi-Channel Inbox</h3>
+              <span class="badge" style="background: #e0f2fe; color: #0284c7;" id="crmUnreadBadge">0 Unread</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-              <input type="text" placeholder="🔍 Search 25 Comms scenarios..." oninput="window.filterDomainLaunchpad('comms', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
-              <span style="font-size: 0.72rem; font-weight: 800; background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; padding: 4px 10px; border-radius: 14px;">
-                25 Scenarios Ready
-              </span>
+
+            <div id="crmInboxList" style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="text-align: center; padding: 20px; color: var(--text-muted);">No unread messages.</div>
             </div>
           </div>
 
-          <!-- Dynamic 25 Comms Scenarios Grid -->
-          <div id="commsTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
-            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Communications scenarios...</div>
-          </div>
-        </div>
-        <!-- Comms KPI Strip -->
-        <div class="domain-kpi-grid">
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Active Inboxes</span>
-              <span class="domain-kpi-icon" style="color: #0284c7;">📫</span>
-            </div>
-            <div class="domain-kpi-value" id="commsKpiAccounts">Loading...</div>
-            <div class="domain-kpi-sub">IMAP / SMTP Syncing</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Spam Quarantined</span>
-              <span class="domain-kpi-icon" style="color: #e11d48;">🛡️</span>
-            </div>
-            <div class="domain-kpi-value" id="commsKpiSpam">0 Detected</div>
-            <div class="domain-kpi-sub">Newsletters &amp; Promo Blocked</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Pending Inquiries</span>
-              <span class="domain-kpi-icon" style="color: #f59e0b;">💬</span>
-            </div>
-            <div class="domain-kpi-value" id="commsKpiSupport">0 Inbound</div>
-            <div class="domain-kpi-sub">Requiring VIP Triage</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">WhatsApp Gateway</span>
-              <span class="domain-kpi-icon" style="color: #10b981;">📱</span>
-            </div>
-            <div class="domain-kpi-value" id="commsKpiWhatsApp">Ready</div>
-            <div class="domain-kpi-sub">Local SMS / WhatsApp Relay</div>
-          </div>
-        </div>
+          <!-- Client History & Timeline -->
+          <div class="card-panel" style="padding: 20px; background: #f8fafc;">
+            <h3 style="margin: 0 0 16px 0; font-size: 1.1rem; font-weight: 800;">Client Dossier & Timeline</h3>
 
-        <!-- Comms Main Grid -->
-        <div class="domain-layout-grid">
-          <!-- Left Column -->
-          <div class="domain-col">
-            <!-- Priority Inbound Triage -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">✉️</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Priority Triage Stream</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" id="btnCommsTriageAll">Triage All</button>
-              </div>
-              <div class="domain-feed-container" id="commsPriorityFeed">
-                <div style="padding: 24px; text-align: center; color: var(--text-muted);">
-                  Loading incoming communications feed...
-                </div>
-              </div>
+            <!-- Selected Client Header -->
+            <div id="crmClientHeader" style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; color: var(--text-muted); font-size: 0.85rem;">
+              Select a message to view client timeline.
             </div>
 
-            <!-- Spam & Ghost Unsubscriber -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🧹</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Zombie Newsletter Purger</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" id="btnCommsPurgeAll" style="color: #ef4444;">Bulk Unsubscribe</button>
-              </div>
-              <div id="commsNewsletterList" style="padding: 12px 16px; font-size: 0.85rem; color: var(--text-muted);">
-                Scanning mailboxes for non-essential recurring subscription lists...
-              </div>
+            <!-- Timeline -->
+            <div id="crmTimelineList" style="position: relative; padding-left: 20px;">
             </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="domain-col">
-            <!-- WhatsApp & Mobile Dispatcher -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">📲</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Instant WhatsApp Dispatcher</h3>
-                </div>
-                <span class="badge" style="background: rgba(16,185,129,0.15); color: #10b981; font-weight: 700;">Local-Only</span>
-              </div>
-              <div style="padding: 16px;">
-                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">
-                  Recipient Phone Number (with Country Code)
-                </label>
-                <input type="text" id="commsWaPhone" placeholder="+230 5816 9420" class="form-input" style="width: 100%; margin-bottom: 12px; padding: 8px 12px; border: 1px solid var(--border-subtle); border-radius: 8px;">
-
-                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">
-                  Message Template / Content
-                </label>
-                <textarea id="commsWaMessage" rows="3" placeholder="Hello, your clinic appointment is confirmed for tomorrow at 10:00 AM." class="form-input" style="width: 100%; margin-bottom: 14px; padding: 8px 12px; border: 1px solid var(--border-subtle); border-radius: 8px; font-family: inherit; font-size: 0.85rem; resize: vertical;"></textarea>
-
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <span style="font-size: 0.75rem; color: var(--text-dim);" id="commsWaStatus">Offline-ready fallback</span>
-                  <button class="btn btn-primary btn-sm" id="btnCommsSendWa" style="background: #10b981; color: white;">
-                    Send Dispatch
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Connected Email Inboxes -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🔌</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Configured Inboxes</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('account-editor')">Connect Inbox</button>
-              </div>
-              <div id="commsAccountsList" style="padding: 12px 16px;">
-                <div style="font-size: 0.82rem; color: var(--text-muted);">Fetching accounts...</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================================================================ -->
-      <!-- TAB: OPERATIONS DOMAIN DASHBOARD (OPS USER TYPE)                 -->
-      <!-- ================================================================ -->
-      <section class="tab-pane" id="pane-domain-operations">
-        <div class="domain-hero-banner banner-ops">
-          <div class="domain-hero-content">
-            <div>
-              <div class="domain-badge badge-ops">
-                <span class="pulse-dot" style="background: #d97706;"></span> Operations Workspace
-              </div>
-              <h1 class="domain-title">Operations, Infrastructure &amp; 24/7 Autopilot</h1>
-              <p class="domain-desc">
-                Continuous background execution, SQLite WAL integrity, compute survival tiers, cryptographic loss-free snapshots, and 25 security safeguards.
-              </p>
-            </div>
-            <div class="domain-hero-actions">
-              <button class="btn btn-primary btn-sm" id="btnOpsRunCheck" style="background: #d97706; color: #fff;">
-                ⚡ Run Ops Integrity Check
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnOpsCreateSnapshot">
-                💾 Instant Snapshot
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnOpsToggleAutopilot">
-                🌙 Toggle Autopilot
-              </button>
-              <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('autopilot')">
-                ⚙️ Autopilot Suite
-              </button>
-            </div>
-          </div>
-        </div>
-
-        
-        <!-- ⚡ Domain Operations Launchpad: Operations & SRE -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #d97706; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.2rem;">⚡</span>
-                <strong style="font-size: 1.05rem; color: #451a03; letter-spacing: -0.01em;">Operations &amp; SRE — 25 Daily Real-Life Operational Scenarios</strong>
-              </div>
-              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
-                Generates execution manifest &amp; validation plan • Sir Deven reviews before running.
-              </span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-              <input type="text" placeholder="🔍 Search 25 Operations scenarios..." oninput="window.filterDomainLaunchpad('operations', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
-              <span style="font-size: 0.72rem; font-weight: 800; background: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 4px 10px; border-radius: 14px;">
-                25 Scenarios Armed
-              </span>
-            </div>
-          </div>
-
-          <!-- Dynamic 25 Operations Scenarios Grid -->
-          <div id="operationsTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
-            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Operations scenarios...</div>
-          </div>
-        </div>
-        <!-- Ops KPI Strip -->
-        <div class="domain-kpi-grid">
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">24/7 Autopilot</span>
-              <span class="domain-kpi-icon" style="color: #10b981;">🌙</span>
-            </div>
-            <div class="domain-kpi-value" id="opsKpiAutopilot">Active (30m)</div>
-            <div class="domain-kpi-sub">Continuous Night Shift</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">SQLite WAL Database</span>
-              <span class="domain-kpi-icon" style="color: #0284c7;">🗄️</span>
-            </div>
-            <div class="domain-kpi-value" id="opsKpiDb">824 KB Healthy</div>
-            <div class="domain-kpi-sub">WAL Mode • Zero Corruption</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Compute Survival Tier</span>
-              <span class="domain-kpi-icon" style="color: #8b5cf6;">⚡</span>
-            </div>
-            <div class="domain-kpi-value" id="opsKpiTier">Tier 1 (Local-First)</div>
-            <div class="domain-kpi-sub">Zero Cloud Lock-in</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Fortress Security</span>
-              <span class="domain-kpi-icon" style="color: #10b981;">🛡️</span>
-            </div>
-            <div class="domain-kpi-value" id="opsKpiShields">25 / 25 Active</div>
-            <div class="domain-kpi-sub">SSRF, AES &amp; Injection Shields</div>
-          </div>
-        </div>
-
-        <!-- Ops Main Grid -->
-        <div class="domain-layout-grid">
-          <!-- Left Column -->
-          <div class="domain-col">
-            <!-- 24/7 Autopilot Live Telemetry -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">⏱️</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Autopilot Heartbeat &amp; Schedule</h3>
-                </div>
-                <span class="badge" style="background: rgba(16,185,129,0.15); color: #10b981; font-weight: 700;" id="opsAutopilotBadge">Running</span>
-              </div>
-              <div style="padding: 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--bg-app); border-radius: 8px; margin-bottom: 12px;">
-                  <span style="font-size: 0.85rem; font-weight: 600;">Next Scheduled Cycle</span>
-                  <span style="font-size: 0.85rem; font-weight: 700; color: #4f46e5;" id="opsNextRun">In 18 mins</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--bg-app); border-radius: 8px; margin-bottom: 12px;">
-                  <span style="font-size: 0.85rem; font-weight: 600;">Last Autonomous Action</span>
-                  <span style="font-size: 0.82rem; color: var(--text-muted);" id="opsLastAction">Comms &amp; Lead Sweep Completed</span>
-                </div>
-                <button class="btn btn-secondary btn-sm" id="btnOpsTriggerCycleNow" style="width: 100%; justify-content: center; margin-top: 4px;">
-                  ⚡ Trigger Immediate Night Shift Tick
-                </button>
-              </div>
-            </div>
-
-            <!-- Loss-Free Disaster Recovery -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">💾</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Loss-Free Backup &amp; Instant Restore</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('backup')">All Snapshots</button>
-              </div>
-              <div id="opsSnapshotSummary" style="padding: 16px; font-size: 0.85rem;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                  <span style="color: var(--text-muted);">Latest Snapshot:</span>
-                  <strong id="opsLatestSnapshotTime">Loading...</strong>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-                  <span style="color: var(--text-muted);">Integrity Check:</span>
-                  <span style="color: #10b981; font-weight: 700;">SHA-256 Validated</span>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                  <button class="btn btn-primary btn-sm" id="btnOpsSnapshotAction" style="flex: 1; justify-content: center; font-size: 0.78rem;">Create Snapshot</button>
-                  <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('backup')" style="flex: 1; justify-content: center; font-size: 0.78rem;">Rollback Point</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="domain-col">
-            <!-- 25 Fortress Safeguards -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🛡️</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Security Fortress Shields</h3>
-                </div>
-                <span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">100% Armed</span>
-              </div>
-              <div style="padding: 16px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" id="opsShieldGrid">
-                  <div style="padding: 8px 10px; background: var(--bg-app); border-radius: 6px; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #10b981;">●</span> SSRF Firewall
-                  </div>
-                  <div style="padding: 8px 10px; background: var(--bg-app); border-radius: 6px; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #10b981;">●</span> AES-256-GCM Vault
-                  </div>
-                  <div style="padding: 8px 10px; background: var(--bg-app); border-radius: 6px; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #10b981;">●</span> Prompt Injection Guard
-                  </div>
-                  <div style="padding: 8px 10px; background: var(--bg-app); border-radius: 6px; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #10b981;">●</span> Rate Limiting Jail
-                  </div>
-                  <div style="padding: 8px 10px; background: var(--bg-app); border-radius: 6px; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #10b981;">●</span> Local-First Sandbox
-                  </div>
-                  <div style="padding: 8px 10px; background: var(--bg-app); border-radius: 6px; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    <span style="color: #10b981;">●</span> Deterministic Paths
-                  </div>
-                </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('addons')" style="width: 100%; justify-content: center; margin-top: 14px;">
-                  Open 25 Security Controls
-                </button>
-              </div>
-            </div>
-
-            <!-- Server & Process Health -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">💻</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Server Resources &amp; Uptime</h3>
-                </div>
-                <span class="badge" style="background: rgba(16,185,129,0.15); color: #10b981; font-weight: 700;">Healthy</span>
-              </div>
-              <div style="padding: 16px; font-size: 0.85rem;" id="opsSystemMetrics">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                  <span style="color: var(--text-muted);">Python Daemon:</span>
-                  <strong>Uvicorn (127.0.0.1:8000)</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                  <span style="color: var(--text-muted);">Memory Usage:</span>
-                  <strong id="opsMemUsage">Normal (~145 MB)</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                  <span style="color: var(--text-muted);">System Time:</span>
-                  <strong id="opsServerTime">Syncing...</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================================================================ -->
-      <!-- TAB: COMMERCE DOMAIN DASHBOARD (COMMERCE USER TYPE)              -->
-      <!-- ================================================================ -->
-      <section class="tab-pane" id="pane-domain-commerce">
-        <div class="domain-hero-banner banner-commerce">
-          <div class="domain-hero-content">
-            <div>
-              <div class="domain-badge badge-commerce">
-                <span class="pulse-dot" style="background: #059669;"></span> Commerce &amp; Treasury Workspace
-              </div>
-              <h1 class="domain-title">Commerce, Treasury &amp; Revenue Studio</h1>
-              <p class="domain-desc">
-                Multi-currency accounts receivable (MUR &amp; USD), Base L2 USDC crypto treasury, AES-256 encrypted vault, and digital store fulfillment.
-              </p>
-            </div>
-            <div class="domain-hero-actions">
-              <button class="btn btn-primary btn-sm" id="btnCommerceRunAudit" style="background: #059669; color: #fff;">
-                ⚡ Run Commerce Audit
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnCommerceNewInvoice">
-                ➕ New Invoice
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnCommerceReconcile">
-                💰 Reconcile Receivables
-              </button>
-              <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('revenue')">
-                📈 Revenue Scout
-              </button>
-            </div>
-          </div>
-        </div>
-
-        
-        <!-- ⚡ Domain Operations Launchpad: Commerce & Treasury -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #059669; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.2rem;">⚡</span>
-                <strong style="font-size: 1.05rem; color: #064e3b; letter-spacing: -0.01em;">Commerce &amp; Treasury — 25 Daily Real-Life Operational Scenarios</strong>
-              </div>
-              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
-                Generates invoice, tool, or promo sample • Sir Deven reviews and vets before live broadcast.
-              </span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-              <input type="text" placeholder="🔍 Search 25 Commerce scenarios..." oninput="window.filterDomainLaunchpad('commerce', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
-              <span style="font-size: 0.72rem; font-weight: 800; background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; padding: 4px 10px; border-radius: 14px;">
-                25 Scenarios Ready
-              </span>
-            </div>
-          </div>
-
-          <!-- Dynamic 25 Commerce Scenarios Grid -->
-          <div id="commerceTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
-            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Commerce scenarios...</div>
-          </div>
-        </div>
-        <!-- Commerce KPI Strip -->
-        <div class="domain-kpi-grid">
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Accounts Receivable</span>
-              <span class="domain-kpi-icon" style="color: #059669;">💳</span>
-            </div>
-            <div class="domain-kpi-value" id="commerceKpiReceivables">Rs 145,000 / $3,200</div>
-            <div class="domain-kpi-sub">Tracked Invoices</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Base L2 USDC Treasury</span>
-              <span class="domain-kpi-icon" style="color: #0284c7;">💎</span>
-            </div>
-            <div class="domain-kpi-value" id="commerceKpiVault">0.00 USDC</div>
-            <div class="domain-kpi-sub">Encrypted AES Vault</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Paid Invoices (MTD)</span>
-              <span class="domain-kpi-icon" style="color: #10b981;">✅</span>
-            </div>
-            <div class="domain-kpi-value" id="commerceKpiPaid">12 Collected</div>
-            <div class="domain-kpi-sub">Reconciled via DAL</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Digital Store GMV</span>
-              <span class="domain-kpi-icon" style="color: #7c3aed;">🛒</span>
-            </div>
-            <div class="domain-kpi-value" id="commerceKpiStore">$1,450 USD</div>
-            <div class="domain-kpi-sub">PayPal &amp; MCB Juice</div>
-          </div>
-        </div>
-
-        <!-- Commerce Main Grid -->
-        <div class="domain-layout-grid">
-          <!-- Left Column -->
-          <div class="domain-col">
-            <!-- Invoicing Ledger -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🧾</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Invoices &amp; Accounts Receivable</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('payments')">Full Ledger</button>
-              </div>
-              <div class="table-container" style="overflow-x: auto;">
-                <table class="data-table" id="commerceInvoicesTable" style="width: 100%; font-size: 0.82rem;">
-                  <thead>
-                    <tr>
-                      <th>Invoice ID</th>
-                      <th>Client</th>
-                      <th>Amount</th>
-                      <th>Due Date</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody id="commerceInvoicesTbody">
-                    <tr><td colspan="6" style="text-align: center; padding: 18px; color: var(--text-muted);">Loading invoices...</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Digital Vending Machine -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🛒</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Digital Products &amp; Addons</h3>
-                </div>
-                <span class="badge" style="background: rgba(5,150,105,0.15); color: #059669; font-weight: 700;">Automated</span>
-              </div>
-              <div style="padding: 16px; font-size: 0.85rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
-                  <div>
-                    <strong>WhatsApp Flight Addon™</strong>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">$29/month license</div>
-                  </div>
-                  <span class="badge" style="background: #ecfdf5; color: #059669; font-weight: 700;">Live</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
-                  <div>
-                    <strong>Medical 360 Clinic Portal</strong>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">$249 one-time buyout</div>
-                  </div>
-                  <span class="badge" style="background: #ecfdf5; color: #059669; font-weight: 700;">Live</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
-                  <div>
-                    <strong>SME WhatsApp Booking Engine</strong>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Rs 2,500 / month</div>
-                  </div>
-                  <span class="badge" style="background: #ecfdf5; color: #059669; font-weight: 700;">Live</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="domain-col">
-            <!-- Base L2 USDC Crypto Treasury -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">💎</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Base L2 USDC Treasury</h3>
-                </div>
-                <span class="badge" style="background: rgba(2,132,199,0.15); color: #0284c7; font-weight: 700;">Base Mainnet</span>
-              </div>
-              <div style="padding: 16px;">
-                <div style="background: var(--bg-app); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
-                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Smart Treasury Wallet:</div>
-                  <code style="font-size: 0.78rem; word-break: break-all; color: var(--text-main);" id="commerceWalletAddress">
-                    0x71C...49A2 (Encrypted in Vault)
-                  </code>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  <span style="font-size: 0.85rem; color: var(--text-muted);">AES-256 Vault:</span>
-                  <span style="font-size: 0.82rem; color: #10b981; font-weight: 700;">Secured &amp; Local</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                  <span style="font-size: 0.85rem; color: var(--text-muted);">Gas Estimate (L2):</span>
-                  <span style="font-size: 0.82rem; color: var(--text-main); font-weight: 600;">&lt; $0.01 per TX</span>
-                </div>
-                <button class="btn btn-secondary btn-sm" id="btnCommerceCheckTreasury" style="width: 100%; justify-content: center;">
-                  Sync Treasury Balance
-                </button>
-              </div>
-            </div>
-
-            <!-- Revenue Blueprints -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">📊</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Monetization Projections</h3>
-                </div>
-                <span style="font-size: 0.75rem; color: #059669; font-weight: 700;">Target: $10k/mo</span>
-              </div>
-              <div style="padding: 16px; font-size: 0.85rem;">
-                <div style="margin-bottom: 10px;">
-                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
-                    <span>Founder Buyouts ($249)</span>
-                    <strong>12 / 20 Sold</strong>
-                  </div>
-                  <div style="height: 6px; background: var(--border-subtle); border-radius: 4px; overflow: hidden;">
-                    <div style="width: 60%; height: 100%; background: #059669;"></div>
-                  </div>
-                </div>
-                <div style="margin-bottom: 14px;">
-                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
-                    <span>Recurring Retainers (MUR)</span>
-                    <strong>Rs 85,000 / Rs 150,000</strong>
-                  </div>
-                  <div style="height: 6px; background: var(--border-subtle); border-radius: 4px; overflow: hidden;">
-                    <div style="width: 56%; height: 100%; background: #4f46e5;"></div>
-                  </div>
-                </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('revenue')" style="width: 100%; justify-content: center;">
-                  View Detailed Financial Plan
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================================================================ -->
-      <!-- TAB: RESEARCH DOMAIN DASHBOARD (RESEARCH USER TYPE)              -->
-      <!-- ================================================================ -->
-      <section class="tab-pane" id="pane-domain-research">
-        <div class="domain-hero-banner banner-research">
-          <div class="domain-hero-content">
-            <div>
-              <div class="domain-badge badge-research">
-                <span class="pulse-dot" style="background: #7c3aed;"></span> Research &amp; Intelligence Workspace
-              </div>
-              <h1 class="domain-title">Research, Market Intelligence &amp; B2B Leads</h1>
-              <p class="domain-desc">
-                High-intent B2B sales leads CRM, emerging technology intelligence dossiers, GitHub radar CVE watchdog, and executive social thought leadership.
-              </p>
-            </div>
-            <div class="domain-hero-actions">
-              <button class="btn btn-primary btn-sm" id="btnResearchRunScout" style="background: #7c3aed; color: #fff;">
-                ⚡ Run Market Research Scout
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnResearchScoutLeads">
-                🎯 Scout Mauritius Leads
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnResearchScanCve">
-                🛡️ Scan GitHub CVEs
-              </button>
-              <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('social-war-room')">
-                📢 Social War Room
-              </button>
-            </div>
-          </div>
-        </div>
-
-        
-        <!-- ⚡ Domain Operations Launchpad: Marketing & Social -->
-        <div class="domain-task-strip" style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 5px solid #7c3aed; border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.2rem;">⚡</span>
-                <strong style="font-size: 1.05rem; color: #1e1b4b; letter-spacing: -0.01em;">Research &amp; Market Intelligence — 25 Daily Real-Life Operational Scenarios</strong>
-              </div>
-              <span style="font-size: 0.76rem; color: #64748b; margin-top: 3px; display: block;">
-                Generates high-intent lead dossier &amp; social campaign sample • Sir Deven vets before release.
-              </span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-              <input type="text" placeholder="🔍 Search 25 Research scenarios..." oninput="window.filterDomainLaunchpad('research', this.value)" style="background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; width: 220px; outline: none;">
-              <span style="font-size: 0.72rem; font-weight: 800; background: #ede9fe; color: #6d28d9; border: 1px solid #ddd6fe; padding: 4px 10px; border-radius: 14px;">
-                25 Scenarios Armed
-              </span>
-            </div>
-          </div>
-
-          <!-- Dynamic 25 Research Scenarios Grid -->
-          <div id="researchTaskGrid" class="task-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
-            <div style="padding: 20px; color: #64748b; font-size: 0.8rem;">Loading 25 Research scenarios...</div>
-          </div>
-        </div>
-        <!-- Research KPI Strip -->
-        <div class="domain-kpi-grid">
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">B2B Leads in CRM</span>
-              <span class="domain-kpi-icon" style="color: #7c3aed;">🎯</span>
-            </div>
-            <div class="domain-kpi-value" id="researchKpiLeads">28 Qualified</div>
-            <div class="domain-kpi-sub">Mauritius &amp; Global Leads</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Tech Dossiers</span>
-              <span class="domain-kpi-icon" style="color: #0284c7;">📑</span>
-            </div>
-            <div class="domain-kpi-value" id="researchKpiDossiers">6 Live Reports</div>
-            <div class="domain-kpi-sub">Synthesized Intelligence</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Monitored Repos &amp; CVEs</span>
-              <span class="domain-kpi-icon" style="color: #10b981;">🛡️</span>
-            </div>
-            <div class="domain-kpi-value" id="researchKpiCve">14 Monitored</div>
-            <div class="domain-kpi-sub">0 Critical Alerts</div>
-          </div>
-          <div class="domain-kpi-card">
-            <div class="domain-kpi-header">
-              <span class="domain-kpi-label">Executive Posts Ready</span>
-              <span class="domain-kpi-icon" style="color: #f59e0b;">✍️</span>
-            </div>
-            <div class="domain-kpi-value" id="researchKpiPosts">4 Drafts</div>
-            <div class="domain-kpi-sub">LinkedIn &amp; X Content</div>
-          </div>
-        </div>
-
-        <!-- Research Main Grid -->
-        <div class="domain-layout-grid">
-          <!-- Left Column -->
-          <div class="domain-col">
-            <!-- B2B Leads CRM Pipeline -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🏢</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Mauritius &amp; Regional B2B Leads CRM</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('outreach')">Full Pipeline</button>
-              </div>
-              <div class="table-container" style="overflow-x: auto;">
-                <table class="data-table" id="researchLeadsTable" style="width: 100%; font-size: 0.82rem;">
-                  <thead>
-                    <tr>
-                      <th>Company</th>
-                      <th>Sector</th>
-                      <th>Intent Score</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody id="researchLeadsTbody">
-                    <tr><td colspan="5" style="text-align: center; padding: 18px; color: var(--text-muted);">Loading B2B leads pipeline...</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Emerging Tech Dossiers -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🔬</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">Intelligence Dossiers &amp; Market Trends</h3>
-                </div>
-                <span class="badge" style="background: rgba(124,58,237,0.15); color: #7c3aed; font-weight: 700;">AI Synthesized</span>
-              </div>
-              <div id="researchDossierList" style="padding: 16px; font-size: 0.85rem;">
-                <div style="padding: 10px; background: var(--bg-app); border-radius: 8px; margin-bottom: 10px;">
-                  <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Mauritius SME WhatsApp Commerce Adoption 2026</div>
-                  <div style="font-size: 0.78rem; color: var(--text-muted);">Over 62% of island clinics and restaurants now prefer WhatsApp bookings over native mobile apps.</div>
-                </div>
-                <div style="padding: 10px; background: var(--bg-app); border-radius: 8px; margin-bottom: 10px;">
-                  <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Base L2 vs Traditional Bank Transfer Friction</div>
-                  <div style="font-size: 0.78rem; color: var(--text-muted);">Instant cross-border settlement under 2 seconds with sub-cent gas fees unlocks global micropayments.</div>
-                </div>
-                <div style="padding: 10px; background: var(--bg-app); border-radius: 8px;">
-                  <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Local-First Autonomous Workforce ROI</div>
-                  <div style="font-size: 0.78rem; color: var(--text-muted);">Zero SaaS per-seat licensing saves small business operations over $2,400 per year.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="domain-col">
-            <!-- GitHub Radar CVE Watchdog -->
-            <div class="card-panel">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">🛡️</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">GitHub Radar &amp; CVE Watchdog</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" id="btnResearchRunCveCheck">Run Scan</button>
-              </div>
-              <div style="padding: 16px; font-size: 0.85rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
-                  <div>
-                    <strong>fastapi / starlette</strong>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Core API Framework</div>
-                  </div>
-                  <span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">● Secure (v0.115)</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);">
-                  <div>
-                    <strong>cryptography</strong>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">AES-256 Vault Engine</div>
-                  </div>
-                  <span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">● Secure</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
-                  <div>
-                    <strong>sqlite3 WAL</strong>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Local Deterministic DAL</div>
-                  </div>
-                  <span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">● Zero Corruption</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Executive Social Ghostwriter -->
-            <div class="card-panel" style="margin-top: 20px;">
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 1.1rem;">✍️</span>
-                  <h3 style="margin: 0; font-size: 1rem; font-weight: 700;">CEO Thought Leadership Posts</h3>
-                </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.navigateToPage('social-war-room')">Draft Post</button>
-              </div>
-              <div style="padding: 16px;" id="researchSocialFeed">
-                <div style="padding: 12px; background: var(--bg-app); border-radius: 8px; margin-bottom: 12px; font-size: 0.82rem; line-height: 1.5;">
-                  <div style="font-weight: 700; color: #0284c7; margin-bottom: 4px;">LinkedIn Draft • J.A.R.V.I.S. Ghostwriter</div>
-                  "Running an autonomous workforce locally has transformed how we think about company overhead. Here is why self-hosted AI beats subscription sprawl every time..."
-                  <div style="margin-top: 8px; display: flex; justify-content: flex-end; gap: 8px;">
-                    <button class="btn btn-primary btn-sm" style="font-size: 0.72rem; padding: 4px 8px;" onclick="window.navigateToPage('social-war-room')">Review &amp; Post</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 1: WORKFORCE OVERVIEW -->
-      <section class="tab-pane" id="pane-workforce">
-
-        <div class="workforce-header-card">
-          <div class="workforce-title-wrap">
-            <h2>Active Agents (<span id="agentCount">14</span>)</h2>
-          </div>
-        </div>
-
-        <!-- EXECUTIVE AI MANAGING PARTNER CONSOLE -->
-        <div class="card-panel" style="margin-bottom: 24px; border: 2px solid #6366f144; background: linear-gradient(135deg, rgba(30, 27, 75, 0.04) 0%, rgba(99, 102, 241, 0.04) 100%);">
-          <div class="card-header" style="border-bottom: 1px solid rgba(99, 102, 241, 0.15); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="font-size: 1.5rem;">🤝</span>
-              <div>
-                <h2 class="card-title" style="margin: 0; font-size: 1.15rem; color: #4338ca;">Executive AI Managing Partner Console</h2>
-                <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: var(--text-muted);">
-                  Nexus AI operates the entire 16-agent workforce on behalf of <strong>Deven Pawaray</strong> (devenpawaray@gmail.com)
-                </p>
-              </div>
-            </div>
-            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <button class="btn btn-primary btn-sm" id="btnRunPartnerWave" style="font-weight: 700; background: #4f46e5; color: #fff;">
-                ⚡ Orchestrate Fleet Wave
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnDispatchPartnerBrief" style="font-weight: 700; background: #ecfdf5; color: #047857; border: 1px solid #10b98144;">
-                📱 WhatsApp Co-Founder Update
-              </button>
-            </div>
-          </div>
-
-          <!-- Directive Input Bar -->
-          <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
-            <input type="text" id="partnerDirectiveInput" class="form-input" placeholder="Give Nexus a strategic directive (e.g., 'Prioritize Enn Rev Enn Sourir NGO deals & keep cloud budget under $150')..." style="flex: 1; min-width: 280px; font-size: 0.85rem; background: #fff;">
-            <button class="btn btn-secondary btn-sm" id="btnSubmitDirective" style="font-weight: 700; background: #1e1b4b; color: #fff; padding: 0 16px;">
-              🎯 Set Directive
+            
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 24px; font-weight: 700; font-size: 0.8rem;">
+              View Full History / Edit Details
             </button>
           </div>
 
-          <!-- Directives & Decision Feed -->
-          <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 14px; margin-top: 14px;">
-            <div style="background: #fff; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px;">
-              <div style="font-size: 0.75rem; font-weight: 700; color: #4338ca; text-transform: uppercase; margin-bottom: 6px;">Active Strategic Directives</div>
-              <ul id="partnerActiveDirectivesList" style="margin: 0; padding-left: 18px; font-size: 0.8rem; color: #374151; line-height: 1.5;">
-                <li>Loading active directives...</li>
-              </ul>
-            </div>
-            <div style="background: #fff; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 0.75rem; font-weight: 700; color: #047857; text-transform: uppercase;">Recent Partner Decisions</span>
-                <button class="btn btn-secondary btn-sm" id="btnRefreshPartnerDecisions" style="font-size: 0.7rem; padding: 1px 6px;">🔄</button>
-              </div>
-              <div id="partnerDecisionsFeed" style="max-height: 120px; overflow-y: auto; font-size: 0.78rem; display: flex; flex-direction: column; gap: 6px;">
-                <p style="color: #9ca3af; margin: 0;">Loading decisions...</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CASH RECOVERY & RECEIVABLES COMMAND CENTER -->
-        <div class="card-panel" style="margin-bottom: 24px; border: 1px solid #10b98133; background: linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(59, 130, 246, 0.03) 100%);">
-          <div class="card-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.15); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="font-size: 1.4rem;">💰</span>
-              <div>
-                <h2 class="card-title" style="margin: 0; font-size: 1.1rem; color: #047857;">Receivables &amp; Cash Inflow Center</h2>
-                <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Immediate cash recovery &amp; settlement via 1-click WhatsApp MCB Juice (+230 58169420)</p>
-              </div>
-            </div>
-            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-              <div style="text-align: right; background: #ecfdf5; padding: 4px 10px; border-radius: 6px; border: 1px solid #10b98133;">
-                <span style="font-size: 0.7rem; color: #047857; display: block; font-weight: 700; text-transform: uppercase;">Collected (Settled)</span>
-                <span id="receivablesCollectedBadge" style="font-weight: 800; font-size: 1.05rem; color: #047857;">Rs 0.00</span>
-              </div>
-              <div style="text-align: right; background: #fff; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border-subtle);">
-                <span style="font-size: 0.7rem; color: var(--text-muted); display: block; font-weight: 600; text-transform: uppercase;">Tracked Pending</span>
-                <span id="receivablesOverdueBadge" style="font-weight: 800; font-size: 1.05rem; color: #6b7280;">Rs 0.00</span>
-              </div>
-              <button class="btn btn-primary btn-sm" id="btnRunLiveMonetization" style="font-weight: 700; background: #059669; color: #fff; display: inline-flex; align-items: center; gap: 6px;">
-                ⚡ Run Live Monetization Demo
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnRefreshReceivables" style="font-weight: 600;">🔄 Refresh</button>
-            </div>
-          </div>
-          <div id="receivablesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; margin-top: 14px;">
-            <!-- Populated dynamically via JS -->
-          </div>
-        </div>
-
-        <!-- LEADSMU: B2B LEAD INTELLIGENCE SPECIALIST -->
-        <div class="card-panel" id="leadsMUPanel" style="margin-bottom: 24px; border: 1px solid #4f46e533; background: linear-gradient(135deg, rgba(79,70,229,0.04) 0%, rgba(99,102,241,0.03) 60%, rgba(16,185,129,0.03) 100%);">
-
-          <!-- LeadsMU Header -->
-          <div class="card-header" style="border-bottom: 1px solid rgba(79,70,229,0.18); padding-bottom: 14px; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="width: 38px; height: 38px; background: linear-gradient(135deg,#4f46e5,#7c3aed); border-radius: 10px; display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <span style="font-size:1.3rem;">🎯</span>
-              </div>
-              <div>
-                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                  <h2 class="card-title" style="margin:0;font-size:1.1rem;color:#3730a3;">LeadsMU™ — B2B Lead Intelligence</h2>
-                  <span style="background:#eef2ff;color:#4338ca;font-size:0.72rem;font-weight:800;padding:2px 8px;border-radius:20px;border:1px solid #c7d2fe;">AI-POWERED</span>
-                  <span id="leadsMUModeBadge" style="display:none;background:#ecfdf5;color:#065f46;font-size:0.72rem;font-weight:800;padding:2px 8px;border-radius:20px;border:1px solid #6ee7b7;">MODE: —</span>
-                </div>
-                <p style="margin:3px 0 0;font-size:0.8rem;color:var(--text-muted);">Enter a <strong>Product to sell</strong> OR a <strong>Target Niche</strong> — get verified Mauritian prospects with contact details &amp; pitch-ready outreach</p>
-              </div>
-            </div>
-            <!-- Mode quick-select chips -->
-            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
-              <span style="font-size:0.74rem;color:var(--text-muted);font-weight:600;white-space:nowrap;">Quick select:</span>
-              <button type="button" class="btn-leadsmu-chip" data-niche="whatsapp_restaurant_sme" style="background:#f0fdf4;color:#065f46;border:1px solid #a7f3d0;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🍽️ Restaurants</button>
-              <button type="button" class="btn-leadsmu-chip" data-niche="medical360_portal" style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🩺 Clinics</button>
-              <button type="button" class="btn-leadsmu-chip" data-niche="mauritius_hospitality" style="background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🏝️ Hotels</button>
-              <button type="button" class="btn-leadsmu-chip" data-niche="mauritius_tourism" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">🚗 Car Rentals</button>
-              <button type="button" class="btn-leadsmu-chip" data-niche="whatsapp_flight_addon" style="background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">✈️ Travel Agencies</button>
-              <button type="button" class="btn-leadsmu-chip" data-niche="ennrevennsourir_ngo" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca;border-radius:20px;font-size:0.72rem;font-weight:700;padding:3px 10px;cursor:pointer;">❤️ NGOs</button>
-            </div>
-          </div>
-
-          <!-- LeadsMU Command Bar -->
-          <div style="padding:16px 0 0;">
-            <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px;">
-              <div style="flex:1;min-width:240px;">
-                <label style="font-size:0.75rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:5px;">Product or Niche (Mode auto-detected)</label>
-                <input type="text" id="leadsMUInput" class="form-input" placeholder="e.g. 'WhatsApp Booking Bot' OR 'Dental Clinics in Curepipe'" style="font-size:0.88rem;font-weight:500;border:1.5px solid #c7d2fe;background:#fafbff;" />
-              </div>
-              <div style="min-width:180px;">
-                <label style="font-size:0.75rem;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:5px;">Campaign Niche (Backend)</label>
-                <select id="leadNicheSelect" class="form-input" style="padding:7px 10px;font-size:0.82rem;font-weight:600;border:1.5px solid #e2e8f0;">
-                  <option value="whatsapp_flight_addon">✈️ WhatsApp Flight Addon™ (Rs 25k)</option>
-                  <option value="whatsapp_restaurant_sme">🍽️ Restaurant &amp; SME Bot (Rs 15k)</option>
-                  <option value="medical360_portal">🩺 Medical 360™ Portal (Rs 45k)</option>
-                  <option value="ennrevennsourir_ngo">❤️ NGO / CSR Portal (Rs 45k)</option>
-                  <option value="itravellix_saas">🌟 i-Travellix™ SaaS (Rs 50k)</option>
-                  <option value="mauritius_hospitality">🏝️ Luxury Villas (Rs 25k)</option>
-                  <option value="mauritius_tourism">🚗 Excursions &amp; Rentals (Rs 15k)</option>
-                  <option value="global_startups">🌍 Global Tech ($249 USD)</option>
-                </select>
-              </div>
-              <button class="btn btn-primary" id="btnDiscoverLeads" style="font-weight:700;background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;padding:8px 18px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;">
-                <span>⚡</span> Run LeadsMU Scout
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnRefreshLeads" style="font-weight:600;padding:8px 12px;white-space:nowrap;" onclick="fetchLeadsPipeline()">↻ Refresh</button>
-            </div>
-
-            <!-- Strategic Campaign Overview — injected dynamically -->
-            <div id="leadsMUCampaignOverview" style="display:none;margin-bottom:16px;background:linear-gradient(135deg,#1e1b4b 0%,#312e81 100%);border-radius:12px;padding:18px 20px;color:#fff;position:relative;overflow:hidden;">
-              <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
-              <div style="position:absolute;bottom:-30px;right:60px;width:80px;height:80px;background:rgba(255,255,255,0.03);border-radius:50%;"></div>
-              <div style="font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#a5b4fc;margin-bottom:10px;">📊 Strategic Campaign Overview</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;position:relative;z-index:1;">
-                <div>
-                  <div style="font-size:0.7rem;color:#c7d2fe;font-weight:600;text-transform:uppercase;margin-bottom:3px;">Target Offering / Niche</div>
-                  <div id="leadsmuOverviewOffering" style="font-size:0.92rem;font-weight:700;color:#fff;line-height:1.3;">—</div>
-                </div>
-                <div>
-                  <div style="font-size:0.7rem;color:#c7d2fe;font-weight:600;text-transform:uppercase;margin-bottom:3px;">Ideal Customer Profile</div>
-                  <div id="leadsmuOverviewICP" style="font-size:0.85rem;font-weight:500;color:#e0e7ff;line-height:1.4;">—</div>
-                </div>
-                <div>
-                  <div style="font-size:0.7rem;color:#c7d2fe;font-weight:600;text-transform:uppercase;margin-bottom:3px;">Core Value Proposition</div>
-                  <div id="leadsmuOverviewVP" style="font-size:0.85rem;font-weight:500;color:#e0e7ff;line-height:1.4;">—</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- LEAD PIPELINE RESULTS GRID — populated by fetchLeadsPipeline() -->
-            <div id="leadsPipelineList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;padding:0 2px 4px;">
-              <p style="color:#9ca3af;font-size:0.85rem;padding:8px;grid-column:1/-1;">Enter a <strong>product or niche</strong> above and click <strong>"⚡ Run LeadsMU Scout"</strong> to generate your qualified prospect dossier.</p>
-            </div>
-
-            <!-- Top-2 Outreach Pitches — injected dynamically -->
-            <div id="leadsMUOutreachPitches" style="display:none;margin-top:18px;"></div>
-          </div>
-        </div>
-
-        <!-- OPTION C: MAURITIUS TURNKEY PORTALS & WHATSAPP AI AGENCY (RS 15K - RS 50K VIA JUICE) -->
-        <div class="card-panel" style="margin-bottom: 24px; border: 1px solid rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(245, 158, 11, 0.04) 100%);"><h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">Nexus AI Workforce Hub — Autonomous Agent Dashboard</h1>
-          <div class="card-header" style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 12px; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="font-size: 1.5rem;">🇲🇺</span>
-              <div>
-                <h2 class="card-title" style="margin: 0; font-size: 1.15rem; color: #047857;">Mauritius Turnkey Software Portals &amp; AI Agency</h2>
-                <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: var(--text-muted);">
-                  Sell Turnkey Production Portals &amp; 24/7 AI WhatsApp Bots (Rs 15k - Rs 50k Setup via Juice to +230 58169420)
-                </p>
-              </div>
-            </div>
-            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <span class="badge" style="background: #ecfdf5; color: #047857; font-weight: 700; border: 1px solid #10b98144; font-size: 0.8rem;">
-                📱 Juice: +230 58169420
-              </span>
-              <span class="badge" style="background: #eff6ff; color: #1d4ed8; font-weight: 700; font-size: 0.8rem;">
-                🎯 1 Sale = Rs 45,000 - Rs 50,000
-              </span>
-            </div>
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 14px;">
-            <!-- CARD 0: WHATSAPP FLIGHT ADDON (MAIN FLAGSHIP PRODUCT) -->
-            <div style="background: #fff; border: 2px solid #2563eb; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);">
-              <span style="position: absolute; top: 10px; right: 10px; background: #dbeafe; color: #1e40af; font-size: 0.7rem; font-weight: 800; padding: 2px 6px; border-radius: 4px;">🚀 MAIN PRODUCT • LIVE DEMO</span>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.3rem;">✈️</span>
-                <span style="font-weight: 800; color: #1d4ed8; font-size: 0.95rem;">Rs 25,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.92rem; color: #111827;">WhatsApp Flight Addon™</h4>
-              <p style="font-size: 0.78rem; color: #4b5563; margin: 0 0 8px 0;">
-                Live GDS flight search, PNR tracking, baggage rules &amp; instant booking directly via conversational WhatsApp bot.
-              </p>
-              <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-                <a href="https://whatsapp-flight-addon.vercel.app" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="flex: 1; text-align: center; text-decoration: none; font-size: 0.74rem; padding: 4px 6px; font-weight: 700; color: #1d4ed8; border-color: #93c5fd;">
-                  🌐 View Live Flagship Demo
-                </a>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="whatsapp_flight_addon" style="width: 100%; font-size: 0.75rem; font-weight: 700; background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;">
-                📱 Send WhatsApp Pitch to Airline / Travel Agency
-              </button>
-            </div>
-
-            <!-- CARD 0B: WHATSAPP RESTAURANT & SME RETAIL BOOKING BOT -->
-            <div style="background: #fff; border: 2px solid #059669; border-radius: 8px; padding: 14px; position: relative; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);">
-              <span style="position: absolute; top: 10px; right: 10px; background: #d1fae5; color: #065f46; font-size: 0.7rem; font-weight: 800; padding: 2px 6px; border-radius: 4px;">🔥 HIGH-DEMAND LOCAL B2B</span>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.3rem;">🍽️</span>
-                <span style="font-weight: 800; color: #059669; font-size: 0.95rem;">Rs 15,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.92rem; color: #111827;">WhatsApp Restaurant &amp; SME Booking</h4>
-              <p style="font-size: 0.78rem; color: #4b5563; margin: 0 0 8px 0;">
-                24/7 table reservations, daily menu dispatch, and takeaway ordering directly on WhatsApp with MCB Juice clearing.
-              </p>
-              <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-                <a href="https://whatsapp-flight-addon.vercel.app" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="flex: 1; text-align: center; text-decoration: none; font-size: 0.74rem; padding: 4px 6px; font-weight: 700; color: #059669; border-color: #a7f3d0;">
-                  🌐 View Engine Demo
-                </a>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="whatsapp_restaurant_sme" style="width: 100%; font-size: 0.75rem; font-weight: 700; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0;">
-                📱 Send WhatsApp Pitch to Restaurant / Shop
-              </button>
-            </div>
-
-            <!-- CARD 1: ENN REV ENN SOURIR NGO PORTAL -->
-            <div style="background: #fff; border: 2px solid #ef444433; border-radius: 8px; padding: 14px; position: relative;">
-              <span style="position: absolute; top: 10px; right: 10px; background: #fee2e2; color: #b91c1c; font-size: 0.7rem; font-weight: 800; padding: 2px 6px; border-radius: 4px;">TURNKEY ASSET</span>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.3rem;">❤️</span>
-                <span style="font-weight: 800; color: #b91c1c; font-size: 0.95rem;">Rs 45,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.92rem; color: #111827;">Enn Rev Enn Sourir™ NGO &amp; CSR</h4>
-              <p style="font-size: 0.78rem; color: #4b5563; margin: 0 0 8px 0;">
-                Medical crowdfunding, MRA 15% tax deduction receipts, Juice donation, and transparent hospital payouts.
-              </p>
-              <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-                <a href="https://ennrevennsourir.vercel.app" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="flex: 1; text-align: center; text-decoration: none; font-size: 0.74rem; padding: 4px 6px;">
-                  🌐 View Live Demo
-                </a>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="ennrevennsourir_ngo" style="width: 100%; font-size: 0.75rem; font-weight: 700; background: #fee2e2; color: #991b1b; border: 1px solid #f8717144;">
-                📱 Send WhatsApp Pitch to NGO / CSR
-              </button>
-            </div>
-
-            <!-- CARD 2: MEDICAL 360 CLINIC & HOSPITAL PORTAL -->
-            <div style="background: #fff; border: 2px solid #0284c733; border-radius: 8px; padding: 14px; position: relative;">
-              <span style="position: absolute; top: 10px; right: 10px; background: #e0f2fe; color: #0369a1; font-size: 0.7rem; font-weight: 800; padding: 2px 6px; border-radius: 4px;">TURNKEY ASSET</span>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.3rem;">🩺</span>
-                <span style="font-weight: 800; color: #0284c7; font-size: 0.95rem;">Rs 45,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.92rem; color: #111827;">Medical 360™ Clinic &amp; Hospital</h4>
-              <p style="font-size: 0.78rem; color: #4b5563; margin: 0 0 8px 0;">
-                360° healthcare suite: doctor directory &amp; booking, Blood Bank registry, Lab test booking, and 24/7 triage.
-              </p>
-              <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-                <a href="https://www.med360.mu/preview" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="flex: 1; text-align: center; text-decoration: none; font-size: 0.74rem; padding: 4px 6px;">
-                  🌐 View Live Demo
-                </a>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="medical360_portal" style="width: 100%; font-size: 0.75rem; font-weight: 700; background: #e0f2fe; color: #0369a1; border: 1px solid #38bdf844;">
-                📱 Send WhatsApp Pitch to Clinic
-              </button>
-            </div>
-
-            <!-- CARD 3: I-TRAVELLIX LUXURY TRAVEL SAAS -->
-            <div style="background: #fff; border: 2px solid #f59e0b33; border-radius: 8px; padding: 14px; position: relative;">
-              <span style="position: absolute; top: 10px; right: 10px; background: #fef3c7; color: #b45309; font-size: 0.7rem; font-weight: 800; padding: 2px 6px; border-radius: 4px;">FLAGSHIP SAAS</span>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.3rem;">🌟</span>
-                <span style="font-weight: 800; color: #b45309; font-size: 0.95rem;">Rs 50,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.92rem; color: #111827;">i-Travellix™ Luxury Travel SaaS</h4>
-              <p style="font-size: 0.78rem; color: #4b5563; margin: 0 0 8px 0;">
-                GDS flight engine, 5-star resort catalog, catamarans, and instant Juice &amp; card checkout.
-              </p>
-              <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-                <a href="https://i-travellix.vercel.app" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="flex: 1; text-align: center; text-decoration: none; font-size: 0.74rem; padding: 4px 6px;">
-                  🌐 View Live Demo
-                </a>
-              </div>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="itravellix_saas" style="width: 100%; font-size: 0.75rem; font-weight: 700; background: #fef3c7; color: #b45309; border: 1px solid #fcd34d;">
-                📱 Send WhatsApp Pitch to DMC
-              </button>
-            </div>
-
-            <!-- CARD 4: LUXURY VILLAS & HOTELS -->
-            <div style="background: #fff; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.2rem;">🏝️</span>
-                <span style="font-weight: 800; color: #047857; font-size: 0.88rem;">Rs 25,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.9rem;">Luxury Villas &amp; Hotels</h4>
-              <p style="font-size: 0.78rem; color: #6b7280; margin: 0 0 10px 0;">Midnight tourist inquiry triage &amp; direct bookings without 18% Airbnb fees.</p>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="villas_hospitality" style="width: 100%; font-size: 0.75rem; font-weight: 600; background: #ecfdf5; color: #047857;">
-                📱 Send WhatsApp Pitch
-              </button>
-            </div>
-
-            <!-- CARD 5: CATAMARAN & EXCURSIONS -->
-            <div style="background: #fff; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.2rem;">⛵</span>
-                <span style="font-weight: 800; color: #047857; font-size: 0.88rem;">Rs 15,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.9rem;">Catamaran &amp; Excursions</h4>
-              <p style="font-size: 0.78rem; color: #6b7280; margin: 0 0 10px 0;">Instant excursion pricing &amp; seat booking while skippers are out at sea.</p>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="excursions_cruises" style="width: 100%; font-size: 0.75rem; font-weight: 600; background: #ecfdf5; color: #047857;">
-                📱 Send WhatsApp Pitch
-              </button>
-            </div>
-
-            <!-- CARD 6: AIRPORT CAR RENTALS -->
-            <div style="background: #fff; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 1.2rem;">🚗</span>
-                <span style="font-weight: 800; color: #047857; font-size: 0.88rem;">Rs 15,000</span>
-              </div>
-              <h4 style="margin: 0 0 4px 0; font-size: 0.9rem;">Airport Car Rentals</h4>
-              <p style="font-size: 0.78rem; color: #6b7280; margin: 0 0 10px 0;">Collects flight numbers, driver info &amp; calculates instant rental quote.</p>
-              <button type="button" class="btn btn-secondary btn-sm btn-quick-mru-pitch" data-sector="car_rentals" style="width: 100%; font-size: 0.75rem; font-weight: 600; background: #ecfdf5; color: #047857;">
-                📱 Send WhatsApp Pitch
-              </button>
-            </div>
-          </div>
-
-          <!-- Live Interactive Mauritius Client Simulator -->
-          <div style="margin-top: 16px; padding: 14px; background: #fff; border: 1px dashed var(--border-subtle); border-radius: 8px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
-              <span style="font-weight: 700; font-size: 0.85rem; color: #374151;">💬 Live Mauritius Concierge &amp; Portal Simulator (Show Clients On Your Phone)</span>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <select id="mruSimSector" class="form-input" style="padding: 2px 6px; font-size: 0.76rem; width: auto;">
-                  <option value="whatsapp_flight_addon">✈️ WhatsApp Flight Addon (Flight status &amp; PNR)</option>
-                  <option value="whatsapp_restaurant_sme">🍽️ WhatsApp Restaurant &amp; SME (Table booking &amp; menu)</option>
-                  <option value="ennrevennsourir_ngo">❤️ Enn Rev Enn Sourir (Donation &amp; Support)</option>
-                  <option value="medical360_portal">🩺 Medical 360 (Clinic &amp; Appointments)</option>
-                  <option value="itravellix_saas">🌟 i-Travellix (Travel &amp; Flights)</option>
-                  <option value="villas_hospitality" selected>🏝️ Luxury Villas Concierge</option>
-                  <option value="excursions_cruises">⛵ Catamaran &amp; Excursions</option>
-                  <option value="car_rentals">🚗 Airport Car Rentals</option>
-                </select>
-                <span class="badge" style="background: #f3f4f6; font-size: 0.72rem;">French / English / Creole</span>
-              </div>
-            </div>
-            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-              <input type="text" class="form-input" id="mruSimInput" value="Bonjour, comment puis-je faire un don ou parrainer un enfant malade ?" style="font-size: 0.82rem; flex: 1;">
-              <button type="button" class="btn btn-primary btn-sm" id="btnRunMruSim" style="background: #059669; font-weight: 600; white-space: nowrap;">
-                ⚡ Test AI Reply
-              </button>
-            </div>
-            <div id="mruSimOutput" style="display: none; padding: 10px; background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: 6px; font-size: 0.82rem; line-height: 1.4; color: #1f2937;"></div>
-          </div>
-        </div>
-
-        <!-- OPTION B: $249 FOUNDER LICENSE COMMERCIAL LAUNCHPAD -->
-        <div class="card-panel" style="margin-bottom: 24px; border: 1px solid rgba(59, 130, 246, 0.4); background: linear-gradient(135deg, rgba(59, 130, 246, 0.04) 0%, rgba(99, 102, 241, 0.04) 100%);">
-          <div class="card-header" style="border-bottom: 1px solid rgba(59, 130, 246, 0.2); padding-bottom: 12px; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="font-size: 1.5rem;">🌍</span>
-              <div>
-                <h2 class="card-title" style="margin: 0; font-size: 1.15rem; color: #1d4ed8;">$249 Nexus Founder License Launchpad</h2>
-                <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: var(--text-muted);">
-                  Global B2B monetization targeting solo tech founders &amp; software agencies via Live PayPal
-                </p>
-              </div>
-            </div>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <a href="/license" target="_blank" class="btn btn-primary btn-sm" style="font-weight: 700; background: #0070ba; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-                🚀 Open Public Sales Page (/license)
-              </a>
-              <button class="btn btn-secondary btn-sm" id="btnGenLivePaypalLink" style="font-weight: 600;">
-                💳 Generate $249 Order Link
-              </button>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
-            <button type="button" class="btn btn-secondary btn-sm" id="btnCopyProductHuntCopy" style="font-weight: 600;">
-              📋 Copy Product Hunt / Gumroad Listing
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnCopyTwitterThread" style="font-weight: 600;">
-              📋 Copy Twitter / X Launch Thread
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnCopyFounderColdDM" style="font-weight: 600;">
-              📋 Copy Founder 1-on-1 Cold DM
-            </button>
-          </div>
-        </div>
-
-        <!-- MULTI-ACCOUNT INBOX MANAGER (UP TO 5 ACCOUNTS) -->
-        <div class="card-panel" style="margin-bottom: 24px;">
-          <div class="card-header">
-            <div>
-              <h2 class="card-title">Inboxes (<span id="inboxCountText">5/5 Active</span>)</h2>
-            </div>
-            <button class="btn btn-secondary btn-sm" id="btnAddInboxBtn" style="font-weight: 600;">
-              + Add Inbox
-            </button>
-          </div>
-          <div id="emailAccountsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 14px;">
-            <!-- Rendered by JS -->
-          </div>
-        </div>
-
-        <!-- Department Filter Bar -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0 16px 0; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 style="font-size: 1.1rem; font-weight: 800; margin: 0; color: #0f172a;">Workforce Corporate Directory</h3>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 2px 0 0 0;">Filter autonomous employees by executive business unit</p>
-          </div>
-          <div class="dept-filter-chips" id="agentDeptFilterChips" style="display: flex; gap: 6px; flex-wrap: wrap;">
-            <button class="btn btn-secondary btn-sm active-dept-filter" data-dept="all" style="font-size: 0.76rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; background: #0f172a; color: #fff;">All Employees (17)</button>
-            <button class="btn btn-secondary btn-sm" data-dept="commercial" style="font-size: 0.76rem; font-weight: 600; padding: 4px 12px; border-radius: 20px;">💼 Commercial (3)</button>
-            <button class="btn btn-secondary btn-sm" data-dept="marketing" style="font-size: 0.76rem; font-weight: 600; padding: 4px 12px; border-radius: 20px;">📢 Marketing (2)</button>
-            <button class="btn btn-secondary btn-sm" data-dept="operations" style="font-size: 0.76rem; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🛡️ Operations (7)</button>
-            <button class="btn btn-secondary btn-sm" data-dept="executive" style="font-size: 0.76rem; font-weight: 600; padding: 4px 12px; border-radius: 20px;">⚖️ Executive (5)</button>
-          </div>
-        </div>
-
-        <!-- Dynamic Agent Cards Grid -->
-        <div class="agents-grid" id="agentsGrid">
-          <!-- Rendered dynamically by JavaScript -->
-        </div>
-
-        <!-- Mini Live Activity Preview Bar -->
-        <div class="card-panel">
-          <div class="card-header">
-            <div>
-              <h2 class="card-title">Live Activity</h2>
-            </div>
-            <button class="btn btn-secondary btn-sm" id="btnViewFullTerminal">View Full Logs</button>
-          </div>
-          <div class="terminal-container mini-terminal" id="miniTerminal">
-            <div class="terminal-body" id="miniTerminalLogs">
-              <div class="terminal-line system-line">
-                <span class="term-time">--:--:--</span>
-                <span class="term-badge badge-system">SYSTEM</span>
-                <span class="term-msg">Live Telemetry Event Bus connected to Server-Sent Events stream...</span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
-
-      <!-- TAB: SOVEREIGN CORE & AUTOMATON SYSTEMS (5 SUB-TABS) -->
+<!-- TAB: SOVEREIGN CORE & AUTOMATON SYSTEMS (5 SUB-TABS) -->
       <section class="tab-pane" id="pane-sovereign-core" style="display: none;">
         
         <!-- Sovereign Header Banner -->
@@ -5098,7 +4011,7 @@
         <div class="ceo-kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 24px;">
           
           <!-- KPI 1: Total Leads -->
-          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('today')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
             <span class="ceo-kpi-badge" style="background: #ecfdf5; color: #047857;">Market Universe</span>
             <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Total Leads In System</span>
             <div style="font-size: 1.85rem; font-weight: 900; color: #0f172a; letter-spacing: -0.02em;" id="partnerTotalLeads">
@@ -5110,7 +4023,7 @@
           </div>
 
           <!-- KPI 2: Contacted Saturation -->
-          <div class="ceo-kpi-card" style="border-left: 4px solid #3b82f6;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #3b82f6; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('yesterday')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
             <span class="ceo-kpi-badge" style="background: #eff6ff; color: #1d4ed8;">Outreach Status</span>
             <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Actively Contacted</span>
             <div style="font-size: 1.85rem; font-weight: 900; color: #1d4ed8; letter-spacing: -0.02em;" id="partnerTotalContacted">
@@ -5122,7 +4035,7 @@
           </div>
 
           <!-- KPI 3: Setup Potential -->
-          <div class="ceo-kpi-card" style="border-left: 4px solid #8b5cf6;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #8b5cf6; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('week')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
             <span class="ceo-kpi-badge" style="background: #f5f3ff; color: #6d28d9;">Implementation</span>
             <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Setup Win Potential</span>
             <div style="font-size: 1.65rem; font-weight: 900; color: #0f172a; letter-spacing: -0.02em;" id="partnerSetupPotential">
@@ -5134,7 +4047,7 @@
           </div>
 
           <!-- KPI 4: 1/5 Yearly Maintenance ARR -->
-          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('all')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
             <span class="ceo-kpi-badge" style="background: #fffbeb; color: #b45309;">Recurring SLA (1/5th)</span>
             <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Annual Maintenance ARR</span>
             <div style="font-size: 1.65rem; font-weight: 900; color: #b45309; letter-spacing: -0.02em;" id="partnerMaintenanceArr">
@@ -5357,13 +4270,13 @@
             <div style="font-size: 1.85rem; font-weight: 900; color: #0284c7;" id="socialStatReach">34,500</div>
             <div style="font-size: 0.78rem; color: var(--text-muted);">Founder &amp; Executive Network</div>
           </div>
-          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #10b981; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('today')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
             <span class="ceo-kpi-badge" style="background: #ecfdf5; color: #047857;">Engagement</span>
             <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Average Interaction</div>
             <div style="font-size: 1.85rem; font-weight: 900; color: #047857;" id="socialStatEngagement">5.8%</div>
             <div style="font-size: 0.78rem; color: #059669; font-weight: 600;">Reactions, Reposts &amp; Inquiries</div>
           </div>
-          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b;">
+          <div class="ceo-kpi-card" style="border-left: 4px solid #f59e0b; cursor: pointer; transition: transform 0.2s;" onclick="filterSalesTable('all')" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
             <span class="ceo-kpi-badge" style="background: #fffbeb; color: #b45309;">AI Model</span>
             <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Active Ghostwriter</div>
             <div style="font-size: 1.45rem; font-weight: 900; color: #b45309; padding-top: 4px;">Gemini 2.5 Flash</div>
@@ -5861,6 +4774,21 @@
           <!-- Right Column: Broadcast & Scraped Opportunities -->
           <div style="display: flex; flex-direction: column; gap: 20px;">
 
+            <!-- Market Maker Card -->
+            <div class="card-panel" style="padding: 20px; border-radius: 12px; border: 1px solid #10b981;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
+                <span style="font-size: 1.2rem;">🤖</span>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #10b981;">Autonomous Market Maker</h3>
+              </div>
+              <p style="margin: 0 0 12px 0; font-size: 0.82rem; color: var(--text-muted);">
+                Harvests RFPs and bounties, matches them to your inventory (Mauritius SaaS, Data scraping, etc.), and synthesizes custom pitches.
+              </p>
+              <button class="btn btn-primary" id="btnRunMarketMaker" style="width: 100%; background: #10b981; font-weight: 800; font-size: 0.9rem; padding: 11px; border-radius: 8px;">
+                🚀 Run Auto Market Maker
+              </button>
+              <div id="marketMakerResult" style="margin-top: 12px; display: none; font-size: 0.82rem;"></div>
+            </div>
+
             <!-- Broadcast Offer Card -->
             <div class="card-panel" style="padding: 20px; border-radius: 12px;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
@@ -6179,7 +5107,7 @@
 
     <!-- Master Floating Arc Reactor Mic Button -->
     <div class="jarvis-floating-orb-container">
-      <button class="jarvis-floating-orb" id="jarvisFloatingOrb" title="J.A.R.V.I.S. Voice Assistant (Press Alt+J or Click to Speak)">
+      <button class="jarvis-floating-orb" id="jarvisFloatingOrb" onclick="window.toggleJarvisListening()" title="J.A.R.V.I.S. Voice Assistant (Press Alt+J or Click to Speak)">
         <svg viewBox="0 0 100 100" width="34" height="34" style="pointer-events: none;">
           <circle cx="50" cy="50" r="42" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="12 6"/>
           <circle cx="50" cy="50" r="28" fill="none" stroke="#38bdf8" stroke-width="2"/>
@@ -6191,7 +5119,176 @@
     </div>
   </div>
 
+  <!-- GLOBAL FLOATING DAILY SCENARIOS BUTTON & MODAL -->
+  <button id="btnToggleDailyScenarios" title="Open Daily Real-Life Scenarios" style="position: fixed; bottom: 24px; left: 24px; z-index: 9998; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 30px; padding: 10px 18px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(16,185,129,0.4); display: flex; align-items: center; gap: 8px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(16,185,129,0.6)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(16,185,129,0.4)'">
+    <span>📋 Daily Scenarios</span>
+  </button>
+
+  <div id="dailyScenariosModal" class="modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99999; justify-content: center; align-items: center; padding: 20px;">
+    <div class="modal-content" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 850px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 40px rgba(0,0,0,0.4); overflow: hidden;">
+
+      <!-- Modal Header -->
+      <div style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.4rem;">📋</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.2rem; font-weight: 700;">Daily Real-Life Scenarios (Money-First Matrix)</h3>
+            <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: #94a3b8;">Grouped execution matrix prioritizing revenue, cash flow, and client acquisition</p>
+          </div>
+        </div>
+        <button id="btnCloseScenariosModal" style="background: transparent; border: none; color: #cbd5e1; font-size: 1.5rem; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">&times;</button>
+      </div>
+
+      <!-- Modal Body -->
+      <div style="padding: 24px; overflow-y: auto; flex: 1; font-size: 0.92rem; color: var(--text-main);">
+
+        <!-- Pillar 1 -->
+        <div style="margin-bottom: 24px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; padding: 18px;">
+          <h4 style="margin: 0 0 12px 0; color: #10b981; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+            <span>💰</span> Pillar 1: Revenue Generation & Client Acquisition (Money First)
+          </h4>
+          <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+            <li><strong>Daily Prospecting & ICP Scouting:</strong> Scans target verticals (private clinics, NGOs, tour operators) for new high-intent clients every single day.</li>
+            <li><strong>Omnichannel Outreach Pipeline:</strong> Automatically dispatches personalized bilingual sales pitches via Email, WhatsApp (+230 58169420), and SMS.</li>
+            <li><strong>White-Label Deal Closing & IP Transfer:</strong> Manages frontend bait pricing, backend (+33% premium) admin engines, and mandatory yearly maintenance packages (Rs 15,000/yr).</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div style="margin-bottom: 24px; background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 18px;">
+          <h4 style="margin: 0 0 12px 0; color: #38bdf8; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+            <span>🪙</span> Pillar 2: Autonomous Commerce & On-Chain Treasury
+          </h4>
+          <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+            <li><strong>Crypto & Fiat Settlement:</strong> Collects Base L2 USDC payments (0xEAE558282090d878582ec4C4C1C2470f9826b1F2) and processes MCB Juice / Bank off-ramps (000443260370).</li>
+            <li><strong>Digital Vending Machine:</strong> Automated micro-software sales and instant PayPal/Juice fulfillment.</li>
+            <li><strong>x402 API Monetization:</strong> Serves pay-gated AI services and unlocks peer agent resources.</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div style="margin-bottom: 24px; background: rgba(217, 119, 6, 0.05); border: 1px solid rgba(217, 119, 6, 0.2); border-radius: 12px; padding: 18px;">
+          <h4 style="margin: 0 0 12px 0; color: #d97706; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+            <span>🎧</span> Pillar 3: Client Success & Support Operations
+          </h4>
+          <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+            <li><strong>VIP Ticket Triage:</strong> 24/7 customer support concierge resolving inquiries and managing support tickets.</li>
+            <li><strong>Bilingual Localization:</strong> English/French parity assurance for Mauritian and international clients.</li>
+            <li><strong>Calendar & Meeting Coordination:</strong> 48h calendar auditing and conflict resolution.</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div style="margin-bottom: 10px; background: rgba(148, 163, 184, 0.05); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 12px; padding: 18px;">
+          <h4 style="margin: 0 0 12px 0; color: #94a3b8; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+            <span>🛡️</span> Pillar 4: Infrastructure & Defensive Shield
+          </h4>
+          <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+            <li><strong>Email Hygiene & Anti-Spam:</strong> 5-inbox scanning with 2FA/OTP immunity.</li>
+            <li><strong>Cloud Cost & Compute Sentinel:</strong> Monitors resource usage to keep cloud spend strictly below the $180/mo cap.</li>
+            <li><strong>Security & Regression Backups:</strong> Air-gapped database snapshots and GitHub dependency CVE surveillance.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div style="padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--bg-main);">
+        <span style="font-size: 0.8rem; color: #64748b; font-family: var(--font-mono);">Nexus v3.4.0 J.A.R.V.I.S. Core • 25 Scenarios Operational</span>
+        <button id="btnFooterCloseScenarios" class="btn btn-primary btn-sm" style="padding: 6px 16px;">Close Scenarios</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById("dailyScenariosModal");
+      const btnOpen = document.getElementById("btnToggleDailyScenarios");
+      const btnClose = document.getElementById("btnCloseScenariosModal");
+      const btnFooterClose = document.getElementById("btnFooterCloseScenarios");
+
+      if (btnOpen && modal) {
+        btnOpen.addEventListener("click", () => {
+          modal.style.display = "flex";
+        });
+      }
+      if (btnClose && modal) {
+        btnClose.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+      }
+      if (btnFooterClose && modal) {
+        btnFooterClose.addEventListener("click", () => {
+          modal.style.display = "none";
+        });
+      }
+      if (modal) {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) modal.style.display = "none";
+        });
+      }
+    });
+  </script>
+
+  <script src="/static/revenue_engine.js" defer></script>
   <script src="/static/dal.js" defer></script>
   <script src="/static/app.js?v=3.2.0" defer></script>
+  <script src="/static/morning_triage.js" defer></script>
+
+    <!-- Customer Directory Modal -->
+    <div id="customerDirectoryModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.8); backdrop-filter: blur(4px); z-index: 9999; justify-content: center; align-items: center;">
+      <div class="modal-content" style="max-width: 900px; width: 95%; padding: 24px; background: #fff; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px; margin-bottom: 16px;">
+          <h2 style="margin: 0; font-size: 1.4rem; font-weight: 900; color: var(--text-main);">👥 Customer Directory</h2>
+          <button class="btn btn-secondary btn-sm" onclick="document.getElementById('customerDirectoryModal').style.display='none'">✕ Close</button>
+        </div>
+
+        <!-- Filters -->
+        <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+          <input type="text" class="form-input" placeholder="Search customer name or company..." style="flex: 1; font-size: 0.85rem;">
+          <select class="form-input" style="font-size: 0.85rem; width: 150px;">
+            <option value="">All Products</option>
+            <option value="medical360">Medical 360</option>
+            <option value="flightaddon">Flight Addon</option>
+            <option value="smebot">SME WhatsApp Bot</option>
+          </select>
+          <select class="form-input" style="font-size: 0.85rem; width: 150px;">
+            <option value="">Status: All</option>
+            <option value="active">Active</option>
+            <option value="churned">Churned</option>
+          </select>
+          <button class="btn btn-primary btn-sm">Filter</button>
+        </div>
+
+        <!-- Table -->
+        <div style="max-height: 400px; overflow-y: auto;">
+          <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-subtle); color: var(--text-muted);">
+                <th style="padding: 10px; position: sticky; top: 0; background: #fff;">Customer</th>
+                <th style="padding: 10px; position: sticky; top: 0; background: #fff;">Company</th>
+                <th style="padding: 10px; position: sticky; top: 0; background: #fff;">Product</th>
+                <th style="padding: 10px; position: sticky; top: 0; background: #fff;">LTV</th>
+                <th style="padding: 10px; position: sticky; top: 0; background: #fff;">Status</th>
+                <th style="padding: 10px; position: sticky; top: 0; background: #fff;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customerDirectoryTableBody">
+              <tr><td colspan="6" style="text-align: center; padding: 20px; color: var(--text-muted);">Loading customers...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+          <span style="font-size: 0.8rem; color: var(--text-muted);"><span id="customerDirectoryCount">Showing 0 customers</span></span>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary btn-sm" disabled>Previous</button>
+            <button class="btn btn-secondary btn-sm">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
 </body>
 </html>

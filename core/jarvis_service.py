@@ -84,6 +84,7 @@ class JarvisService:
     def _ensure_storage(self):
         if not os.path.exists(JARVIS_HISTORY_FILE):
             try:
+                from core.storage import atomic_save_json
                 initial_history = [
                     {
                         "role": "model",
@@ -92,23 +93,23 @@ class JarvisService:
                         "voice": True
                     }
                 ]
-                with open(JARVIS_HISTORY_FILE, "w", encoding="utf-8") as f:
-                    json.dump(initial_history, f, indent=2)
+                atomic_save_json(JARVIS_HISTORY_FILE, initial_history)
             except Exception as e:
                 logger.error(f"Error initializing JARVIS history file: {e}")
 
     def load_history(self, limit: int = 40) -> List[Dict[str, Any]]:
         try:
-            if os.path.exists(JARVIS_HISTORY_FILE):
-                with open(JARVIS_HISTORY_FILE, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    return data[-limit:]
+            from core.storage import safe_load_json
+            data = safe_load_json(JARVIS_HISTORY_FILE, default=[])
+            if isinstance(data, list):
+                return data[-limit:]
         except Exception:
             pass
         return []
 
     def save_message(self, role: str, text: str, voice: bool = False, action_taken: Optional[str] = None):
         try:
+            from core.storage import atomic_save_json
             history = self.load_history(limit=100)
             history.append({
                 "role": role,
@@ -117,13 +118,13 @@ class JarvisService:
                 "voice": voice,
                 "action_taken": action_taken
             })
-            with open(JARVIS_HISTORY_FILE, "w", encoding="utf-8") as f:
-                json.dump(history[-100:], f, indent=2)
+            atomic_save_json(JARVIS_HISTORY_FILE, history[-100:])
         except Exception as e:
             logger.error(f"Error saving JARVIS message: {e}")
 
     def clear_history(self):
         try:
+            from core.storage import atomic_save_json
             initial_history = [
                 {
                     "role": "model",
@@ -132,8 +133,7 @@ class JarvisService:
                     "voice": True
                 }
             ]
-            with open(JARVIS_HISTORY_FILE, "w", encoding="utf-8") as f:
-                json.dump(initial_history, f, indent=2)
+            atomic_save_json(JARVIS_HISTORY_FILE, initial_history)
             return True
         except Exception:
             return False

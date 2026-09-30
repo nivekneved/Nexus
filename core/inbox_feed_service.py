@@ -347,30 +347,33 @@ Respond ONLY with valid JSON matching:
         from core.legal_guardrails import legal_guardrails
         from core.contact_history_service import contact_history_service
 
-        # 1. Pre-Flight Guardrail Check
-        if not bypass_guardrails:
-            check_res = legal_guardrails.pre_flight_check(to_email)
-            if not check_res.get("allowed"):
-                reason = check_res.get("reason", "Outbound dispatch blocked by safety guardrail")
-                # Record blocked attempt in contact history
-                contact_history_service.record_outreach(
-                    recipient_email=to_email,
-                    company=company or to_email.split("@")[-1],
-                    contact_name=contact_name or to_email.split("@")[0],
-                    channel="email",
-                    subject=subject,
-                    body=body,
-                    status=f"BLOCKED_{check_res.get('code', 'GUARDRAIL')}",
-                    lead_id=lead_id,
-                    metadata={"block_reason": reason, "guardrail_code": check_res.get("code")}
-                )
-                logger.warning(f"[OutboundGuard] Dispatch to {to_email} blocked: {reason}")
-                raise ValueError(f"Outbound Email Blocked by Guardrail: {reason}")
+        # 1. Prepare Outbound Email (Strict Suppression Validation + List-Unsubscribe Headers + Opt-Out Footer)
+        try:
+            if bypass_guardrails:
+                compliant_body = legal_guardrails.append_opt_out_footer(body, to_email)
+                headers = {
+                    "List-Unsubscribe": f"<mailto:unsubscribe@nexus-workforce.com?subject=unsubscribe-{to_email}>, <https://nexus-workforce.vercel.app/unsubscribe?email={to_email}>",
+                    "List-Unsubscribe-Post": "List-Unsubscribe=One-Click"
+                }
+            else:
+                subject, compliant_body, headers = legal_guardrails.prepare_outbound_email(to_email, subject, body)
+        except Exception as e:
+            reason = str(e)
+            contact_history_service.record_outreach(
+                recipient_email=to_email,
+                company=company or to_email.split("@")[-1],
+                contact_name=contact_name or to_email.split("@")[0],
+                channel="email",
+                subject=subject,
+                body=body,
+                status="BLOCKED_STRICT_SUPPRESSION_OR_GUARDRAIL",
+                lead_id=lead_id,
+                metadata={"block_reason": reason}
+            )
+            logger.warning(f"[OutboundGuard] Dispatch to {to_email} blocked: {reason}")
+            raise ValueError(f"Outbound Email Blocked by Legal Guardrails: {reason}")
 
-        # 2. Append CAN-SPAM / Legal Opt-Out Footer
-        compliant_body = legal_guardrails.append_opt_out_footer(body, to_email)
-
-        # 3. Resolve Account Credentials
+        # 2. Resolve Account Credentials
         accounts = self.load_accounts()
         selected_acc = None
         if account_id:
@@ -403,7 +406,8 @@ Respond ONLY with valid JSON matching:
             body=compliant_body,
             from_name=from_name,
             reply_to=reply_to,
-            html_body=html_body
+            html_body=html_body,
+            headers=headers
         )
 
         # 4. Record successful dispatch in Quota & Contact History CRM

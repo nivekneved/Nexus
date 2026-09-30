@@ -25,12 +25,12 @@ class ExecutiveAIPartner:
     the entire 16-agent workforce on behalf of Deven Pawaray.
     """
 
-    def __init__(self, principal_name: str = "Deven Pawaray",
-                 principal_email: str = "devenpawaray@gmail.com",
-                 principal_phone: str = "+230 58169420"):
-        self.principal_name = principal_name
-        self.principal_email = principal_email
-        self.principal_phone = principal_phone
+    def __init__(self, principal_name: str = "",
+                 principal_email: str = "",
+                 principal_phone: str = ""):
+        self.principal_name = principal_name or os.getenv("FOUNDER_NAME", "Founder")
+        self.principal_email = principal_email or os.getenv("FOUNDER_EMAIL", "Configured in .env")
+        self.principal_phone = principal_phone or os.getenv("FOUNDER_WHATSAPP", "+23058169420")
         self.partner_title = "Executive AI Managing Partner (Nexus)"
         self.is_autonomous_mode = True
         self._ensure_storage()

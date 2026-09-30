@@ -2293,588 +2293,583 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
     # ═════════════════════════════════════════════════════════════════════════
     # 5. CEO / EXECUTIVE / MARKETING USER TYPE (25 Daily Real-World Scenarios)
     # ═════════════════════════════════════════════════════════════════════════
+    # ═════════════════════════════════════════════════════════════════════════
+    # 5. CEO / EXECUTIVE / MARKETING USER TYPE (25 Daily Real-World Scenarios)
+    # Reworked to Drive High-Ticket White-Label Turnkey Sales & IP Transfer
+    # ═════════════════════════════════════════════════════════════════════════
     "ceo": [
         {
             "id": "ceo_01",
-            "title": "💼 Viral LinkedIn Thought Leadership: The SaaS Subscription Tax",
-            "category": "Social Thought Leadership",
+            "title": "🏥 Medical 360™ Clinic Suite: White-Label Pitch (Rs 105k + Rs 15k/yr)",
+            "category": "White-Label Sales",
             "urgency": "High",
-            "platform": "linkedin",
-            "task_type": "social_post",
-            "headline": "The SaaS Subscription Tax is Quietly Draining B2B Operating Margins",
-            "badge": "LINKEDIN THOUGHT LEADERSHIP",
-            "gradient": "linear-gradient(135deg, #0a66c2 0%, #004182 100%)",
-            "target_audience": "Founders & B2B Executives",
-            "description": "Compelling thought leadership post breaking down how recurring SaaS subscriptions bleed cash and why sovereign AI wins.",
+            "platform": "email_whatsapp",
+            "task_type": "comms_draft",
+            "headline": "Enterprise Pitch: Medical 360™ Turnkey Clinic & Hospital Suite",
+            "badge": "MEDICAL 360 PITCH",
+            "gradient": "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
+            "target_audience": "Private Clinic & Polyclinic Directors (Mauritius)",
+            "description": "High-converting white-label sales pitch for Medical 360 featuring frontend patient portal (Rs 45k) and backend admin engine (Rs 60k).",
             "body": (
-                "Most founders I speak with in Mauritius and globally are paying for 12+ recurring micro-SaaS tools they barely touch.\n\n"
-                "At Nexus, we flipped the script. We deployed 18 autonomous AI agents running locally on our own hardware.\n\n"
-                "Key business takeaways:\n"
-                "✔ Zero recurring API subscription bills.\n"
-                "✔ 100% private, sovereign data under Mauritius DPA 2017 compliance.\n"
-                "✔ Our $1 Digital Vending Machine delivers standalone Python tools in 1 second via PayPal & MCB Juice.\n\n"
-                "How many recurring subscriptions could your team replace with single-file, self-hosted automation?\n\n"
-                "🔗 Explore our live tools: http://127.0.0.1:8000/store\n\n"
-                "#ArtificialIntelligence #SovereignAI #BuildInPublic #Automation #MauritiusTech #IndieHacker"
+                "Bonjour Dr. / Directeur,\n\n"
+                "Managing patient appointments, blood bank registries, and lab test results on paper or disparate tools wastes hours daily.\n\n"
+                "We offer **Medical 360™** as a complete **white-label turnkey solution with full IP transfer**:\n"
+                "• Frontend Patient Portal (The Bait): Rs 45,000 MUR\n"
+                "• Backend & Admin Operations Engine (+33% Premium): Rs 60,000 MUR\n"
+                "• Complete Full-Stack IP Handover: Rs 105,000 MUR (~$2,330 USD)\n"
+                "• Annual Maintenance Package: Rs 15,000 MUR / year\n\n"
+                "Instant settlement via MCB Juice (+230 58169420) or Bank Transfer (000443260370).\n"
+                "Pouvons-nous planifier une démo cette semaine?\n\n"
+                "Deven Pawaray (+230 58169420)"
             ),
-            "callouts": ["Self-Hosted Standalone Architecture", "Instant PayPal & MCB Juice Rails", "Commercial Usage Rights Included"],
-            "cta_label": "Publish to LinkedIn"
+            "callouts": ["Rs 105k Upfront IP Transfer", "Rs 15k/yr Maintenance Annuity", "MCB Juice Ready (+230 58169420)"],
+            "cta_label": "Dispatch Medical 360 Pitch"
         },
         {
             "id": "ceo_02",
-            "title": "🐦 Viral X / Twitter Thread: How We Built an 18-Agent AI Fleet",
-            "category": "Social Thought Leadership",
+            "title": "🤝 Enn Rev Enn Sourir™ NGO & CSR Platform Pitch (Rs 105k + Rs 15k/yr)",
+            "category": "White-Label Sales",
             "urgency": "High",
-            "platform": "x",
-            "task_type": "social_post",
-            "headline": "How 1 Engineer Replaced a 10-Person Ops Team with 18 AI Agents",
-            "badge": "X / TWITTER VIRAL THREAD",
-            "gradient": "linear-gradient(135deg, #000000 0%, #1e293b 100%)",
-            "target_audience": "Developers, Indie Hackers, Founders",
-            "description": "Fast-paced, hook-driven viral thread breaking down the architecture of the Nexus autonomous fleet.",
+            "platform": "email_whatsapp",
+            "task_type": "comms_draft",
+            "headline": "Enterprise Proposal: Enn Rev Enn Sourir™ CSR & NGO Platform",
+            "badge": "CSR PLATFORM PITCH",
+            "gradient": "linear-gradient(135deg, #059669 0%, #064e3b 100%)",
+            "target_audience": "Corporate CSR Funds & Foundation Directors",
+            "description": "Bilingual white-label proposal for Enn Rev Enn Sourir featuring MRA Section 50L 15% tax deduction receipts and hospital payout tracking.",
             "body": (
-                "Why pay $50/mo for a tool when a 50-line Python script does it forever with zero subscriptions?\n\n"
-                "At Nexus, our 18 autonomous agents manufacture standalone utilities live.\n\n"
-                "⚡ Single-file\n"
-                "⚡ 100% offline & private\n"
-                "⚡ $1.00 / Rs 45 instant checkout\n\n"
-                "Check it out: http://127.0.0.1:8000/store\n\n"
-                "#BuildInPublic #Python #Automation"
+                "Bonjour,\n\n"
+                "Managing corporate CSR funds requires 100% surgical transparency and automated MRA Section 50L tax deduction receipts (15%).\n\n"
+                "We deliver **Enn Rev Enn Sourir™** as a fully branded white-label platform with full IP transfer:\n"
+                "• Frontend Donor Portal: Rs 45,000 MUR\n"
+                "• Backend CSR Treasury & Audit Engine: Rs 60,000 MUR\n"
+                "• Total Upfront IP Transfer: Rs 105,000 MUR (~$2,330 USD)\n"
+                "• Annual Maintenance: Rs 15,000 MUR / year\n\n"
+                "Direct bank transfer to MCB (000443260370) or Juice (+230 58169420).\n"
+                "Shall we schedule a 10-minute demo?\n\n"
+                "Deven Pawaray (+230 58169420)"
             ),
-            "callouts": ["High Engagement Hook", "Showcases $1 Store", "Indie Hacker Appeal"],
-            "cta_label": "Tweet on X"
+            "callouts": ["MRA Section 50L Compliant", "Surgical Audit Transparency", "Rs 15k/yr Maintenance Annuity"],
+            "cta_label": "Dispatch CSR Pitch"
         },
         {
             "id": "ceo_03",
-            "title": "📘 Facebook Community Announcement: Support Local Mauritius Innovation",
-            "category": "Local Community",
-            "urgency": "Standard",
-            "platform": "facebook",
-            "task_type": "social_post",
-            "headline": "Say Goodbye to Monthly Software Subscriptions in Mauritius",
-            "badge": "FACEBOOK COMMUNITY",
-            "gradient": "linear-gradient(135deg, #1877f2 0%, #0c56c2 100%)",
-            "target_audience": "Mauritius Business & Tech Community",
-            "description": "Engaging community post showcasing instant MCB Juice checkout for local entrepreneurs.",
+            "title": "✈️ i-Travellix™ Luxury Travel SaaS White-Label Pitch (Rs 117k + Rs 15k/yr)",
+            "category": "White-Label Sales",
+            "urgency": "High",
+            "platform": "email_whatsapp",
+            "task_type": "comms_draft",
+            "headline": "Enterprise Proposal: i-Travellix™ Luxury Travel & Tour Operator Suite",
+            "badge": "TRAVEL SAAS PITCH",
+            "gradient": "linear-gradient(135deg, #7c3aed 0%, #4338ca 100%)",
+            "target_audience": "Inbound Tour Operators & DMCs (Mauritius & Regional)",
+            "description": "White-label proposal for i-Travellix featuring live GDS flight search, 5-star resort catalogs, and multi-currency checkout with full IP transfer.",
             "body": (
-                "🚀 Big milestone for our local digital tools store!\n\n"
-                "We just launched brand new self-hosted Python automation utilities on the Nexus Vending Machine for only $1.00 USD (or Rs 45 MUR).\n\n"
-                "• Buy once, own forever on your machine.\n"
-                "• Instant delivery via MCB Juice (+230 58169420) or PayPal.\n"
-                "• Full commercial rights included.\n\n"
-                "👉 Check out the live catalog here: http://127.0.0.1:8000/store\n\n"
-                "Supporting local tech innovation from Cybercity, Ebene 🇲🇺"
+                "Bonjour,\n\n"
+                "Inbound tour operators and DMCs lose direct bookings to high-commission aggregators.\n\n"
+                "We offer **i-Travellix™** as a complete white-label travel suite with full IP ownership transfer:\n"
+                "• Frontend Booking Engine (The Bait): Rs 50,000 MUR\n"
+                "• Backend GDS & Operations Engine: Rs 67,000 MUR\n"
+                "• Total Upfront IP Handover: Rs 117,000 MUR (~$2,580 USD)\n"
+                "• Annual Maintenance: Rs 15,000 MUR / year\n\n"
+                "Settlement via MCB Bank (000443260370) or Base L2 USDC.\n"
+                "Pouvons-nous organiser une présentation?\n\n"
+                "Deven Pawaray (+230 58169420)"
             ),
-            "callouts": ["MCB Juice Ready (+230 58169420)", "Rs 45 MUR Local Pricing", "Ebene Cybercity Pride"],
-            "cta_label": "Post to Facebook"
+            "callouts": ["Live GDS Flight Integration", "Rs 117k Upfront IP Handover", "Rs 15k/yr Maintenance Annuity"],
+            "cta_label": "Dispatch Travel Pitch"
         },
         {
             "id": "ceo_04",
-            "title": "⚡ Cross-Platform Social Blitz: New $1 Digital Tool Drop",
-            "category": "Product Launch",
-            "urgency": "High",
-            "platform": "cross_platform",
-            "task_type": "social_post",
-            "headline": "Nexus Sovereign AI — Cross-Platform Product Announcement",
-            "badge": "SOCIAL BLITZ",
-            "gradient": "linear-gradient(135deg, #7c3aed 0%, #4338ca 100%)",
-            "target_audience": "All Social Followers",
-            "description": "Synchronized announcement across LinkedIn, X, Facebook, and WhatsApp status for a newly manufactured micro-tool.",
+            "title": "💬 WhatsApp Flight Addon White-Label Pitch (Rs 40k + Rs 15k/yr)",
+            "category": "White-Label Sales",
+            "urgency": "Standard",
+            "platform": "email_whatsapp",
+            "task_type": "comms_draft",
+            "headline": "White-Label Proposal: WhatsApp Conversational Flight & Booking Addon",
+            "badge": "WHATSAPP ADDON PITCH",
+            "gradient": "linear-gradient(135deg, #25d366 0%, #128c7e 100%)",
+            "target_audience": "Airlines, Travel Agencies & Portals",
+            "description": "White-label pitch for the 24/7 conversational WhatsApp bot addon for flight status and bookings.",
             "body": (
-                "Announcing the expansion of the Nexus™ Digital Vending Machine.\n"
-                "Instant 1-second checkout for self-hosted developer tools ($1.00 USD / Rs 45 MUR).\n"
-                "Supported rails: MCB Juice (+230 58169420) & PayPal 1-Click.\n"
-                "http://127.0.0.1:8000/store"
+                "Bonjour,\n\n"
+                "Deliver 24/7 instant WhatsApp support for flight status, baggage rules, and bookings directly on your clients' phones.\n\n"
+                "• Frontend Bot Interface: Rs 15,000 MUR\n"
+                "• Backend NLP & Dispatch Engine: Rs 25,000 MUR\n"
+                "• Total Upfront IP Transfer: Rs 40,000 MUR (~$880 USD)\n"
+                "• Annual Maintenance: Rs 15,000 MUR / year\n\n"
+                "MCB Juice: +230 58169420 | MCB Account: 000443260370.\n"
+                "Let's deploy in 48 hours.\n\n"
+                "Deven Pawaray (+230 58169420)"
             ),
-            "callouts": ["Simultaneous Dispatch", "Instant 1-Second Checkout", "Dual Payment Rails"],
-            "cta_label": "Launch Social Blitz"
+            "callouts": ["24/7 WhatsApp Autopilot", "Rs 40k Upfront IP Transfer", "48-Hour Deployment"],
+            "cta_label": "Dispatch WhatsApp Addon Pitch"
         },
         {
             "id": "ceo_05",
-            "title": "🎯 Daily Rs 150,000 MUR Revenue Trajectory & Gap Deliberation",
+            "title": "🎯 Daily Rs 150,000 MUR Revenue Trajectory & White-Label Pipeline Audit",
             "category": "Revenue Strategy",
             "urgency": "High",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "Cognitive Deliberation: Closing the Rs 105,000 MUR Revenue Gap",
-            "badge": "REVENUE COGNITION",
+            "headline": "Cognitive Audit: Tracking White-Label Sales Toward Rs 150k MUR Target",
+            "badge": "REVENUE AUDIT",
             "gradient": "linear-gradient(135deg, #059669 0%, #064e3b 100%)",
             "target_audience": "Sir Deven Pawaray",
-            "description": "J.A.R.V.I.S. cognitive deliberation mapping exact high-ticket B2B retainers and digital store conversions needed to hit Rs 150k MUR.",
+            "description": "J.A.R.V.I.S. financial audit verifying white-label turnkey sales and maintenance annuity inflows against the monthly target.",
             "body": (
-                "J.A.R.V.I.S. Cognitive Revenue Audit:\n"
-                "• Monthly Milestone Target: Rs 150,000 MUR\n"
-                "• Confirmed Inflows: Rs 45,045 MUR\n"
-                "• Remaining Revenue Gap: Rs 104,955 MUR\n"
-                "• Prescribed Acceleration Vectors:\n"
-                "  1. Vector A: Convert 2 pending clinic leads (Medical 360) -> Rs 90,000 MUR\n"
-                "  2. Vector B: License 1 enterprise partner (Base L2 white-label) -> Rs 45,000 MUR\n"
-                "  3. Vector C: $1 Digital Vending Machine impulse sales -> Rs 5,000 MUR\n"
-                "• Recommendation: Deploy Touch 2 sequences immediately to top 5 clinic prospects."
+                "J.A.R.V.I.S. Revenue Telemetry:\n"
+                "• Monthly Revenue Target: Rs 150,000 MUR\n"
+                "• Active White-Label Sales & Maintenance Inflows: Verified\n"
+                "• Pipeline Conversion Focus:\n"
+                "  1. Close 1 Medical 360™ Client -> Rs 105,000 MUR upfront + Rs 15,000/yr\n"
+                "  2. Close 1 Enn Rev Enn Sourir™ NGO -> Rs 105,000 MUR upfront + Rs 15,000/yr\n"
+                "• Cloud Compute Burn: $12.40 USD (Well below $180 cap, guaranteeing 99% gross margins)."
             ),
-            "callouts": ["Rs 150,000 MUR Mandate", "Calculated 3-Vector Strategy", "Direct Actionable Roadmap"],
-            "cta_label": "Execute Acceleration Plan"
+            "callouts": ["Rs 150k MUR Monthly Target", "Annual Maintenance Annuities", "99% Operating Margin"],
+            "cta_label": "Run Revenue Audit"
         },
         {
             "id": "ceo_06",
-            "title": "💎 High-Ticket (Rs 45,000 MUR) B2B Agency Retainer Pitch Deck",
-            "category": "Sales Pitch",
+            "title": "📄 White-Label Intellectual Property (IP) Transfer Agreement Drafting",
+            "category": "Legal & IP",
             "urgency": "High",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Executive Proposal: Autonomous Operations Retainer (Rs 45,000/mo)",
-            "badge": "HIGH-TICKET RETAINER",
-            "gradient": "linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%)",
-            "target_audience": "Prospective Enterprise Retainer Client",
-            "description": "Complete high-converting pitch memo outlining how a Rs 45,000/mo retainer replaces 3 junior staff members with 24/7 AI.",
+            "headline": "Standard Software IP Transfer & White-Label Licensing Agreement",
+            "badge": "IP TRANSFER AGREEMENT",
+            "gradient": "linear-gradient(135deg, #475569 0%, #1e293b 100%)",
+            "target_audience": "Incoming Turnkey Client",
+            "description": "Standardized legal contract confirming full source code delivery, perpetual white-label usage rights, and annual maintenance terms.",
             "body": (
-                "Dear [Managing Director],\n\n"
-                "Hiring, training, and managing 3 full-time operations staff costs upwards of Rs 90,000 MUR/month in payroll, taxes, and sick leave.\n\n"
-                "Nexus provides an autonomous alternative for Rs 45,000 MUR/month:\n"
-                "• 24/7 WhatsApp customer booking bot responding in under 30 seconds.\n"
-                "• Automated email inbox triage and spam hygiene.\n"
-                "• Instant MCB Juice and card payment reconciliation.\n"
-                "• 100% sovereign local hosting with zero data leakage.\n\n"
-                "Shall we schedule a 15-minute live screen share this Wednesday at 10:00 AM?"
+                "SOFTWARE IP TRANSFER & COMMENCEMENT AGREEMENT\n\n"
+                "1. Transfer of Ownership: Upon full settlement of the upfront white-label fee (Rs 105,000 MUR), Nexus AI irrevocably transfers all intellectual property rights and source code for [Platform Name] to the Client.\n"
+                "2. Maintenance & Support: Includes the annual maintenance package at Rs 15,000 MUR/year for updates and security patches.\n"
+                "3. Governing Law: Republic of Mauritius.\n\n"
+                "Signed,\nDeven Pawaray, Managing Principal"
             ),
-            "callouts": ["50% Payroll Savings", "24/7 Autonomous Fleet", "15-Minute Calibration Call"],
-            "cta_label": "Dispatch Retainer Pitch"
+            "callouts": ["Full Source Code Handover", "Maur Mauritius Jurisdiction", "Annual Maintenance Terms"],
+            "cta_label": "Generate IP Agreement"
         },
         {
             "id": "ceo_07",
-            "title": "🖼️ 5-Slide Visual Carousel Script: 'Zero Payroll AI Workforce'",
-            "category": "Visual Content",
-            "urgency": "Standard",
-            "platform": "linkedin",
-            "task_type": "social_post",
-            "headline": "LinkedIn Carousel: How to Run a Business with Zero Admin Payroll",
-            "badge": "VIRAL CAROUSEL",
-            "gradient": "linear-gradient(135deg, #4338ca 0%, #312e81 100%)",
-            "target_audience": "LinkedIn Professionals",
-            "description": "Slide-by-slide copy designed for high-engagement PDF carousels breaking down autonomous workforce architecture.",
-            "body": (
-                "Slide 1: How we run an entire business with 0 full-time admin employees.\n\n"
-                "Slide 2: The Problem — Founders spend 15 hrs/week answering routine WhatsApps, chasing invoices, and sorting spam.\n\n"
-                "Slide 3: The Architecture — 18 autonomous Python agents running locally on our machine.\n\n"
-                "Slide 4: The Economics — $0 recurring SaaS subscriptions. Instant MCB Juice + PayPal checkouts.\n\n"
-                "Slide 5: The Takeaway — Don't hire for repetitive ops. Automate it once and own it forever.\n\n"
-                "Download our $1 standalone tools: http://127.0.0.1:8000/store"
-            ),
-            "callouts": ["5-Slide Proven Format", "High Dwell Time", "Direct Link to $1 Store"],
-            "cta_label": "Publish Carousel Script"
-        },
-        {
-            "id": "ceo_08",
-            "title": "⚖️ Autonomous Fleet Allocation & Priority Rebalancing",
-            "category": "Fleet Ops",
+            "title": "💎 Base L2 Sovereign Crypto Treasury Rebalance & MCB Off-Ramp",
+            "category": "Treasury Ops",
             "urgency": "High",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "Rebalance 18-Agent Fleet Across Revenue & Defense Domains",
-            "badge": "FLEET ORCHESTRATION",
-            "gradient": "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-            "target_audience": "Agent Orchestrator",
-            "description": "Adjusts task frequency of the 18 agents, shifting compute resources to outreach and sales conversion ahead of month-end.",
+            "headline": "Base L2 Treasury Sync: Converting USDC to MCB Bank (000443260370)",
+            "badge": "CRYPTO TREASURY",
+            "gradient": "linear-gradient(135deg, #0052ff 0%, #001f5c 100%)",
+            "target_audience": "Base L2 Wallet 0xEAE558282090d878582ec4C4C1C2470f9826b1F2",
+            "description": "Executes pre-flight policy verifier checks ($15 single-tx ceiling, $50 daily cap) and initiates off-ramp to MCB account.",
             "body": (
-                "Agent Fleet Rebalancing Manifest:\n"
-                "• Total Agents: 18 Active Autonomous Entities\n"
-                "• High-Priority Allocation:\n"
-                "  - Lead Finder & Outreach CRM: Increased sweep frequency to every 15 minutes\n"
-                "  - Social Broadcaster: Armed for 2 daily thought leadership drops\n"
-                "  - Finance Watchdog: Active real-time Juice reconciliation\n"
-                "• Status: Rebalanced for maximum revenue acceleration."
+                "Base L2 Treasury & Off-Ramp Execution:\n"
+                "• Wallet Address: 0xEAE558282090d878582ec4C4C1C2470f9826b1F2 (Chain 8453)\n"
+                "• Pending USDC Balance: Verified via Secp256k1 keypair\n"
+                "• Off-ramp Target: MCB Bank Account 000443260370 (Mauritian Rupees)\n"
+                "• Policy Guardrails: Enforced ($15 single-tx ceiling / $50 daily limit)\n"
+                "• Status: Ready for execution."
             ),
-            "callouts": ["18 Agents Synchronized", "Outreach Frequency Doubled", "Max Revenue Priority"],
-            "cta_label": "Rebalance Fleet"
+            "callouts": ["Base L2 Chain 8453", "Secp256k1 Keypair Signing", "MCB Bank 000443260370"],
+            "cta_label": "Execute Treasury Off-Ramp"
+        },
+        {
+            "id": "ceo_08",
+            "title": "🛡️ Annual Maintenance Invoice & Annuity Collection Blitz",
+            "category": "Billing Operations",
+            "urgency": "High",
+            "platform": "email_whatsapp",
+            "task_type": "comms_draft",
+            "headline": "Annuity Billing Notice: Annual Maintenance Package (Rs 15,000 MUR)",
+            "badge": "MAINTENANCE ANNUITY",
+            "gradient": "linear-gradient(135deg, #d97706 0%, #78350f 100%)",
+            "target_audience": "Existing Turnkey Software Clients",
+            "description": "Automated billing notice for the mandatory yearly Rs 15,000 maintenance package covering security patches and system updates.",
+            "body": (
+                "Dear Partner,\n\n"
+                "Your annual software maintenance package for your white-label platform is due this month.\n\n"
+                "• Annual Maintenance Fee: Rs 15,000 MUR (~$330 USD)\n"
+                "• Covers: Continuous security patches, database optimizations, and priority technical support.\n"
+                "• Payment Rails:\n"
+                "  - MCB Juice: +230 58169420\n"
+                "  - Bank Transfer: MCB Account 000443260370\n\n"
+                "Thank you for keeping your infrastructure secure and updated.\n\n"
+                "Nexus Executive Billing Desk"
+            ),
+            "callouts": ["Rs 15,000/yr Annuity", "MCB Juice (+230 58169420)", "Secures Ongoing Support"],
+            "cta_label": "Dispatch Maintenance Invoice"
         },
         {
             "id": "ceo_09",
-            "title": "🎙️ Executive Morning Voice Digest with J.A.R.V.I.S. (Alt+J)",
+            "title": "🎙️ Executive Morning Voice Briefing with J.A.R.V.I.S. (Alt+J)",
             "category": "Executive Routine",
             "urgency": "Standard",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "J.A.R.V.I.S. Morning Cognitive Audio Briefing",
+            "headline": "J.A.R.V.I.S. Morning Executive Audio & Telemetry Briefing",
             "badge": "J.A.R.V.I.S. BRIEFING",
             "gradient": "linear-gradient(135deg, #00f0ff 0%, #0369a1 100%)",
             "target_audience": "Sir Deven Pawaray",
-            "description": "Compiles a crisp 60-second synthesized audio summary of overnight sales, server uptime, and priority meetings.",
+            "description": "Synthesizes overnight white-label inquiries, maintenance collections, and server telemetry into a crisp audio briefing.",
             "body": (
                 "Good morning, Sir Deven.\n\n"
-                "All 18 autonomous agents report green. Over the night, our watchdog completed 16 security sweeps with zero incident flags.\n\n"
-                "On the commercial front, 2 new digital tool downloads were settled via MCB Juice, and our clinic lead pipeline has 3 prospects ready for Touch 2 outreach.\n\n"
-                "Your Rs 150k MUR earnings trajectory is currently at 30%, with Rs 104,955 remaining. Standing by for your instructions, Sir."
+                "All systems nominal. Overnight security audits completed with zero vulnerabilities detected.\n\n"
+                "Commercial update: 1 inquiry for Medical 360™ received via WhatsApp, and our finance watchdog confirmed receipt of an annual maintenance transfer.\n\n"
+                "Standing by for your voice directive, Sir. Press [Alt + J] to speak."
             ),
-            "callouts": ["Voice-Ready Audio Script", "Press [Alt + J] to Trigger", "Executive Overview"],
-            "cta_label": "Play Morning Briefing"
+            "callouts": ["Voice-Ready Audio Script", "Press [Alt + J] to Speak", "Complete System Overview"],
+            "cta_label": "Play Morning Brief"
         },
         {
             "id": "ceo_10",
-            "title": "🤝 High-Stakes Client Negotiation Strategy (MEDDPICC)",
-            "category": "Deal Strategy",
+            "title": "🌍 Bilingual Mauritius Outreach Campaign (English / French Parity)",
+            "category": "B2B Outreach",
             "urgency": "High",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "MEDDPICC Enterprise Deal Qualification & Closing Playbook",
-            "badge": "DEAL STRATEGY",
-            "gradient": "linear-gradient(135deg, #0284c7 0%, #0c4a6e 100%)",
-            "target_audience": "Rs 100k+ MUR Enterprise Prospect",
-            "description": "Applies the elite MEDDPICC sales framework to de-risk high-ticket deals and eliminate procurement delays.",
+            "headline": "Bilingual Campaign: Turnkey Software Solutions for Mauritius",
+            "badge": "BILINGUAL OUTREACH",
+            "gradient": "linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%)",
+            "target_audience": "Mauritian Business Owners & Executives",
+            "description": "Simultaneous English and French email and WhatsApp pitch sequence targeting local enterprises.",
             "body": (
-                "MEDDPICC Deal Strategy Memo:\n"
-                "• Metrics: Target company loses Rs 35,000/mo in manual booking errors.\n"
-                "• Economic Buyer: Managing Director (has discretionary sign-off up to Rs 100k MUR).\n"
-                "• Decision Criteria: Data sovereignty under Mauritius DPA 2017 + zero cloud subscriptions.\n"
-                "• Decision Process: 1-week evaluation period followed by executive sign-off.\n"
-                "• Closing Tactic: Offer grandfathered monthly maintenance pricing if signed before Friday."
+                "Bonjour / Hello,\n\n"
+                "Nous aidons les entreprises mauriciennes à automatiser leurs opérations avec des solutions logicielles clés en main avec transfert complet de propriété intellectuelle.\n\n"
+                "We help Mauritian businesses deploy complete turnkey software systems with full source code and IP transfer (Medical 360, Enn Rev Enn Sourir, i-Travellix).\n\n"
+                "Pouvons-nous organiser un appel de 10 minutes?\n\n"
+                "Deven Pawaray (+230 58169420)"
             ),
-            "callouts": ["Elite MEDDPICC Framework", "Discretionary Sign-Off Hook", "De-Risks Large Contracts"],
-            "cta_label": "Apply Deal Strategy"
+            "callouts": ["100% Bilingual Parity", "Maur Mauritius DPA Compliant", "MCB Juice Ready (+230 58169420)"],
+            "cta_label": "Dispatch Bilingual Campaign"
         },
         {
             "id": "ceo_11",
-            "title": "💰 Cloud vs Local Compute Cost Analysis & Safeguard Review",
+            "title": "📊 FinOps Cloud Cost & Gross Margin Enforcement ($180 Hard Cap)",
             "category": "FinOps Strategy",
             "urgency": "Standard",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "FinOps Telemetry: 99.1% Gross Margin Model Review",
+            "headline": "FinOps Audit: Protecting 99% Margins Below $180 Cloud Cap",
             "badge": "MARGIN AUDIT",
             "gradient": "linear-gradient(135deg, #059669 0%, #064e3b 100%)",
             "target_audience": "Executive Cockpit",
-            "description": "Proves how self-hosted architecture achieves 99.1% gross margins compared to venture-backed AI wrappers.",
+            "description": "Verifies cloud compute expenditure across AWS/Vercel to guarantee operating expenses remain strictly under the $180 limit.",
             "body": (
-                "Executive Margin Audit:\n"
-                "• Total Monthly Revenue: Rs 45,045 MUR ($996 USD)\n"
-                "• Total Compute & Cloud Expenses: $8.40 USD (Rs 380 MUR)\n"
-                "• Net Operating Profit Margin: 99.15%\n"
-                "• Comparison: Venture-backed AI wrappers operate at 30-50% gross margin due to cloud GPU bills.\n"
-                "• Strategic Advantage: Nexus can sustain price cuts indefinitely while remaining profitable."
+                "FinOps Telemetry Audit:\n"
+                "• Monthly Cloud Spend Cap: $180.00 USD\n"
+                "• Actual Current Spend: $11.20 USD (SQLite local WAL architecture efficiency)\n"
+                "• Gross Operating Margin: 99.02%\n"
+                "• Status: Zero runaway background loops detected."
             ),
-            "callouts": ["99.15% Net Margin", "$8.40 Total Monthly Cost", "Unbeatable Cost Advantage"],
-            "cta_label": "Review Margin Report"
+            "callouts": ["$180 Hard Cap Enforced", "$11.20 Actual Spend", "99% Gross Margin"],
+            "cta_label": "Run FinOps Audit"
         },
         {
             "id": "ceo_12",
-            "title": "🧲 Product-Led Growth (PLG) Viral Hook & Free Trial Packaging",
-            "category": "Growth Strategy",
+            "title": "🤝 Strategic Partner Referral & Commission Payout Audit",
+            "category": "Partner Operations",
             "urgency": "Standard",
-            "platform": "linkedin",
-            "task_type": "social_post",
-            "headline": "PLG Distribution Hook: Free Standalone Python Utility",
-            "badge": "PLG HOOK",
+            "platform": "system_ops",
+            "task_type": "operations_task",
+            "headline": "Partner Network Audit: White-Label Reseller Commissions",
+            "badge": "PARTNER AUDIT",
             "gradient": "linear-gradient(135deg, #7c3aed 0%, #4338ca 100%)",
-            "target_audience": "Developer & Founder Audiences",
-            "description": "Packages a high-value, free micro-tool to capture qualified email subscribers and upsell the $1 Superpack.",
+            "target_audience": "Partner Network",
+            "description": "Audits referral tracking and calculates commission payouts for white-label software introductions.",
             "body": (
-                "Free Python Tool Drop 🎁:\n\n"
-                "I wrote a 40-line standalone Python script that monitors your website every 60 seconds and pings your WhatsApp if it goes down.\n\n"
-                "• Zero cloud subscriptions.\n"
-                "• Runs locally in your terminal.\n"
-                "• 100% free open source.\n\n"
-                "Comment 'UPTIME' below and I'll DM you the raw .py file instantly.\n\n"
-                "(Looking for the full 14-tool superpack? Grab it for $1 here: http://127.0.0.1:8000/store)"
+                "Partner Referral Audit:\n"
+                "• Active Reseller Partners: 4 Digital Agencies\n"
+                "• Pending Referral Payouts: Rs 15,000 MUR per successful turnkey introduction\n"
+                "• Payment Execution: Settled instantly via MCB Juice (+230 58169420)\n"
+                "• Status: All accounts reconciled."
             ),
-            "callouts": ["High Comment Velocity Hook", "Zero-Cost Lead Magnet", "Direct Upsell to $1 Store"],
-            "cta_label": "Publish PLG Post"
+            "callouts": ["Automated Partner Payouts", "MCB Juice Settlement", "Zero Discrepancies"],
+            "cta_label": "Run Partner Audit"
         },
         {
             "id": "ceo_13",
-            "title": "📰 Mauritius Tech Sovereignty & AI Leadership Manifesto",
-            "category": "Brand Manifesto",
-            "urgency": "Low",
-            "platform": "linkedin",
-            "task_type": "social_post",
-            "headline": "Why Mauritius Must Build Sovereign AI Instead of Renting US Cloud SaaS",
-            "badge": "TECH MANIFESTO",
-            "gradient": "linear-gradient(135deg, #0a66c2 0%, #004182 100%)",
-            "target_audience": "National Tech & Business Ecosystem",
-            "description": "Visionary op-ed articulating how Mauritius can achieve technological independence by owning local AI infrastructure.",
+            "title": "🛡️ SQLite WAL Integrity & Zero-Regression Backup Snapshot",
+            "category": "SRE Operations",
+            "urgency": "High",
+            "platform": "system_ops",
+            "task_type": "operations_task",
+            "headline": "SRE Snapshot: Air-Gapped SQLite WAL Backup & Integrity Check",
+            "badge": "SRE SNAPSHOT",
+            "gradient": "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+            "target_audience": "Regression Sentinel",
+            "description": "Creates an immediate cryptographic backup of the unified workforce database before any client handover or update.",
             "body": (
-                "Mauritius has world-class infrastructure in Cybercity Ebene. Yet 95% of our businesses rent cloud software from Silicon Valley.\n\n"
-                "Every month, foreign currency leaves our shores to pay for SaaS tools whose algorithms run on servers 10,000 km away.\n\n"
-                "At Nexus, we believe in Sovereign AI:\n"
-                "1. Data stays on Mauritian soil under Mauritius DPA 2017.\n"
-                "2. Automation runs locally without cloud subscription decay.\n"
-                "3. Payments settle instantly in MUR via MCB Juice.\n\n"
-                "The future of African technology is sovereign, self-hosted, and independent.\n\n"
-                "#Mauritius #SovereignAI #TechIndependence #EbeneCybercity #NexusAI"
+                "SQLite WAL Backup Execution:\n"
+                "• Database Path: data/nexus_workforce.db\n"
+                "• Integrity Check: PASS (Zero corruption detected)\n"
+                "• Snapshot Created: .shadow_bak/nexus_workforce_snapshot.bak\n"
+                "• Status: Air-gapped restore point secured."
             ),
-            "callouts": ["National Pride & Leadership", "Advocates Data Sovereignty", "High Executive Resonance"],
-            "cta_label": "Publish Manifesto"
+            "callouts": ["Air-Gapped Backup", "Zero Corruption Verified", "Instant Restore Point"],
+            "cta_label": "Create Instant Snapshot"
         },
         {
             "id": "ceo_14",
-            "title": "🗺️ Quarterly Milestone Roadmap Review & Strategic Pivot",
+            "title": "🗺️ Q4 White-Label Expansion & Enterprise Scaling Roadmap",
             "category": "Roadmap Strategy",
             "urgency": "Standard",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "Nexus Q4 Strategic Roadmap & Engineering Milestones",
+            "headline": "Q4 Execution Plan: Scaling Turnkey Software Deployments",
             "badge": "ROADMAP AUDIT",
-            "gradient": "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-            "target_audience": "Sir Deven Pawaray",
-            "description": "Reviews milestone progress across the 4 Domain Controllers (Comms, Ops, Commerce, Research) and schedules Q4 deliverables.",
+            "gradient": "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
+            "target_audience": "Executive Cockpit",
+            "description": "Reviews milestones for expanding turnkey software offerings across Mauritius and regional Indian Ocean markets.",
             "body": (
-                "Strategic Roadmap Execution:\n"
-                "✔ Q3 Delivered: 18 Autonomous Agents, SQLite WAL Engine, MCB Juice Verification Rail\n"
-                "• Q4 Target 1: Expand Digital Vending Machine from 14 to 25 standalone tools\n"
-                "• Q4 Target 2: Secure 5 Recurring Enterprise Retainer Accounts (Rs 225,000 MUR/mo ARR)\n"
-                "• Q4 Target 3: Release Native Voice Capsule Integration for J.A.R.V.I.S.\n"
-                "• Status: On schedule with zero technical debt."
+                "Q4 Strategic Roadmap:\n"
+                "1. Target: Secure 5 enterprise white-label turnkey clients (Medical 360 / Enn Rev Enn Sourir).\n"
+                "2. Maintenance Annuity Target: Rs 75,000/mo in recurring yearly maintenance contracts.\n"
+                "3. Operational Goal: Maintain sub-48-hour white-label handover turnaround.\n"
+                "• Status: Execution on track."
             ),
-            "callouts": ["Q3 Objectives 100% Met", "Target: Rs 225,000/mo ARR", "Zero Technical Debt"],
-            "cta_label": "Review Q4 Roadmap"
+            "callouts": ["5 Enterprise Targets", "Recurring Maintenance Annuity", "Sub-48h Handover"],
+            "cta_label": "Review Roadmap"
         },
         {
             "id": "ceo_15",
-            "title": "🛡️ Key Account Retention Intervention & VIP Check-In",
+            "title": "💼 Key Account Retention & White-Label Onboarding Review",
             "category": "Client Retention",
             "urgency": "High",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Founder-to-Founder VIP Check-In & Service Calibration",
-            "badge": "VIP RETENTION",
-            "gradient": "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
-            "target_audience": "Top Retainer Client Executive",
-            "description": "High-touch personal outreach from Deven Pawaray ensuring complete alignment and preventing any churn risk.",
+            "headline": "Founder-to-Client Onboarding & White-Label Handoff Check-In",
+            "badge": "CLIENT ONBOARDING",
+            "gradient": "linear-gradient(135deg, #059669 0%, #064e3b 100%)",
+            "target_audience": "New Turnkey Software Client",
+            "description": "Personalized onboarding message confirming full source code handover, domain mapping, and maintenance schedule.",
             "body": (
-                "Dear [Client Executive],\n\n"
-                "I wanted to reach out founder-to-founder to ensure that your Nexus autonomous systems are exceeding expectations.\n\n"
-                "We pride ourselves on white-glove engineering. If there is a single workflow, report, or automation you would like adjusted, "
-                "my mobile line is directly open to you: +230 58169420.\n\n"
-                "Thank you for being one of our cornerstone partners.\n\nSincerely,\nDeven Pawaray\nFounder, Nexus AI"
+                "Dear [Client Director],\n\n"
+                "Welcome to your newly deployed white-label platform. Your full source code, IP transfer documentation, and admin credentials are now active.\n\n"
+                "Our team is standing by to ensure smooth adoption. My direct WhatsApp line is +230 58169420.\n\n"
+                "Sincerely,\nDeven Pawaray, Managing Principal"
             ),
-            "callouts": ["Direct Founder Mobile Access", "Prevents Client Churn", "White-Glove Service Standard"],
-            "cta_label": "Send VIP Check-In"
+            "callouts": ["Full Source Code Handover", "Direct WhatsApp Line", "White-Glove Welcome"],
+            "cta_label": "Send Onboarding Welcome"
         },
         {
             "id": "ceo_16",
-            "title": "🏦 Partnership Outreach to Mauritius Commercial Bank (MCB) Ecosystem",
-            "category": "Ecosystem Partnership",
+            "title": "🏦 Mauritius Banking Ecosystem & MCB Integration Strategy",
+            "category": "Banking Strategy",
             "urgency": "Standard",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Partnership Exploration: Automated MCB Juice Reconciliation for SMEs",
-            "badge": "BANKING PARTNERSHIP",
+            "headline": "Institutional Memo: Expanding MCB Juice & Bank API Workflows",
+            "badge": "BANKING STRATEGY",
             "gradient": "linear-gradient(135deg, #d97706 0%, #78350f 100%)",
-            "target_audience": "MCB FinTech & Digital Innovation Directorate",
-            "description": "Proposes a formal partnership showcasing how Nexus autonomous agents drive digital transaction volume through MCB Juice.",
+            "target_audience": "Banking & Fintech Partners",
+            "description": "Strategy memo outlining automated payment reconciliation via MCB Juice (+230 58169420) and MCB Account (000443260370).",
             "body": (
-                "Dear MCB Innovation & Digital Banking Team,\n\n"
-                "Nexus has pioneered autonomous software vending in Mauritius, powered natively by MCB Juice (+230 58169420).\n\n"
-                "We have demonstrated sub-2-second automated payment verification and official tax receipt minting for local businesses.\n\n"
-                "We would welcome a conversation with your SME digital products team to explore formal API integration and co-marketing to Mauritian entrepreneurs.\n\n"
-                "Respectfully,\nDeven Pawaray\nFounder & Principal Architect, Nexus AI"
+                "Institutional Fintech Strategy:\n\n"
+                "Nexus leverages Mauritian banking rails (MCB Juice and direct bank transfers) to achieve instant, zero-fee payment settlement for turnkey software deployments.\n\n"
+                "Goal: Standardize automated verification for all local B2B software sales."
             ),
-            "callouts": ["Positions MCB Juice as Core Rail", "SME Digital Enablement", "High-Level Institutional Pitch"],
-            "cta_label": "Dispatch MCB Pitch"
+            "callouts": ["MCB Juice Integration", "Zero-Fee Settlement", "Standardized B2B Rail"],
+            "cta_label": "Dispatch Strategy Memo"
         },
         {
             "id": "ceo_17",
-            "title": "📈 Investor / Advisory Board Monthly Performance Memo",
+            "title": "📈 Stakeholder & Advisory Board Monthly Financial Report",
             "category": "Investor Relations",
             "urgency": "Standard",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Nexus Monthly Operational Briefing & Unit Economics",
-            "badge": "INVESTOR MEMO",
+            "headline": "Executive Stakeholder Briefing: White-Label Sales & Unit Economics",
+            "badge": "STAKEHOLDER BRIEF",
             "gradient": "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
             "target_audience": "Advisors & Stakeholders",
-            "description": "Structured monthly stakeholder update detailing revenue, unit economics, engineering milestones, and asks.",
+            "description": "Detailed monthly financial update highlighting white-label turnkey revenue, maintenance annuities, and unit economics.",
             "body": (
-                "Nexus Monthly Stakeholder Memo:\n\n"
-                "1. Revenue: Rs 45,045 MUR collected | Operating Expenses: $8.40 USD (99% Gross Margin)\n"
-                "2. Engineering: 18 Autonomous Agents operational, SQLite WAL zero-lock database online\n"
-                "3. Customer Success: 100% Client Retention across active retainers\n"
-                "4. Objective Next 30 Days: Close 2 enterprise retainers to hit Rs 150,000 MUR/mo milestone\n"
-                "5. The Ask: Introductions to private clinic and hospital group directors in Mauritius."
+                "Monthly Stakeholder Briefing:\n"
+                "• Upfront White-Label Inflows: Verified\n"
+                "• Annual Maintenance Annuity Pipeline: Growing\n"
+                "• Operating Expenses: $11.20 USD (99% Margin)\n"
+                "• Status: Exceptional capital efficiency and growth."
             ),
-            "callouts": ["Clean Unit Economics", "Clear Strategic Ask", "Demonstrates Rapid Execution"],
-            "cta_label": "Send Stakeholder Memo"
+            "callouts": ["White-Label Inflows", "Maintenance Annuities", "99% Operating Margin"],
+            "cta_label": "Send Stakeholder Brief"
         },
         {
             "id": "ceo_18",
-            "title": "🤖 Autonomous Agent Task Handoff & Oversight Verification",
-            "category": "Fleet Delegation",
+            "title": "🤖 Autonomous Agent Swarm Coordination & Task Allocation",
+            "category": "Fleet Ops",
             "urgency": "Standard",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "Multi-Agent Handoff Verification & Consensus Audit",
-            "badge": "CONSENSUS AUDIT",
+            "headline": "Swarm Coordination: Synchronizing Lead Finder & Outreach Agents",
+            "badge": "SWARM ORCHESTRATION",
             "gradient": "linear-gradient(135deg, #0284c7 0%, #0c4a6e 100%)",
             "target_audience": "Agent Mesh",
-            "description": "Verifies that tasks handed off between Lead Finder, Outreach Agent, and Finance Watchdog maintain context fidelity.",
+            "description": "Optimizes multi-agent task execution to ensure 100% synchronization across B2B outreach and billing pipelines.",
             "body": (
-                "Multi-Agent Mesh Verification:\n"
-                "• Handoff 1: Lead Finder -> Outreach CRM (Lead metadata preserved 100%)\n"
-                "• Handoff 2: Outreach CRM -> Finance Watchdog (Invoice ID and currency verified)\n"
-                "• Consensus Check: Zero schema dropouts detected.\n"
-                "• Status: Autonomous agent collaboration validated."
+                "Swarm Orchestration Status:\n"
+                "• Lead Finder Agent: Scanning Mauritius clinic and NGO registers\n"
+                "• Outreach Agent: Dispatched bilingual proposal drafts\n"
+                "• Finance Watchdog: Standing by for invoice reconciliation\n"
+                "• Status: Swarm operating at peak efficiency."
             ),
-            "callouts": ["Zero Context Loss", "Cross-Domain Mesh Verified", "100% Schema Fidelity"],
-            "cta_label": "Verify Agent Handoffs"
+            "callouts": ["Multi-Agent Sync", "Automated Prospecting", "Peak Efficiency"],
+            "cta_label": "Coordinate Swarm"
         },
         {
             "id": "ceo_19",
-            "title": "📜 Company Core Values & AI Ethics Manifesto",
-            "category": "Brand Values",
-            "urgency": "Low",
-            "platform": "linkedin",
-            "task_type": "social_post",
-            "headline": "The Nexus Principles: Autonomous AI Grounded in Human Integrity",
-            "badge": "AI ETHICS",
+            "title": "📜 Data Sovereignty & Mauritius DPA 2017 Compliance Audit",
+            "category": "Legal Compliance",
+            "urgency": "High",
+            "platform": "system_ops",
+            "task_type": "operations_task",
+            "headline": "Legal Compliance Audit: Mauritius Data Protection Act 2017 & GDPR",
+            "badge": "DPA 2017 COMPLIANCE",
             "gradient": "linear-gradient(135deg, #15803d 0%, #166534 100%)",
-            "target_audience": "Public & Industry",
-            "description": "Publishes the 5 foundational engineering principles of Nexus: sovereignty, transparency, affordability, security, and human elevation.",
+            "target_audience": "Compliance Watchdog",
+            "description": "Verifies strict adherence to Mauritian data protection laws, suppression registries, and consent tracking.",
             "body": (
-                "As AI advances, how we build matters as much as what we build.\n\n"
-                "At Nexus, we operate by 5 unshakeable principles:\n"
-                "1. Data Sovereignty: Your data belongs on your machine, not in a foreign cloud.\n"
-                "2. Zero Subscription Rent-Seeking: Buy tools once and own them forever.\n"
-                "3. Absolute Transparency: Open audit trails, verifiable cryptographic seals.\n"
-                "4. Uncompromising Security: 25 active defense safeguards.\n"
-                "5. Human Elevation: Automate repetitive drudgery so humans can create.\n\n"
-                "#AIEthics #SoftwareEngineering #BuildInPublic #NexusAI"
+                "Data Protection Audit (Mauritius DPA 2017):\n"
+                "• Local Storage: 100% SQLite WAL local persistence (zero third-party data hoarding)\n"
+                "• Consent Tracking: Active suppression registry operational\n"
+                "• Opt-Out Handling: Automatic 24-hour removal compliance\n"
+                "• Status: 100% Legally Compliant."
             ),
-            "callouts": ["5 Foundational Principles", "Anti-Subscription Stance", "Builds Enduring Trust"],
-            "cta_label": "Publish Ethics Manifesto"
+            "callouts": ["Maur Mauritius DPA 2017", "Local SQLite Persistence", "100% Compliant"],
+            "cta_label": "Run Compliance Audit"
         },
         {
             "id": "ceo_20",
-            "title": "🚨 Emergency Manual Override & Master Kill Switch Test",
+            "title": "🚨 Emergency Master Kill Switch & Failsafe Simulation",
             "category": "Safety Ops",
             "urgency": "Urgent",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "Emergency Failsafe & Master Kill Switch Simulation",
+            "headline": "Safety Protocol: Emergency Master Kill Switch Test",
             "badge": "KILL SWITCH TEST",
             "gradient": "linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%)",
             "target_audience": "System Safety Watchdog",
-            "description": "Simulates triggering the manual CEO override, verifying all autonomous agents pause instantly and park open sockets.",
+            "description": "Simulates immediate system-wide agent suspension and state persistence under emergency conditions.",
             "body": (
-                "Master Kill Switch Simulation:\n"
-                "• Injected Emergency Halt Signal.\n"
-                "• Response Time: 42 milliseconds across all 18 agents.\n"
-                "• Action Taken: Halted outbound network requests, persisted state to SQLite WAL, parked sockets.\n"
-                "• Resume Command: Verified clean restoration without data loss.\n"
-                "• Failsafe Status: 100% Functional."
+                "Emergency Kill Switch Test:\n"
+                "• Signal Received: Immediate agent pause\n"
+                "• Response Time: 35ms\n"
+                "• State Persistence: Saved to SQLite WAL\n"
+                "• Status: Failsafe verified."
             ),
-            "callouts": ["42ms Instant Freeze", "Zero Data Loss", "Clean State Restoration"],
-            "cta_label": "Test Master Kill Switch"
+            "callouts": ["35ms Instant Pause", "SQLite State Persistence", "Failsafe Verified"],
+            "cta_label": "Test Kill Switch"
         },
         {
             "id": "ceo_21",
-            "title": "📦 New Product Line Ideation: White-Label Agency Reseller Pack",
-            "category": "Product Strategy",
-            "urgency": "Standard",
-            "platform": "store_commerce",
-            "task_type": "commerce_task",
-            "headline": "Package Agency White-Label License Pack ($499 USD / Rs 22,500 MUR)",
-            "badge": "AGENCY RESELLER",
+            "title": "📦 White-Label Enterprise Handover Package Assembly",
+            "category": "Product Delivery",
+            "urgency": "High",
+            "platform": "system_ops",
+            "task_type": "operations_task",
+            "headline": "Assembly Line: Preparing Complete White-Label Client Handoff",
+            "badge": "HANDOVER ASSEMBLY",
             "gradient": "linear-gradient(135deg, #059669 0%, #064e3b 100%)",
-            "target_audience": "Web Design & Digital Marketing Agencies",
-            "description": "Packages a turnkey reseller bundle allowing local digital agencies to rebrand and sell Nexus bots to their own clients.",
+            "target_audience": "Engineering Lead",
+            "description": "Bundles frontend portal, backend admin engine, source code repository, and deployment documentation for client transfer.",
             "body": (
-                "Agency Reseller Pack Architecture:\n"
-                "• Product: Nexus Agency White-Label Suite\n"
-                "• Includes: Rebrandable portal, custom domain mapping, WhatsApp bot deployment scripts\n"
-                "• Pricing: $499 USD one-time (or Rs 22,500 MUR)\n"
-                "• Agency Upsell: They charge end clients Rs 30,000 setup + Rs 10,000/mo retainer."
+                "White-Label Handover Package:\n"
+                "• Frontend Portal (Bait): Included\n"
+                "• Backend & Admin Engine (+33%): Included\n"
+                "• Source Code Repository & IP Docs: Included\n"
+                "• Annual Maintenance Contract (Rs 15,000/yr): Configured\n"
+                "• Status: Package ready for secure transfer."
             ),
-            "callouts": ["Instant Agency In-a-Box", "High Reseller Margin", "Scales Distribution Passively"],
-            "cta_label": "Package Reseller Bundle"
+            "callouts": ["Complete Source Code", "IP Transfer Docs", "Maintenance Setup"],
+            "cta_label": "Assemble Handover Package"
         },
         {
             "id": "ceo_22",
-            "title": "🎥 Customer Case Study Video Script Packaging",
+            "title": "🎥 Client Video Testimonial & Case Study Briefing",
             "category": "Case Study",
             "urgency": "Standard",
-            "platform": "linkedin",
-            "task_type": "social_post",
-            "headline": "Case Study Teardown: How a Clinic Automated 400+ Inquiries Monthly",
-            "badge": "CASE STUDY SCRIPT",
+            "platform": "email_whatsapp",
+            "task_type": "comms_draft",
+            "headline": "Testimonial Request: Documenting Turnkey Software Success",
+            "badge": "TESTIMONIAL REQUEST",
             "gradient": "linear-gradient(135deg, #0284c7 0%, #075985 100%)",
-            "target_audience": "Prospective Healthcare & SME Clients",
-            "description": "Script for a 90-second video walkthrough showing the exact before-and-after operational metrics.",
+            "target_audience": "Satisfied Turnkey Client",
+            "description": "Polite outreach requesting a brief video testimonial on how the white-label platform transformed their operations.",
             "body": (
-                "Case Study Video Script (90 Seconds):\n\n"
-                "0:00 - Hook: 'This Mauritius clinic used to lose 15 patients every weekend to unanswered WhatsApp messages.'\n"
-                "0:20 - The Breakdown: 'Staff were overwhelmed answering the same 5 questions: pricing, hours, doctor availability.'\n"
-                "0:40 - The Solution: 'We deployed a self-hosted Nexus Medical 360 bot in 48 hours.'\n"
-                "1:00 - The Results: 'Response time dropped from 4 hours to 30 seconds. Weekend bookings up 42%.'\n"
-                "1:20 - CTA: 'DM me or check http://127.0.0.1:8000/store to automate your operations.'"
+                "Dear [Client Director],\n\n"
+                "Now that your white-label platform is fully operational, would you be open to recording a brief 60-second video sharing your experience with Nexus?\n\n"
+                "Your success story helps us showcaseMauritian technical excellence.\n\n"
+                "Warm regards,\nDeven Pawaray"
             ),
-            "callouts": ["Proven 90-Second Arc", "Concrete Local Proof", "Drives Inbound Inquiries"],
-            "cta_label": "Publish Case Study Script"
+            "callouts": ["High-Value Social Proof", "Showcases Mauritian Innovation", "Polite Request"],
+            "cta_label": "Request Testimonial"
         },
         {
             "id": "ceo_23",
-            "title": "📊 Annual Operating Budget & Runway Forecast Modeling",
+            "title": "📊 12-Month Financial Projections & Maintenance Annuity Forecast",
             "category": "Financial Modeling",
             "urgency": "Standard",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "12-Month Financial Projections & Sovereign Runway Model",
+            "headline": "Financial Model: 12-Month Turnkey Sales & Maintenance Annuities",
             "badge": "FINANCIAL FORECAST",
             "gradient": "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
             "target_audience": "Executive Cockpit",
-            "description": "Forecasts company cash flow over the next 12 months based on current retainer trajectory and $1 store sales.",
+            "description": "Projects annual revenue combining upfront white-label IP fees (Rs 105k-117k) and recurring yearly maintenance packages (Rs 15k/yr).",
             "body": (
-                "12-Month Projections (Conservative Model):\n"
-                "• Base Retainer Revenue (4 Clients): Rs 180,000 MUR / month (Rs 2.16M ARR)\n"
-                "• Digital Store Sales: Rs 8,000 MUR / month ($1 Tools)\n"
-                "• Total Annual Operating Expenses: Rs 45,000 MUR ($1,000 USD)\n"
-                "• Net Projected Profit: Rs 2.21 Million MUR (~$48,000 USD)\n"
-                "• Capital Efficiency: 98% Profit Retention."
+                "12-Month Financial Projection Model:\n"
+                "• Upfront White-Label Sales (4 Clients): Rs 440,000 MUR\n"
+                "• Annual Maintenance Annuities (4 Clients x Rs 15,000): Rs 60,000 MUR / year recurring\n"
+                "• Operating Expenses: $135 total cloud/server cost\n"
+                "• Net Profit Margin: 98.8%\n"
+                "• Status: Highly scalable annuity model."
             ),
-            "callouts": ["Rs 2.16M ARR Trajectory", "98% Capital Efficiency", "Infinite Runway"],
-            "cta_label": "Generate Runway Model"
+            "callouts": ["Upfront IP Fees", "Recurring Maintenance Annuities", "98.8% Net Margin"],
+            "cta_label": "Generate Forecast"
         },
         {
             "id": "ceo_24",
-            "title": "🍽️ Exclusive VIP Founder Roundtable / Dinner Invitation",
-            "category": "High-Touch Networking",
+            "title": "🍽️ VIP Founder Networking & Mauritius Tech Leadership Dinner",
+            "category": "Networking",
             "urgency": "Low",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Private Invitation: The Sovereign AI Founders Dinner (Ebene)",
-            "badge": "ROUNDTABLE INVITE",
+            "headline": "Invitation: Executive Tech & Business Leaders Dinner (Cybercity)",
+            "badge": "LEADERSHIP DINNER",
             "gradient": "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
-            "target_audience": "Selected Top 8 Tech Founders in Mauritius",
-            "description": "Intimate, high-status invitation for an exclusive dinner discussing autonomous tech in Cybercity.",
+            "target_audience": "Mauritius Enterprise Leaders",
+            "description": "Exclusive invitation for enterprise directors to discuss turnkey software adoption and autonomous operations.",
             "body": (
-                "Dear [Founder Name],\n\n"
-                "Next Thursday evening, I am hosting an intimate private dinner for 8 selected founders and CTOs at [Restaurant in Cybercity/Grand Baie].\n\n"
-                "Theme: 'The Sovereign AI Stack: Building Zero-Payroll Systems from Mauritius.'\n\n"
-                "No pitches, no sponsors, no slides — just exceptional food, great conversation, and unfiltered peer exchange on scaling autonomous systems.\n\n"
-                "I would be honored by your presence. Please let me know if you can join so I can reserve your seat.\n\nWarm regards,\nDeven Pawaray"
+                "Dear [Director Name],\n\n"
+                "You are cordially invited to an exclusive executive dinner in Cybercity next Wednesday to discuss the future of sovereign software automation in Mauritius.\n\n"
+                "RSVP: +230 58169420.\n\n"
+                "Warm regards,\nDeven Pawaray"
             ),
-            "callouts": ["Capped at 8 Elite Founders", "High-Status Peer Exchange", "Builds Unshakable Network"],
-            "cta_label": "Dispatch Dinner Invite"
+            "callouts": ["Exclusive Enterprise Invite", "Cybercity Venue", "High-Level Networking"],
+            "cta_label": "Send Dinner Invite"
         },
         {
             "id": "ceo_25",
-            "title": "🧠 J.A.R.V.I.S. Epistemic Memory Consolidation & Skill Fine-Tuning",
+            "title": "🧠 J.A.R.V.I.S. Neural Core Memory & Sales Heuristic Tuning",
             "category": "Cognitive Ops",
             "urgency": "High",
             "platform": "system_ops",
             "task_type": "operations_task",
-            "headline": "Consolidate 4-Tier Cognitive Memory & Optimize Agency Skills",
-            "badge": "COGNITIVE SYNTHESIS",
+            "headline": "Neural Tune: Optimizing J.A.R.V.I.S. for White-Label Closing",
+            "badge": "NEURAL TUNING",
             "gradient": "linear-gradient(135deg, #00f0ff 0%, #0284c7 100%)",
             "target_audience": "J.A.R.V.I.S. Neural Core",
-            "description": "Consolidates episodic events into semantic memory, updating skill execution heuristics for maximum conversion efficiency.",
+            "description": "Fine-tunes J.A.R.V.I.S. cognitive weights to prioritize high-ticket white-label pitching and MCB Juice payment verification.",
             "body": (
-                "J.A.R.V.I.S. Cognitive Memory Consolidation:\n"
-                "1. Working Memory: Flushed active buffers; zero memory leaks.\n"
-                "2. Episodic Memory: Consolidated 124 operational events into semantic recall stores.\n"
-                "3. Semantic Memory: Updated high-ticket B2B objection heuristics (MEDDPICC).\n"
-                "4. Archival Memory: Stored verified cryptographic hashes.\n"
-                "• Result: J.A.R.V.I.S. cognitive latency optimized to sub-50ms."
+                "J.A.R.V.I.S. Neural Core Fine-Tuning:\n"
+                "• Objective: Maximize white-label turnkey closing efficiency\n"
+                "• Heuristics Updated: Frontend bait + 33% backend premium positioning\n"
+                "• Payment Rails: MCB Juice (+230 58169420) & Base L2 verified\n"
+                "• Latency: Sub-40ms response time.\n"
+                "• Status: Neural core fully optimized for revenue generation."
             ),
-            "callouts": ["4-Tier Memory Consolidated", "Sub-50ms Cognitive Latency", "Agency Skills Hardened"],
-            "cta_label": "Consolidate Neural Core"
+            "callouts": ["White-Label Closing Heuristics", "Sub-40ms Latency", "100% Revenue Optimized"],
+            "cta_label": "Tune Neural Core"
         }
     ]
 }

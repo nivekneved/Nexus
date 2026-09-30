@@ -236,7 +236,8 @@ class EmailClient:
         body: str,
         from_name: str = "Deven Pawaray",
         reply_to: str = None,
-        html_body: str = None
+        html_body: str = None,
+        headers: Optional[Dict[str, str]] = None
     ) -> dict:
         """
         Transmits an outbound email via secure SMTP SSL (port 465) or STARTTLS (port 587).
@@ -259,6 +260,10 @@ class EmailClient:
         msg["Message-ID"] = make_msgid(domain=domain)
         if reply_to:
             msg["Reply-To"] = reply_to
+
+        if headers:
+            for hk, hv in headers.items():
+                msg[hk] = hv
 
         # Attach plain text part
         msg.attach(MIMEText(body, "plain", "utf-8"))

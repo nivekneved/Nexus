@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "performing-security-headers-audit": {
+      "source": "./anthropic-cybersecurity-skills",
+      "sourceType": "local",
+      "computedHash": "d3cfac17964fd398dc54468f1bfe92ea74433fb53c07601875ae3fc156f4e172"
+    },
+    "performing-ssl-tls-security-assessment": {
+      "source": "./anthropic-cybersecurity-skills",
+      "sourceType": "local",
+      "computedHash": "5122db61c15cc84710b019a5c57ad94fd543b886e64427c86c09eff553684a15"
+    },
+    "securing-agentic-ai-tool-invocation": {
+      "source": "./anthropic-cybersecurity-skills",
+      "sourceType": "local",
+      "computedHash": "081f1499072719a8fce661ff4c15b3cc484231bff2ed6e424dd7ce29dda907fb"
+    },
+    "testing-prompt-injection-in-rag-pipelines": {
+      "source": "./anthropic-cybersecurity-skills",
+      "sourceType": "local",
+      "computedHash": "ec8938922fc7fce5516d8dbcb6e73d82c70d59643da299ea74310fb59a2adbf9"
+    }
+  }
+}

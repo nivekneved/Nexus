@@ -20,12 +20,12 @@
 
 ## 1. Executive Summary & Commercial Mandate
 
-Nexus Autonomous Workforce™ is an enterprise-grade autonomous software and operations ecosystem. It powers a fleet of production-proven turnkey web platforms and SaaS engines ready for direct client deployment, white-label licensing, or automated subscription management in Mauritius and internationally.
+Nexus Principal Engineering™ is an elite software engineering consultancy and boutique technical agency led by **Deven Pawaray & Senior Systems Architects**. We specialize in deploying production-proven, enterprise-grade turnkey web platforms and custom software suites ready for direct client deployment, white-label licensing, and complete intellectual property (IP) transfer in Mauritius and internationally.
 
 ### Commercial Operating Philosophy
-> *"The logic is simple. We (Deven and Nexus) can do whatever we need for the benefit of our bank account, but the outside world must not be able to touch us legally and blame us."*
+> *"We provide bespoke, high-performance software engineering backed by rigorous local oversight, transparent milestone delivery, and absolute data sovereignty."*
 
-Every outreach campaign, payment channel, client contract, and deployment is guarded by **100% legal immunity, zero legal attack surface**, full CAN-SPAM and Mauritius Data Protection Act 2017 compliance, and pre-flight DNS deliverability verification.
+Every client deployment, payment channel, and service agreement is executed under elite engineering standards, full compliance with the Mauritius Data Protection Act 2017, and pre-flight quality assurance.
 
 ---
 
@@ -34,24 +34,24 @@ Every outreach campaign, payment channel, client contract, and deployment is gua
 ### Commercial Operations & Storefront
 | Capability | What It Does | Primary Service |
 | :--- | :--- | :--- |
-| **$1 Digital Vending Machine** | Runs a software storefront selling self-hosted developer automation scripts. | `core/digital_store_service.py` |
-| **Instant PayPal 1-Click Checkout** | Creates live PayPal order tokens ($1.00 USD), captures funds, and delivers download links in under 1 second. | `core/payment_service.py` |
-| **MCB Juice Domestic Routing** | Enables Mauritian clients to pay Rs 45 MUR to `+230 58169420` with duplicate and fraud verification. | `security/financial_shield.py` |
-| **Instant Digital Fulfillment** | Delivers zero-dependency Python scripts and zip bundles via secure one-time download tokens. | `core/digital_store_service.py` |
+| **White-Label Turnkey Storefront** | Runs client-facing software catalogs for white-label delivery with full IP transfer. | `core/digital_store_service.py` |
+| **Instant Secure Checkout** | Creates live payment order tokens, captures funds, and delivers white-label archives instantly. | `core/payment_service.py` |
+| **MCB Juice Domestic Routing** | Enables Mauritian clients to pay directly to `+230 58169420` with duplicate and fraud verification. | `security/financial_shield.py` |
+| **Instant Digital Fulfillment** | Delivers zero-dependency turnkey Python and web zip bundles via secure one-time download tokens. | `core/digital_store_service.py` |
 | **Automated HTML Invoices & Receipts** | Generates branded, printable tax invoices and receipts with business details, VAT exemptions, and timestamps. | `core/receipt_generator.py` |
 | **CSR & NGO Donation Portal** | Live donation gateway for *Enn Rev Enn Sourir* to support underprivileged children in Mauritius. | `core/payment_service.py` |
 
-### Autonomous Product Manufacturing (5-Stage Factory)
-You provide the factory a single keyword (e.g. `"invoice parser"` or `"crypto tracker"`), and it runs the entire pipeline with **zero human intervention**:
+### Turnkey Software Manufacturing & Delivery
+You provide the framework a single keyword (e.g. `"clinic portal"` or `"travel system"`), and it prepares the complete white-label package:
 ```
-[1. Scout Demand] ──► [2. Spec Metadata] ──► [3. Synthesize Code] ──► [4. Sandbox QA] ──► [5. Live Store Deploy]
-  YouTube Views         Price & Features        Standard Library        py_compile & Exec      PayPal & Discord Drop
+[1. Target Spec] ──► [2. Architecture Metadata] ──► [3. Code Synthesis] ──► [4. Sandbox QA] ──► [5. Client Handoff]
+  Vertical Requirements   Frontend + Backend Split      Standard Library        py_compile & Exec      IP Transfer & Billing
 ```
-1. **Scout Demand**: Scrapes YouTube viewer counts and search results to verify that at least 50,000+ people are actively searching for a solution.
-2. **Spec Metadata**: Generates the product name, marketing tagline, bullet-point feature list, and $1 / Rs 45 price tag.
-3. **Synthesize Code**: Writes a single-file, production-ready Python utility using only standard libraries (zero external `pip install` required for buyers).
-4. **Sandbox QA**: Tests the code in an isolated execution sandbox for syntax flaws and runtime crashes within a strict 6-second timeout.
-5. **Live Store Deploy**: Registers the product in the live store catalog, packages the developer zip bundle, generates the live PayPal checkout link, and pushes announcement cards to social channels.
+1. **Target Spec**: Defines exact client requirements for turnkey white-label deployment.
+2. **Architecture Metadata**: Generates frontend bait pricing and backend (+33% premium) admin engines.
+3. **Code Synthesis**: Assembles production-ready full-stack applications with full IP ownership transfer.
+4. **Sandbox QA**: Tests the code in an isolated execution sandbox for syntax flaws and runtime crashes within strict timeouts.
+5. **Client Handoff**: Packages the complete white-label source code, grants permanent IP rights, and sets up the annual maintenance package (Rs 15,000/yr).
 
 ---
 
@@ -87,23 +87,25 @@ Every agent is decoupled into dedicated, single-task subagents (`1 SubAgent = Ex
 
 ---
 
-## 4. Turnkey Software Fleet & Decoupled Pricing
+## 4. Turnkey Software Fleet, White-Label & Maintenance Pricing
 
-Nexus includes live, production-proven turnkey web applications ready for white-label client sale or SaaS subscription:
+Nexus includes live, production-proven turnkey web applications sold exclusively as **complete white-label packages with full rights and intellectual property (IP) transfer**. No recurring SaaS subscriptions.
 
-| Turnkey Product | Live Production Demo | Target Market | Commercial Pricing | Key Differentiators |
-| :--- | :--- | :--- | :--- | :--- |
-| **Enn Rev Enn Sourir™ NGO & CSR Platform** | [ennrevennsourir.vercel.app](https://ennrevennsourir.vercel.app) | Corporate CSR Funds (MCB, Rogers, IBL), Mauritian NGOs & Foundations | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack / Rs 10,000/mo) | 100% transparent hospital payouts, MRA Section 50L 15% tax deduction receipts, MCB Juice & Card donation, BDO audit transparency |
-| **Medical 360™ Clinic & Hospital Suite** | [med360.mu/preview](https://www.med360.mu/preview) | Private Clinics, Polyclinics, Diagnostic Labs, Medical Specialists | **Rs 45k Front + Rs 45k Back** (Rs 90,000 Full-Stack / Rs 10,000/mo) | 360° healthcare suite: doctor directory by specialty, Blood Bank registry, diagnostic lab test reservations, 24/7 triage, pharmacy catalog |
-| **i-Travellix™ Luxury Travel SaaS** | [i-travellix.vercel.app](https://i-travellix.vercel.app) | Inbound Tour Operators, DMCs, Travel Agencies | **Rs 50k Front + Rs 50k Back** (Rs 100,000 Full-Stack / Rs 12,000/mo) | Live GDS flight search (Air Mauritius, Emirates), 5-star resort catalog, catamaran bookings, instant Juice / multi-currency checkout |
-| **WhatsApp Flight Addon** | [whatsapp-flight-addon.vercel.app](https://whatsapp-flight-addon.vercel.app/) | Airlines, Travel Portals, Travel Agents | **Rs 25,000 Setup** (or Rs 5,000/mo) | 24/7 conversational WhatsApp bot for flight status, baggage rules, and booking assistance |
+### Pricing Architecture Rule:
+* **Frontend Portal**: Acts as the low-friction bait.
+* **Backend & Admin Operations Engine**: Priced **at least 33% higher** than the frontend to capture true enterprise value.
+* **Annual Maintenance Package**: Mandatory yearly annuity of **Rs 15,000 MUR / year** per website for updates, security patches, and support.
 
-### Decoupled Pricing Architecture
-1. **Frontend Patient / Client Portal**: Rs 45,000 – Rs 50,000 MUR
-2. **Backend & Admin Operations Engine**: Rs 45,000 – Rs 50,000 MUR
-3. **Complete Full-Stack Turnkey Deployment**: Rs 90,000 – Rs 100,000 MUR (or Rs 10,000 – Rs 12,000/mo)
-4. **Nexus Self-Hosted Founder License**: $249 USD One-Time
-5. **White-Glove Enterprise Deployment**: $2,999 USD One-Time
+| Turnkey Product | Live Production Demo | Frontend Portal <br>*(The Bait)* | Backend & Admin Engine <br>*(+33%+ Premium)* | Total Upfront <br>*(IP & Rights)* | Annual Maintenance Package <br>*(Yearly)* |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Enn Rev Enn Sourir™** <br>*(NGO & CSR Platform)* | [ennrevennsourir.vercel.app](https://ennrevennsourir.vercel.app) | Rs 45,000 MUR | Rs 60,000 MUR | **Rs 105,000 MUR** <br>(~ $2,330 USD) | **Rs 15,000 MUR / year** |
+| **Medical 360™** <br>*(Clinic & Hospital Suite)* | [med360.mu/preview](https://www.med360.mu/preview) | Rs 45,000 MUR | Rs 60,000 MUR | **Rs 105,000 MUR** <br>(~ $2,330 USD) | **Rs 15,000 MUR / year** |
+| **i-Travellix™** <br>*(Luxury Travel Suite)* | [i-travellix.vercel.app](https://i-travellix.vercel.app) | Rs 50,000 MUR | Rs 67,000 MUR | **Rs 117,000 MUR** <br>(~ $2,580 USD) | **Rs 15,000 MUR / year** |
+| **WhatsApp Flight Addon** | [whatsapp-flight-addon.vercel.app](https://whatsapp-flight-addon.vercel.app/) | Rs 15,000 MUR | Rs 25,000 MUR | **Rs 40,000 MUR** <br>(~ $880 USD) | **Rs 15,000 MUR / year** |
+
+### Additional Commercial Licenses
+1. **Nexus Self-Hosted Founder License**: $249 USD (One-Time)
+2. **White-Glove Enterprise IP Handover**: $2,999 USD (One-Time)
 
 ---
 
@@ -171,7 +173,33 @@ Confidence Level: **95%** on methodology, **92%** on asset tier price bands.
 
 ---
 
-## 8. Legal Shield, Data Sovereignty & Compliance
+## 8. Daily Money-First Operational Scenarios (Grouped Execution Matrix)
+
+To eliminate operational clutter and prioritize revenue generation, daily activities are grouped into 4 logical pillars with **Money First**:
+
+### 💰 Pillar 1: Revenue Generation & Client Acquisition (Money First)
+* **Daily Prospecting & ICP Scouting**: Scans target verticals (private clinics, NGOs, tour operators) for new clients every day.
+* **Omnichannel Outreach Pipeline**: Automatically dispatches personalized bilingual pitches across Email, WhatsApp (`+230 58169420`), and SMS.
+* **White-Label Deal Closing & IP Transfer**: Manages frontend bait pricing, backend (+33% premium) admin engines, and yearly maintenance packages (Rs 15,000/yr).
+
+### 🪙 Pillar 2: Autonomous Commerce & On-Chain Treasury
+* **Crypto & Fiat Settlement**: Collects Base L2 USDC payments and processes MCB Juice / Bank off-ramps (`000443260370`).
+* **Digital Vending Machine**: Automated micro-software sales and instant PayPal/Juice fulfillment.
+* **x402 API Monetization**: Serves pay-gated AI services and unlocks peer agent resources.
+
+### 🎧 Pillar 3: Client Success & Support Operations
+* **VIP Ticket Triage**: 24/7 customer support concierge resolving inquiries and managing support tickets.
+* **Bilingual Localization**: English/French parity assurance for Mauritian and international clients.
+* **Calendar & Meeting Coordination**: 48h calendar auditing and conflict resolution.
+
+### 🛡️ Pillar 4: Infrastructure & Defensive Shield
+* **Email Hygiene & Anti-Spam**: 5-inbox scanning with 2FA/OTP immunity.
+* **Cloud Cost & Compute Sentinel**: Monitors resource usage to keep cloud spend below the $180/mo cap.
+* **Security & Regression Backups**: Air-gapped database snapshots and GitHub dependency CVE surveillance.
+
+---
+
+## 9. Legal Shield, Data Sovereignty & Compliance
 
 1. **Mauritius Data Protection Act 2017 & GDPR Alignment**: Strict data subject consent, opt-out honor within 24 hours, zero unauthorized data resale.
 2. **CAN-SPAM Act Compliance**: Mandatory 1-click unsubscribe links in every email, physical/contact identification, no misleading headers.
