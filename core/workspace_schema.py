@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Nexus Dynamic Workspace Schema Engine
+Nexus Dynamic Workspace Schema Engine (USD Global Edition)
 Defines the unified declarative specification for all dashboard workspaces,
-including active agents, equipped tools, and real-time backend thinking telemetry.
+denominated strictly in USD ($) for global online fundraising and micro-task revenue.
 """
 
 from typing import Dict, Any, List
@@ -27,8 +27,8 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
         "kpis": [
             {"label": "Hidden Boards", "icon": "🌐", "value": "14 Connected", "sub": "377,900+ Bot Audience"},
             {"label": "Scout Engine", "icon": "🔍", "value": "Active", "sub": "Stealth TLS Evasion"},
-            {"label": "B2B Leads", "icon": "🎯", "value": "28 Qualified", "sub": "Mauritius & Global"},
-            {"label": "Daily Target", "icon": "💰", "value": "$1.00 USD/day", "sub": "Compute Baseline"}
+            {"label": "Monthly Target", "icon": "💰", "value": "$3,333 USD", "sub": "Global Fundraising Goal"},
+            {"label": "Daily Target", "icon": "⚡", "value": "$110 USD / day", "sub": "Compute Baseline"}
         ],
         "tasks": [
             "ceo_morning_standup",
@@ -132,8 +132,8 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
             {"name": "broadcast_product_announcement", "category": "marketing", "desc": "Publishes 1-click Twitter/X & Reddit copy"}
         ],
         "kpis": [
-            {"label": "Digital Store", "icon": "🛒", "value": "5 Products Live", "sub": "$1.00 - $39.00 Catalog"},
-            {"label": "Mauritius Rail", "icon": "🇲🇺", "value": "+230 58169420", "sub": "MCB Juice & Bank Off-Ramp"},
+            {"label": "Digital Store", "icon": "🛒", "value": "5 Products Live", "sub": "$1.00 - $39.00 USD Catalog"},
+            {"label": "Global Rails", "icon": "🌐", "value": "USD / USDC", "sub": "PayPal & Base L2 Settlement"},
             {"label": "Sales Swarm", "icon": "⚡", "value": "Active", "sub": "Zero-Downtime Conversion"},
             {"label": "Store Fulfillment", "icon": "📦", "value": "Automated", "sub": "Instant Zip & Script Delivery"}
         ],
@@ -190,7 +190,7 @@ WORKSPACES: Dict[str, Dict[str, Any]] = {
 import copy
 
 def get_workspace_schema(workspace_id: str) -> Dict[str, Any]:
-    """Retrieve declarative schema for a given workspace populated with real-time DB metrics."""
+    """Retrieve declarative schema for a given workspace populated with real-time DB metrics in USD ($)."""
     base_schema = WORKSPACES.get(workspace_id)
     if not base_schema:
         return {
@@ -211,7 +211,6 @@ def get_workspace_schema(workspace_id: str) -> Dict[str, Any]:
 
     schema = copy.deepcopy(base_schema)
 
-    # Query real database metrics and live Base L2 balance
     try:
         from core.db import get_real_revenue_metrics
         from core.crypto_treasury import crypto_treasury
@@ -220,27 +219,29 @@ def get_workspace_schema(workspace_id: str) -> Dict[str, Any]:
         onchain_usdc = float(wallet.get("balance_usdc", 0.0))
         wallet_addr = wallet.get("address", "0xEAE558282090d878582ec4C4C1C2470f9826b1F2")
         short_addr = f"{wallet_addr[:6]}...{wallet_addr[-3:]}"
+        realized_usd = metrics['total_realized_mur'] / 45.0
+        pipeline_usd = metrics['total_pipeline_mur'] / 45.0
 
         if workspace_id == "ceo-cockpit":
             for kpi in schema.get("kpis", []):
                 if kpi.get("label") == "Monthly Goal":
-                    kpi["value"] = f"Rs {metrics['total_realized_mur']:,.0f} MUR"
-                    kpi["sub"] = f"Pipeline: Rs {metrics['total_pipeline_mur']:,.0f} MUR"
+                    kpi["value"] = f"${3333.33:,.2f} USD"
+                    kpi["sub"] = f"Realized: ${realized_usd:,.2f} USD"
                 elif kpi.get("label") == "Treasury":
                     kpi["value"] = f"${onchain_usdc:.2f} USDC"
                     kpi["sub"] = "Base L2 Sovereign Vault"
         elif workspace_id == "domain-commerce":
             for kpi in schema.get("kpis", []):
                 if kpi.get("label") == "Accounts Receivable":
-                    kpi["value"] = f"Rs {metrics['total_pipeline_mur']:,.0f} MUR"
+                    kpi["value"] = f"${pipeline_usd:,.2f} USD"
                     kpi["sub"] = f"{metrics['total_invoices_count']} Tracked Invoices"
                 elif kpi.get("label") == "Base L2 Treasury":
                     kpi["value"] = f"${onchain_usdc:.2f} USDC"
                     kpi["sub"] = f"Wallet: {short_addr}"
                 elif kpi.get("label") == "Target Progress":
-                    pct = min(100, int((metrics["total_realized_mur"] / 150000.0) * 100)) if metrics["total_realized_mur"] > 0 else 0
+                    pct = min(100, int((realized_usd / 3333.33) * 100)) if realized_usd > 0 else 0
                     kpi["value"] = f"{pct}% Realized"
-                    kpi["sub"] = "Towards Rs 150,000 MUR"
+                    kpi["sub"] = "Towards $3,333 USD Goal"
     except Exception as e:
         pass
 

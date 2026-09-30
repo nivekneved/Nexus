@@ -2674,6 +2674,18 @@ def api_get_microwork_ledger():
     from core.autonomous_micro_task_worker import autonomous_micro_task_worker
     return {"success": True, "jobs": autonomous_micro_task_worker.get_ledger()}
 
+@app.post("/api/microwork/advanced/run")
+def api_run_advanced_micro_jobs():
+    """Executes the enterprise-grade guaranteed revenue cycle with QA validation and escrow minting."""
+    from core.advanced_autonomous_micro_task_worker import advanced_micro_task_worker
+    return advanced_micro_task_worker.execute_guaranteed_revenue_cycle()
+
+@app.get("/api/microwork/advanced/ledger")
+def api_get_advanced_microwork_ledger():
+    """Returns the verified advanced micro-tasks and escrow settlement ledger."""
+    from core.advanced_autonomous_micro_task_worker import advanced_micro_task_worker
+    return {"success": True, "contracts": advanced_micro_task_worker.get_ledger()}
+
 
 
 # Static Files
