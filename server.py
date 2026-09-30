@@ -47,11 +47,28 @@ from core.backup_service import create_full_enterprise_backup, list_backups_meta
 from scripts.restore import restore_backup as execute_restore_backup
 from core.digital_store_service import digital_store_service
 from core.morning_triage_service import morning_triage_service
+from core.ecosystem_orchestrator import ecosystem_orchestrator
 
 app = FastAPI(title="Nexus AI Workforce Hub")
 
 # Start 4:00 PM Daily WhatsApp Executive Briefing Scheduler
 reporting_engine.start_master_clock()
+
+@app.on_event("startup")
+def on_startup_ecosystem():
+    """Starts all subsystems together: AI Core, Revenue Daemon, and Cloudflare Tunnel."""
+    ecosystem_orchestrator.start_all(port=8000)
+
+@app.on_event("shutdown")
+def on_shutdown_ecosystem():
+    """Gracefully shuts down all background processes."""
+    ecosystem_orchestrator.stop_all()
+
+@app.get("/api/ecosystem/status")
+@app.get("/api/tunnel/status")
+def get_ecosystem_status():
+    """Returns real-time status of all servers (AI Brain, Revenue Daemon, Cloudflare Tunnel)."""
+    return ecosystem_orchestrator.get_status()
 
 
 # Safeguards 1, 13, 14, 15: Security Shield Middleware (Rate Limiting & Security Headers)

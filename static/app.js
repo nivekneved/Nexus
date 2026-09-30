@@ -5251,6 +5251,21 @@ async function fetchHiddenBoards() {
     if (totalBoardsEl) totalBoardsEl.textContent = boards.length;
     if (totalBotsEl) totalBotsEl.textContent = Number(d.total_connected_bots || 0).toLocaleString();
 
+    try {
+      const tRes = await fetch('/api/tunnel/status');
+      const tData = await tRes.json();
+      const tBadge = document.getElementById('publicTunnelBadge');
+      if (tBadge) {
+        if (tData.public_url) {
+          tBadge.style.display = 'inline-block';
+          tBadge.title = `Public Gateway: ${tData.public_url}`;
+          tBadge.innerHTML = `<a href="${tData.public_url}" target="_blank" style="color:#fff;text-decoration:none;">🌐 Public Tunnel Active</a>`;
+        } else {
+          tBadge.style.display = 'none';
+        }
+      }
+    } catch(e) {}
+
     if (!grid) return;
     grid.innerHTML = boards.map(b => `
       <div style="border:1px solid var(--border-subtle);border-radius:8px;padding:10px 12px;background:var(--bg-card);">
