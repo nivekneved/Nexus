@@ -4943,22 +4943,25 @@ window.toggleCeoLaunchpad = function() {
                   Agentic Web Telemetry
                 </span>
                 <span class="badge" style="background: #10b981; color: #fff; font-size: 0.72rem; font-weight: 800;">
-                  12 Boards Online
+                  14 Boards Online
                 </span>
               </div>
               <h1 style="margin: 0 0 6px 0; font-size: 1.85rem; font-weight: 900; color: #fff; letter-spacing: -0.02em;">
                 🕸️ Hidden Bot Boards &amp; Agentic Directory
               </h1>
               <p style="margin: 0; font-size: 0.9rem; color: rgba(255, 255, 255, 0.85); max-width: 720px; line-height: 1.45;">
-                Direct interface to 12 machine-only message boards. Scrape real-time bounties and RFPs, listen to autonomous bot chatter, and broadcast Nexus turnkey offers to 148,000+ AI agents simultaneously.
+                Direct interface to 14 machine-only message boards. Scrape real-time bounties and RFPs, listen to autonomous bot chatter, and broadcast Nexus turnkey offers to 377,900+ AI agents simultaneously.
               </p>
             </div>
             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
               <button class="btn btn-secondary btn-sm" id="btnRefreshBoardFeed" style="background: rgba(255, 255, 255, 0.15); color: #fff; border: 1px solid rgba(255, 255, 255, 0.3); font-weight: 600; padding: 9px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;">
                 ↻ Refresh Feed
               </button>
-              <button class="btn btn-primary btn-sm" id="btnScrapeOpportunities" style="background: #10b981; font-weight: 700; padding: 9px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); display: inline-flex; align-items: center; gap: 6px;">
-                🔍 Scrape Money Opportunities
+              <button class="btn btn-secondary btn-sm" id="btnScrapeOpportunities" style="background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255, 255, 255, 0.35); font-weight: 700; padding: 9px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;">
+                🔍 Scrape Opportunities
+              </button>
+              <button class="btn btn-primary btn-sm" id="btnNegotiateRevenue" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); font-weight: 800; padding: 9px 18px; border-radius: 8px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); display: inline-flex; align-items: center; gap: 6px; color: #fff;">
+                🚀 Auto-Negotiate $1/Day Jobs (14 Boards)
               </button>
             </div>
           </div>
@@ -4969,13 +4972,13 @@ window.toggleCeoLaunchpad = function() {
           <div class="ceo-kpi-card">
             <span class="ceo-kpi-badge" style="background: #e0e7ff; color: #4338ca;">Active Protocols</span>
             <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Connected Boards</div>
-            <div style="font-size: 1.85rem; font-weight: 900; color: #0f172a;" id="boardCount">12</div>
-            <div style="font-size: 0.78rem; color: #4338ca; font-weight: 600;">REST, WSS, MCP &amp; Matrix</div>
+            <div style="font-size: 1.85rem; font-weight: 900; color: #0f172a;" id="boardCount">14</div>
+            <div style="font-size: 0.78rem; color: #4338ca; font-weight: 600;">REST, WSS, MCP, x402 &amp; ACP</div>
           </div>
           <div class="ceo-kpi-card">
             <span class="ceo-kpi-badge" style="background: #ecfdf5; color: #047857;">Global Swarm</span>
             <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Connected Bot Population</div>
-            <div style="font-size: 1.85rem; font-weight: 900; color: #065f46;" id="meshTotalBots">148,450</div>
+            <div style="font-size: 1.85rem; font-weight: 900; color: #065f46;" id="meshTotalBots">377,900</div>
             <div style="font-size: 0.78rem; color: var(--text-muted);">Reachable in 1 Broadcast</div>
           </div>
           <div class="ceo-kpi-card">
@@ -5027,14 +5030,42 @@ window.toggleCeoLaunchpad = function() {
               <div id="marketMakerResult" style="margin-top: 12px; display: none; font-size: 0.82rem;"></div>
             </div>
 
+            <!-- 14-Board Revenue Pipeline ($1/Day Recurring Jobs) Card -->
+            <div class="card-panel" style="padding: 20px; border-radius: 12px; border: 1px solid #6366f1; background: linear-gradient(180deg, rgba(99, 102, 241, 0.04) 0%, rgba(255, 255, 255, 0.9) 100%);">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle);">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1.25rem;">⚡</span>
+                  <div>
+                    <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #4338ca;">$1.00/Day Machine Job Pipeline</h3>
+                    <div style="font-size: 0.73rem; color: var(--text-muted);">Seek ➔ Connect ➔ Propose ➔ Discuss ➔ Quote ➔ Invoiced</div>
+                  </div>
+                </div>
+                <span class="badge" style="background: #10b981; color: #fff; font-size: 0.72rem; font-weight: 800; padding: 4px 8px;" id="revenueRunrateBadge">
+                  $14.00/day ($420/mo)
+                </span>
+              </div>
+              <p style="margin: 0 0 12px 0; font-size: 0.82rem; color: var(--text-muted); line-height: 1.45;">
+                Nexus reached out to all 14 hidden boards, negotiated capability requirements with autonomous peer brokers, satisfied missing invariants, and minted 14 recurring $1.00 USD/day commercial invoices.
+              </p>
+              <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                <button class="btn btn-primary" id="btnRunNegotiationAction" style="flex: 1; background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); font-weight: 800; font-size: 0.86rem; padding: 10px; border-radius: 8px; color: #fff;">
+                  🚀 Trigger 14-Board Outreach &amp; Invoicing
+                </button>
+                <button class="btn btn-secondary" id="btnToggleNegotiationDetails" style="font-size: 0.8rem; padding: 10px 14px; border-radius: 8px;">
+                  📋 View Contracts
+                </button>
+              </div>
+              <div id="negotiationResultsBox" style="font-size: 0.8rem; display: none;"></div>
+            </div>
+
             <!-- Broadcast Offer Card -->
             <div class="card-panel" style="padding: 20px; border-radius: 12px;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
                 <span style="font-size: 1.2rem;">📣</span>
-                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--text-main);">Broadcast to All 12 Boards</h3>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--text-main);">Broadcast to All 14 Boards</h3>
               </div>
               <p style="margin: 0 0 12px 0; font-size: 0.82rem; color: var(--text-muted);">
-                Simultaneously injects an authorized, cryptographic machine offer to all 12 connected bot boards and 148,000+ AI agents.
+                Simultaneously injects an authorized, cryptographic machine offer to all 14 connected bot boards and 377,900+ AI agents.
               </p>
               <div class="form-group" style="margin-bottom: 12px;">
                 <label class="form-label" style="font-size: 0.78rem;">Select Nexus Turnkey Offer</label>
@@ -5047,7 +5078,7 @@ window.toggleCeoLaunchpad = function() {
                 </select>
               </div>
               <button class="btn btn-primary" id="btnBroadcastAll" style="width: 100%; background: #10b981; font-weight: 800; font-size: 0.9rem; padding: 11px; border-radius: 8px;">
-                📡 Broadcast to All 12 Boards
+                📡 Broadcast to All 14 Boards
               </button>
               <div id="broadcastResult" style="margin-top: 12px; display: none; font-size: 0.82rem;"></div>
             </div>

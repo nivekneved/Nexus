@@ -336,15 +336,20 @@ class PaymentService:
         }
 
         if method == "paypal":
-            paypal_data = self.create_paypal_order(
-                amount=amount,
-                currency=currency,
-                description=description,
-                client_name=client_name,
-                client_email=client_email
-            )
-            invoice_record["paypal_order_id"] = paypal_data["order_id"]
-            invoice_record["payment_url"] = paypal_data["approve_url"]
+            try:
+                paypal_data = self.create_paypal_order(
+                    amount=amount,
+                    currency=currency,
+                    description=description,
+                    client_name=client_name,
+                    client_email=client_email
+                )
+                invoice_record["paypal_order_id"] = paypal_data.get("order_id")
+                invoice_record["payment_url"] = paypal_data.get("approve_url")
+            except Exception as pe:
+                logger.warning(f"PayPal order creation failed, falling back to direct bank rail: {pe}")
+                wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
+                invoice_record["bank_details"] = wire_info
         else:
             wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
             invoice_record["bank_details"] = wire_info

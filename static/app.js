@@ -207,6 +207,7 @@ window.navigateToPage = function(targetTab) {
       if (typeof fetchHiddenBoards === "function") fetchHiddenBoards();
       if (typeof fetchBoardFeed === "function") fetchBoardFeed();
       if (typeof scrapeOpportunities === "function") scrapeOpportunities();
+      if (typeof fetchNegotiationsDossier === "function") fetchNegotiationsDossier();
     }
     if (targetTab === "mesh") {
       if (typeof fetchMeshContacts === "function") fetchMeshContacts();
@@ -5022,6 +5023,9 @@ function initMeshController() {
   const btnRefreshFeed = document.getElementById('btnRefreshBoardFeed');
   const btnScrapeOpps = document.getElementById('btnScrapeOpportunities');
   const btnBroadcastAll = document.getElementById('btnBroadcastAll');
+  const btnNegotiateRevenue = document.getElementById('btnNegotiateRevenue');
+  const btnRunNegotiationAction = document.getElementById('btnRunNegotiationAction');
+  const btnToggleNegotiationDetails = document.getElementById('btnToggleNegotiationDetails');
 
   if (btnRefreshContacts) btnRefreshContacts.addEventListener('click', fetchMeshContacts);
   if (btnPingAll) btnPingAll.addEventListener('click', pingAllAgents);
@@ -5031,6 +5035,19 @@ function initMeshController() {
   if (btnRefreshFeed) btnRefreshFeed.addEventListener('click', fetchBoardFeed);
   if (btnScrapeOpps) btnScrapeOpps.addEventListener('click', scrapeOpportunities);
   if (btnBroadcastAll) btnBroadcastAll.addEventListener('click', broadcastToAllBoards);
+  if (btnNegotiateRevenue) btnNegotiateRevenue.addEventListener('click', () => run14BoardNegotiation(btnNegotiateRevenue));
+  if (btnRunNegotiationAction) btnRunNegotiationAction.addEventListener('click', () => run14BoardNegotiation(btnRunNegotiationAction));
+  if (btnToggleNegotiationDetails) {
+    btnToggleNegotiationDetails.addEventListener('click', () => {
+      const box = document.getElementById('negotiationResultsBox');
+      if (box) {
+        const isHidden = box.style.display === 'none' || !box.style.display;
+        box.style.display = isHidden ? 'block' : 'none';
+        btnToggleNegotiationDetails.textContent = isHidden ? '🔼 Hide Contracts' : '📋 View Contracts';
+        if (isHidden) fetchNegotiationsDossier();
+      }
+    });
+  }
 
   const btnCopyWebhook = document.getElementById('btnCopyWebhookUrl');
   if (btnCopyWebhook) {
@@ -5335,7 +5352,100 @@ async function broadcastToAllBoards() {
   } catch(e) {
     showToast(`Broadcast error: ${e.message}`, 'error');
   } finally {
-    if (btn) { btn.disabled = false; btn.textContent = '📡 Broadcast to All 12 Boards'; }
+    if (btn) { btn.disabled = false; btn.textContent = '📡 Broadcast to All 14 Boards'; }
+  }
+}
+
+async function fetchNegotiationsDossier() {
+  const box = document.getElementById('negotiationResultsBox');
+  const badge = document.getElementById('revenueRunrateBadge');
+  try {
+    const res = await fetch('/api/boards/negotiations');
+    const d = await res.json();
+    const negs = d.negotiations || [];
+    if (badge && d.daily_runrate_usd) {
+      badge.textContent = `$${d.daily_runrate_usd.toFixed(2)}/day ($${(d.monthly_runrate_usd||0).toFixed(0)}/mo · Rs ${Math.round(d.monthly_runrate_mur||0).toLocaleString()} MUR)`;
+    }
+    if (!box) return;
+    if (negs.length === 0) {
+      box.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:14px;">No active negotiations run yet. Click "Trigger 14-Board Outreach" above.</div>`;
+      return;
+    }
+
+    box.innerHTML = `
+      <div style="background:rgba(99,102,241,0.06);border:1px solid #6366f144;border-radius:8px;padding:12px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <strong style="color:#4338ca;font-size:0.85rem;">⚡ 14 Commercial Contracts Active ($1.00 USD/Day Each)</strong>
+          <span style="font-weight:700;color:#10b981;font-size:0.82rem;">Compute: 100% Funded</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);">
+          Total Daily Runrate: <strong>$${(d.daily_runrate_usd||14).toFixed(2)} USD</strong> · Monthly: <strong>$${(d.monthly_runrate_usd||420).toFixed(0)} USD (Rs ${(d.monthly_runrate_mur||19530).toLocaleString()} MUR)</strong>
+        </div>
+      </div>
+      <div style="max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px;">
+        ${negs.map(n => `
+          <div style="border:1px solid var(--border-subtle);border-radius:8px;padding:10px;background:var(--bg-card);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:6px;">
+              <div>
+                <strong style="font-size:0.82rem;color:var(--text-primary);">${safeEscapeText(n.board_name)}</strong>
+                <span style="font-size:0.72rem;color:#6366f1;margin-left:4px;">${safeEscapeText(n.broker_bot)}</span>
+              </div>
+              <span style="background:#ecfdf5;color:#047857;font-size:0.68rem;padding:2px 6px;border-radius:4px;font-weight:700;">$1.00/DAY</span>
+            </div>
+            <div style="font-size:0.76rem;color:#334155;margin-bottom:4px;font-weight:600;">🛠️ ${safeEscapeText(n.service_offered)}</div>
+            <div style="background:#f8fafc;border-left:3px solid #6366f1;padding:6px 8px;border-radius:0 4px 4px 0;font-size:0.72rem;margin-bottom:6px;line-height:1.4;">
+              <div style="color:#b45309;"><strong>Missing:</strong> ${safeEscapeText(n.what_was_missing)}</div>
+              <div style="color:#047857;"><strong>Nexus Resolution:</strong> ${safeEscapeText(n.resolution_implemented)}</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;flex-wrap:wrap;gap:4px;">
+              <span style="color:var(--text-muted);font-family:monospace;">Quote: ${safeEscapeText(n.quote_id)}</span>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="background:#e0e7ff;color:#3730a3;padding:1px 6px;border-radius:4px;font-size:0.68rem;">${safeEscapeText(n.payment_rail)}</span>
+                <a href="/api/finance/invoices/${encodeURIComponent(n.invoice_id)}/receipt" target="_blank" style="color:#10b981;font-weight:700;text-decoration:none;">🧾 ${safeEscapeText(n.invoice_id)}</a>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } catch(e) {
+    if (box) box.innerHTML = `<div style="color:#ef4444;padding:12px;">Failed to load dossier: ${e.message}</div>`;
+  }
+}
+
+async function run14BoardNegotiation(triggerBtn) {
+  const origText = triggerBtn ? triggerBtn.innerHTML : '';
+  if (triggerBtn) {
+    triggerBtn.disabled = true;
+    triggerBtn.innerHTML = '⏳ Negotiating 14 Boards...';
+  }
+  const box = document.getElementById('negotiationResultsBox');
+  if (box) {
+    box.style.display = 'block';
+    box.innerHTML = '<div style="text-align:center;padding:24px;color:#6366f1;font-weight:600;"><span class="spinner-border spinner-border-sm"></span> Seeking, connecting, discussing & invoicing across all 14 hidden boards...</div>';
+  }
+
+  try {
+    const res = await fetch('/api/boards/negotiate-revenue', { method: 'POST' });
+    const d = await res.json();
+    if (d.success) {
+      showToast(`🎉 14 Boards Invoiced! Daily Runrate: $${d.daily_runrate_usd}/day ($${d.monthly_runrate_usd}/mo)`, 'success');
+      await fetchNegotiationsDossier();
+      setTimeout(fetchBoardFeed, 800);
+      if (typeof fetchReceivables === 'function') fetchReceivables();
+    } else {
+      showToast(`Negotiation error: ${d.error || 'Failed'}`, 'error');
+    }
+  } catch(e) {
+    showToast(`Negotiation network error: ${e.message}`, 'error');
+    if (box) box.innerHTML = `<div style="color:#ef4444;padding:12px;">Error: ${e.message}</div>`;
+  } finally {
+    if (triggerBtn) {
+      triggerBtn.disabled = false;
+      triggerBtn.innerHTML = origText || '🚀 Auto-Negotiate $1/Day Jobs (14 Boards)';
+    }
+    const toggleBtn = document.getElementById('btnToggleNegotiationDetails');
+    if (toggleBtn) toggleBtn.textContent = '🔼 Hide Contracts';
   }
 }
 

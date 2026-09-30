@@ -2312,6 +2312,11 @@ def negotiate_hidden_boards_revenue():
     """Reaches out across all 14 hidden boards, negotiates micro-tasks, and secures the $1.00/day stream."""
     return hidden_boards_service.negotiate_steady_revenue()
 
+@app.get("/api/boards/negotiations")
+def get_hidden_boards_negotiations():
+    """Returns the latest 14-board negotiation dossier and active contracts."""
+    return hidden_boards_service.get_negotiations()
+
 @app.post("/api/market-maker/run")
 def run_market_maker():
     """Runs the Autonomous Market Maker engine."""
