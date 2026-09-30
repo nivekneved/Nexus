@@ -16,7 +16,7 @@ import logging
 import threading
 from pathlib import Path
 from typing import Any, Optional, Dict
-from core.paths import resolve_data_path, DATA_DIR
+from core.paths import resolve_data_path, DATA_DIR, BASE_DIR
 
 logger = logging.getLogger("Nexus.Storage")
 
@@ -47,10 +47,12 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
     First attempts SQLite WAL state; falls back to deterministic disk location.
     """
     # 1. Resolve deterministic path
-    if "VERCEL" in os.environ and not str(filepath).startswith("/tmp"):
-        p = Path("/tmp") / Path(filepath).name
-    else:
-        p = resolve_data_path(filepath)
+    p = resolve_data_path(filepath)
+    if not p.exists() and (BASE_DIR / "data" / p.name).exists():
+        try:
+            shutil.copy2(BASE_DIR / "data" / p.name, p)
+        except Exception:
+            pass
 
     # 2. Check high-concurrency SQLite store
     try:
@@ -99,10 +101,7 @@ def atomic_save_json(filepath: str | Path, data: Any, indent: int = 2) -> bool:
     Atomically persists data to disk and mirrors to SQLite.
     Includes Windows NTFS retry logic to prevent WinError 32 PermissionError collisions.
     """
-    if "VERCEL" in os.environ and not str(filepath).startswith("/tmp"):
-        p = Path("/tmp") / Path(filepath).name
-    else:
-        p = resolve_data_path(filepath)
+    p = resolve_data_path(filepath)
 
     try:
         p.parent.mkdir(parents=True, exist_ok=True)

@@ -30,21 +30,34 @@ class RootHousekeeper:
 
     def __init__(self, root_dir: str = "."):
         self.root = Path(root_dir).resolve()
-        self.shadow_bak = self.root / ".shadow_bak"
-        self.logs_dir = self.root / "logs"
-        self.reports_dir = self.root / "reports"
+        if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+            self.shadow_bak = Path("/tmp/shadow_bak")
+            self.logs_dir = Path("/tmp/logs")
+            self.reports_dir = Path("/tmp/reports")
+        else:
+            self.shadow_bak = self.root / ".shadow_bak"
+            self.logs_dir = self.root / "logs"
+            self.reports_dir = self.root / "reports"
 
-        self.shadow_bak.mkdir(parents=True, exist_ok=True)
-        self.logs_dir.mkdir(parents=True, exist_ok=True)
-        self.reports_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            self.shadow_bak.mkdir(parents=True, exist_ok=True)
+            self.logs_dir.mkdir(parents=True, exist_ok=True)
+            self.reports_dir.mkdir(parents=True, exist_ok=True)
+        except (OSError, PermissionError):
+            pass
 
     def sweep_shadow_backups(self) -> List[str]:
         """Tier 1: Moves all root .bak files into .shadow_bak/"""
+        if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+            return []
         vaulted = []
         for file in self.root.glob("*.bak"):
             target = self.shadow_bak / file.name
-            shutil.move(str(file), str(target))
-            vaulted.append(file.name)
+            try:
+                shutil.move(str(file), str(target))
+                vaulted.append(file.name)
+            except (OSError, PermissionError):
+                pass
         return vaulted
 
     def rotate_logs(self, max_kb: int = 500) -> List[str]:

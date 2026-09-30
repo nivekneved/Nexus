@@ -7,16 +7,24 @@ cleans up redundant `.bak` files, prunes historical snapshot archives, and execu
 
 import os
 import sys
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 import sqlite3
 import json
 import glob
 import shutil
+from core.paths import SQLITE_DB_PATH, DATA_DIR
 
-DB_PATH = "data/nexus_workforce.db"
+DB_PATH = str(SQLITE_DB_PATH)
 
 def init_universal_table():
-    os.makedirs("data", exist_ok=True)
+    try:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        pass
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("PRAGMA journal_mode=WAL;")

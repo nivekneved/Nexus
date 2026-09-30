@@ -127,14 +127,33 @@ def set_state(key: str, data: Any, sync_json: bool = True) -> bool:
             """, (key, json_str, now_str))
 
         if sync_json:
-            # Sync to data/ folder atomically
-            target_json = DATA_DIR / (key if key.endswith(".json") else f"{key}.json")
-            tmp_json = target_json.with_suffix(".tmp")
-            with open(tmp_json, "w", encoding="utf-8") as f:
-                f.write(json_str)
-                f.flush()
-                os.fsync(f.fileno())
-            os.replace(tmp_json, target_json)
+            # Sync to data/ folder atomically with retry to handle Windows file locking
+            try:
+                target_json = DATA_DIR / (key if key.endswith(".json") else f"{key}.json")
+                tmp_json = target_json.with_suffix(f".tmp_{os.getpid()}_{threading.get_ident()}")
+                with open(tmp_json, "w", encoding="utf-8") as f:
+                    f.write(json_str)
+                    f.flush()
+                    try:
+                        os.fsync(f.fileno())
+                    except OSError:
+                        pass
+                for _ in range(5):
+                    try:
+                        os.replace(tmp_json, target_json)
+                        break
+                    except (PermissionError, OSError):
+                        import time
+                        time.sleep(0.02)
+                else:
+                    try:
+                        import shutil
+                        shutil.copy2(tmp_json, target_json)
+                        tmp_json.unlink(missing_ok=True)
+                    except Exception:
+                        pass
+            except Exception as e:
+                logger.debug(f"[DB] Non-critical mirror sync note for {key}: {e}")
         return True
     except Exception as e:
         logger.error(f"[DB] Error persisting state for key {key}: {e}")

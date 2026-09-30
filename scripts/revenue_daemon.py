@@ -30,19 +30,28 @@ if hasattr(sys.stderr, "reconfigure"):
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
+handlers = [logging.StreamHandler(sys.stdout)]
+log_file = (Path("/tmp") if os.getenv("VERCEL") else ROOT_DIR / "reports") / "revenue_daemon.log"
+try:
+    log_file.parent.mkdir(parents=True, exist_ok=True)
+    handlers.append(logging.FileHandler(log_file, encoding="utf-8"))
+except Exception:
+    pass
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] [RevenueDaemon] %(message)s",
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler(ROOT_DIR / "reports" / "revenue_daemon.log", encoding="utf-8")
-    ]
+    handlers=handlers
 )
 logger = logging.getLogger("RevenueDaemon")
 
 
 def run_daemon_cycle():
-    os.makedirs(ROOT_DIR / "reports", exist_ok=True)
+    rep_dir = Path("/tmp/reports") if os.getenv("VERCEL") else ROOT_DIR / "reports"
+    try:
+        os.makedirs(rep_dir, exist_ok=True)
+    except Exception:
+        pass
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     logger.info(f"--- Starting Autonomous Revenue Cycle at {now_str} ---")
 

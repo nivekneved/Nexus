@@ -51,18 +51,21 @@ from core.ecosystem_orchestrator import ecosystem_orchestrator
 
 app = FastAPI(title="Nexus AI Workforce Hub")
 
-# Start 4:00 PM Daily WhatsApp Executive Briefing Scheduler
-reporting_engine.start_master_clock()
+# Start 4:00 PM Daily WhatsApp Executive Briefing Scheduler (Only in non-serverless persistent environments)
+if not os.getenv("VERCEL") and not os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+    reporting_engine.start_master_clock()
 
 @app.on_event("startup")
 def on_startup_ecosystem():
     """Starts all subsystems together: AI Core, Revenue Daemon, and Cloudflare Tunnel."""
-    ecosystem_orchestrator.start_all(port=8000)
+    if not os.getenv("VERCEL") and not os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        ecosystem_orchestrator.start_all(port=8000)
 
 @app.on_event("shutdown")
 def on_shutdown_ecosystem():
     """Gracefully shuts down all background processes."""
-    ecosystem_orchestrator.stop_all()
+    if not os.getenv("VERCEL") and not os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        ecosystem_orchestrator.stop_all()
 
 @app.get("/api/ecosystem/status")
 @app.get("/api/tunnel/status")
@@ -746,6 +749,11 @@ async def stream_events(request: Request):
             # First send recent history so newly opened tabs see recent context
             for old_event in telemetry.get_recent_history():
                 yield f"data: {json.dumps(old_event)}\n\n"
+
+            # In serverless environments, close SSE stream cleanly to respect Lambda execution limits
+            if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+                yield f": heartbeat\n\n"
+                return
 
             # Stream live incoming events
             while True:

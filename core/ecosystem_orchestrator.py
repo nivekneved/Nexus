@@ -53,6 +53,11 @@ class EcosystemOrchestrator:
         self.started_at = time.strftime("%Y-%m-%d %H:%M:%S")
         self._stop_event.clear()
 
+        # In serverless environments (e.g. Vercel), persistent daemons and subprocess tunnels are bypassed
+        if os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+            logger.info("[Ecosystem] Running in serverless mode: Background daemon threads bypassed.")
+            return
+
         print("\n\033[1;35m" + "=" * 70)
         print("⚡ NEXUS ECOSYSTEM: ALL SYSTEMS STARTING TOGETHER")
         print("   [1] AI Core Web Server:  http://127.0.0.1:8000")
