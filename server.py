@@ -2331,6 +2331,15 @@ async def inbound_mesh_webhook(req: MeshInboundWebhookRequest):
         "message": "Signal accepted and routed to Nexus agent pipeline"
     }
 
+class StealthScrapeRequest(BaseModel):
+    url: str
+
+@app.post("/api/stealth/scrape")
+def api_stealth_scrape(payload: StealthScrapeRequest):
+    """Executes a stealth web scrape bypassing Cloudflare and anti-bot walls using Scrapling patterns."""
+    from core.stealth_scraper_bridge import stealth_scraper
+    return stealth_scraper.fetch_stealth(payload.url)
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Hidden Boards & Agentic Web Endpoints
 # ─────────────────────────────────────────────────────────────────────────────
