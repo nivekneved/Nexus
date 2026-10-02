@@ -5,7 +5,7 @@ from typing import Dict, Any, Optional
 from core.subagent import BaseSubAgent
 from core.polymorphic_engine import engine
 from security.shield import shield
-from spam_classifier import SpamClassifier
+from core.spam_classifier import SpamClassifier
 
 class EmailImmunitySubAgent(BaseSubAgent):
     """Subagent 1: Fast-pass bypass for 2FA, OTPs, password resets, and VIP whitelist domains."""

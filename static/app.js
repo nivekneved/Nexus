@@ -109,6 +109,7 @@ if (document.readyState === "loading") {
 
 // Global Page Navigator
 window.navigateToPage = function(targetTab) {
+  console.log("navigateToPage:", targetTab);
   if (!targetTab) return;
   const navItems = document.querySelectorAll(".nav-item");
   const panes = document.querySelectorAll(".tab-pane");
@@ -275,13 +276,28 @@ window.navigateToPage = function(targetTab) {
 
 // Tab Navigation
 function initTabs() {
-  const navItems = document.querySelectorAll(".nav-item");
-
-  navItems.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const targetTab = btn.dataset.tab;
-      window.navigateToPage(targetTab);
+  const sidebarNav = document.getElementById("mainNavMenu");
+  if (sidebarNav) {
+    sidebarNav.addEventListener("click", (e) => {
+      const item = e.target.closest(".nav-item");
+      if (!item) return;
+      const targetTab = item.dataset.tab;
+      if (targetTab) {
+        e.preventDefault();
+        window.navigateToPage(targetTab);
+      }
     });
+  }
+
+  // Also support general .nav-item elements across the app
+  document.addEventListener("click", (e) => {
+    const item = e.target.closest(".nav-item");
+    if (!item || item.getAttribute("href")) return; // let external links work normally
+    const targetTab = item.dataset.tab;
+    if (targetTab) {
+      e.preventDefault();
+      window.navigateToPage(targetTab);
+    }
   });
 
   const btnViewFull = document.getElementById("btnViewFullTerminal");

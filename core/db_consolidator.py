@@ -49,9 +49,9 @@ def migrate_json_stores(conn):
     stores_to_migrate = [
         ("memory/archival_memory.json", "memory", "archival_memory"),
         ("memory/recall_memory.json", "memory", "recall_memory"),
-        ("social_broadcast_queue.json", "comms", "broadcast_queue"),
+        ("data/social_broadcast_queue.json", "comms", "broadcast_queue"),
         ("products/custom_catalog.json", "commerce", "product_catalog"),
-        ("fleet_run_summary.json", "operations", "fleet_run_summary")
+        ("reports/fleet_run_summary.json", "operations", "fleet_run_summary")
     ]
 
     migrated_count = 0

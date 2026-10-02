@@ -6,8 +6,8 @@ from dotenv import load_dotenv, set_key
 
 from core.base_agent import BaseAgent
 from core.telemetry import telemetry
-from email_client import EmailClient
-from spam_classifier import SpamClassifier
+from core.email_client import EmailClient
+from core.spam_classifier import SpamClassifier
 
 LEDGER_FILE = "trash_ledger.json"
 REPORT_FILE = "daily_report.md"

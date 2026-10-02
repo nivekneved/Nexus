@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 load_dotenv()
 
-from spam_classifier import SpamClassifier
+from core.spam_classifier import SpamClassifier
 
 console = Console(force_terminal=True, legacy_windows=False)
 

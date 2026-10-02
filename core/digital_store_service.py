@@ -1,8 +1,9 @@
 """
 Nexus™ Digital Product Store & Instant Delivery Service
 ======================================================
-Automates the sale, payment capture, and instant digital fulfillment of $1.00 USD Python tools.
-Zero manual intervention: PayPal capture -> instant file download + automatic email delivery.
+Automates the sale, payment capture, and instant digital fulfillment of self-hosted developer utilities.
+Zero manual intervention: PayPal / MCB Juice / Crypto capture -> instant file download + automatic email delivery.
+Integrated with Conversion Recovery Engine and Multi-Rail Telemetry.
 """
 
 import os
@@ -11,6 +12,7 @@ import json
 import time
 import zipfile
 import secrets
+import urllib.parse
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
@@ -22,6 +24,7 @@ from security.financial_shield import financial_shield
 
 PRODUCTS_DIR = os.path.abspath("products")
 CUSTOM_CATALOG_FILE = os.path.join(PRODUCTS_DIR, "custom_catalog.json")
+
 CATALOG = {
     "nexus-email-guardian": {
         "id": "nexus-email-guardian",
@@ -63,7 +66,7 @@ CATALOG = {
         "price_usd": 12.00,
         "price_mur": 550.0,
         "filename": "nexus_b2b_lead_scraper.py",
-        "badge": "No API Keys",
+        "badge": "Zero-Bounce",
         "features": [
             "Validates real DNS MX mail servers instantly",
             "Prevents sender domain reputation damage & blacklisting",
@@ -79,7 +82,7 @@ CATALOG = {
         "price_usd": 29.00,
         "price_mur": 1500.0,
         "filename": "nexus_mcb_recon.py",
-        "badge": "Mauritius B2B",
+        "badge": "🇲🇺 Mauritius B2B",
         "features": [
             "Zero cloud uploads: 100% financial privacy for client banking records",
             "Auto-categorizes CEB, CWA, Mauritius Telecom, MRA VAT, and Juice transfers",
@@ -87,20 +90,164 @@ CATALOG = {
             "One-time purchase: No recurring monthly software fees"
         ]
     },
+    "nexus-invoice-pdf-extractor": {
+        "id": "nexus-invoice-pdf-extractor",
+        "name": "Nexus™ Invoice PDF & VAT Extractor",
+        "tagline": "Micro-Utility: Parses PDF invoices, calculates VAT, outputs CSV",
+        "description": "Lightweight, single-file Python script to batch extract line items, totals, and VAT from commercial PDF receipts and invoices locally.",
+        "price_usd": 1.00,
+        "price_mur": 45.0,
+        "filename": "nexus_invoice_pdf_extractor.py",
+        "badge": "⚡ $1 Micro-Tool",
+        "features": [
+            "Runs 100% locally with zero cloud telemetry",
+            "Extracts invoice tables, totals, and 15% VAT breakdown",
+            "Fast single-command CLI execution",
+            "Perpetual commercial rights for $1.00"
+        ]
+    },
+    "nexus-crypto-price-alert": {
+        "id": "nexus-crypto-price-alert",
+        "name": "Nexus™ Crypto Volatility & Price Alert",
+        "tagline": "Micro-Utility: Base L2, ETH & BTC Terminal Alert Daemon",
+        "description": "Self-hosted CLI daemon monitoring decentralized crypto feeds and triggering desktop or webhook alerts without paid CoinMarketCap API plans.",
+        "price_usd": 1.00,
+        "price_mur": 45.0,
+        "filename": "nexus_crypto_price_alert.py",
+        "badge": "⚡ $1 Micro-Tool",
+        "features": [
+            "Monitors on-chain liquidity and exchange prices",
+            "Zero subscription fees or API rate-limit paywalls",
+            "Configurable price thresholds and desktop pings",
+            "Perpetual commercial rights for $1.00"
+        ]
+    },
+    "nexus-seo-keyword-serp-tracker": {
+        "id": "nexus-seo-keyword-serp-tracker",
+        "name": "Nexus™ SERP Keyword Position Tracker",
+        "tagline": "Micro-Utility: Track Google Search rankings without Ahrefs",
+        "description": "Autonomous Python scraper tracking your domain rankings across target Google search keywords locally without expensive $99/mo SEO tools.",
+        "price_usd": 1.00,
+        "price_mur": 45.0,
+        "filename": "nexus_seo_keyword_serp_tracker.py",
+        "badge": "⚡ $1 Micro-Tool",
+        "features": [
+            "Track up to 100 keywords daily without monthly SaaS rent",
+            "Exports timestamped SERP movement logs into CSV",
+            "Zero proxy or third-party subscription requirements",
+            "Perpetual commercial rights for $1.00"
+        ]
+    },
     "nexus-developer-bundle": {
         "id": "nexus-developer-bundle",
-        "name": "Nexus™ Anti-SaaS Automation Arsenal (4-in-1 Suite)",
-        "tagline": "Complete Perpetual Automation Suite (Email + WhatsApp + Leads + MCB Recon)",
-        "description": "Get all four flagship Nexus automation utilities bundled together with full source code and perpetual commercial rights.",
+        "name": "Nexus™ Anti-SaaS Automation Arsenal (All 7 Tools)",
+        "tagline": "Complete Perpetual Suite (.zip) • Save $30+ vs Individual Buys",
+        "description": "Get all seven standalone Nexus automation utilities in a single master archive: Email Guardian, WhatsApp Bot, B2B Scraper, MCB Reconciler, Invoice Extractor, Crypto Alert, and SERP Tracker.",
         "price_usd": 39.00,
         "price_mur": 1800.0,
         "filename": "nexus_dev_superpack.zip",
-        "badge": "Best Value (4-in-1)",
+        "badge": "🔥 Best Value (All 7)",
         "features": [
-            "Includes Email Guardian + WhatsApp Bot + B2B Lead Verifier + MCB Recon",
-            "All source code with MIT-style commercial usage rights",
-            "Replaces over $120/month in recurring monthly subscriptions",
-            "Instant single-click zip download"
+            "Includes all 7 standalone Python scripts & utilities",
+            "Full source code with MIT-style commercial usage rights",
+            "Replaces over $150/month in recurring SaaS subscriptions",
+            "Instant single-click zip download with developer guides"
+        ]
+    },
+    "nexus-agency-license": {
+        "id": "nexus-agency-license",
+        "name": "Nexus™ White-Label Agency Reseller Suite",
+        "tagline": "Redistribution Rights + Full Source + 1-on-1 Architecture Call",
+        "description": "Commercial redistribution license permitting technical agencies and freelancers to rebrand, bundle, and deploy Nexus tools for unlimited paying end-clients.",
+        "price_usd": 99.00,
+        "price_mur": 4500.0,
+        "filename": "nexus_dev_superpack.zip",
+        "badge": "💼 Agency / Reseller",
+        "features": [
+            "Unlimited client commercial deployment & redistribution rights",
+            "All 7 Python automation scripts + white-label documentation",
+            "Private 45-minute 1-on-1 technical onboarding & architecture call with Deven Pawaray",
+            "Priority direct WhatsApp technical support for 12 months"
+        ]
+    },
+    "nexus-competitor-poacher-agent": {
+        "id": "nexus-competitor-poacher-agent",
+        "name": "Nexus™ Competitor Poacher Agent",
+        "tagline": "Autonomous G2 & Trustpilot Review Scraper & Pitch Generator",
+        "description": "Scans G2, Trustpilot, and Capterra for disgruntled SaaS customers complaining about price hikes or outages, and auto-generates bespoke poacher pitches.",
+        "price_usd": 19.00,
+        "price_mur": 880.0,
+        "filename": "nexus_competitor_poacher.py",
+        "badge": "🤖 AI Agent",
+        "features": [
+            "Monitors competitor review platforms for churn signals",
+            "Auto-generates tailored anti-SaaS conversion pitches",
+            "Zero recurring subscription fees",
+            "Perpetual commercial rights"
+        ]
+    },
+    "nexus-programmatic-seo-agent": {
+        "id": "nexus-programmatic-seo-agent",
+        "name": "Nexus™ Programmatic SEO Agent",
+        "tagline": "Autonomous Long-Tail Keyword Cluster & Article Generator",
+        "description": "Autonomous AI agent that maps keyword clusters, generates optimized SEO articles, and drives organic inbound search traffic.",
+        "price_usd": 24.00,
+        "price_mur": 1100.0,
+        "filename": "nexus_seo_writer.py",
+        "badge": "🤖 AI Agent",
+        "features": [
+            "Builds programmatic content silos automatically",
+            "Optimizes headers, meta descriptions, and keyword density",
+            "Zero monthly Ahrefs or Jasper subscription fees",
+            "Perpetual commercial rights"
+        ]
+    },
+    "nexus-stripe-chargeback-defender": {
+        "id": "nexus-stripe-chargeback-defender",
+        "name": "Nexus™ Chargeback & Dispute Defender",
+        "tagline": "Autonomous Stripe/PayPal Dispute Evidence Packager",
+        "description": "Instantly compiles delivery logs, digital download timestamps, and cryptographic HMAC receipts to defeat fraudulent credit card chargebacks.",
+        "price_usd": 39.00,
+        "price_mur": 1800.0,
+        "filename": "nexus_chargeback_defend.py",
+        "badge": "🛡️ Security Agent",
+        "features": [
+            "Auto-submits digital audit trails to Stripe & PayPal APIs",
+            "Protects founder revenue from friendly fraud and disputes",
+            "Saves hours of manual evidence gathering",
+            "Perpetual commercial rights"
+        ]
+    },
+    "nexus-base-l2-arbitrage-daemon": {
+        "id": "nexus-base-l2-arbitrage-daemon",
+        "name": "Nexus™ Base L2 Arbitrage & Gas Bot",
+        "tagline": "Autonomous DEX Liquidity Spread & Gas Fee Optimizer",
+        "description": "Self-hosted CLI daemon monitoring decentralized exchanges on Base for profitable price spreads and optimizing gas execution.",
+        "price_usd": 49.00,
+        "price_mur": 2250.0,
+        "filename": "nexus_crypto_arbitrage.py",
+        "badge": "⚡ Web3 Agent",
+        "features": [
+            "Scans Aerodrome and Uniswap V3 on Base L2",
+            "Strict vault ceilings and transaction safety limits",
+            "Real-time profit calculation and gas estimation",
+            "Perpetual commercial rights"
+        ]
+    },
+    "nexus-social-short-clipper": {
+        "id": "nexus-social-short-clipper",
+        "name": "Nexus™ Viral Short & Reel Clipper",
+        "tagline": "Autonomous Long-Form Video to TikTok/Reels Short Generator",
+        "description": "Ingests long-form video or podcast recordings, isolates viral hooks using sentiment analysis, and outputs captioned vertical short clips.",
+        "price_usd": 19.00,
+        "price_mur": 880.0,
+        "filename": "nexus_viral_clipper.py",
+        "badge": "🤖 AI Agent",
+        "features": [
+            "Automated hooks and soundbite extraction",
+            "Neon kinetic auto-caption styling",
+            "Ready to export for TikTok, Reels, and Shorts",
+            "Perpetual commercial rights"
         ]
     }
 }
@@ -112,12 +259,16 @@ class DigitalStoreService:
         self._ensure_bundle_zip()
 
     def _ensure_bundle_zip(self):
-        """Creates the 3-in-1 zip bundle if it doesn't already exist or if files changed."""
+        """Creates the master zip bundle including all 7 tools if not present or outdated."""
         zip_path = os.path.join(PRODUCTS_DIR, "nexus_dev_superpack.zip")
         sources = [
             "nexus_email_guardian.py",
             "nexus_whatsapp_bot_starter.py",
-            "nexus_b2b_lead_scraper.py"
+            "nexus_b2b_lead_scraper.py",
+            "nexus_mcb_recon.py",
+            "nexus_invoice_pdf_extractor.py",
+            "nexus_crypto_price_alert.py",
+            "nexus_seo_keyword_serp_tracker.py"
         ]
         try:
             with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
@@ -125,17 +276,24 @@ class DigitalStoreService:
                     src_path = os.path.join(PRODUCTS_DIR, src)
                     if os.path.exists(src_path):
                         zf.write(src_path, arcname=src)
-                # Include a README in the zip
+                # Include a comprehensive README in the zip
                 readme_content = (
-                    "Nexus™ Developer Automation Superpack\n"
-                    "====================================\n"
-                    "Thank you for supporting independent open-source software!\n\n"
-                    "Tools included:\n"
-                    "1. nexus_email_guardian.py   - IMAP spam cleaner & 2FA protector\n"
-                    "2. nexus_whatsapp_bot_starter.py - FastAPI WhatsApp business bot\n"
-                    "3. nexus_b2b_lead_scraper.py - DNS MX record gatekeeper & verifier\n\n"
-                    f"Created with pride by {os.getenv('FOUNDER_NAME', 'Founder')} & Nexus AI.\n"
-                    f"Support & Questions: {os.getenv('FOUNDER_EMAIL', 'Configured in .env')} | WhatsApp: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
+                    "Nexus™ Anti-SaaS Developer Arsenal & Superpack\n"
+                    "===============================================\n"
+                    "Thank you for supporting independent, open-source and self-hosted software!\n\n"
+                    "Tools included in this archive:\n"
+                    "1. nexus_email_guardian.py           - IMAP spam cleaner & 2FA protector\n"
+                    "2. nexus_whatsapp_bot_starter.py     - FastAPI conversational WhatsApp business bot\n"
+                    "3. nexus_b2b_lead_scraper.py         - DNS MX record gatekeeper & verifier\n"
+                    "4. nexus_mcb_recon.py                - MCB statement & Juice PDF reconciler (Mauritius B2B)\n"
+                    "5. nexus_invoice_pdf_extractor.py    - PDF invoice line item & 15% VAT extractor\n"
+                    "6. nexus_crypto_price_alert.py       - Self-hosted crypto feed & threshold daemon\n"
+                    "7. nexus_seo_keyword_serp_tracker.py - Local Google search ranking tracker\n\n"
+                    "Perpetual Commercial Rights:\n"
+                    "You own these scripts permanently. Zero telemetry, zero recurring subscriptions.\n"
+                    "Run them locally on your machine, server, or VPS.\n\n"
+                    f"Created with pride by {os.getenv('FOUNDER_NAME', 'Deven Pawaray')} & Nexus AI.\n"
+                    f"Support & Inquiries: {os.getenv('FOUNDER_EMAIL', 'devenpawaray@gmail.com')} | WhatsApp: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
                 )
                 zf.writestr("README.txt", readme_content)
         except Exception as e:
@@ -149,18 +307,6 @@ class DigitalStoreService:
         except Exception:
             pass
         return {}
-
-    def register_custom_product(self, product_entry: Dict[str, Any]):
-        """Persists a new factory-generated digital product into the catalog."""
-        custom = self._load_custom_catalog()
-        custom[product_entry["id"]] = product_entry
-        try:
-            with open(CUSTOM_CATALOG_FILE, "w", encoding="utf-8") as f:
-                json.dump(custom, f, indent=2, ensure_ascii=False)
-        except Exception as e:
-            print(f"[DigitalStoreService] Error saving custom catalog: {e}")
-        CATALOG[product_entry["id"]] = product_entry
-        self._ensure_bundle_zip()
 
     def get_catalog(self) -> List[Dict[str, Any]]:
         """Returns the full catalog of available digital products."""
@@ -177,27 +323,126 @@ class DigitalStoreService:
         product_id: str,
         buyer_email: str,
         buyer_name: str = "Valued Developer",
-        currency: str = "USD"
+        currency: str = "USD",
+        payment_method: str = "paypal",
+        add_setup_service: bool = False,
+        coupon_code: Optional[str] = None
     ) -> Dict[str, Any]:
-        """Creates a live 1-click PayPal checkout token for a specific digital product."""
+        """
+        Creates an order with multi-rail support (PayPal REST API or MCB Juice domestic routing),
+        order bump integration, and coupon verification.
+        """
         product = self.get_product(product_id)
         if not product:
             raise ValueError(f"Product '{product_id}' not found in catalog.")
 
-        amount = product["price_usd"] if currency.upper() == "USD" else product["price_mur"]
-        download_token = secrets.token_urlsafe(16)
+        is_usd = currency.upper() == "USD"
+        base_amount = product["price_usd"] if is_usd else product["price_mur"]
 
-        # Create live invoice/order via payment_service
+        # Order bump: Add 1-on-1 Setup Assistance
+        bump_amount = 0.0
+        if add_setup_service:
+            bump_amount = 5.00 if is_usd else 225.0
+
+        total_amount = base_amount + bump_amount
+
+        # Coupon application
+        applied_discount = 0.0
+        if coupon_code and coupon_code.strip().upper() == "SAVE15":
+            applied_discount = round(total_amount * 0.15, 2)
+            total_amount = round(total_amount - applied_discount, 2)
+
+        download_token = secrets.token_urlsafe(16)
+        description = f"Nexus: {product['name']}"
+        if add_setup_service:
+            description += " + 1-on-1 Setup"
+
+        # Record lead in conversion recovery engine
+        try:
+            from core.revenue_engine import revenue_engine
+            revenue_engine.capture_abandoned_lead(
+                contact=buyer_email,
+                source="store_checkout",
+                cart_details={
+                    "product_id": product_id,
+                    "product_name": product["name"],
+                    "amount": total_amount,
+                    "currency": currency.upper(),
+                    "buyer_name": buyer_name,
+                    "add_setup_service": add_setup_service,
+                    "coupon": coupon_code
+                }
+            )
+            revenue_engine.track_event("initiate_checkout", {
+                "product_id": product_id,
+                "amount": total_amount,
+                "currency": currency.upper(),
+                "payment_method": payment_method
+            })
+        except Exception:
+            pass
+
+        # 1. Domestic MCB Juice Flow
+        if payment_method.lower() in ("juice", "mcb_wire") or currency.upper() == "MUR":
+            juice_ref = f"NEXUS-{product_id.replace('nexus-', '').upper()[:8]}-{secrets.token_hex(2).upper()}"
+            inv = payment_service.create_invoice(
+                client_name=buyer_name or "Mauritius Developer",
+                client_email=buyer_email,
+                amount=total_amount,
+                currency="MUR",
+                description=description,
+                method="mcb_wire"
+            )
+            
+            # Enrich invoice with digital metadata
+            invoices = payment_service.load_invoices()
+            for record in invoices:
+                if record["id"] == inv["id"]:
+                    record["product_id"] = product_id
+                    record["product_name"] = product["name"]
+                    record["download_token"] = download_token
+                    record["delivery_status"] = "PENDING_JUICE"
+                    record["buyer_email"] = buyer_email
+                    record["juice_ref"] = juice_ref
+                    break
+            payment_service.save_invoices(invoices)
+
+            whatsapp_phone = os.getenv("FOUNDER_WHATSAPP", "+23058169420")
+            wa_text = (
+                f"Bonjour Deven! 👋\n\n"
+                f"Je viens de commander *{product['name']}* sur le Nexus Store.\n"
+                f"💵 Montant: Rs {total_amount:,.2f} MUR\n"
+                f"📝 Référence: *{juice_ref}*\n"
+                f"📧 Email de réception: {buyer_email}\n\n"
+                f"Voici la capture de mon paiement Juice. Merci de me débloquer le script!"
+            )
+            wa_link = f"https://wa.me/{whatsapp_phone.replace('+', '').replace(' ', '')}?text={urllib.parse.quote(wa_text)}"
+
+            return {
+                "success": True,
+                "payment_method": "juice",
+                "product_id": product_id,
+                "product_name": product["name"],
+                "amount": total_amount,
+                "currency": "MUR",
+                "juice_reference": juice_ref,
+                "juice_mobile": "+230 58169420",
+                "invoice_id": inv.get("id"),
+                "whatsapp_confirmation_url": wa_link,
+                "download_token": download_token,
+                "instructions": f"Envoyez Rs {total_amount:,.2f} au 58169420 avec la référence {juice_ref}."
+            }
+
+        # 2. Global PayPal REST API Flow
         inv = payment_service.create_invoice(
             client_name=buyer_name or "Valued Developer",
             client_email=buyer_email or "developer@example.com",
-            amount=amount,
-            currency=currency.upper(),
-            description=f"Nexus Digital Tool: {product['name']}",
+            amount=total_amount,
+            currency="USD",
+            description=description,
             method="paypal"
         )
 
-        # Enrich invoice with digital delivery metadata
         invoices = payment_service.load_invoices()
         for record in invoices:
             if record["id"] == inv["id"]:
@@ -211,20 +456,21 @@ class DigitalStoreService:
 
         return {
             "success": True,
+            "payment_method": "paypal",
             "product_id": product_id,
             "product_name": product["name"],
             "order_id": inv.get("paypal_order_id"),
             "checkout_url": inv.get("payment_url"),
             "invoice_id": inv.get("id"),
-            "amount": amount,
-            "currency": currency.upper(),
+            "amount": total_amount,
+            "currency": "USD",
             "download_token": download_token
         }
 
     def fulfill_order(self, order_id_or_invoice_id: str) -> Dict[str, Any]:
         """
         Validates payment capture, marks invoice as COMPLETED,
-        and triggers instant digital fulfillment (email dispatch).
+        triggers automatic conversion recording, and dispatches digital file.
         """
         invoices = payment_service.load_invoices()
         target_inv = None
@@ -239,7 +485,7 @@ class DigitalStoreService:
         order_id = target_inv.get("paypal_order_id")
         current_status = target_inv.get("status")
 
-        # If not yet confirmed completed, verify with PayPal
+        # If not yet confirmed completed and order_id exists, verify with PayPal
         if current_status != "COMPLETED" and order_id:
             st_res = payment_service.check_paypal_order_status(order_id)
             live_status = st_res.get("status")
@@ -260,6 +506,20 @@ class DigitalStoreService:
         buyer_email = target_inv.get("buyer_email") or target_inv.get("client_email")
         download_token = target_inv.get("download_token") or secrets.token_urlsafe(16)
         target_inv["download_token"] = download_token
+
+        # Mark lead as converted in RevenueEngine
+        try:
+            from core.revenue_engine import revenue_engine
+            if buyer_email:
+                revenue_engine.mark_lead_converted(buyer_email)
+            revenue_engine.track_event("purchase", {
+                "order_id": order_id or target_inv["id"],
+                "product_id": product["id"],
+                "amount": target_inv.get("amount"),
+                "currency": target_inv.get("currency")
+            })
+        except Exception:
+            pass
 
         # Send delivery email if not sent yet
         if target_inv.get("delivery_status") != "DELIVERED" and buyer_email and "@" in buyer_email:
@@ -290,8 +550,8 @@ class DigitalStoreService:
         product: Dict[str, Any],
         download_token: str
     ) -> Dict[str, Any]:
-        """Dispatches automated thank-you email with direct download link and script content."""
-        from email_client import EmailClient
+        """Dispatches automated delivery email with direct download link and preview."""
+        from core.email_client import EmailClient
         import os
 
         email_user = os.getenv("EMAIL_ACCOUNT", "").strip()
@@ -317,7 +577,8 @@ class DigitalStoreService:
                 lines = f.readlines()[:40]
                 file_snippet = "".join(lines)
 
-        download_url = f"http://127.0.0.1:8000/download/{product['id']}?token={download_token}"
+        base_url = "https://nexus-workforce.vercel.app"
+        download_url = f"{base_url}/download/{product['id']}?token={download_token}"
 
         body_text = (
             f"Dear Developer,\n\n"
@@ -328,28 +589,27 @@ class DigitalStoreService:
             f"1. Save the file locally on your machine.\n"
             f"2. Run it directly with Python 3.\n"
             f"3. No monthly subscription, no vendor lock-in. You own the script forever.\n\n"
-            f"If you ever need any assistance or custom automation, feel free to reply directly to this email.\n\n"
             f"Warm regards,\n"
-            f"{os.getenv('FOUNDER_NAME', 'Founder')} & Nexus AI Team\n"
-            f"Grand Baie, Mauritius | WhatsApp: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
+            f"{os.getenv('FOUNDER_NAME', 'Deven Pawaray')} & Nexus AI Team\n"
+            f"WhatsApp Support: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
         )
 
         html_body = f"""
         <!DOCTYPE html>
         <html>
-        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; padding: 30px;">
-          <div style="max-width: 600px; margin: 0 auto; background: #1e293b; border-radius: 12px; padding: 30px; border: 1px solid #334155;">
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #070b14; color: #f8fafc; padding: 30px;">
+          <div style="max-width: 600px; margin: 0 auto; background: #0d1527; border-radius: 16px; padding: 30px; border: 1px solid #1e2c4f;">
             <div style="font-size: 24px; font-weight: bold; color: #38bdf8; margin-bottom: 10px;">⚡ Nexus™ Workforce</div>
             <h2 style="color: #ffffff; margin-top: 0;">Thank you for your purchase!</h2>
-            <p style="color: #94a3b8; font-size: 16px;">Here is your instant access to <strong>{product['name']}</strong> ($1.00 USD).</p>
+            <p style="color: #94a3b8; font-size: 16px;">Here is your instant access to <strong>{product['name']}</strong>.</p>
             
             <div style="margin: 25px 0; text-align: center;">
-              <a href="{download_url}" style="background: #2563eb; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block;">
+              <a href="{download_url}" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block;">
                 📥 Download {product['filename']} Now
               </a>
             </div>
 
-            <div style="background: #0f172a; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #cbd5e1; overflow-x: auto; margin-bottom: 20px;">
+            <div style="background: #070b14; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #cbd5e1; overflow-x: auto; margin-bottom: 20px;">
               <div style="color: #38bdf8; font-weight: bold; margin-bottom: 8px;">// Preview snippet</div>
               <pre style="margin: 0;">{file_snippet}</pre>
             </div>
@@ -360,10 +620,10 @@ class DigitalStoreService:
               • Commercial rights included.
             </p>
 
-            <hr style="border: none; border-top: 1px solid #334155; margin: 25px 0;">
+            <hr style="border: none; border-top: 1px solid #1e2c4f; margin: 25px 0;">
             <p style="font-size: 12px; color: #64748b;">
-              Created with pride by {os.getenv('FOUNDER_NAME', 'Founder')} | Grand Baie, Mauritius<br>
-              WhatsApp Support: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')} | Email: {os.getenv('FOUNDER_EMAIL', 'Configured in .env')}
+              Created with pride by {os.getenv('FOUNDER_NAME', 'Deven Pawaray')} | Grand Baie, Mauritius<br>
+              WhatsApp Support: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')} | Email: {os.getenv('FOUNDER_EMAIL', 'devenpawaray@gmail.com')}
             </p>
           </div>
         </body>
@@ -375,7 +635,7 @@ class DigitalStoreService:
                 to_email=buyer_email,
                 subject=subject,
                 body=body_text,
-                from_name=f"Nexus Micro-Store ({os.getenv('FOUNDER_NAME', 'Founder')})",
+                from_name=f"Nexus Micro-Store ({os.getenv('FOUNDER_NAME', 'Deven Pawaray')})",
                 html_body=html_body
             )
         except Exception as e:
@@ -398,8 +658,8 @@ class DigitalStoreService:
         invoices = payment_service.load_invoices()
         for inv in invoices:
             if inv.get("download_token") == token:
-                # If product matches or if user bought bundle
-                if inv.get("product_id") in (product_id, "nexus-developer-bundle"):
+                # If product matches or if user bought bundle or agency license
+                if inv.get("product_id") in (product_id, "nexus-developer-bundle", "nexus-agency-license"):
                     return True
         return False
 

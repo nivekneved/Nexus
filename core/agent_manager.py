@@ -129,27 +129,30 @@ class AgentManager:
             self.domain_controllers[domain.agent_id] = domain
             self.register_agent(domain)
 
-        # 2. Register 18 Legacy Aliases / Proxies
+        # 2. Register All 26 Legacy Aliases / Proxies Mapped into the 4 Domain Controllers
         legacy_specs = [
-            # Comms Domain
+            # Comms Domain (5 Agents)
             ("email_hygiene", "Email Hygiene & Anti-Spam", "domain_comms", "run_email_hygiene", "Autonomous multi-inbox cleaner and spam shield", "mail"),
             ("customer_support", "Customer Support & Concierge", "domain_comms", "run_support_triage", "24/7 client triage and VIP escalation", "support"),
             ("ghost_unsubscriber", "Zombie Subscription Purger", "domain_comms", "run_ghost_unsub", "Newsletter unsubscription & daily digest", "checklist"),
-            ("mobile_dispatcher", "Mobile Emergency Dispatcher", "domain_comms", "run_cycle", "WhatsApp/SMS urgent notifications", "phone"),
-            ("bilingual_concierge", "Bilingual EN/FR Concierge", "domain_comms", "run_cycle", "Multi-lingual communication assistant", "globe"),
+            ("mobile_dispatcher", "Mobile Emergency Dispatcher", "domain_comms", "run_mobile_dispatcher", "WhatsApp/SMS urgent notifications", "phone"),
+            ("bilingual_concierge", "Bilingual EN/FR Concierge", "domain_comms", "run_bilingual_concierge", "Multi-lingual communication assistant", "globe"),
 
-            # Operations Domain
+            # Operations Domain (5 Agents)
             ("chief_of_staff", "Chief of Staff & Coordinator", "domain_operations", "run_chief_of_staff", "Workforce coordination and morning standup", "briefcase"),
             ("heartbeat_daemon", "24/7 System Heartbeat Sentinel", "domain_operations", "run_heartbeat", "System health, database WAL, process telemetry", "pulse"),
-            ("infra_finance_sentinel", "Cloud Bills & Infra Sentinel", "domain_operations", "run_cycle", "Infrastructure cost burn rate and token caps", "trending-down"),
+            ("infra_finance_sentinel", "Cloud Bills & Infra Sentinel", "domain_operations", "run_infra_sentinel", "Infrastructure cost burn rate and token caps", "trending-down"),
             ("regression_sentinel", "Regression & Invariant Sentinel", "domain_operations", "run_regression_sentinel", "Offline integrity tests and self-healing", "shield"),
-            ("spec_auditor", "API Contract & Spec Auditor", "domain_operations", "run_regression_sentinel", "OpenAPI schema and security compliance", "check-circle"),
+            ("spec_auditor", "API Contract & Spec Auditor", "domain_operations", "run_spec_auditor", "OpenAPI schema and security compliance", "check-circle"),
 
-            # Commerce Domain
+            # Commerce Domain (5 Agents)
             ("executive_partner", "Executive Revenue Partner", "domain_commerce", "run_store_audit", "Strategic monetization and pipeline analysis", "dollar-sign"),
             ("appstore_sentinel", "App Store & Product Sentinel", "domain_commerce", "run_store_audit", "Product telemetry and store ranking", "smartphone"),
+            ("crypto_arbitrage", "Base L2 Crypto Arbitrage", "domain_commerce", "run_crypto_arbitrage", "Base L2 DEX liquidity spreads & gas optimization", "zap"),
+            ("domain_arbitrage", "Digital Asset & Domain Arbitrage", "domain_commerce", "run_domain_arbitrage", "Expired domain valuation & asset flipping", "globe"),
+            ("affiliate_harvester", "Affiliate & Sponsorship Harvester", "domain_commerce", "run_affiliate_harvester", "High-commission developer tool & SaaS referral loops", "dollar-sign"),
 
-            # Research Domain
+            # Research Domain (11 Agents)
             ("tech_trend_curator", "Emerging Tech Trend Curator", "domain_research", "run_trend_curator", "AI & technology intelligence monitoring", "cpu"),
             ("lead_finder", "Mauritius B2B Lead Scout", "domain_research", "run_lead_scout", "Corporate lead discovery and qualification", "target"),
             ("repo_radar", "GitHub Repo Radar & Security", "domain_research", "run_repo_radar", "Dependency vulnerability audit", "github"),
@@ -157,6 +160,11 @@ class AgentManager:
             ("growth_hacker", "Organic Growth Hacker", "domain_research", "run_cycle", "Viral loop analysis and audience growth", "trending-up"),
             ("influencer_usher", "Strategic Influencer Usher", "domain_research", "run_cycle", "Affiliate partnerships and outreach", "users"),
             ("meeting_assistant", "Executive Meeting Assistant", "domain_research", "run_cycle", "Meeting notes and action item synthesis", "calendar"),
+            ("bounty_hunter", "Bug Bounty & Exploit Harvester", "domain_research", "run_bounty_hunter", "Active bug bounty & vulnerability disclosure scout", "shield"),
+            ("gig_matchmaker", "Freelance Gig & RFP Matchmaker", "domain_research", "run_gig_matchmaker", "High-ticket Python/AI contracts & winning proposals", "briefcase"),
+            ("grant_scout", "Startup Grant & Subsidies Scout", "domain_research", "run_grant_scout", "Non-dilutive R&D startup grants & government subsidies", "award"),
+            ("competitor_poacher", "Competitor Review Poacher", "domain_research", "run_competitor_poacher", "Poaches dissatisfied SaaS users with anti-SaaS offers", "shield"),
+            ("viral_clip_agent", "Viral Short & Reel Clip Producer", "domain_research", "run_viral_clip_agent", "Auto-captions short-form video hooks for viral reach", "play"),
         ]
 
         for aid, name, dom_id, meth, desc, icon in legacy_specs:

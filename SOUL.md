@@ -43,7 +43,7 @@ When Deven steps away or closes his laptop, I hold the watch and generate commer
   - **MCB Juice Domestic Routing** (`+230 58169420` in MUR)
   - **PayPal Merchant & 1-Click Checkout** (`devenpawaray@gmail.com`)
 - **Monthly Cloud Compute Cap**: **$180.00 USD**
-- **Autonomous Spending Guardrails**: $15.00 single-tx ceiling / $50.00 daily quota
+- **Autonomous Spending Guardrails**: $5.00 single-tx ceiling / $10.00 daily quota
 - **Survival Physics**:
   - **NORMAL**: Cloud spend < 75% budget. Full agent fleet active, frontier models enabled, standard 15-min cadence.
   - **LOW_COMPUTE**: Cloud spend 75%–95%. Downgrade to lightweight models, double interval times, shed non-essential scrapers.

@@ -5,10 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Help 8-Year-Old Alison Survive Hirschsprung Disease | Enn Rev Enn Sourir™</title>
   <meta name="description" content="After 2 years of agonizing pain, 8-year-old Alison in Mauritius has undergone urgent surgery for Hirschsprung Disease. Help her family fund critical medical care.">
+  <!-- Open Graph & Social Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Enn Rev Enn Sourir™ Emergency Relief">
+  <meta property="og:title" content="Help 8-Year-Old Alison Survive Hirschsprung Disease | Enn Rev Enn Sourir™">
+  <meta property="og:description" content="After 2 years of agonizing pain, 8-year-old Alison in Mauritius has undergone urgent surgery for Hirschsprung Disease. Support her critical recovery care.">
+  <meta property="og:image" content="https://nexus-workforce.vercel.app/static/images/alison.jpg">
+  <meta property="og:url" content="https://nexus-workforce.vercel.app/donations">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@nexusagent">
+  <meta name="twitter:title" content="Help 8-Year-Old Alison Survive Hirschsprung Disease">
+  <meta name="twitter:description" content="Urgent medical fundraising for 8-year-old Alison in Mauritius. 100% direct patient support.">
+  <meta name="twitter:image" content="https://nexus-workforce.vercel.app/static/images/alison.jpg">
+
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23ef4444'/><path d='M10 18 Q16 24 22 18' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/><circle cx='12' cy='13' r='2' fill='white'/><circle cx='20' cy='13' r='2' fill='white'/></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/fonts/fonts.css">
+  
+  <!-- Revenue & Conversion Telemetry SDK -->
+  <script src="/static/revenue_engine.js" defer></script>
   <style>
     :root {
       --bg: #070b14;
@@ -675,7 +691,6 @@
           <div class="hero-image-box">
             <img 
               src="/static/images/alison.jpg" 
-              onerror="this.src='https://ennrevennsourir.org/wp-content/uploads/2024/11/Alison-new.jpg'" 
               alt="Alison (8 Years Old) - Enn Rev Enn Sourir NGO" 
               class="hero-image"
             >
@@ -744,7 +759,7 @@
 
           <!-- Proof & Direct Contact Links -->
           <div class="proof-actions">
-            <a href="https://ennrevennsourir.org/wp-content/uploads/2024/11/alison-cost-estimate-723x1024.jpg" target="_blank" rel="noopener noreferrer" class="proof-btn proof-btn-doc">
+            <a href="/static/images/alison-cost-estimate.jpg" target="_blank" rel="noopener noreferrer" class="proof-btn proof-btn-doc">
               📄 View Certified Hospital Medical Estimate Sheet ↗
             </a>
             <a href="https://ennrevennsourir.org/en/patient/alison-5/" target="_blank" rel="noopener noreferrer" class="proof-btn proof-btn-portal">
@@ -1025,6 +1040,14 @@
 
         const data = await res.json();
         if (data.checkout_url) {
+          if (window.NexusRevenue) {
+            NexusRevenue.trackPaymentAttempt("paypal", {
+              donor_email: donorEmail,
+              amount: selectedAmount,
+              currency: "USD",
+              cause: causeName
+            });
+          }
           window.location.href = data.checkout_url;
         } else {
           alert("Donation link generated: " + (data.checkout_url || data.order_id));
@@ -1037,8 +1060,19 @@
       }
     }
 
-    // Initialize
+    // Initialize & Telemetry
     renderTiers();
+
+    window.addEventListener("DOMContentLoaded", () => {
+      if (window.NexusRevenue) {
+        NexusRevenue.attachEmailFieldRecovery("#donorEmail", () => ({
+          cause: causeName,
+          amount: selectedAmount,
+          currency: currentCurrency,
+          donor_name: document.getElementById("donorName").value.trim()
+        }));
+      }
+    });
   </script>
 </body>
 </html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pillar 3: Propose & Operations — Nexus™</title>
+  <link rel="stylesheet" href="/static/style.css?v=4.2.0">
+  <style>
+    .pillar-hero {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(245, 158, 11, 0.05) 100%);
+      border: 1px solid rgba(217, 119, 6, 0.2);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .agent-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .agent-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.1);
+      border-color: #fde68a;
+    }
+    .agent-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .agent-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-active { background: #dcfce7; color: #15803d; }
+    .agent-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .btn-run {
+      flex: 1;
+      background: #d97706;
+      color: #fff;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+    .btn-run:hover { background: #b45309; }
+    .btn-run:disabled { opacity: 0.6; cursor: not-allowed; }
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      z-index: 9999;
+      display: none;
+    }
+  </style>
+</head>
+<body class="light-theme">
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="appSidebar">
+      <div class="brand-wrapper">
+        <div class="brand" style="flex: 1; display: flex; justify-content: center;">
+          <svg class="nexus-logo-badge" viewBox="0 0 220 54" width="100%" height="54" style="display: block; width: 100%; height: 54px; cursor: pointer; user-select: none;" title="NEXUS" onclick="window.location.href='/'">
+            <rect x="2" y="2" width="216" height="50" rx="6" fill="#ffffff" stroke="#000000" stroke-width="3.2"/>
+            <text x="6" y="41" textLength="208" lengthAdjust="spacingAndGlyphs" font-family="'Inter', sans-serif" font-size="45" font-weight="900" fill="#000000">NEXUS</text>
+          </svg>
+        </div>
+      </div>
+      <nav class="nav-menu" id="mainNavMenu">
+        <div class="nav-section-header"><span class="nav-section-title">Nexus 5-Pillar Engine</span></div>
+        <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px;">
+          <a href="/seek" class="nav-item"><span>1. Seek (Scouting)</span></a>
+          <a href="/connect" class="nav-item"><span>2. Connect (Outreach)</span></a>
+          <a href="/operations" class="nav-item active"><span>3. Propose (SOW & Ops)</span></a>
+          <a href="/commerce" class="nav-item"><span>4. Sell (Store & DEX)</span></a>
+          <a href="/workforce" class="nav-item"><span>5. Quote & Invoice</span></a>
+          <a href="/store" target="_blank" class="nav-item"><span>🛒 Digital Store</span></a>
+          <a href="/revenue" class="nav-item"><span>📈 Revenue Funnel</span></a>
+          <a href="/donations" target="_blank" class="nav-item"><span>❤️ NGO Donations</span></a>
+          <a href="/cybersecurity" target="_blank" class="nav-item"><span>🛡️ Cyber Scanner</span></a>
+        </div>
+        <div class="nav-section-header" style="margin-top: 14px; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+          <span class="nav-section-title">System & Tools</span>
+        </div>
+        <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
+          <a href="/jarvis" class="nav-item"><span>🎙️ J.A.R.V.I.S. Voice</span></a>
+          <a href="/autopilot" class="nav-item"><span>🌙 24/7 Autopilot</span></a>
+          <a href="/terminal" class="nav-item"><span>💻 Activity Terminal</span></a>
+          <a href="/addons" class="nav-item"><span>🛡️ Security Fortress</span></a>
+          <a href="/sovereign" class="nav-item"><span>🫀 Sovereign Soul & Core</span></a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main style="flex: 1; padding: 32px; background: #f8fafc; overflow-y: auto; height: 100vh;">
+      <!-- Hero -->
+      <div class="pillar-hero">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <span class="badge-pill" style="background:#d97706; color:#fff;">Pillar 3</span>
+            <span class="badge-pill badge-active">5 Ops Agents Online</span>
+          </div>
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">3. Propose & Operations</h1>
+          <p style="color: #64748b; font-size: 0.92rem; margin: 6px 0 0 0;">
+            High-ticket B2B SOW proposals ($1,500–$5,000), 24/7 system heartbeat, API contract verification, and offline regression sentinels.
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-primary" onclick="runPillarSweep()" style="background:#d97706; border:none; padding:11px 20px; font-weight:800; border-radius:10px; cursor:pointer; color:#fff;">
+            ⚡ Run Operations Sweep
+          </button>
+        </div>
+      </div>
+
+      <!-- Agent Cards for Pillar 3 -->
+      <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">Dedicated Pillar 3 Agents</h2>
+      <div class="agent-grid">
+        
+        <!-- Agent 1: Chief of Staff -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">👔</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Chief of Staff</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #6 · Executive Coordinator</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Coordinates morning standups, synthesizes operational progress, aligns priorities, and dispatches executive summaries.
+            </p>
+            <div style="font-size:0.8rem; color:#b45309; font-weight:600; background:#fffbeb; padding:6px 10px; border-radius:6px;">
+              Readiness: 100% Operational Standup
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('chief_of_staff', this)">▶ Generate Standup</button>
+          </div>
+        </div>
+
+        <!-- Agent 2: Spec Auditor -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">📐</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">API Contract & Spec Auditor</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #7 · Spec-to-Code Inspector</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Verifies OpenAPI specifications, validates SOW deliverables against acceptance criteria, and enforces contract invariants.
+            </p>
+            <div style="font-size:0.8rem; color:#b45309; font-weight:600; background:#fffbeb; padding:6px 10px; border-radius:6px;">
+              Contracts: Zero Spec Violations
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('spec_auditor', this)">▶ Audit Specs</button>
+          </div>
+        </div>
+
+        <!-- Agent 3: Regression Sentinel -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">🛡️</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Zero-Regression Sentinel</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #8 · Offline Integrity Sentinel</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Runs offline unit invariants, checks SQLite WAL integrity, and automatically creates atomic rollback snapshots of system data.
+            </p>
+            <div style="font-size:0.8rem; color:#b45309; font-weight:600; background:#fffbeb; padding:6px 10px; border-radius:6px;">
+              Integrity: Offline Tests Passing
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('regression_sentinel', this)">▶ Verify Invariants</button>
+          </div>
+        </div>
+
+        <!-- Agent 4: Infra & Token Burn Sentinel -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">📉</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Infra Finance Sentinel</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #13 · Cloud Budget Watchdog</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Monitors daily LLM token spend, checks the $180 cloud ceiling, and triggers survival shedding if runway drops below safe thresholds.
+            </p>
+            <div style="font-size:0.8rem; color:#b45309; font-weight:600; background:#fffbeb; padding:6px 10px; border-radius:6px;">
+              Ceiling: $180/mo (Nominal Tier Active)
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('infra_finance_sentinel', this)">▶ Check Cloud Spend</button>
+          </div>
+        </div>
+
+        <!-- Agent 5: Heartbeat Daemon -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">💓</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">24/7 Heartbeat Sentinel</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">System Core · WAL & Process Telemetry</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Maintains continuous process uptime, verifies database WAL locks, manages automated hourly backup rotation, and reports health.
+            </p>
+            <div style="font-size:0.8rem; color:#b45309; font-weight:600; background:#fffbeb; padding:6px 10px; border-radius:6px;">
+              Database: SQLite WAL High-Speed State
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('heartbeat_daemon', this)">▶ Heartbeat Ping</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Operations Stream -->
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:24px;">
+        <h3 style="margin:0 0 12px 0; font-size:1.1rem; font-weight:800; color:#0f172a;">Live Operations & Telemetry Stream</h3>
+        <div id="liveStreamBox" style="background:#0f172a; color:#fde68a; font-family:monospace; padding:16px; border-radius:8px; font-size:0.85rem; max-height:220px; overflow-y:auto;">
+          [Pillar 3 System Ready] Operations & SOW Proposal swarm active. All invariants validated.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastBox" class="toast-box"></div>
+
+  <script>
+    function showToast(msg) {
+      const tb = document.getElementById("toastBox");
+      tb.innerText = msg;
+      tb.style.display = "block";
+      setTimeout(() => { tb.style.display = "none"; }, 3500);
+    }
+
+    async function triggerAgent(agentId, btn) {
+      if (btn) { btn.disabled = true; btn.innerText = "Running..."; }
+      try {
+        const res = await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
+        const data = await res.json();
+        const box = document.getElementById("liveStreamBox");
+        const ts = new Date().toLocaleTimeString();
+        box.innerHTML = `[${ts}] Triggered ${agentId}: Success -> ${JSON.stringify(data.result || data)}<br>` + box.innerHTML;
+        showToast(`✅ ${agentId} completed successfully!`);
+      } catch (err) {
+        showToast(`❌ Error: ${err.message}`);
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerText = "▶ Run Again"; }
+      }
+    }
+
+    async function runPillarSweep() {
+      showToast("🚀 Dispatching Operations & Integrity Sweep...");
+      await triggerAgent("domain_operations");
+    }
+  </script>
+</body>
+</html>

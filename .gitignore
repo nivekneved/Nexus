@@ -27,6 +27,7 @@ service_account*.json
 firebase-adminsdk*.json
 email_accounts.json
 .vercel
+.open-wa/
 
 # ─── 2. Financial, Customer & Commercial Ledgers (Client Data Privacy) ──────
 data/
@@ -80,6 +81,8 @@ daily_newsletter_digest.md
 mobile_notifications.json
 projects.json
 
+fleet_run_summary.json
+social_broadcast_queue.json
 # ─── 5. Logs, Backups, Reports & Runtime Scratchpad ─────────────────────────
 logs/
 logs/**

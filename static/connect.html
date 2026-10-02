@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pillar 2: Connect & Outreach CRM — Nexus™</title>
+  <link rel="stylesheet" href="/static/style.css?v=4.2.0">
+  <style>
+    .pillar-hero {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .agent-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .agent-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.1);
+      border-color: #bae6fd;
+    }
+    .agent-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .agent-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-active { background: #dcfce7; color: #15803d; }
+    .agent-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .btn-run {
+      flex: 1;
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+    .btn-run:hover { background: #0369a1; }
+    .btn-run:disabled { opacity: 0.6; cursor: not-allowed; }
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      z-index: 9999;
+      display: none;
+    }
+  </style>
+</head>
+<body class="light-theme">
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="appSidebar">
+      <div class="brand-wrapper">
+        <div class="brand" style="flex: 1; display: flex; justify-content: center;">
+          <svg class="nexus-logo-badge" viewBox="0 0 220 54" width="100%" height="54" style="display: block; width: 100%; height: 54px; cursor: pointer; user-select: none;" title="NEXUS" onclick="window.location.href='/'">
+            <rect x="2" y="2" width="216" height="50" rx="6" fill="#ffffff" stroke="#000000" stroke-width="3.2"/>
+            <text x="6" y="41" textLength="208" lengthAdjust="spacingAndGlyphs" font-family="'Inter', sans-serif" font-size="45" font-weight="900" fill="#000000">NEXUS</text>
+          </svg>
+        </div>
+      </div>
+      <nav class="nav-menu" id="mainNavMenu">
+        <div class="nav-section-header"><span class="nav-section-title">Nexus 5-Pillar Engine</span></div>
+        <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px;">
+          <a href="/seek" class="nav-item"><span>1. Seek (Scouting)</span></a>
+          <a href="/connect" class="nav-item active"><span>2. Connect (Outreach)</span></a>
+          <a href="/operations" class="nav-item"><span>3. Propose (SOW & Ops)</span></a>
+          <a href="/commerce" class="nav-item"><span>4. Sell (Store & DEX)</span></a>
+          <a href="/workforce" class="nav-item"><span>5. Quote & Invoice</span></a>
+          <a href="/store" target="_blank" class="nav-item"><span>🛒 Digital Store</span></a>
+          <a href="/revenue" class="nav-item"><span>📈 Revenue Funnel</span></a>
+          <a href="/donations" target="_blank" class="nav-item"><span>❤️ NGO Donations</span></a>
+          <a href="/cybersecurity" target="_blank" class="nav-item"><span>🛡️ Cyber Scanner</span></a>
+        </div>
+        <div class="nav-section-header" style="margin-top: 14px; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+          <span class="nav-section-title">System & Tools</span>
+        </div>
+        <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
+          <a href="/jarvis" class="nav-item"><span>🎙️ J.A.R.V.I.S. Voice</span></a>
+          <a href="/autopilot" class="nav-item"><span>🌙 24/7 Autopilot</span></a>
+          <a href="/terminal" class="nav-item"><span>💻 Activity Terminal</span></a>
+          <a href="/addons" class="nav-item"><span>🛡️ Security Fortress</span></a>
+          <a href="/sovereign" class="nav-item"><span>🫀 Sovereign Soul & Core</span></a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main style="flex: 1; padding: 32px; background: #f8fafc; overflow-y: auto; height: 100vh;">
+      <!-- Hero -->
+      <div class="pillar-hero">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <span class="badge-pill" style="background:#0284c7; color:#fff;">Pillar 2</span>
+            <span class="badge-pill badge-active">5 Comms Agents Online</span>
+          </div>
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">2. Connect & Outreach CRM</h1>
+          <p style="color: #64748b; font-size: 0.92rem; margin: 6px 0 0 0;">
+            Multi-inbox email hygiene, 5-tier spam classification, VIP triage, French/English localization, and WhatsApp escalation.
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-primary" onclick="runPillarSweep()" style="background:#0284c7; border:none; padding:11px 20px; font-weight:800; border-radius:10px; cursor:pointer; color:#fff;">
+            ⚡ Run Comms Sweep
+          </button>
+        </div>
+      </div>
+
+      <!-- Agent Cards for Pillar 2 -->
+      <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">Dedicated Pillar 2 Agents</h2>
+      <div class="agent-grid">
+        
+        <!-- Agent 1: Email Hygiene -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">✉️</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Email Hygiene & Spam Shield</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #1 · Multi-Inbox Cleaner</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Scans Gmail & Outlook inboxes, executes AI spam classification, auto-quarantines trash, and enforces 2FA immunity.
+            </p>
+            <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
+              Immunity Shield: Whitelist & 2FA Protected
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('email_hygiene', this)">▶ Clean Inboxes</button>
+          </div>
+        </div>
+
+        <!-- Agent 2: Customer Support Concierge -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">🎧</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Customer Support Concierge</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #4 · VIP Triage & Sentiment</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Analyzes incoming client inquiries, categorizes urgency (P1/P2), and generates empathetic initial responses with zero delay.
+            </p>
+            <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
+              SLA: Sub-100ms Triage & VIP Tagging
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('customer_support', this)">▶ Triage Inquiries</button>
+          </div>
+        </div>
+
+        <!-- Agent 3: Bilingual Concierge -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">🌍</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Bilingual EN/FR Concierge</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #9 · Localization Specialist</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Detects French vs English recipient domains (.mu, .fr, .re) and ensures all outreach pitches are fluently localized.
+            </p>
+            <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
+              Language Engine: 100% Native French/English
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('bilingual_concierge', this)">▶ Localize Pipeline</button>
+          </div>
+        </div>
+
+        <!-- Agent 4: Ghost Unsubscriber -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">👻</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Zombie Subscription Purger</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #11 · 2-Min Digest & Purge</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Extracts RFC 2369 one-click unsubscribe links, purges marketing newsletters, and generates a 2-minute daily executive digest.
+            </p>
+            <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
+              Subscriptions: Zero-Noise Guarantee
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('ghost_unsubscriber', this)">▶ Purge Newsletters</button>
+          </div>
+        </div>
+
+        <!-- Agent 5: Mobile Dispatcher -->
+        <div class="agent-card">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">📱</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Mobile Dispatcher</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #10 · WhatsApp Emergency Hub</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Monitors urgent alerts, P1 customer issues, and hot sales replies, dispatching instant notifications directly to Deven (+230 58169420).
+            </p>
+            <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
+              Escalation Rail: WhatsApp wa.me Gateway
+            </div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('mobile_dispatcher', this)">▶ Check Alerts</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Log Stream -->
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:24px;">
+        <h3 style="margin:0 0 12px 0; font-size:1.1rem; font-weight:800; color:#0f172a;">Live Communications Telemetry</h3>
+        <div id="liveStreamBox" style="background:#0f172a; color:#38bdf8; font-family:monospace; padding:16px; border-radius:8px; font-size:0.85rem; max-height:220px; overflow-y:auto;">
+          [Pillar 2 System Ready] Comms Domain active. 5 inbox and outreach agents standing by.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastBox" class="toast-box"></div>
+
+  <script>
+    function showToast(msg) {
+      const tb = document.getElementById("toastBox");
+      tb.innerText = msg;
+      tb.style.display = "block";
+      setTimeout(() => { tb.style.display = "none"; }, 3500);
+    }
+
+    async function triggerAgent(agentId, btn) {
+      if (btn) { btn.disabled = true; btn.innerText = "Running..."; }
+      try {
+        const res = await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
+        const data = await res.json();
+        const box = document.getElementById("liveStreamBox");
+        const ts = new Date().toLocaleTimeString();
+        box.innerHTML = `[${ts}] Triggered ${agentId}: Success -> ${JSON.stringify(data.result || data)}<br>` + box.innerHTML;
+        showToast(`✅ ${agentId} executed successfully!`);
+      } catch (err) {
+        showToast(`❌ Error: ${err.message}`);
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerText = "▶ Run Again"; }
+      }
+    }
+
+    async function runPillarSweep() {
+      showToast("🚀 Dispatching Comms Domain Sweep...");
+      await triggerAgent("domain_comms");
+    }
+  </script>
+</body>
+</html>

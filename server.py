@@ -31,9 +31,11 @@ from core.core_skills_engine import skills_engine
 from core.telemetry import telemetry
 from security.shield import shield
 from security.financial_shield import financial_shield
-from email_client import EmailClient
-from spam_classifier import SpamClassifier
-from agent import LEDGER_FILE, REPORT_FILE
+from core.email_client import EmailClient
+from core.spam_classifier import SpamClassifier
+from core.paths import resolve_data_path, REPORTS_DIR
+LEDGER_FILE = str(resolve_data_path("trash_ledger.json"))
+REPORT_FILE = str(REPORTS_DIR / "daily_report.md")
 from core.treasury_engine import treasury_engine
 from core.inbox_feed_service import inbox_feed_service
 from core.mauritius_sales_engine import mauritius_sales_engine
@@ -115,6 +117,7 @@ async def dashboard_auth_middleware(request: Request, call_next):
         or path.startswith("/api/sovereignty")
         or path.startswith("/api/donations")
         or path.startswith("/api/store")
+        or path.startswith("/api/revenue")
         or path.startswith("/api/jarvis")
         or path.startswith("/api/cybersecurity")
         or path.startswith("/download")
@@ -296,6 +299,9 @@ class CreateStoreCheckoutRequest(BaseModel):
     buyer_email: str
     buyer_name: Optional[str] = "Valued Developer"
     currency: Optional[str] = "USD"
+    payment_method: Optional[str] = "paypal"  # 'paypal', 'juice', 'crypto'
+    add_setup_service: Optional[bool] = False
+    coupon_code: Optional[str] = None
 
 
 # ==============================================================================
@@ -2749,6 +2755,59 @@ def serve_sitemap():
 def serve_donations_page():
     return FileResponse("static/donations.html")
 
+# ─── The 5 Pillars of the Nexus Money Machine ──────────────────────────────────
+@app.get("/seek")
+def serve_seek_page():
+    return FileResponse("static/seek.html")
+
+@app.get("/connect")
+def serve_connect_page():
+    return FileResponse("static/connect.html")
+
+@app.get("/operations")
+@app.get("/propose")
+def serve_operations_page():
+    return FileResponse("static/operations.html")
+
+@app.get("/commerce")
+@app.get("/sell")
+def serve_commerce_page():
+    return FileResponse("static/commerce.html")
+
+@app.get("/workforce")
+@app.get("/quote")
+@app.get("/invoice")
+def serve_workforce_page():
+    return FileResponse("static/workforce.html")
+
+@app.get("/revenue")
+def serve_revenue_page():
+    return FileResponse("static/revenue.html")
+
+@app.get("/jarvis")
+def serve_jarvis_page():
+    return FileResponse("static/jarvis.html")
+
+@app.get("/autopilot")
+def serve_autopilot_page():
+    return FileResponse("static/autopilot.html")
+
+@app.get("/terminal")
+def serve_terminal_page():
+    return FileResponse("static/terminal.html")
+
+@app.get("/addons")
+def serve_addons_page():
+    return FileResponse("static/addons.html")
+
+@app.get("/simulator")
+def serve_simulator_page():
+    return FileResponse("static/simulator.html")
+
+@app.get("/sovereign")
+def serve_sovereign_page():
+    return FileResponse("static/sovereign.html")
+
 @app.post("/api/donations/create")
 def api_create_donation(payload: CreateDonationRequest):
     """Creates a live 1-click PayPal donation checkout token for Enn Rev Enn Sourir."""
@@ -2797,13 +2856,16 @@ def api_get_store_products():
 
 @app.post("/api/store/checkout")
 def api_create_store_checkout(payload: CreateStoreCheckoutRequest):
-    """Creates a live 1-click PayPal checkout token for a digital micro-product."""
+    """Creates a multi-rail (PayPal or MCB Juice) checkout token for a digital micro-product."""
     try:
         res = digital_store_service.create_checkout_order(
             product_id=payload.product_id,
             buyer_email=payload.buyer_email,
             buyer_name=payload.buyer_name or "Valued Developer",
-            currency=payload.currency or "USD"
+            currency=payload.currency or "USD",
+            payment_method=payload.payment_method or "paypal",
+            add_setup_service=bool(payload.add_setup_service),
+            coupon_code=payload.coupon_code
         )
         return res
     except Exception as e:
@@ -3004,7 +3066,7 @@ class TestSpamSimulationRequest(BaseModel):
 @app.post("/api/test/spam-simulation")
 def api_test_spam_simulation(payload: TestSpamSimulationRequest):
     """Executes a real-time email hygiene test using the active Gemini AI classifier."""
-    from spam_classifier import SpamClassifier
+    from core.spam_classifier import SpamClassifier
     classifier = SpamClassifier()
     
     scenarios = {
@@ -3481,6 +3543,35 @@ def api_revenue_abandoned_lead(data: AbandonedLeadReq):
     """Captures abandoned checkout leads for recovery."""
     from core.revenue_engine import revenue_engine
     return revenue_engine.capture_abandoned_lead(contact=data.contact, source=data.source, cart_details=data.cart_details)
+
+@app.get("/api/revenue/funnel")
+def api_get_revenue_funnel():
+    """Returns real-time conversion funnel metrics, conversion rates, and leakages."""
+    from core.revenue_engine import revenue_engine
+    return revenue_engine.get_funnel_analytics()
+
+@app.get("/api/revenue/diagnostics")
+def api_get_revenue_diagnostics():
+    """Identifies bottlenecks, dropoffs, and high-impact monetization recommendations."""
+    from core.revenue_engine import revenue_engine
+    return revenue_engine.get_diagnostics_report()
+
+@app.get("/api/revenue/leads")
+def api_get_abandoned_leads():
+    """Returns captured abandoned checkout leads eligible for recovery."""
+    from core.revenue_engine import revenue_engine
+    analytics = revenue_engine.get_funnel_analytics()
+    return {"success": True, "leads": analytics.get("leads", [])}
+
+class RecoverLeadReq(BaseModel):
+    channel: Optional[str] = "auto"  # 'auto', 'email', 'whatsapp'
+
+@app.post("/api/revenue/recover/{lead_id}")
+def api_recover_abandoned_lead(lead_id: str, payload: Optional[RecoverLeadReq] = None):
+    """Dispatches personalized recovery email/WhatsApp sequence with 15% discount."""
+    from core.revenue_engine import revenue_engine
+    channel = payload.channel if payload else "auto"
+    return revenue_engine.trigger_lead_recovery(lead_id=lead_id, channel=channel)
 
 @app.get("/api/system/status")
 def api_universal_system_status():

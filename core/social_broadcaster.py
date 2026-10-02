@@ -13,10 +13,11 @@ import time
 import urllib.request
 from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
+from core.paths import resolve_data_path
 
 load_dotenv()
 
-QUEUE_FILE = "social_broadcast_queue.json"
+QUEUE_FILE = str(resolve_data_path("social_broadcast_queue.json"))
 
 
 class SocialBroadcaster:

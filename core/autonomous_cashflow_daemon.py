@@ -53,6 +53,24 @@ class AutonomousCashflowDaemon:
         # 3. Run self-improvement cycle
         evolution = self_improvement_engine.run_evolution_cycle()
 
+        # 4. Autonomous Abandoned Checkout Lead Rescue
+        recovered_count = 0
+        pending_count = 0
+        try:
+            from core.revenue_engine import revenue_engine
+            analytics = revenue_engine.get_funnel_analytics()
+            pending_leads = [
+                l for l in analytics.get("leads", [])
+                if l.get("status") == "PENDING_RECOVERY" and not l.get("recovery_dispatched")
+            ]
+            pending_count = len(pending_leads)
+            for lead in pending_leads[:3]:
+                rec_res = revenue_engine.trigger_lead_recovery(lead["id"], channel="auto")
+                if rec_res.get("success"):
+                    recovered_count += 1
+        except Exception as ex:
+            logger.debug(f"[CashflowDaemon] Abandoned lead recovery check note: {ex}")
+
         summary = {
             "success": True,
             "cycle_timestamp": now_str,
@@ -60,10 +78,12 @@ class AutonomousCashflowDaemon:
             "micro_task_executed": task_result,
             "total_tasks_completed": self.tasks_completed,
             "total_revenue_generated_usd": self.total_cash_secured_usd,
+            "abandoned_leads_pending": pending_count,
+            "recovery_dispatched": recovered_count,
             "self_improvement": evolution
         }
 
-        logger.info(f"[{now_str}] [CashflowDaemon] Cycle complete. Secured $1.00 USD. Total tasks: {self.tasks_completed}")
+        logger.info(f"[{now_str}] [CashflowDaemon] Cycle complete. Secured $1.00 USD. Total tasks: {self.tasks_completed}. Rescued {recovered_count} leads.")
         return summary
 
 autonomous_cashflow_daemon = AutonomousCashflowDaemon()

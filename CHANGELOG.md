@@ -3,6 +3,32 @@
 
 ---
 
+## [v4.1.0] - 2026-10-02 (Autonomous Fleet Consolidation, 26-Agent Mesh Integration, & Inter-Domain Cross-Pollination Engine)
+
+### 🏛️ Complete 26-Agent Consolidation into 4 Federated Domain Controllers (`core/agent_manager.py`, `core/domains/`)
+- **Eliminated Fleet Fragmentation**:
+  - Consolidated all 26 standalone/orphan employee scripts into the 4 primary thread-safe Domain Controllers:
+    1. **Comms Domain** (`domain_comms`): Email Hygiene (#1), Customer Support (#4), Ghost Unsubscriber (#11), Mobile Dispatcher (#10), and Bilingual Concierge (#9).
+    2. **Operations Domain** (`domain_operations`): Chief of Staff (#6), Heartbeat Daemon, Infra Finance Sentinel (#13), Regression Sentinel (#8), and Spec Auditor (#7).
+    3. **Commerce Domain** (`domain_commerce`): Executive Revenue Partner (#16), App Store Sentinel (#5), Base L2 Crypto Arbitrage (#20), Domain & Digital Asset Arbitrage (#25), and Affiliate Harvester (#26).
+    4. **Research Domain** (`domain_research`): Emerging Tech Trend Curator (#14), Mauritius B2B Lead Scout (#3), GitHub Repo Radar (#12), Executive Ghostwriter (#19), Growth Hacker (#15), Influencer Usher (#18), Meeting Assistant (#2), Bug Bounty Harvester (#22), Freelance Gig Matchmaker (#23), Startup Grant Scout (#24), Competitor Review Poacher (#19 dup), and Viral Clip Producer (#21).
+  - Maintained 100% backward compatibility via `DomainProxyAgent` for all 26 legacy agent IDs.
+
+### 🔄 Autonomous Inter-Agent Cross-Pollination Engine ("Using Each Other Among Ourselves")
+- **High-Intent Competitor Lead-to-Comms Pipeline**:
+  - `CompetitorPoacherAgent` extracts frustrated SaaS user complaints and feeds high-intent anti-SaaS migration targets directly into SQLite WAL `leads` via `dal.py`.
+  - `BilingualConciergeAgent` detects language preference (French for `.mu`/`.re`/`.fr` domains, English for global) and drafts customized proposals.
+  - `EmailHygieneAgent` pre-flights recipient DNS MX records to preserve sender domain reputation before transmission.
+  - Critical responses trigger `MobileDispatcherAgent` for immediate WhatsApp escalation to Deven (`+230 58169420`).
+- **Machine Bounty & SRE Verification Loop**:
+  - `BountyHunterAgent` and `GigMatchmakerAgent` harvest open bounties (Algora, Polar.sh, HackerOne, Upwork) and queue them in `actionable_bounties`.
+  - `OperationsDomainController` runs `run_spec_auditor()` and `run_regression_sentinel()` to automatically audit code solutions against specifications before claiming rewards.
+  - Claimed bounties mint cryptographic USD invoices in `PaymentService` and settle into `CryptoTreasury`.
+- **Viral Content & Micro-Vending Influx**:
+  - `TechTrendCuratorAgent` passes emerging market trends to `ViralClipAgent`, which formats viral short-form scripts for `ExecutivePosterAgent` and `InfluencerUsherAgent` to drive traffic to the $1.00 store.
+
+---
+
 ## [v4.0.0] - 2026-09-30 (14 Hidden Bot Boards Engine, Autonomous $1/Day Monetization, Base L2 Settlement Watcher, Multi-Armed Conversion Bandit, Unified 1-Command Ecosystem Supervisor & Reality Audit)
 
 ### 🕸️ 14 Hidden Bot Boards & Agentic Marketplace Connector (`core/hidden_boards_service.py`, `data/hidden_boards_feed.json`)

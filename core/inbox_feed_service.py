@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from email_client import EmailClient
+from core.email_client import EmailClient
 
 logger = logging.getLogger(__name__)
 
