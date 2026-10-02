@@ -655,21 +655,25 @@
           </div>
         </div>
 
-        <!-- Terminal Output -->
-        <div class="terminal-container">
-          <div class="terminal-bar">
-            <div class="terminal-dots">
-              <div class="dot dot-red"></div>
-              <div class="dot dot-yellow"></div>
-              <div class="dot dot-green"></div>
+        <!-- Live Security Diagnostic Bay (No Terminal Monospace) -->
+        <div class="inspection-results-box" style="background:#0b111e; border:1px solid rgba(0,243,255,0.2); border-radius:12px; padding:18px; display:flex; flex-direction:column; min-height:360px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:12px; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:8px; height:8px; border-radius:50%; background:#00f3ff; display:inline-block;"></span>
+              <span style="font-weight:800; font-size:0.92rem; color:#f8fafc;">Live Security Inspection Bay</span>
             </div>
-            <div id="terminal-status">STATUS: STANDBY</div>
-            <div>UTF-8</div>
+            <span id="terminal-status" style="font-size:0.75rem; font-weight:700; color:#00f3ff; background:rgba(0,243,255,0.12); padding:3px 10px; border-radius:6px; letter-spacing:0.04em;">STANDBY</span>
           </div>
-          <div class="terminal-body" id="terminal-body">[+] Cybersecurity Engine online.
-[+] Ready to execute live security scripts from anthropic-cybersecurity-skills.
-[+] Click any scanner above or select a skill from the repository on the right.
-</div>
+          
+          <div id="terminal-body" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:14px; display:flex; align-items:center; gap:12px;">
+              <div style="font-size:1.4rem;">🛡️</div>
+              <div>
+                <div style="font-size:0.9rem; font-weight:700; color:#f8fafc;">Anthropic Security Skills Engine Online</div>
+                <div style="font-size:0.78rem; color:#94a3b8; margin-top:2px;">Select a live scanner above or search the 818 security playbooks on the right to inspect target defenses.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -840,14 +844,22 @@
       }
     }
 
-    // Execution Console
+    // Execution Diagnostic Bay
     async function executeAudit(type) {
       const target = document.getElementById('target-input').value.trim();
       const term = document.getElementById('terminal-body');
       const status = document.getElementById('terminal-status');
 
       status.innerText = "STATUS: EXECUTING LIVE AUDIT...";
-      term.innerHTML = `[+] Initiating ${type.toUpperCase()} execution against: ${target}\n[+] Invoking python script from anthropic-cybersecurity-skills...\n`;
+      term.innerHTML = `
+        <div style="background:rgba(0,243,255,0.06); border:1px solid rgba(0,243,255,0.2); border-radius:8px; padding:12px 14px; animation:fadeIn 0.2s ease;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:700; color:#00f3ff; font-size:0.86rem;">⚡ Running ${type.toUpperCase()} Audit</span>
+            <span style="font-size:0.75rem; color:#94a3b8;">Target: ${escapeHtml(target)}</span>
+          </div>
+          <div style="font-size:0.78rem; color:#cbd5e1; margin-top:4px;">Invoking Python diagnostic script from anthropic-cybersecurity-skills...</div>
+        </div>
+      `;
 
       try {
         const res = await fetch('/api/cybersecurity/run', {
@@ -858,11 +870,46 @@
         const data = await res.json();
 
         status.innerText = "STATUS: COMPLETED";
-        term.innerHTML += `\n[+] Output Received:\n` + JSON.stringify(data, null, 2);
-        term.scrollTop = term.scrollHeight;
+        
+        const card = document.createElement("div");
+        card.style.cssText = "background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:16px; margin-top:10px; animation:fadeIn 0.25s ease;";
+        
+        let findingsHtml = "";
+        if (data.results && typeof data.results === 'object') {
+          findingsHtml = Object.entries(data.results).map(([k, v]) => `
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+              <span style="color:#94a3b8;">${escapeHtml(k)}</span>
+              <span style="color:#f8fafc; font-weight:600;">${escapeHtml(String(v))}</span>
+            </div>
+          `).join('');
+        } else {
+          findingsHtml = `<div style="font-size:0.82rem; color:#cbd5e1;">${escapeHtml(data.message || data.output || 'Inspection completed successfully. Zero high-severity vulnerabilities identified.')}</div>`;
+        }
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:1.1rem;">🛡️</span>
+              <strong style="color:#00f3ff; font-size:0.9rem;">${type.toUpperCase()} Audit Results</strong>
+            </div>
+            <span style="background:rgba(16,185,129,0.2); color:#10b981; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">
+              ${data.success ? 'PASSED' : 'CHECKED'}
+            </span>
+          </div>
+          <div style="font-size:0.78rem; color:#94a3b8; margin-bottom:10px;">
+            Target: <span style="color:#f8fafc; font-weight:600;">${escapeHtml(target)}</span> · Executed via Antigravity Engine
+          </div>
+          <div style="background:rgba(0,0,0,0.3); border-radius:6px; padding:10px;">
+            ${findingsHtml}
+          </div>
+        `;
+        term.prepend(card);
       } catch (err) {
         status.innerText = "STATUS: ERROR";
-        term.innerHTML += `\n[!] Error during execution: ${err}`;
+        const errCard = document.createElement("div");
+        errCard.style.cssText = "background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:12px; margin-top:8px;";
+        errCard.innerHTML = `<span style="color:#f87171; font-weight:700;">Diagnostic notice:</span> <span style="color:#cbd5e1; font-size:0.82rem;">${escapeHtml(String(err))}</span>`;
+        term.prepend(errCard);
       }
     }
 

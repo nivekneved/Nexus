@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pillar 4: Sell & Commerce Studio — Nexus™</title>
+  <title>Pillar 4: Sell & Digital Commerce — Nexus™</title>
   <link rel="stylesheet" href="/static/style.css?v=4.2.0">
   <style>
     .pillar-hero {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.05) 100%);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(14, 165, 233, 0.05) 100%);
       border: 1px solid rgba(16, 185, 129, 0.2);
       border-radius: 16px;
       padding: 28px;
@@ -79,7 +79,7 @@
       background: #059669;
       color: #fff;
       border: none;
-      padding: 9px 14px;
+      padding: 10px 14px;
       border-radius: 8px;
       font-weight: 700;
       font-size: 0.85rem;
@@ -88,10 +88,198 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.15s ease;
+      transition: all 0.15s ease;
     }
     .btn-run:hover { background: #047857; }
-    .btn-run:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-run:disabled { opacity: 0.65; cursor: not-allowed; }
+    .agent-quick-drawer {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #065f46;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Human-Friendly Commerce Hub */
+    .stream-container {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      margin-bottom: 40px;
+    }
+    .stream-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .stream-title-group h3 {
+      margin: 0 0 4px 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stream-title-group p {
+      margin: 0;
+      color: #64748b;
+      font-size: 0.88rem;
+    }
+    .stream-sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreen 1.8s infinite;
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tabs & Controls */
+    .stream-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .tab-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tab-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover { background: #f1f5f9; color: #0f172a; }
+    .tab-btn.active {
+      background: #059669;
+      color: #ffffff;
+      border-color: #059669;
+      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
+    }
+    .tab-badge {
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      background: rgba(0,0,0,0.08);
+    }
+    .tab-btn.active .tab-badge { background: rgba(255,255,255,0.25); }
+
+    /* Cards */
+    .opp-list { display: flex; flex-direction: column; gap: 16px; }
+    .opp-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+    .opp-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+    .opp-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .opp-brand { display: flex; align-items: center; gap: 12px; }
+    .opp-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .opp-company-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+    }
+    .opp-meta-pill {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .pill-pricing { background: #ecfdf5; color: #065f46; font-weight: 800; }
+    .pill-status { background: #dcfce7; color: #166534; font-weight: 700; }
+    .pill-standard { background: #f1f5f9; color: #334155; font-weight: 600; }
+
+    .btn-action-sm {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .btn-action-sm:hover { background: #f1f5f9; border-color: #94a3b8; }
+    .btn-action-primary {
+      background: #059669;
+      color: #ffffff;
+      border-color: #059669;
+    }
+    .btn-action-primary:hover { background: #047857; }
+
     .toast-box {
       position: fixed;
       bottom: 24px;
@@ -105,6 +293,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       z-index: 9999;
       display: none;
+      animation: fadeIn 0.2s ease;
     }
   </style>
 </head>
@@ -139,7 +328,7 @@
         <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
           <a href="/jarvis" class="nav-item"><span>🎙️ J.A.R.V.I.S. Voice</span></a>
           <a href="/autopilot" class="nav-item"><span>🌙 24/7 Autopilot</span></a>
-          <a href="/terminal" class="nav-item"><span>💻 Activity Terminal</span></a>
+          <a href="/terminal" class="nav-item"><span>📋 Activity Feed</span></a>
           <a href="/addons" class="nav-item"><span>🛡️ Security Fortress</span></a>
           <a href="/sovereign" class="nav-item"><span>🫀 Sovereign Soul & Core</span></a>
         </div>
@@ -153,16 +342,16 @@
         <div>
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
             <span class="badge-pill" style="background:#059669; color:#fff;">Pillar 4</span>
-            <span class="badge-pill badge-active">7 Commerce Engines Online</span>
+            <span class="badge-pill badge-active">6 Active Monetization Agents</span>
           </div>
-          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">4. Sell & Commerce Studio</h1>
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">4. Sell & Digital Commerce Engine</h1>
           <p style="color: #64748b; font-size: 0.92rem; margin: 6px 0 0 0;">
-            $1.00 Digital Vending Machine, Base L2 DEX arbitrage, expired domain flipping, SaaS affiliate harvesting, and viral short distribution.
+            Autonomous digital vending machine ($1.00 - $249), Base L2 crypto arbitrage, high-converting viral video scripts, and recurring affiliate loops.
           </p>
         </div>
         <div>
           <button class="btn btn-primary" onclick="runPillarSweep()" style="background:#059669; border:none; padding:11px 20px; font-weight:800; border-radius:10px; cursor:pointer; color:#fff;">
-            ⚡ Run Commerce Sweep
+            ⚡ Run Full Commerce Sweep
           </button>
         </div>
       </div>
@@ -171,33 +360,34 @@
       <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">Dedicated Pillar 4 Agents</h2>
       <div class="agent-grid">
         
-        <!-- Agent 1: Executive Partner -->
-        <div class="agent-card">
+        <!-- Agent 1: Executive Revenue Partner -->
+        <div class="agent-card" id="card-executive_partner">
           <div>
             <div class="agent-header">
-              <div class="agent-icon">👑</div>
+              <div class="agent-icon">💎</div>
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Executive Revenue Partner</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #16 · Strategic Monetization</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #4 · Revenue & Pricing Strategist</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Architects sales blueprints, enforces decoupled enterprise pricing (Rs 45k + Rs 45k), and evaluates total gross margins.
+              Tracks store conversion funnels, audits pricing elasticity across USD and MUR, and models recurring cashflow targets.
             </p>
             <div style="font-size:0.8rem; color:#047857; font-weight:600; background:#ecfdf5; padding:6px 10px; border-radius:6px;">
-              Target: Rs 150,000 MUR / Month (~$3,300)
+              Funnel: Rs 150,000 / mo Target Tracked
             </div>
+            <div id="results-executive_partner" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('executive_partner', this)">▶ Revenue Audit</button>
+            <button class="btn-run" onclick="triggerAgent('executive_partner', this)">▶ Audit Store</button>
           </div>
         </div>
 
-        <!-- Agent 2: Crypto Arbitrage -->
-        <div class="agent-card">
+        <!-- Agent 2: Base L2 Crypto Arbitrage -->
+        <div class="agent-card" id="card-crypto_arbitrage">
           <div>
             <div class="agent-header">
               <div class="agent-icon">⚡</div>
@@ -206,65 +396,68 @@
                   <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Base L2 Crypto Arbitrage</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #20 · DEX Spreads & Gas</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #6 · On-Chain DEX Trader</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Monitors Aerodrome and Uniswap V3 on Base for USDC/WETH and cbBTC spreads, optimizing on-chain treasury gas fees.
+              Scans Base L2 DEX liquidity pools (Aerodrome, Uniswap v3) for triangular price discrepancies with hardware-enforced stop-losses.
             </p>
             <div style="font-size:0.8rem; color:#047857; font-weight:600; background:#ecfdf5; padding:6px 10px; border-radius:6px;">
-              Pools Scanned: 48 Pools (Spread: 0.95%)
+              Spreads: Sub-second DEX Opportunity Monitor
             </div>
+            <div id="results-crypto_arbitrage" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('crypto_arbitrage', this)">▶ Scan DEX Liquidity</button>
+            <button class="btn-run" onclick="triggerAgent('crypto_arbitrage', this)">▶ Scan DEX Spreads</button>
           </div>
         </div>
 
-        <!-- Agent 3: Domain Arbitrage -->
-        <div class="agent-card">
+        <!-- Agent 3: Digital Domain Arbitrage -->
+        <div class="agent-card" id="card-domain_arbitrage">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🌐</div>
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Digital Asset & Domain Arbitrage</h3>
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Domain & Asset Arbitrage</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #25 · Domain Flipping Scout</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #11 · Expired Asset Harvester</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Scans expired domain auctions and Flippa listings for high-DA domains (.mu, .io, .ai) ready for immediate traffic flipping.
+              Monitors drop-catch lists for expired tech domains and digital assets with existing backlink equity and flips to buyers.
             </p>
             <div style="font-size:0.8rem; color:#047857; font-weight:600; background:#ecfdf5; padding:6px 10px; border-radius:6px;">
-              Shortlisted: 19 Domains ($3,800 Flip Value)
+              Valuation: Heuristic SEO & PageRank Filter
             </div>
+            <div id="results-domain_arbitrage" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('domain_arbitrage', this)">▶ Scan Expired Domains</button>
+            <button class="btn-run" onclick="triggerAgent('domain_arbitrage', this)">▶ Valuate Assets</button>
           </div>
         </div>
 
-        <!-- Agent 4: Affiliate Harvester -->
-        <div class="agent-card">
+        <!-- Agent 4: Affiliate & Sponsorship Harvester -->
+        <div class="agent-card" id="card-affiliate_harvester">
           <div>
             <div class="agent-header">
-              <div class="agent-icon">💰</div>
+              <div class="agent-icon">🤝</div>
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Affiliate & Sponsorship Harvester</h3>
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Affiliate Harvester</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #26 · SaaS Commission Loops</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #17 · Partnership Pipeline</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Monitors high-paying developer tool partnerships (Supabase, Vercel, AWS), auto-generating monetized comparison loops.
+              Harvests high-commission recurring referral programs across cloud hosting, LLM inference, and devtool providers.
             </p>
             <div style="font-size:0.8rem; color:#047857; font-weight:600; background:#ecfdf5; padding:6px 10px; border-radius:6px;">
-              Active Partnerships: 12 Programs Tracked
+              Payouts: 20-30% Recurring SaaS Commissions
             </div>
+            <div id="results-affiliate_harvester" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
             <button class="btn-run" onclick="triggerAgent('affiliate_harvester', this)">▶ Harvest Affiliates</button>
@@ -272,7 +465,7 @@
         </div>
 
         <!-- Agent 5: App Store Sentinel -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-appstore_sentinel">
           <div>
             <div class="agent-header">
               <div class="agent-icon">📲</div>
@@ -290,6 +483,7 @@
             <div style="font-size:0.8rem; color:#047857; font-weight:600; background:#ecfdf5; padding:6px 10px; border-radius:6px;">
               Products: Digital Store Assets Active
             </div>
+            <div id="results-appstore_sentinel" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
             <button class="btn-run" onclick="triggerAgent('appstore_sentinel', this)">▶ Inspect Store</button>
@@ -297,7 +491,7 @@
         </div>
 
         <!-- Agent 6: Growth Hacker & Viral Clips -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-viral_clip_agent">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🎬</div>
@@ -315,6 +509,7 @@
             <div style="font-size:0.8rem; color:#047857; font-weight:600; background:#ecfdf5; padding:6px 10px; border-radius:6px;">
               Distribution: TikTok, Shorts & Reels Ready
             </div>
+            <div id="results-viral_clip_agent" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
             <button class="btn-run" onclick="triggerAgent('viral_clip_agent', this)">▶ Produce Viral Script</button>
@@ -323,48 +518,129 @@
 
       </div>
 
-      <!-- Human-Friendly Commerce & Revenue Telemetry Feed -->
-      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:24px; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid #f1f5f9;">
-          <div>
-            <h3 style="margin:0 0 4px 0; font-size:1.2rem; font-weight:800; color:#0f172a; display:flex; align-items:center; gap:8px;">
-              <span>🛒 Live Commerce & Revenue Telemetry Feed</span>
-              <span style="display:inline-flex; align-items:center; gap:6px; background:#ecfdf5; color:#059669; border:1px solid #a7f3d0; padding:3px 9px; border-radius:20px; font-size:0.75rem; font-weight:700;">
-                <span style="width:7px; height:7px; background:#10b981; border-radius:50%;"></span> Settlements Active
+      <!-- Human-Friendly Commerce, Inventory & DEX Hub -->
+      <section class="stream-container" id="commerceSection">
+        <div class="stream-header">
+          <div class="stream-title-group">
+            <h3>
+              <span>🛒 Live Digital Store & DEX Settlement Hub</span>
+              <span class="stream-sync-badge">
+                <span class="pulse-dot"></span>
+                <span>Settlements Active</span>
               </span>
             </h3>
-            <p style="margin:0; color:#64748b; font-size:0.88rem;">Digital store inventory, Base L2 arbitrage, affiliate pipelines, and viral conversion reels.</p>
+            <p>Digital vending machine offerings, on-chain DEX spreads, and recurring affiliate streams.</p>
           </div>
-          <button onclick="clearStream()" style="background:#f8fafc; border:1px solid #cbd5e1; color:#475569; padding:6px 12px; border-radius:6px; font-size:0.8rem; font-weight:700; cursor:pointer;">
-            Clear Feed
-          </button>
+          <div>
+            <a href="/store" target="_blank" class="btn-action-sm btn-action-primary" style="text-decoration:none;">
+              🛍️ Open Digital Store
+            </a>
+          </div>
         </div>
-        <div id="liveStreamBox" style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;">
-          <div style="padding:12px 16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; color:#475569; display:flex; align-items:center; gap:10px;">
-            <span style="font-size:1.2rem;">💳</span>
-            <div style="flex:1;">
-              <strong>Pillar 4 Commerce Engine Online:</strong> Digital vending machine, MCB Juice, PayPal, and Base L2 settlement rails active.
+
+        <!-- Controls: Category Pills -->
+        <div class="stream-controls">
+          <div class="tab-group" id="commerceTabs">
+            <button class="tab-btn active" data-tab="store" onclick="selectCommTab('store')">
+              📦 Store Inventory <span class="tab-badge">3</span>
+            </button>
+            <button class="tab-btn" data-tab="dex" onclick="selectCommTab('dex')">
+              ⚡ Base L2 DEX Spreads <span class="tab-badge">2</span>
+            </button>
+            <button class="tab-btn" data-tab="affiliates" onclick="selectCommTab('affiliates')">
+              💎 Affiliate Pipelines <span class="tab-badge">3</span>
+            </button>
+            <button class="tab-btn" data-tab="viral" onclick="selectCommTab('viral')">
+              🎬 Viral Conversion Reels <span class="tab-badge">2</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content Container -->
+        <div id="commerceListContainer" class="opp-list">
+          <!-- Store Inventory (Default) -->
+          <div class="opp-card">
+            <div class="opp-card-header">
+              <div class="opp-brand">
+                <div class="opp-avatar" style="background:linear-gradient(135deg, #059669, #047857);">NX</div>
+                <div>
+                  <h4 class="opp-company-title">Nexus™ Autonomous 14-Agent Workforce Superpack</h4>
+                  <div style="font-size:0.8rem; color:#64748b;">Instant Digital Download · Full Source & Lifetime Commercial License</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span class="opp-meta-pill pill-pricing">$249.00 USD</span>
+                <span class="opp-meta-pill pill-status">IN STOCK</span>
+              </div>
             </div>
-            <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">System Standby</span>
+            <div style="font-size:0.88rem; color:#334155; margin-bottom:12px;">
+              Complete turnkey workforce engine: multi-inbox hygiene, ICP lead scout, bug bounty harvester, SOW drafter, and Base L2 settlement rails with zero monthly subscriptions.
+            </div>
+            <div class="opp-actions">
+              <a href="https://www.paypal.com/checkoutnow?token=NEXUS_FOUNDER_249" target="_blank" class="btn-action-sm btn-action-primary" style="text-decoration:none;">
+                💳 Buy via PayPal ($249)
+              </a>
+              <button class="btn-action-sm" onclick="showToast('📋 Checkout link copied!')">
+                📋 Copy Link
+              </button>
+            </div>
+          </div>
+
+          <div class="opp-card">
+            <div class="opp-card-header">
+              <div class="opp-brand">
+                <div class="opp-avatar" style="background:linear-gradient(135deg, #0284c7, #2563eb);">VF</div>
+                <div>
+                  <h4 class="opp-company-title">VillaFlow SaaS + WhatsApp AI Concierge</h4>
+                  <div style="font-size:0.8rem; color:#64748b;">Mauritius Luxury Hospitality · Full IP Transfer</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span class="opp-meta-pill pill-pricing">Rs 25,000 Setup</span>
+                <span class="opp-meta-pill pill-status">TURNKEY</span>
+              </div>
+            </div>
+            <div style="font-size:0.88rem; color:#334155; margin-bottom:12px;">
+              Autonomous 24/7 guest communication portal in French & English with booking synchronization, late check-in codes, and excursion upsells.
+            </div>
+            <div class="opp-actions">
+              <button class="btn-action-sm btn-action-primary" onclick="showToast('🇲🇺 MCB Juice settlement QR generated.')">
+                🇲🇺 Settle via MCB Juice
+              </button>
+            </div>
+          </div>
+
+          <div class="opp-card">
+            <div class="opp-card-header">
+              <div class="opp-brand">
+                <div class="opp-avatar" style="background:linear-gradient(135deg, #7c3aed, #5b21b6);">M3</div>
+                <div>
+                  <h4 class="opp-company-title">Medical 360™ Healthcare Clinic Operations Suite</h4>
+                  <div style="font-size:0.8rem; color:#64748b;">Healthcare & Private Clinic Enterprise · MRA Section 50L</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span class="opp-meta-pill pill-pricing">Rs 105,000 Upfront</span>
+                <span class="opp-meta-pill pill-status">ENTERPRISE</span>
+              </div>
+            </div>
+            <div style="font-size:0.88rem; color:#334155; margin-bottom:12px;">
+              Complete web portal and clinic operations software with encrypted local persistence and automated patient WhatsApp triage.
+            </div>
+            <div class="opp-actions">
+              <button class="btn-action-sm btn-action-primary" onclick="showToast('📄 Enterprise licensing annex opened.')">
+                📄 View Enterprise License
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   </div>
 
   <div id="toastBox" class="toast-box"></div>
 
   <script>
-    const agentMeta = {
-      executive_partner: { icon: "📈", name: "Executive Revenue Partner", desc: "Audited digital store offerings, pricing tiers, and revenue velocity." },
-      crypto_arbitrage: { icon: "⚡", name: "Base L2 DEX Arbitrage", desc: "Scanned Base L2 liquidity pools and gas optimization spreads." },
-      domain_arbitrage: { icon: "🌐", name: "Domain & Digital Asset Arbitrage", desc: "Valuated expired tech domains and digital micro-assets." },
-      affiliate_harvester: { icon: "💎", name: "Affiliate & Partner Harvester", desc: "Scanned recurring developer tool and cloud referral programs." },
-      appstore_sentinel: { icon: "📱", name: "App Store & Product Sentinel", desc: "Verified digital product rankings, ratings, and conversion funnels." },
-      viral_clip_agent: { icon: "🎬", name: "Viral Short & Reel Producer", desc: "Drafted high-conversion viral video scripts and hooks." },
-      domain_commerce: { icon: "🚀", name: "Full Commerce Sweep", desc: "Executed comprehensive monetization, DEX arbitrage, and store inventory sweep." }
-    };
-
     function showToast(msg) {
       const tb = document.getElementById("toastBox");
       tb.innerHTML = msg;
@@ -372,52 +648,115 @@
       setTimeout(() => { tb.style.display = "none"; }, 3500);
     }
 
-    function clearStream() {
-      const box = document.getElementById("liveStreamBox");
-      box.innerHTML = `
-        <div style="padding:12px 16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; color:#64748b; text-align:center;">
-          Feed cleared. Standing by for next commerce event.
-        </div>
-      `;
-    }
+    function selectCommTab(tabKey) {
+      document.querySelectorAll("#commerceTabs .tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tab") === tabKey);
+      });
 
-    async function triggerAgent(agentId, btn) {
-      if (btn) { btn.disabled = true; btn.innerText = "Running..."; }
-      try {
-        const res = await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
-        const data = await res.json();
-        const box = document.getElementById("liveStreamBox");
-        const ts = new Date().toLocaleTimeString();
-        const meta = agentMeta[agentId] || { icon: "🛒", name: agentId, desc: "Cycle completed" };
-        
-        let subMsg = meta.desc;
-        if (data.result && typeof data.result === 'object') {
-          if (data.result.status) subMsg = `${data.result.status}. ${meta.desc}`;
-          if (data.result.data && data.result.data.status) subMsg = `${data.result.data.status}. ${meta.desc}`;
-        }
-
-        const card = document.createElement("div");
-        card.style.cssText = "padding:12px 16px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; box-shadow:0 2px 6px rgba(0,0,0,0.02); display:flex; align-items:flex-start; gap:12px;";
-        card.innerHTML = `
-          <div style="width:34px; height:34px; border-radius:8px; background:#ecfdf5; border:1px solid #a7f3d0; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0;">
-            ${meta.icon}
-          </div>
-          <div style="flex:1;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-              <strong style="color:#0f172a; font-size:0.92rem;">${meta.name}</strong>
-              <span style="font-size:0.75rem; color:#64748b; font-weight:600;">${ts}</span>
+      const container = document.getElementById("commerceListContainer");
+      if (tabKey === "store") {
+        container.innerHTML = `
+          <div class="opp-card">
+            <div class="opp-card-header">
+              <div class="opp-brand">
+                <div class="opp-avatar" style="background:linear-gradient(135deg, #059669, #047857);">NX</div>
+                <div>
+                  <h4 class="opp-company-title">Nexus™ Autonomous 14-Agent Workforce Superpack</h4>
+                  <div style="font-size:0.8rem; color:#64748b;">Instant Digital Download · Full Source & Lifetime Commercial License</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span class="opp-meta-pill pill-pricing">$249.00 USD</span>
+                <span class="opp-meta-pill pill-status">IN STOCK</span>
+              </div>
             </div>
-            <div style="color:#334155; font-size:0.85rem; margin-bottom:4px;">
-              ${subMsg}
+            <div style="font-size:0.88rem; color:#334155; margin-bottom:12px;">
+              Complete turnkey workforce engine: multi-inbox hygiene, ICP lead scout, bug bounty harvester, SOW drafter, and Base L2 settlement rails with zero monthly subscriptions.
             </div>
-            <div style="display:flex; gap:6px;">
-              <span style="background:#dcfce7; color:#15803d; font-size:0.72rem; font-weight:700; padding:2px 7px; border-radius:4px;">Settled</span>
-              <span style="background:#f1f5f9; color:#475569; font-size:0.72rem; font-weight:600; padding:2px 7px; border-radius:4px;">Pillar 4 Commerce</span>
+            <div class="opp-actions">
+              <a href="https://www.paypal.com/checkoutnow?token=NEXUS_FOUNDER_249" target="_blank" class="btn-action-sm btn-action-primary" style="text-decoration:none;">
+                💳 Buy via PayPal ($249)
+              </a>
             </div>
           </div>
         `;
-        box.prepend(card);
-        showToast(`✅ <strong>${meta.name}</strong> executed successfully!`);
+      } else if (tabKey === "dex") {
+        container.innerHTML = `
+          <div class="opp-card">
+            <div class="opp-card-header">
+              <div class="opp-brand">
+                <div class="opp-avatar" style="background:linear-gradient(135deg, #0284c7, #2563eb);">⚡</div>
+                <div>
+                  <h4 class="opp-company-title">Base L2 USDC / ETH Liquidity Pool</h4>
+                  <div style="font-size:0.8rem; color:#64748b;">Uniswap v3 (Base Chain ID: 8453) · Low Gas: $0.08 / tx</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span class="opp-meta-pill pill-pricing">+0.42% Net Spread</span>
+                <span class="opp-meta-pill pill-status">ARBITRAGE VIABLE</span>
+              </div>
+            </div>
+            <div style="font-size:0.86rem; color:#334155; margin-bottom:10px;">
+              Protected by $5.00 single-transaction hardware ceiling and zero-drain safeguards.
+            </div>
+          </div>
+        `;
+      } else if (tabKey === "affiliates") {
+        container.innerHTML = `
+          <div class="opp-card">
+            <div class="opp-card-header">
+              <div class="opp-brand">
+                <div class="opp-avatar" style="background:#7c3aed;">💎</div>
+                <div>
+                  <h4 class="opp-company-title">Developer Tool Affiliate Pipeline</h4>
+                  <div style="font-size:0.8rem; color:#64748b;">Cursor AI, Supabase & Cloudflare Referral Network</div>
+                </div>
+              </div>
+              <span class="opp-meta-pill pill-pricing">20-30% Recurring</span>
+            </div>
+            <div style="font-size:0.86rem; color:#334155;">
+              Automated referral links integrated into developer documentation, micro-tools, and viral educational content.
+            </div>
+          </div>
+        `;
+      } else if (tabKey === "viral") {
+        container.innerHTML = `
+          <div class="opp-card">
+            <div class="opp-card-header">
+              <div class="opp-brand">
+                <div class="opp-avatar" style="background:#dc2626;">🎬</div>
+                <div>
+                  <h4 class="opp-company-title">Viral Short: "Replace 14 SaaS Subscriptions with 1 Command"</h4>
+                  <div style="font-size:0.8rem; color:#64748b;">Platform: TikTok / YouTube Shorts / Instagram Reels</div>
+                </div>
+              </div>
+              <span class="opp-meta-pill pill-status">SCRIPT READY</span>
+            </div>
+            <div style="font-size:0.86rem; color:#334155; background:#f8fafc; padding:12px; border-radius:8px; margin-bottom:10px;">
+              "Most agencies spend $2,400 every month on software seats. We deployed Nexus — a local 14-agent workforce that runs entirely on our own hardware for $0/mo..."
+            </div>
+            <div class="opp-actions">
+              <button class="btn-action-sm btn-action-primary" onclick="showToast('📋 Script copied to clipboard!')">
+                📋 Copy Full Video Script
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    async function triggerAgent(agentId, btn) {
+      if (btn) { btn.disabled = true; btn.innerText = "⏳ Running..."; }
+      try {
+        const res = await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
+        const data = await res.json();
+        
+        const drawer = document.getElementById(`results-${agentId}`);
+        if (drawer) {
+          drawer.style.display = "block";
+          drawer.innerHTML = `🛒 <strong>${agentId}</strong> completed its monetization cycle! Digital product and arbitrage state updated below.`;
+        }
+        showToast(`✅ <strong>${agentId}</strong> cycle finished!`);
       } catch (err) {
         showToast(`❌ Error: ${err.message}`);
       } finally {

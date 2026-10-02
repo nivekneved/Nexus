@@ -157,7 +157,7 @@
         <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
           <a href="/jarvis" class="nav-item"><span>🎙️ J.A.R.V.I.S. Voice</span></a>
           <a href="/autopilot" class="nav-item"><span>🌙 24/7 Autopilot</span></a>
-          <a href="/terminal" class="nav-item"><span>💻 Activity Terminal</span></a>
+          <a href="/terminal" class="nav-item"><span>📋 Activity Feed</span></a>
           <a href="/addons" class="nav-item"><span>🛡️ Security Fortress</span></a>
           <a href="/simulator" class="nav-item"><span>⚡ Payload Simulator</span></a>
           <a href="/sovereign" class="nav-item active"><span>🫀 Sovereign Soul & Core</span></a>
@@ -291,11 +291,26 @@
 
       </div>
 
-      <!-- Live Stream -->
+      <!-- Live Sovereign Telemetry Feed -->
       <div style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:24px;">
-        <h3 style="margin:0 0 12px 0; font-size:1.1rem; font-weight:800; color:#0f172a;">Live Sovereign Heartbeat Stream</h3>
-        <div id="liveStreamBox" style="background:#0f172a; color:#38bdf8; font-family:monospace; padding:16px; border-radius:8px; font-size:0.85rem; max-height:220px; overflow-y:auto;">
-          [Sovereign Core Online] Heartbeat nominal. Soul charter verified. Base L2 wallet linked.
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div>
+            <h3 style="margin:0; font-size:1.1rem; font-weight:800; color:#0f172a;">Live Sovereign Heartbeat Feed</h3>
+            <p style="margin:2px 0 0 0; font-size:0.8rem; color:#64748b;">Autonomous core heartbeat telemetry, SQLite WAL state persistence, and survival mode telemetry.</p>
+          </div>
+          <span style="font-size:0.75rem; font-weight:700; color:#0284c7; background:#e0f2fe; padding:4px 10px; border-radius:6px;">● Core Alive</span>
+        </div>
+        <div id="liveStreamBox" style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; padding:2px;">
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:1.1rem;">🫀</span>
+              <div>
+                <div style="font-size:0.88rem; color:#0f172a; font-weight:700;">Sovereign Core Initialized</div>
+                <div style="font-size:0.78rem; color:#64748b;">Heartbeat nominal · Soul charter verified · Base L2 wallet linked with SQLite WAL.</div>
+              </div>
+            </div>
+            <span style="font-size:0.75rem; color:#94a3b8; font-weight:600; white-space:nowrap;">Just now</span>
+          </div>
         </div>
       </div>
     </main>
@@ -314,7 +329,19 @@
     function appendLog(msg) {
       const box = document.getElementById("liveStreamBox");
       const ts = new Date().toLocaleTimeString();
-      box.innerHTML = `[${ts}] ${msg}<br>` + box.innerHTML;
+      const div = document.createElement("div");
+      div.style.cssText = "background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; animation:fadeIn 0.2s ease;";
+      div.innerHTML = `
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:1.1rem;">🫀</span>
+          <div>
+            <div style="font-size:0.88rem; color:#0f172a; font-weight:700;">${msg}</div>
+            <div style="font-size:0.78rem; color:#64748b;">Heartbeat Pulse · Verified</div>
+          </div>
+        </div>
+        <span style="font-size:0.75rem; color:#94a3b8; font-weight:600; white-space:nowrap;">${ts}</span>
+      `;
+      box.prepend(div);
     }
 
     async function pingCoreHeartbeat(btn) {

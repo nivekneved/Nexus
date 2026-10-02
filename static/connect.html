@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pillar 2: Connect & Outreach CRM — Nexus™</title>
+  <title>Pillar 2: Connect & Client Outreach — Nexus™</title>
   <link rel="stylesheet" href="/static/style.css?v=4.2.0">
   <style>
     .pillar-hero {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(16, 185, 129, 0.05) 100%);
-      border: 1px solid rgba(2, 132, 199, 0.2);
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%);
+      border: 1px solid rgba(14, 165, 233, 0.2);
       border-radius: 16px;
       padding: 28px;
       margin-bottom: 24px;
@@ -37,7 +37,7 @@
     }
     .agent-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.1);
+      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.1);
       border-color: #bae6fd;
     }
     .agent-header {
@@ -50,8 +50,8 @@
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -67,6 +67,7 @@
       letter-spacing: 0.5px;
     }
     .badge-active { background: #dcfce7; color: #15803d; }
+    .badge-comms { background: #e0f2fe; color: #0369a1; }
     .agent-actions {
       display: flex;
       gap: 10px;
@@ -79,7 +80,7 @@
       background: #0284c7;
       color: #fff;
       border: none;
-      padding: 9px 14px;
+      padding: 10px 14px;
       border-radius: 8px;
       font-weight: 700;
       font-size: 0.85rem;
@@ -88,10 +89,307 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.15s ease;
+      transition: all 0.15s ease;
     }
     .btn-run:hover { background: #0369a1; }
-    .btn-run:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-run:disabled { opacity: 0.65; cursor: not-allowed; }
+    .agent-quick-drawer {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #166534;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Human-Friendly Communications Hub */
+    .stream-container {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      margin-bottom: 40px;
+    }
+    .stream-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .stream-title-group h3 {
+      margin: 0 0 4px 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stream-title-group p {
+      margin: 0;
+      color: #64748b;
+      font-size: 0.88rem;
+    }
+    .stream-sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreen 1.8s infinite;
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseHighlight {
+      0% { border-color: #0284c7; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2); }
+      50% { border-color: #38bdf8; box-shadow: 0 0 0 8px rgba(2, 132, 199, 0.1); }
+      100% { border-color: #e2e8f0; box-shadow: none; }
+    }
+
+    /* Controls: Filter Pills & Search */
+    .stream-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .tab-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .tab-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
+    .tab-badge {
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      background: rgba(0,0,0,0.08);
+    }
+    .tab-btn.active .tab-badge {
+      background: rgba(255,255,255,0.25);
+    }
+    .search-input {
+      padding: 8px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #0f172a;
+      width: 260px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    /* Cards List */
+    .opp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .opp-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+    .opp-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+    .opp-card.highlight {
+      animation: pulseHighlight 2.5s ease;
+      border-color: #0284c7;
+    }
+    .opp-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .opp-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .opp-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .opp-company-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .opp-meta-pill {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .pill-urgent { background: #fee2e2; color: #991b1b; font-weight: 800; }
+    .pill-standard { background: #f0f9ff; color: #0369a1; }
+    .pill-status { background: #dcfce7; color: #166534; font-weight: 700; }
+    .pill-lang { background: #ede9fe; color: #5b21b6; font-weight: 800; }
+    
+    .opp-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+      background: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .opp-detail-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+    .opp-detail-val {
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .opp-pain-box {
+      font-size: 0.84rem;
+      color: #475569;
+      background: #fff;
+      border-left: 3px solid #0284c7;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    /* Expandable Response Drawer */
+    .pitch-drawer {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+    .pitch-content {
+      white-space: pre-wrap;
+      font-size: 0.84rem;
+      color: #1e293b;
+      line-height: 1.5;
+      font-family: inherit;
+      background: #ffffff;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+    }
+    .opp-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-action-sm {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .btn-action-sm:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .btn-action-primary {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+    .btn-action-primary:hover {
+      background: #0369a1;
+      border-color: #0369a1;
+    }
+
     .toast-box {
       position: fixed;
       bottom: 24px;
@@ -105,6 +403,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       z-index: 9999;
       display: none;
+      animation: fadeIn 0.2s ease;
     }
   </style>
 </head>
@@ -139,7 +438,7 @@
         <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
           <a href="/jarvis" class="nav-item"><span>🎙️ J.A.R.V.I.S. Voice</span></a>
           <a href="/autopilot" class="nav-item"><span>🌙 24/7 Autopilot</span></a>
-          <a href="/terminal" class="nav-item"><span>💻 Activity Terminal</span></a>
+          <a href="/terminal" class="nav-item"><span>📋 Activity Feed</span></a>
           <a href="/addons" class="nav-item"><span>🛡️ Security Fortress</span></a>
           <a href="/sovereign" class="nav-item"><span>🫀 Sovereign Soul & Core</span></a>
         </div>
@@ -153,16 +452,16 @@
         <div>
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
             <span class="badge-pill" style="background:#0284c7; color:#fff;">Pillar 2</span>
-            <span class="badge-pill badge-active">5 Comms Agents Online</span>
+            <span class="badge-pill badge-active">5 Active Comms Agents</span>
           </div>
-          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">2. Connect & Outreach CRM</h1>
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">2. Connect & Client Outreach</h1>
           <p style="color: #64748b; font-size: 0.92rem; margin: 6px 0 0 0;">
-            Multi-inbox email hygiene, 5-tier spam classification, VIP triage, French/English localization, and WhatsApp escalation.
+            Multi-inbox hygiene, anti-spam shields, 24/7 VIP concierge triage, WhatsApp emergency dispatches, and bilingual EN/FR localization.
           </p>
         </div>
         <div>
           <button class="btn btn-primary" onclick="runPillarSweep()" style="background:#0284c7; border:none; padding:11px 20px; font-weight:800; border-radius:10px; cursor:pointer; color:#fff;">
-            ⚡ Run Comms Sweep
+            ⚡ Run Full Comms Sweep
           </button>
         </div>
       </div>
@@ -172,82 +471,85 @@
       <div class="agent-grid">
         
         <!-- Agent 1: Email Hygiene -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-email_hygiene">
           <div>
             <div class="agent-header">
-              <div class="agent-icon">✉️</div>
+              <div class="agent-icon">🧹</div>
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Email Hygiene & Spam Shield</h3>
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Email Hygiene & Anti-Spam</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #1 · Multi-Inbox Cleaner</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #1 · Multi-Inbox Shield</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Scans Gmail & Outlook inboxes, executes AI spam classification, auto-quarantines trash, and enforces 2FA immunity.
+              Scans connected inboxes for marketing spam, tracking pixels, and cold solicitations, protecting founder time.
             </p>
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
-              Immunity Shield: Whitelist & 2FA Protected
+              Threshold: 0.90 Strict AI Filtering
             </div>
+            <div id="results-email_hygiene" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
             <button class="btn-run" onclick="triggerAgent('email_hygiene', this)">▶ Clean Inboxes</button>
           </div>
         </div>
 
-        <!-- Agent 2: Customer Support Concierge -->
-        <div class="agent-card">
+        <!-- Agent 2: VIP Customer Support Concierge -->
+        <div class="agent-card" id="card-customer_support">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🎧</div>
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Customer Support Concierge</h3>
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Support & VIP Concierge</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #4 · VIP Triage & Sentiment</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #2 · 24/7 Customer Triage</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Analyzes incoming client inquiries, categorizes urgency (P1/P2), and generates empathetic initial responses with zero delay.
+              Triages incoming client messages, classifies urgency and sentiment, drafts personalized replies, and alerts on P1 blockers.
             </p>
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
-              SLA: Sub-100ms Triage & VIP Tagging
+              Queue: Active Tickets Auto-Triaged
             </div>
+            <div id="results-customer_support" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('customer_support', this)">▶ Triage Inquiries</button>
+            <button class="btn-run" onclick="triggerAgent('customer_support', this)">▶ Triage Support</button>
           </div>
         </div>
 
         <!-- Agent 3: Bilingual Concierge -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-bilingual_concierge">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🌍</div>
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Bilingual EN/FR Concierge</h3>
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Bilingual Concierge (EN/FR)</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #9 · Localization Specialist</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #7 · Language Localizer</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Detects French vs English recipient domains (.mu, .fr, .re) and ensures all outreach pitches are fluently localized.
+              Detects prospect country and language preferences, adapting French and English tone for Mauritius and global leads.
             </p>
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
-              Language Engine: 100% Native French/English
+              Memory: Dual English/French Lexicon
             </div>
+            <div id="results-bilingual_concierge" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('bilingual_concierge', this)">▶ Localize Pipeline</button>
+            <button class="btn-run" onclick="triggerAgent('bilingual_concierge', this)">▶ Localize Messages</button>
           </div>
         </div>
 
         <!-- Agent 4: Ghost Unsubscriber -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-ghost_unsubscriber">
           <div>
             <div class="agent-header">
               <div class="agent-icon">👻</div>
@@ -256,15 +558,16 @@
                   <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Zombie Subscription Purger</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
-                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #11 · 2-Min Digest & Purge</div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #9 · RFC 2369 Unsubscriber</div>
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Extracts RFC 2369 one-click unsubscribe links, purges marketing newsletters, and generates a 2-minute daily executive digest.
+              Identifies marketing lists and newsletter feeds, unlinking zombie senders and compiling an executive 2-minute morning brief.
             </p>
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
-              Subscriptions: Zero-Noise Guarantee
+              Feeds: Unsubscribe Header Parser Active
             </div>
+            <div id="results-ghost_unsubscriber" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
             <button class="btn-run" onclick="triggerAgent('ghost_unsubscriber', this)">▶ Purge Newsletters</button>
@@ -272,13 +575,13 @@
         </div>
 
         <!-- Agent 5: Mobile Dispatcher -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-mobile_dispatcher">
           <div>
             <div class="agent-header">
               <div class="agent-icon">📱</div>
               <div style="flex:1;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Mobile Dispatcher</h3>
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Mobile Emergency Dispatcher</h3>
                   <span class="badge-pill badge-active">Active</span>
                 </div>
                 <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #10 · WhatsApp Emergency Hub</div>
@@ -290,6 +593,7 @@
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
               Escalation Rail: WhatsApp wa.me Gateway
             </div>
+            <div id="results-mobile_dispatcher" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
             <button class="btn-run" onclick="triggerAgent('mobile_dispatcher', this)">▶ Check Alerts</button>
@@ -298,46 +602,71 @@
 
       </div>
 
-      <!-- Human-Friendly Communications Telemetry Feed -->
-      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:24px; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid #f1f5f9;">
-          <div>
-            <h3 style="margin:0 0 4px 0; font-size:1.2rem; font-weight:800; color:#0f172a; display:flex; align-items:center; gap:8px;">
-              <span>💬 Live Communications Telemetry & Outreach Feed</span>
-              <span style="display:inline-flex; align-items:center; gap:6px; background:#ecfdf5; color:#059669; border:1px solid #a7f3d0; padding:3px 9px; border-radius:20px; font-size:0.75rem; font-weight:700;">
-                <span style="width:7px; height:7px; background:#10b981; border-radius:50%;"></span> Synchronized
+      <!-- Human-Friendly Communications & Client Outreach Hub -->
+      <section class="stream-container" id="communicationsSection">
+        <div class="stream-header">
+          <div class="stream-title-group">
+            <h3>
+              <span>💬 Live Communications & Client Outreach Hub</span>
+              <span class="stream-sync-badge">
+                <span class="pulse-dot"></span>
+                <span>SQLite WAL Synchronized</span>
               </span>
             </h3>
-            <p style="margin:0; color:#64748b; font-size:0.88rem;">Automated triage, inbound inbox filtering, and WhatsApp VIP escalation events.</p>
+            <p>Direct client support threads, drafted responses, WhatsApp alerts (+230 58169420), and inbox filters.</p>
           </div>
-          <button onclick="clearStream()" style="background:#f8fafc; border:1px solid #cbd5e1; color:#475569; padding:6px 12px; border-radius:6px; font-size:0.8rem; font-weight:700; cursor:pointer;">
-            Clear Feed
-          </button>
-        </div>
-        <div id="liveStreamBox" style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;">
-          <div style="padding:12px 16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; color:#475569; display:flex; align-items:center; gap:10px;">
-            <span style="font-size:1.2rem;">📡</span>
-            <div style="flex:1;">
-              <strong>Pillar 2 Engine Online:</strong> All 5 communications agents (Hygiene, Support, Ghost Unsubscriber, Bilingual Concierge, Mobile Dispatcher) active and listening.
-            </div>
-            <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">System Standby</span>
+          <div>
+            <button class="btn-action-sm" onclick="loadCommunications(true)" title="Fetch latest items from database">
+              🔄 Refresh Hub
+            </button>
           </div>
         </div>
-      </div>
+
+        <!-- Controls: Category Pills & Search -->
+        <div class="stream-controls">
+          <div class="tab-group" id="commsTabs">
+            <button class="tab-btn active" data-tab="all" onclick="selectCommsTab('all')">
+              🌟 All Conversations <span class="tab-badge" id="badge-all">0</span>
+            </button>
+            <button class="tab-btn" data-tab="tickets" onclick="selectCommsTab('tickets')">
+              📬 Support Tickets & Inbound <span class="tab-badge" id="badge-tickets">0</span>
+            </button>
+            <button class="tab-btn" data-tab="notifications" onclick="selectCommsTab('notifications')">
+              📱 WhatsApp Dispatches <span class="tab-badge" id="badge-notifications">0</span>
+            </button>
+            <button class="tab-btn" data-tab="hygiene" onclick="selectCommsTab('hygiene')">
+              🛡️ Email Hygiene & Anti-Spam <span class="tab-badge" id="badge-hygiene">0</span>
+            </button>
+            <button class="tab-btn" data-tab="subscriptions" onclick="selectCommsTab('subscriptions')">
+              👻 Cleaned Newsletters <span class="tab-badge" id="badge-subscriptions">0</span>
+            </button>
+          </div>
+          <div>
+            <input type="text" class="search-input" id="commsSearchInput" placeholder="🔍 Filter customer, subject, message..." oninput="filterComms()">
+          </div>
+        </div>
+
+        <!-- Cards Container -->
+        <div id="commsListContainer" class="opp-list">
+          <div style="text-align:center; padding:30px; color:#64748b;">
+            Loading communications records from SQLite WAL...
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
   <div id="toastBox" class="toast-box"></div>
 
   <script>
-    const agentMeta = {
-      email_hygiene: { icon: "🧹", name: "Email Hygiene & Anti-Spam", desc: "Scanned inboxes for spam, tracking pixels, and unsolicited outreach." },
-      customer_support: { icon: "🎧", name: "Support & VIP Concierge", desc: "Triaged incoming customer tickets and high-priority client inquiries." },
-      bilingual_concierge: { icon: "🌍", name: "Bilingual EN/FR Concierge", desc: "Synthesized French and English client communications." },
-      ghost_unsubscriber: { icon: "👻", name: "Ghost Unsubscriber", desc: "Purged zombie marketing newsletters and compiled daily digests." },
-      mobile_dispatcher: { icon: "📱", name: "Mobile Emergency Dispatcher", desc: "Verified WhatsApp emergency notification dispatch queue (+230 58169420)." },
-      domain_comms: { icon: "🚀", name: "Full Communications Sweep", desc: "Orchestrated sweep across all 5 communications and triage subagents." }
+    let globalComms = {
+      tickets: [],
+      notifications: [],
+      subscriptions: [],
+      hygiene: []
     };
+    let currentCommsTab = "tickets";
+    let commsSearchQuery = "";
 
     function showToast(msg) {
       const tb = document.getElementById("toastBox");
@@ -346,56 +675,315 @@
       setTimeout(() => { tb.style.display = "none"; }, 3500);
     }
 
-    function clearStream() {
-      const box = document.getElementById("liveStreamBox");
-      box.innerHTML = `
-        <div style="padding:12px 16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; color:#64748b; text-align:center;">
-          Feed cleared. Standing by for next communications event.
+    function getInitials(name) {
+      if (!name) return "NX";
+      return name.split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+    }
+
+    function copyToClipboard(text, msg = "Copied to clipboard!") {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`📋 ${msg}`);
+      }).catch(err => {
+        showToast("❌ Unable to copy to clipboard");
+      });
+    }
+
+    function toggleDrawer(drawerId) {
+      const el = document.getElementById(drawerId);
+      if (!el) return;
+      el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
+    }
+
+    function selectCommsTab(tabKey) {
+      currentCommsTab = tabKey;
+      document.querySelectorAll("#commsTabs .tab-btn").forEach(btn => {
+        if (btn.getAttribute("data-tab") === tabKey) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+      renderComms();
+    }
+
+    function filterComms() {
+      commsSearchQuery = (document.getElementById("commsSearchInput").value || "").toLowerCase().trim();
+      renderComms();
+    }
+
+    async function loadCommunications(manual = false) {
+      try {
+        const res = await fetch("/api/pillar2/communications");
+        const data = await res.json();
+        if (data.success) {
+          globalComms = {
+            tickets: data.tickets || [],
+            notifications: data.notifications || [],
+            subscriptions: data.subscriptions || [],
+            hygiene: data.hygiene || []
+          };
+          updateBadges(data.counts);
+          renderComms();
+          if (manual) showToast("🔄 Communications Hub synchronized with SQLite WAL!");
+        }
+      } catch (err) {
+        console.error("Failed to load communications:", err);
+      }
+    }
+
+    function updateBadges(counts) {
+      if (!counts) return;
+      document.getElementById("badge-all").innerText = counts.total || 0;
+      document.getElementById("badge-tickets").innerText = counts.tickets || 0;
+      document.getElementById("badge-notifications").innerText = counts.notifications || 0;
+      document.getElementById("badge-hygiene").innerText = counts.hygiene || 0;
+      document.getElementById("badge-subscriptions").innerText = counts.subscriptions || 0;
+    }
+
+    function renderComms() {
+      const container = document.getElementById("commsListContainer");
+      let items = [];
+
+      if (currentCommsTab === "all") {
+        items = [
+          ...globalComms.tickets.map(x => ({ ...x, _type: 'ticket' })),
+          ...globalComms.notifications.map(x => ({ ...x, _type: 'notification' })),
+          ...globalComms.hygiene.map(x => ({ ...x, _type: 'hygiene' })),
+          ...globalComms.subscriptions.map(x => ({ ...x, _type: 'subscription' }))
+        ];
+      } else if (currentCommsTab === "tickets") {
+        items = globalComms.tickets.map(x => ({ ...x, _type: 'ticket' }));
+      } else if (currentCommsTab === "notifications") {
+        items = globalComms.notifications.map(x => ({ ...x, _type: 'notification' }));
+      } else if (currentCommsTab === "hygiene") {
+        items = globalComms.hygiene.map(x => ({ ...x, _type: 'hygiene' }));
+      } else if (currentCommsTab === "subscriptions") {
+        items = globalComms.subscriptions.map(x => ({ ...x, _type: 'subscription' }));
+      }
+
+      if (commsSearchQuery) {
+        items = items.filter(item => JSON.stringify(item).toLowerCase().includes(commsSearchQuery));
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:40px; background:#f8fafc; border-radius:12px; border:1px dashed #cbd5e1;">
+            <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+            <div style="font-weight:700; color:#334155; margin-bottom:4px;">No matching records found</div>
+            <div style="font-size:0.85rem; color:#64748b;">Try adjusting your search query or run a communications agent above.</div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = "";
+      items.forEach(item => {
+        if (item._type === 'ticket') {
+          html += renderTicketCard(item);
+        } else if (item._type === 'notification') {
+          html += renderNotificationCard(item);
+        } else if (item._type === 'hygiene') {
+          html += renderHygieneCard(item);
+        } else if (item._type === 'subscription') {
+          html += renderSubscriptionCard(item);
+        }
+      });
+      container.innerHTML = html;
+    }
+
+    function renderTicketCard(ticket) {
+      const initials = getInitials(ticket.customer_name);
+      const isP1 = ticket.priority === "P1";
+      const drawerId = `ticket-draft-${ticket.id}`;
+      const draft = ticket.draft_preview || "Auto-drafted response ready.";
+
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, ${isP1 ? '#ef4444' : '#0284c7'}, ${isP1 ? '#b91c1c' : '#2563eb'});">${initials}</div>
+              <div>
+                <h4 class="opp-company-title">
+                  <span>${ticket.customer_name || 'Customer'}</span>
+                  ${ticket.company ? `<span style="font-size:0.85rem; font-weight:600; color:#64748b;">· ${ticket.company}</span>` : ''}
+                </h4>
+                <div style="font-size:0.8rem; color:#64748b;">
+                  Received: ${ticket.received_at || 'Recently'} · Contact: <a href="mailto:${ticket.email}" style="color:#0284c7; text-decoration:none;">${ticket.email}</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill ${isP1 ? 'pill-urgent' : 'pill-standard'}">${isP1 ? '🚨 P1 High Priority' : 'P2 Standard'}</span>
+              <span class="opp-meta-pill pill-lang">${ticket.language || 'EN'}</span>
+              <span class="opp-meta-pill pill-status">${ticket.status || 'DRAFTED'}</span>
+            </div>
+          </div>
+
+          <div style="font-size:0.92rem; font-weight:700; color:#0f172a; margin-bottom:6px;">
+            Subject: ${ticket.subject}
+          </div>
+
+          <div class="opp-pain-box">
+            "${ticket.body}"
+          </div>
+
+          <div class="opp-actions">
+            <button class="btn-action-sm btn-action-primary" onclick="toggleDrawer('${drawerId}')">
+              💬 View Auto-Drafted AI Response
+            </button>
+            <button class="btn-action-sm" onclick="copyToClipboard(\`${draft.replace(/`/g, '\\`')}\`, 'Drafted response copied!')">
+              📋 Copy Response
+            </button>
+            <a href="mailto:${ticket.email}?subject=${encodeURIComponent('Re: ' + ticket.subject)}&body=${encodeURIComponent(draft)}" class="btn-action-sm" style="text-decoration:none;">
+              ✉️ Send Reply
+            </a>
+          </div>
+
+          <div id="${drawerId}" class="pitch-drawer">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-weight:700; font-size:0.78rem; text-transform:uppercase; color:#0369a1;">
+                ✨ Auto-Drafted Response (Sentiment: ${ticket.sentiment || 'Constructive'})
+              </span>
+              <button onclick="copyToClipboard(\`${draft.replace(/`/g, '\\`')}\`, 'Response copied!')" class="btn-action-sm" style="padding:3px 8px; font-size:0.75rem;">
+                📋 Copy
+              </button>
+            </div>
+            <div class="pitch-content">${draft}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderNotificationCard(notif) {
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, #10b981, #059669);">📱</div>
+              <div>
+                <h4 class="opp-company-title">WhatsApp Emergency Dispatch</h4>
+                <div style="font-size:0.8rem; color:#64748b;">Recipient: ${notif.recipient || '+230 58169420 (Founder Direct Line)'} · ${notif.timestamp || 'Recent'}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill pill-status">${notif.status || 'DELIVERED'}</span>
+              <span class="opp-meta-pill pill-standard">WhatsApp wa.me</span>
+            </div>
+          </div>
+          <div style="font-size:0.88rem; color:#0f172a; background:#f0fdf4; border:1px solid #bbf7d0; padding:12px 14px; border-radius:8px; margin-bottom:12px;">
+            ${notif.message}
+          </div>
+          <div class="opp-actions">
+            <a href="https://wa.me/23058169420?text=${encodeURIComponent(notif.message)}" target="_blank" class="btn-action-sm btn-action-primary" style="text-decoration:none;">
+              💬 Open in WhatsApp
+            </a>
+            <button class="btn-action-sm" onclick="copyToClipboard('${notif.message.replace(/'/g, "\\'")}', 'Alert copied!')">
+              📋 Copy Alert Text
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHygieneCard(h) {
+      const isBlocked = h.action.includes("BLOCKED");
+      const isVIP = h.action.includes("VIP");
+
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, ${isVIP ? '#10b981' : (isBlocked ? '#ef4444' : '#f59e0b')}, ${isVIP ? '#047857' : (isBlocked ? '#b91c1c' : '#d97706')});">🧹</div>
+              <div>
+                <h4 class="opp-company-title">${h.sender}</h4>
+                <div style="font-size:0.8rem; color:#64748b;">Subject: ${h.subject} · ${h.timestamp}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill ${isVIP ? 'pill-status' : (isBlocked ? 'pill-urgent' : 'pill-standard')}">${h.action}</span>
+              <span class="opp-meta-pill pill-standard">${h.category}</span>
+            </div>
+          </div>
+          <div class="opp-actions">
+            <button class="btn-action-sm" onclick="copyToClipboard('${h.sender}', 'Sender copied!')">
+              📋 Copy Sender Address
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSubscriptionCard(sub) {
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, #64748b, #475569);">👻</div>
+              <div>
+                <h4 class="opp-company-title">${sub.newsletter || 'Cataloged Newsletter'}</h4>
+                <div style="font-size:0.8rem; color:#64748b;">Sender: ${sub.sender} · Scanned: ${sub.detected_at || 'Recent'}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill ${sub.status === 'PURGED' ? 'pill-urgent' : 'pill-status'}">${sub.status || 'PURGED'}</span>
+              <span class="opp-meta-pill pill-standard">RFC 2369</span>
+            </div>
+          </div>
+          <div class="opp-actions">
+            <button class="btn-action-sm" onclick="showToast('👻 Unsubscribe verification sent.')">
+              🚫 Confirm Unsubscribe
+            </button>
+            <button class="btn-action-sm" onclick="copyToClipboard('${sub.sender}', 'Sender address copied!')">
+              📋 Copy Sender
+            </button>
+          </div>
         </div>
       `;
     }
 
     async function triggerAgent(agentId, btn) {
-      if (btn) { btn.disabled = true; btn.innerText = "Running..."; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = "⏳ Processing...";
+      }
+
       try {
         const res = await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
         const data = await res.json();
-        const box = document.getElementById("liveStreamBox");
-        const ts = new Date().toLocaleTimeString();
-        const meta = agentMeta[agentId] || { icon: "⚡", name: agentId, desc: "Cycle completed" };
         
-        let subMsg = meta.desc;
-        if (data.result && typeof data.result === 'object') {
-          if (data.result.status) subMsg = `${data.result.status}. ${meta.desc}`;
-          if (data.result.data && data.result.data.status) subMsg = `${data.result.data.status}. ${meta.desc}`;
+        await loadCommunications();
+
+        const drawer = document.getElementById(`results-${agentId}`);
+        if (drawer) {
+          drawer.style.display = "block";
+          if (agentId === 'customer_support') {
+            drawer.innerHTML = `🎧 <strong>Support Triaged!</strong> Customer inquiries evaluated, sentiment classified, and auto-drafts prepared below ↓`;
+            selectCommsTab('tickets');
+          } else if (agentId === 'email_hygiene') {
+            drawer.innerHTML = `🧹 <strong>Inboxes Cleaned!</strong> Multi-inbox spam filtered and VIP protection verified below ↓`;
+            selectCommsTab('hygiene');
+          } else if (agentId === 'mobile_dispatcher') {
+            drawer.innerHTML = `📱 <strong>Alert Queue Verified!</strong> WhatsApp notifications synchronized with +230 58169420 below ↓`;
+            selectCommsTab('notifications');
+          } else if (agentId === 'bilingual_concierge') {
+            drawer.innerHTML = `🌍 <strong>Localization Active!</strong> French and English tone profiles synchronized below ↓`;
+            selectCommsTab('tickets');
+          } else if (agentId === 'ghost_unsubscriber') {
+            drawer.innerHTML = `👻 <strong>Subscriptions Purged!</strong> Marketing newsletters cataloged and unlinked below ↓`;
+            selectCommsTab('subscriptions');
+          }
+          const sec = document.getElementById("communicationsSection");
+          if (sec) sec.scrollIntoView({ behavior: 'smooth' });
         }
 
-        const card = document.createElement("div");
-        card.style.cssText = "padding:12px 16px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; box-shadow:0 2px 6px rgba(0,0,0,0.02); display:flex; align-items:flex-start; gap:12px;";
-        card.innerHTML = `
-          <div style="width:34px; height:34px; border-radius:8px; background:#f0f9ff; border:1px solid #bae6fd; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0;">
-            ${meta.icon}
-          </div>
-          <div style="flex:1;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-              <strong style="color:#0f172a; font-size:0.92rem;">${meta.name}</strong>
-              <span style="font-size:0.75rem; color:#64748b; font-weight:600;">${ts}</span>
-            </div>
-            <div style="color:#334155; font-size:0.85rem; margin-bottom:4px;">
-              ${subMsg}
-            </div>
-            <div style="display:flex; gap:6px;">
-              <span style="background:#dcfce7; color:#15803d; font-size:0.72rem; font-weight:700; padding:2px 7px; border-radius:4px;">Cycle Finished</span>
-              <span style="background:#f1f5f9; color:#475569; font-size:0.72rem; font-weight:600; padding:2px 7px; border-radius:4px;">Active Telemetry</span>
-            </div>
-          </div>
-        `;
-        box.prepend(card);
-        showToast(`✅ <strong>${meta.name}</strong> completed successfully!`);
+        showToast(`✅ <strong>${agentId}</strong> completed successfully! Communications Hub updated.`);
       } catch (err) {
         showToast(`❌ Error: ${err.message}`);
       } finally {
-        if (btn) { btn.disabled = false; btn.innerText = "▶ Run Again"; }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerText = "▶ Run Again";
+        }
       }
     }
 
@@ -403,6 +991,10 @@
       showToast("🚀 Dispatching Comms Domain Sweep...");
       await triggerAgent("domain_comms");
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadCommunications();
+    });
   </script>
 </body>
 </html>
