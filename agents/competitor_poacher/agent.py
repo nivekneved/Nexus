@@ -74,8 +74,9 @@ class CompetitorPoacherAgent(BaseAgent):
             level="INFO"
         )
 
-        scraper = self.run_subagent("competitor_review_scraper_sub_agent", {})
-        generator = self.run_subagent("poacher_campaign_generator_sub_agent", {"complaints": scraper.get("complaints", [])})
+        scraper = self.run_subagent("competitor_review_scraper", {})
+        complaints_data = scraper.get("data", {}).get("complaints", scraper.get("complaints", []))
+        generator = self.run_subagent("poacher_campaign_generator", {"complaints": complaints_data})
 
         self.stats["poached_leads_ready"] = len(load_poached_leads())
         self.log(

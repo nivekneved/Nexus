@@ -231,8 +231,9 @@ class LeadFinderAgent(BaseAgent):
             self.log(step="Market Scan Complete", file_used=LEADS_FILE, message=f"Pipeline active ({len(pipeline)} qualified leads). No unvetted prospects pending.", level="INFO")
             return {
                 "status": "Lead Scout Cycle Finished",
-                "leads_found": 0,
-                "message": f"All {len(pipeline)} enterprise prospects in pipeline are vetted and qualified."
+                "leads_found": len(pipeline),
+                "message": f"All {len(pipeline)} enterprise prospects in pipeline are vetted and qualified.",
+                "leads": pipeline
             }
 
         niche_key, niche_data, selected_client = candidates[0]
@@ -304,6 +305,7 @@ class LeadFinderAgent(BaseAgent):
             "status": "Lead Scout Cycle Finished",
             "leads_found": 1,
             "top_lead": new_lead,
+            "leads": self.get_pipeline(),
             "icp_evaluation": icp_res
         }
 

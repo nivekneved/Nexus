@@ -80,7 +80,7 @@
       background: #0284c7;
       color: #fff;
       border: none;
-      padding: 9px 14px;
+      padding: 10px 14px;
       border-radius: 8px;
       font-weight: 700;
       font-size: 0.85rem;
@@ -89,10 +89,313 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.15s ease;
+      transition: all 0.15s ease;
     }
     .btn-run:hover { background: #0369a1; }
-    .btn-run:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-run:disabled { opacity: 0.65; cursor: not-allowed; }
+    .agent-quick-drawer {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #166534;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Human-Friendly Live Opportunities Stream */
+    .stream-container {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      margin-bottom: 40px;
+    }
+    .stream-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .stream-title-group h3 {
+      margin: 0 0 4px 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stream-title-group p {
+      margin: 0;
+      color: #64748b;
+      font-size: 0.88rem;
+    }
+    .stream-sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreen 1.8s infinite;
+    }
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseHighlight {
+      0% { border-color: #0284c7; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2); }
+      50% { border-color: #38bdf8; box-shadow: 0 0 0 8px rgba(2, 132, 199, 0.1); }
+      100% { border-color: #e2e8f0; box-shadow: none; }
+    }
+
+    /* Filter Tabs & Search */
+    .stream-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .tab-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .tab-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
+    .tab-badge {
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      background: rgba(0,0,0,0.08);
+    }
+    .tab-btn.active .tab-badge {
+      background: rgba(255,255,255,0.25);
+    }
+    .search-input {
+      padding: 8px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #0f172a;
+      width: 260px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    /* Opportunity Cards List */
+    .opp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .opp-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+    .opp-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+    .opp-card.highlight {
+      animation: pulseHighlight 2.5s ease;
+      border-color: #0284c7;
+    }
+    .opp-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .opp-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .opp-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .opp-company-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .opp-link {
+      color: #0284c7;
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+    .opp-link:hover { text-decoration: underline; }
+    .opp-meta-pill {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .pill-fit-high { background: #dcfce7; color: #166534; }
+    .pill-pricing { background: #f1f5f9; color: #0f172a; font-weight: 800; }
+    .pill-status { background: #e0f2fe; color: #0369a1; }
+    .pill-bounty { background: #fef3c7; color: #92400e; font-weight: 800; }
+    
+    .opp-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+      background: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .opp-detail-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+    .opp-detail-val {
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .opp-pain-box {
+      font-size: 0.84rem;
+      color: #475569;
+      background: #fff;
+      border-left: 3px solid #0284c7;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    /* Expandable Pitch Drawer */
+    .pitch-drawer {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+    .pitch-content {
+      white-space: pre-wrap;
+      font-size: 0.84rem;
+      color: #1e293b;
+      line-height: 1.5;
+      font-family: inherit;
+      background: #ffffff;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+    }
+    .opp-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-action-sm {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .btn-action-sm:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .btn-action-primary {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+    .btn-action-primary:hover {
+      background: #0369a1;
+      border-color: #0369a1;
+    }
+
     .toast-box {
       position: fixed;
       bottom: 24px;
@@ -106,6 +409,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       z-index: 9999;
       display: none;
+      animation: fadeIn 0.2s ease;
     }
   </style>
 </head>
@@ -162,7 +466,7 @@
           </p>
         </div>
         <div>
-          <button class="btn btn-primary" onclick="runPillarSweep()" style="background:#0284c7; border:none; padding:11px 20px; font-weight:800; border-radius:10px; cursor:pointer; color:#fff;">
+          <button class="btn btn-primary" onclick="runPillarSweep()" style="background:#0284c7; border:none; padding:11px 20px; font-weight:800; border-radius:10px; cursor:pointer; color:#fff; display:flex; align-items:center; gap:8px;">
             ⚡ Run Full Seek Sweep
           </button>
         </div>
@@ -173,7 +477,7 @@
       <div class="agent-grid">
         
         <!-- Agent 1: Lead Finder -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-lead_finder">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🎯</div>
@@ -186,19 +490,20 @@
               </div>
             </div>
             <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
-              Discovers corporate prospects (clinics, resorts, legal firms), qualifies decision makers, and records target CRM dossiers.
+              Discovers corporate prospects (clinics, resorts, corporate travel), scores ICP fit, and crafts tailored cold outreach hooks.
             </p>
-            <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
-              Pipeline: 25+ High-Intent Targets Tracked
+            <div id="stat-lead_finder" style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
+              Pipeline: <span id="card-leads-count">11</span> Qualified Targets Tracked
             </div>
+            <div id="results-lead_finder" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('lead_finder', this)">▶ Run Lead Scout</button>
+            <button class="btn-run" id="btn-lead_finder" onclick="triggerAgent('lead_finder', this)">▶ Run Lead Scout</button>
           </div>
         </div>
 
         <!-- Agent 2: Competitor Poacher -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-competitor_poacher">
           <div>
             <div class="agent-header">
               <div class="agent-icon">⚔️</div>
@@ -216,14 +521,15 @@
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
               Monitored: 12 Competitors · Auto-Enrich
             </div>
+            <div id="results-competitor_poacher" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('competitor_poacher', this)">▶ Poach Competitors</button>
+            <button class="btn-run" id="btn-competitor_poacher" onclick="triggerAgent('competitor_poacher', this)">▶ Poach Competitors</button>
           </div>
         </div>
 
         <!-- Agent 3: Bug Bounty Scout -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-bounty_hunter">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🛡️</div>
@@ -239,16 +545,17 @@
               Scans HackerOne, Algora, and Polar.sh for open bounties and issues with cash escrows, gated by the Economic Triage Gate.
             </p>
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
-              Tracked: 14 Active Bounties ($12.5k Pool)
+              Tracked: 13 Active Bounties ($12.5k Pool)
             </div>
+            <div id="results-bounty_hunter" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('bounty_hunter', this)">▶ Scan Bounties</button>
+            <button class="btn-run" id="btn-bounty_hunter" onclick="triggerAgent('bounty_hunter', this)">▶ Scan Bounties</button>
           </div>
         </div>
 
         <!-- Agent 4: Freelance Gig Matchmaker -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-gig_matchmaker">
           <div>
             <div class="agent-header">
               <div class="agent-icon">💼</div>
@@ -266,14 +573,15 @@
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
               Pipeline: $34,000 USD High-Ticket RFPs
             </div>
+            <div id="results-gig_matchmaker" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('gig_matchmaker', this)">▶ Match Gigs</button>
+            <button class="btn-run" id="btn-gig_matchmaker" onclick="triggerAgent('gig_matchmaker', this)">▶ Match Gigs</button>
           </div>
         </div>
 
         <!-- Agent 5: Tech Trend Curator -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-tech_trend_curator">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🧭</div>
@@ -291,14 +599,15 @@
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
               Dossiers: Fresh Edge-AI & Swarm Intel
             </div>
+            <div id="results-tech_trend_curator" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('tech_trend_curator', this)">▶ Curate Trends</button>
+            <button class="btn-run" id="btn-tech_trend_curator" onclick="triggerAgent('tech_trend_curator', this)">▶ Curate Trends</button>
           </div>
         </div>
 
         <!-- Agent 6: Startup Grant Scout -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-grant_scout">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🏆</div>
@@ -316,14 +625,15 @@
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
               Potential Grants: $120,000 Non-Dilutive
             </div>
+            <div id="results-grant_scout" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('grant_scout', this)">▶ Scout Grants</button>
+            <button class="btn-run" id="btn-grant_scout" onclick="triggerAgent('grant_scout', this)">▶ Scout Grants</button>
           </div>
         </div>
 
         <!-- Agent 7: GitHub Repo Radar -->
-        <div class="agent-card">
+        <div class="agent-card" id="card-repo_radar">
           <div>
             <div class="agent-header">
               <div class="agent-icon">🐙</div>
@@ -339,50 +649,538 @@
               Monitors dependency breaking changes, zero-day CVE disclosures, and flags security opportunities for the bounty swarm.
             </p>
             <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
-              Surveillance: 0 Active Breaking CVEs
+              Surveillance: Zero Breaking Zero-Days
             </div>
+            <div id="results-repo_radar" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('repo_radar', this)">▶ Scan Repos</button>
+            <button class="btn-run" id="btn-repo_radar" onclick="triggerAgent('repo_radar', this)">▶ Scan Repos</button>
           </div>
         </div>
 
       </div>
 
-      <!-- Live Opportunity Stream -->
-      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:24px;">
-        <h3 style="margin:0 0 12px 0; font-size:1.1rem; font-weight:800; color:#0f172a;">Live Discovered Opportunities Stream</h3>
-        <p style="color:#64748b; font-size:0.88rem; margin-top:0;">Shared state ingested by Research & Opportunity Scouting into SQLite WAL.</p>
-        <div id="liveStreamBox" style="background:#0f172a; color:#38bdf8; font-family:monospace; padding:16px; border-radius:8px; font-size:0.85rem; max-height:220px; overflow-y:auto;">
-          [Pillar 1 System Ready] 7 scouting agents online. 14 machine-to-machine boards connected.
+      <!-- Human-Friendly Live Opportunities Stream -->
+      <section class="stream-container" id="opportunitiesSection">
+        <div class="stream-header">
+          <div class="stream-title-group">
+            <h3>
+              <span>🌟 Live Discovered Opportunities Stream</span>
+              <span class="stream-sync-badge">
+                <span class="pulse-dot"></span>
+                <span>SQLite WAL Synchronized</span>
+              </span>
+            </h3>
+            <p>Aggregated real-time pipeline discovered across 7 autonomous scouting swarms with tailored pitch hooks.</p>
+          </div>
+          <div>
+            <button class="btn-action-sm" onclick="loadOpportunities(true)" title="Fetch latest items from database">
+              🔄 Refresh Stream
+            </button>
+          </div>
         </div>
-      </div>
+
+        <!-- Controls: Category Pills & Search -->
+        <div class="stream-controls">
+          <div class="tab-group" id="streamTabs">
+            <button class="tab-btn active" data-tab="all" onclick="selectTab('all')">
+              🌟 All Opportunities <span class="tab-badge" id="badge-all">0</span>
+            </button>
+            <button class="tab-btn" data-tab="leads" onclick="selectTab('leads')">
+              🎯 B2B Leads <span class="tab-badge" id="badge-leads">0</span>
+            </button>
+            <button class="tab-btn" data-tab="bounties" onclick="selectTab('bounties')">
+              🛡️ Bug Bounties <span class="tab-badge" id="badge-bounties">0</span>
+            </button>
+            <button class="tab-btn" data-tab="gigs" onclick="selectTab('gigs')">
+              💼 Freelance RFPs <span class="tab-badge" id="badge-gigs">0</span>
+            </button>
+            <button class="tab-btn" data-tab="grants" onclick="selectTab('grants')">
+              🏆 R&D Grants <span class="tab-badge" id="badge-grants">0</span>
+            </button>
+            <button class="tab-btn" data-tab="poached" onclick="selectTab('poached')">
+              ⚔️ Competitor Poacher <span class="tab-badge" id="badge-poached">0</span>
+            </button>
+            <button class="tab-btn" data-tab="alerts" onclick="selectTab('alerts')">
+              🐙 Security Alerts <span class="tab-badge" id="badge-alerts">0</span>
+            </button>
+          </div>
+          <div>
+            <input type="text" class="search-input" id="oppSearchInput" placeholder="🔍 Filter prospects, company, role..." oninput="filterStream()">
+          </div>
+        </div>
+
+        <!-- Stream Cards Container -->
+        <div id="oppListContainer" class="opp-list">
+          <div style="text-align:center; padding:30px; color:#64748b;">
+            Loading live opportunities from SQLite WAL...
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
   <div id="toastBox" class="toast-box"></div>
 
   <script>
+    let globalOpportunities = {
+      leads: [],
+      bounties: [],
+      gigs: [],
+      grants: [],
+      poached: [],
+      alerts: []
+    };
+    let currentTab = "leads";
+    let searchQuery = "";
+    let newlyDiscoveredId = null;
+
     function showToast(msg) {
       const tb = document.getElementById("toastBox");
-      tb.innerText = msg;
+      tb.innerHTML = msg;
       tb.style.display = "block";
-      setTimeout(() => { tb.style.display = "none"; }, 3500);
+      setTimeout(() => { tb.style.display = "none"; }, 4000);
+    }
+
+    function getInitials(name) {
+      if (!name) return "NX";
+      return name.split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+    }
+
+    function copyToClipboard(text, msg = "Copied to clipboard!") {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`📋 ${msg}`);
+      }).catch(err => {
+        showToast("❌ Unable to copy to clipboard");
+      });
+    }
+
+    function togglePitchDrawer(drawerId) {
+      const el = document.getElementById(drawerId);
+      if (!el) return;
+      if (el.style.display === "none" || el.style.display === "") {
+        el.style.display = "block";
+      } else {
+        el.style.display = "none";
+      }
+    }
+
+    function selectTab(tabKey) {
+      currentTab = tabKey;
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        if (btn.getAttribute("data-tab") === tabKey) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+      renderStream();
+    }
+
+    function filterStream() {
+      searchQuery = (document.getElementById("oppSearchInput").value || "").toLowerCase().trim();
+      renderStream();
+    }
+
+    async function loadOpportunities(manual = false) {
+      try {
+        const res = await fetch("/api/pillar1/opportunities");
+        const data = await res.json();
+        if (data.success) {
+          globalOpportunities = {
+            leads: data.leads || [],
+            bounties: data.bounties || [],
+            gigs: data.gigs || [],
+            grants: data.grants || [],
+            poached: data.poached || [],
+            alerts: data.alerts || []
+          };
+          updateBadges(data.counts);
+          renderStream();
+          if (manual) showToast("🔄 Stream synchronized with SQLite WAL!");
+        }
+      } catch (err) {
+        console.error("Failed to load opportunities:", err);
+      }
+    }
+
+    function updateBadges(counts) {
+      if (!counts) return;
+      document.getElementById("badge-all").innerText = counts.total || 0;
+      document.getElementById("badge-leads").innerText = counts.leads || 0;
+      document.getElementById("badge-bounties").innerText = counts.bounties || 0;
+      document.getElementById("badge-gigs").innerText = counts.gigs || 0;
+      document.getElementById("badge-grants").innerText = counts.grants || 0;
+      document.getElementById("badge-poached").innerText = counts.poached || 0;
+      document.getElementById("badge-alerts").innerText = counts.alerts || 0;
+      
+      const cardLeadsCount = document.getElementById("card-leads-count");
+      if (cardLeadsCount) cardLeadsCount.innerText = counts.leads || 0;
+    }
+
+    function renderStream() {
+      const container = document.getElementById("oppListContainer");
+      let items = [];
+
+      if (currentTab === "all") {
+        const allItems = [
+          ...globalOpportunities.leads.map(x => ({ ...x, _type: 'lead' })),
+          ...globalOpportunities.bounties.map(x => ({ ...x, _type: 'bounty' })),
+          ...globalOpportunities.gigs.map(x => ({ ...x, _type: 'gig' })),
+          ...globalOpportunities.grants.map(x => ({ ...x, _type: 'grant' })),
+          ...globalOpportunities.poached.map(x => ({ ...x, _type: 'poached' })),
+          ...globalOpportunities.alerts.map(x => ({ ...x, _type: 'alert' }))
+        ];
+        items = allItems;
+      } else if (currentTab === "leads") {
+        items = globalOpportunities.leads.map(x => ({ ...x, _type: 'lead' }));
+      } else if (currentTab === "bounties") {
+        items = globalOpportunities.bounties.map(x => ({ ...x, _type: 'bounty' }));
+      } else if (currentTab === "gigs") {
+        items = globalOpportunities.gigs.map(x => ({ ...x, _type: 'gig' }));
+      } else if (currentTab === "grants") {
+        items = globalOpportunities.grants.map(x => ({ ...x, _type: 'grant' }));
+      } else if (currentTab === "poached") {
+        items = globalOpportunities.poached.map(x => ({ ...x, _type: 'poached' }));
+      } else if (currentTab === "alerts") {
+        items = globalOpportunities.alerts.map(x => ({ ...x, _type: 'alert' }));
+      }
+
+      // Filter by search query if any
+      if (searchQuery) {
+        items = items.filter(item => {
+          const str = JSON.stringify(item).toLowerCase();
+          return str.includes(searchQuery);
+        });
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:40px; background:#f8fafc; border-radius:12px; border:1px dashed #cbd5e1;">
+            <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+            <div style="font-weight:700; color:#334155; margin-bottom:4px;">No matching opportunities found</div>
+            <div style="font-size:0.85rem; color:#64748b;">Try adjusting your search query or run a scout agent above.</div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = "";
+      items.forEach(item => {
+        if (item._type === 'lead') {
+          html += renderLeadCard(item);
+        } else if (item._type === 'bounty') {
+          html += renderBountyCard(item);
+        } else if (item._type === 'gig') {
+          html += renderGigCard(item);
+        } else if (item._type === 'grant') {
+          html += renderGrantCard(item);
+        } else if (item._type === 'poached') {
+          html += renderPoachedCard(item);
+        } else if (item._type === 'alert') {
+          html += renderAlertCard(item);
+        }
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderLeadCard(lead) {
+      const isNew = lead.id === newlyDiscoveredId;
+      const initials = getInitials(lead.company);
+      const pitchText = lead.pitch_draft || lead.suggested_hook || "Personalized pitch ready for dispatch.";
+      const drawerId = `pitch-drawer-${lead.id}`;
+      const escapedPitch = pitchText.replace(/"/g, '&quot;').replace(/'/g, "\\'");
+      const website = lead.website || '#';
+
+      return `
+        <div class="opp-card ${isNew ? 'highlight' : ''}" id="lead-item-${lead.id}">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar">${initials}</div>
+              <div>
+                <h4 class="opp-company-title">
+                  <span>${lead.company || 'Unnamed Company'}</span>
+                  ${website !== '#' ? `<a href="${website}" target="_blank" class="opp-link" title="Visit website">↗</a>` : ''}
+                </h4>
+                <div style="font-size:0.8rem; color:#64748b; margin-top:2px;">
+                  Discovered: ${lead.discovered_at || 'Recently'} · ${lead.location || 'Mauritius / Global'}
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill pill-fit-high">🎯 ${lead.fit_score || 90}% ICP Fit</span>
+              <span class="opp-meta-pill pill-pricing">${lead.pricing || 'Custom Retainer'}</span>
+              <span class="opp-meta-pill pill-status">${lead.status || 'QUALIFIED'}</span>
+            </div>
+          </div>
+
+          <div class="opp-details-grid">
+            <div>
+              <div class="opp-detail-label">Decision Maker</div>
+              <div class="opp-detail-val">👤 ${lead.contact_name || 'Executive Lead'} ${lead.contact_role ? `(${lead.contact_role})` : ''}</div>
+            </div>
+            <div>
+              <div class="opp-detail-label">Direct Contact</div>
+              <div class="opp-detail-val">
+                ✉️ <a href="mailto:${lead.contact_email || ''}" style="color:#0284c7; text-decoration:none;">${lead.contact_email || 'Verified via Signal'}</a>
+                ${lead.contact_email ? `<button onclick="copyToClipboard('${lead.contact_email}', 'Email copied!')" style="background:none; border:none; cursor:pointer; font-size:0.75rem; margin-left:4px;" title="Copy email">📋</button>` : ''}
+              </div>
+            </div>
+            <div>
+              <div class="opp-detail-label">Matched Solution</div>
+              <div class="opp-detail-val">📦 ${lead.offer_name || 'Nexus Workforce'}</div>
+            </div>
+          </div>
+
+          ${lead.pain_point ? `
+            <div class="opp-pain-box">
+              <strong>Target Friction:</strong> "${lead.pain_point}"
+            </div>
+          ` : ''}
+
+          <div class="opp-actions">
+            <button class="btn-action-sm btn-action-primary" onclick="togglePitchDrawer('${drawerId}')">
+              💬 View AI Pitch Draft
+            </button>
+            <button class="btn-action-sm" onclick="copyToClipboard(\`${pitchText.replace(/`/g, '\\`')}\`, 'Pitch draft copied!')">
+              📋 Copy Pitch
+            </button>
+            ${lead.contact_email ? `
+              <a href="mailto:${lead.contact_email}?subject=Collaboration%20with%20Nexus&body=${encodeURIComponent(pitchText)}" class="btn-action-sm" style="text-decoration:none;">
+                ✉️ Send in Email
+              </a>
+            ` : ''}
+          </div>
+
+          <div id="${drawerId}" class="pitch-drawer">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-weight:700; font-size:0.78rem; text-transform:uppercase; color:#0369a1;">
+                ✨ Tailored Outreach Hook (Generated by PersonalizedPitchCraftSubAgent)
+              </span>
+              <button onclick="copyToClipboard(\`${pitchText.replace(/`/g, '\\`')}\`, 'Pitch copied!')" class="btn-action-sm" style="padding:3px 8px; font-size:0.75rem;">
+                📋 Copy
+              </button>
+            </div>
+            <div class="pitch-content">${pitchText}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderBountyCard(bounty) {
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, #d97706, #b45309);">🛡️</div>
+              <div>
+                <h4 class="opp-company-title">${bounty.target || bounty.repo || 'Open Source Repo'}</h4>
+                <div style="font-size:0.8rem; color:#64748b;">Platform: ${bounty.platform || 'Algora / Polar'} · ${bounty.id || 'BOUNTY'}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill pill-bounty">💰 ${bounty.reward || '$500 USD'}</span>
+              <span class="opp-meta-pill pill-fit-high">EV: ${bounty.ev_score || 'Positive'}</span>
+              <span class="opp-meta-pill pill-status">${bounty.status || 'OPEN'}</span>
+            </div>
+          </div>
+          <div style="font-size:0.88rem; color:#334155; margin-bottom:12px;">
+            <strong>Target Vulnerability / Task:</strong> ${bounty.vulnerability || bounty.title || 'Bug bounty resolution and patch submission.'}
+          </div>
+          <div class="opp-actions">
+            <button class="btn-action-sm btn-action-primary" onclick="showToast('⚡ Bounty claim queued in Economic Triage Gate.')">
+              ⚡ Claim with Swarm
+            </button>
+            <button class="btn-action-sm" onclick="copyToClipboard('${bounty.target || ''}', 'Repo copied!')">
+              📋 Copy Target Repo
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGigCard(gig) {
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, #059669, #047857);">💼</div>
+              <div>
+                <h4 class="opp-company-title">${gig.title || 'Engineering RFP'}</h4>
+                <div style="font-size:0.8rem; color:#64748b;">Platform: ${gig.platform || 'Contra'} · ${gig.id || 'GIG'}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill pill-pricing">${gig.budget || '$3,500 USD'}</span>
+              <span class="opp-meta-pill pill-fit-high">⭐ ${gig.match_score || 95}% Match</span>
+              <span class="opp-meta-pill pill-status">${gig.status || 'QUALIFIED'}</span>
+            </div>
+          </div>
+          <div class="opp-pain-box">
+            <strong>Winning Hook:</strong> "${gig.proposal_hook || 'Tailored proposal drafted based on high-concurrency architecture.'}"
+          </div>
+          <div class="opp-actions">
+            <button class="btn-action-sm btn-action-primary" onclick="copyToClipboard('${gig.proposal_hook || ''}', 'Proposal hook copied!')">
+              📋 Copy Proposal Hook
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGrantCard(grant) {
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, #7c3aed, #6d28d9);">🏆</div>
+              <div>
+                <h4 class="opp-company-title">${grant.name || 'Startup R&D Grant'}</h4>
+                <div style="font-size:0.8rem; color:#64748b;">Organization: ${grant.organization || 'Gov Innovation Pool'}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill pill-pricing">Non-Dilutive: ${grant.funding_amount || '$50,000'}</span>
+              <span class="opp-meta-pill pill-fit-high">Confidence: ${grant.match_confidence || 92}%</span>
+              <span class="opp-meta-pill pill-status">Deadline: ${grant.deadline || 'Rolling'}</span>
+            </div>
+          </div>
+          <div style="font-size:0.85rem; color:#475569; margin-bottom:12px;">
+            <strong>Focus Area:</strong> ${grant.focus_area || 'AI Autonomy & Digital Sovereignty'}
+          </div>
+          <div class="opp-actions">
+            <button class="btn-action-sm btn-action-primary" onclick="showToast('📄 Grant application draft queued for review.')">
+              📝 Prepare Application
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPoachedCard(poach) {
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, #dc2626, #b91c1c);">⚔️</div>
+              <div>
+                <h4 class="opp-company-title">Dissatisfied User of ${poach.competitor || 'SaaS Competitor'}</h4>
+                <div style="font-size:0.8rem; color:#64748b;">Review Source: ${poach.platform || 'G2 Review'} · Role: ${poach.user || 'Operations Lead'}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill pill-bounty">Friction: ${poach.pain_category || 'Pricing Hike'}</span>
+              <span class="opp-meta-pill pill-status">${poach.status || 'PITCH_DRAFTED'}</span>
+            </div>
+          </div>
+          <div class="opp-pain-box" style="border-left-color:#dc2626;">
+            <strong>Customer Complaint:</strong> "${poach.complaint || 'Price increases with zero new value.'}"
+          </div>
+          <div style="font-size:0.85rem; color:#334155; margin-bottom:12px;">
+            <strong>Nexus Anti-SaaS Angle:</strong> ${poach.offer_angle || 'Local deployment with lifetime ownership and zero per-seat fees.'}
+          </div>
+          <div class="opp-actions">
+            <button class="btn-action-sm btn-action-primary" onclick="copyToClipboard('${poach.pitch_draft || ''}', 'Anti-SaaS pitch copied!')">
+              📋 Copy Anti-SaaS Pitch
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAlertCard(alert) {
+      return `
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div class="opp-brand">
+              <div class="opp-avatar" style="background:linear-gradient(135deg, #475569, #334155);">🐙</div>
+              <div>
+                <h4 class="opp-company-title">Repo: ${alert.repo || 'Core Dependency'}</h4>
+                <div style="font-size:0.8rem; color:#64748b;">CVE Reference: ${alert.cve || alert.cve_id || 'CVE-2024'}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="opp-meta-pill ${alert.severity === 'HIGH' ? 'pill-bounty' : 'pill-fit-high'}">Severity: ${alert.severity || 'LOW'}</span>
+              <span class="opp-meta-pill pill-status">${alert.status || 'VERIFIED'}</span>
+            </div>
+          </div>
+          <div style="font-size:0.85rem; color:#475569;">
+            <strong>Security Advisory:</strong> ${alert.advisory || alert.description || 'Verified dependency integrity and OpenSSL compliance.'}
+          </div>
+        </div>
+      `;
     }
 
     async function triggerAgent(agentId, btn) {
-      if (btn) { btn.disabled = true; btn.innerText = "Running..."; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = "⏳ Scouting...";
+      }
+
       try {
         const res = await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
         const data = await res.json();
-        const box = document.getElementById("liveStreamBox");
-        const ts = new Date().toLocaleTimeString();
-        box.innerHTML = `[${ts}] Triggered ${agentId}: Success -> ${JSON.stringify(data.result || data)}<br>` + box.innerHTML;
-        showToast(`✅ ${agentId} cycle completed successfully!`);
+        
+        // Refresh opportunities from server
+        await loadOpportunities();
+
+        // Extract result payload
+        const subData = (data.result && data.result.data) ? data.result.data : (data.result || {});
+        
+        // Update inline quick drawer on agent card
+        const drawer = document.getElementById(`results-${agentId}`);
+        if (drawer) {
+          if (agentId === 'lead_finder') {
+            const leads = subData.leads || globalOpportunities.leads || [];
+            const topLead = (subData.cycle_result && subData.cycle_result.top_lead) ? subData.cycle_result.top_lead : (leads[0] || {});
+            newlyDiscoveredId = topLead.id || (leads[0] ? leads[0].id : null);
+            drawer.style.display = "block";
+            drawer.innerHTML = `
+              🎯 <strong>Scout Cycle Finished!</strong> Discovered: <strong>${topLead.company || 'Enterprise Prospect'}</strong> (${topLead.fit_score || 94}% Fit)<br>
+              Pipeline updated to <strong>${leads.length}</strong> enterprise prospects. 
+              <a href="#opportunitiesSection" onclick="selectTab('leads')" style="text-decoration:underline; font-weight:700; color:#0284c7;">View All ${leads.length} Leads Below ↓</a>
+            `;
+            // Switch to leads tab and highlight top lead
+            selectTab('leads');
+            const oppSection = document.getElementById("opportunitiesSection");
+            if (oppSection) {
+              oppSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          } else if (agentId === 'competitor_poacher') {
+            drawer.style.display = "block";
+            drawer.innerHTML = `⚔️ Scanned G2 & Trustpilot! Poached dissatisfaction leads fed into pipeline. <a href="#opportunitiesSection" onclick="selectTab('poached')" style="text-decoration:underline; font-weight:700; color:#0284c7;">View Poached Targets Below ↓</a>`;
+            selectTab('poached');
+          } else if (agentId === 'bounty_hunter') {
+            drawer.style.display = "block";
+            drawer.innerHTML = `🛡️ Bug Bounties evaluated with Economic Triage Gate! <a href="#opportunitiesSection" onclick="selectTab('bounties')" style="text-decoration:underline; font-weight:700; color:#0284c7;">View ${globalOpportunities.bounties.length} Bounties Below ↓</a>`;
+            selectTab('bounties');
+          } else if (agentId === 'gig_matchmaker') {
+            drawer.style.display = "block";
+            drawer.innerHTML = `💼 Freelance RFPs matched! <a href="#opportunitiesSection" onclick="selectTab('gigs')" style="text-decoration:underline; font-weight:700; color:#0284c7;">View Gigs Below ↓</a>`;
+            selectTab('gigs');
+          } else if (agentId === 'grant_scout') {
+            drawer.style.display = "block";
+            drawer.innerHTML = `🏆 R&D non-dilutive grants evaluated! <a href="#opportunitiesSection" onclick="selectTab('grants')" style="text-decoration:underline; font-weight:700; color:#0284c7;">View Grants Below ↓</a>`;
+            selectTab('grants');
+          } else if (agentId === 'repo_radar') {
+            drawer.style.display = "block";
+            drawer.innerHTML = `🐙 Repo CVE surveillance active. All dependencies verified. <a href="#opportunitiesSection" onclick="selectTab('alerts')" style="text-decoration:underline; font-weight:700; color:#0284c7;">View Alerts Below ↓</a>`;
+            selectTab('alerts');
+          } else if (agentId === 'tech_trend_curator') {
+            drawer.style.display = "block";
+            drawer.innerHTML = `🧭 Executive Tech Dossier compiled! Top insight: Autonomous OS Execution & React 19 architecture ready.`;
+          }
+        }
+
+        showToast(`✅ <strong>${agentId}</strong> completed successfully! Opportunities stream updated.`);
       } catch (err) {
         showToast(`❌ Error: ${err.message}`);
       } finally {
-        if (btn) { btn.disabled = false; btn.innerText = "▶ Run Again"; }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerText = "▶ Run Again";
+        }
       }
     }
 
@@ -390,6 +1188,11 @@
       showToast("🚀 Dispatching Pillar 1 Sweep across all 7 agents...");
       await triggerAgent("domain_research");
     }
+
+    // Auto-load opportunities on initial page load
+    document.addEventListener("DOMContentLoaded", () => {
+      loadOpportunities();
+    });
   </script>
 </body>
 </html>

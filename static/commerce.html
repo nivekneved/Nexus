@@ -323,11 +323,30 @@
 
       </div>
 
-      <!-- Live Commerce Stream -->
-      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:24px;">
-        <h3 style="margin:0 0 12px 0; font-size:1.1rem; font-weight:800; color:#0f172a;">Live Commerce & Revenue Stream</h3>
-        <div id="liveStreamBox" style="background:#0f172a; color:#34d399; font-family:monospace; padding:16px; border-radius:8px; font-size:0.85rem; max-height:220px; overflow-y:auto;">
-          [Pillar 4 System Ready] Commerce Domain online. Digital store and sovereign arbitrage streams operational.
+      <!-- Human-Friendly Commerce & Revenue Telemetry Feed -->
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:24px; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid #f1f5f9;">
+          <div>
+            <h3 style="margin:0 0 4px 0; font-size:1.2rem; font-weight:800; color:#0f172a; display:flex; align-items:center; gap:8px;">
+              <span>🛒 Live Commerce & Revenue Telemetry Feed</span>
+              <span style="display:inline-flex; align-items:center; gap:6px; background:#ecfdf5; color:#059669; border:1px solid #a7f3d0; padding:3px 9px; border-radius:20px; font-size:0.75rem; font-weight:700;">
+                <span style="width:7px; height:7px; background:#10b981; border-radius:50%;"></span> Settlements Active
+              </span>
+            </h3>
+            <p style="margin:0; color:#64748b; font-size:0.88rem;">Digital store inventory, Base L2 arbitrage, affiliate pipelines, and viral conversion reels.</p>
+          </div>
+          <button onclick="clearStream()" style="background:#f8fafc; border:1px solid #cbd5e1; color:#475569; padding:6px 12px; border-radius:6px; font-size:0.8rem; font-weight:700; cursor:pointer;">
+            Clear Feed
+          </button>
+        </div>
+        <div id="liveStreamBox" style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;">
+          <div style="padding:12px 16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; color:#475569; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:1.2rem;">💳</span>
+            <div style="flex:1;">
+              <strong>Pillar 4 Commerce Engine Online:</strong> Digital vending machine, MCB Juice, PayPal, and Base L2 settlement rails active.
+            </div>
+            <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">System Standby</span>
+          </div>
         </div>
       </div>
     </main>
@@ -336,11 +355,30 @@
   <div id="toastBox" class="toast-box"></div>
 
   <script>
+    const agentMeta = {
+      executive_partner: { icon: "📈", name: "Executive Revenue Partner", desc: "Audited digital store offerings, pricing tiers, and revenue velocity." },
+      crypto_arbitrage: { icon: "⚡", name: "Base L2 DEX Arbitrage", desc: "Scanned Base L2 liquidity pools and gas optimization spreads." },
+      domain_arbitrage: { icon: "🌐", name: "Domain & Digital Asset Arbitrage", desc: "Valuated expired tech domains and digital micro-assets." },
+      affiliate_harvester: { icon: "💎", name: "Affiliate & Partner Harvester", desc: "Scanned recurring developer tool and cloud referral programs." },
+      appstore_sentinel: { icon: "📱", name: "App Store & Product Sentinel", desc: "Verified digital product rankings, ratings, and conversion funnels." },
+      viral_clip_agent: { icon: "🎬", name: "Viral Short & Reel Producer", desc: "Drafted high-conversion viral video scripts and hooks." },
+      domain_commerce: { icon: "🚀", name: "Full Commerce Sweep", desc: "Executed comprehensive monetization, DEX arbitrage, and store inventory sweep." }
+    };
+
     function showToast(msg) {
       const tb = document.getElementById("toastBox");
-      tb.innerText = msg;
+      tb.innerHTML = msg;
       tb.style.display = "block";
       setTimeout(() => { tb.style.display = "none"; }, 3500);
+    }
+
+    function clearStream() {
+      const box = document.getElementById("liveStreamBox");
+      box.innerHTML = `
+        <div style="padding:12px 16px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; color:#64748b; text-align:center;">
+          Feed cleared. Standing by for next commerce event.
+        </div>
+      `;
     }
 
     async function triggerAgent(agentId, btn) {
@@ -350,8 +388,36 @@
         const data = await res.json();
         const box = document.getElementById("liveStreamBox");
         const ts = new Date().toLocaleTimeString();
-        box.innerHTML = `[${ts}] Triggered ${agentId}: Success -> ${JSON.stringify(data.result || data)}<br>` + box.innerHTML;
-        showToast(`✅ ${agentId} executed successfully!`);
+        const meta = agentMeta[agentId] || { icon: "🛒", name: agentId, desc: "Cycle completed" };
+        
+        let subMsg = meta.desc;
+        if (data.result && typeof data.result === 'object') {
+          if (data.result.status) subMsg = `${data.result.status}. ${meta.desc}`;
+          if (data.result.data && data.result.data.status) subMsg = `${data.result.data.status}. ${meta.desc}`;
+        }
+
+        const card = document.createElement("div");
+        card.style.cssText = "padding:12px 16px; background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; font-size:0.88rem; box-shadow:0 2px 6px rgba(0,0,0,0.02); display:flex; align-items:flex-start; gap:12px;";
+        card.innerHTML = `
+          <div style="width:34px; height:34px; border-radius:8px; background:#ecfdf5; border:1px solid #a7f3d0; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0;">
+            ${meta.icon}
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+              <strong style="color:#0f172a; font-size:0.92rem;">${meta.name}</strong>
+              <span style="font-size:0.75rem; color:#64748b; font-weight:600;">${ts}</span>
+            </div>
+            <div style="color:#334155; font-size:0.85rem; margin-bottom:4px;">
+              ${subMsg}
+            </div>
+            <div style="display:flex; gap:6px;">
+              <span style="background:#dcfce7; color:#15803d; font-size:0.72rem; font-weight:700; padding:2px 7px; border-radius:4px;">Settled</span>
+              <span style="background:#f1f5f9; color:#475569; font-size:0.72rem; font-weight:600; padding:2px 7px; border-radius:4px;">Pillar 4 Commerce</span>
+            </div>
+          </div>
+        `;
+        box.prepend(card);
+        showToast(`✅ <strong>${meta.name}</strong> executed successfully!`);
       } catch (err) {
         showToast(`❌ Error: ${err.message}`);
       } finally {

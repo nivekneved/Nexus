@@ -108,21 +108,14 @@ class PersonalizedPitchCraftSubAgent(BaseSubAgent):
         )
         lead_record["suggested_hook"] = hook
 
-        # Persist to pipeline
-        pipeline = []
-        if os.path.exists(pipeline_file):
-            try:
-                with open(pipeline_file, "r", encoding="utf-8") as f:
-                    pipeline = json.load(f)
-            except Exception:
-                pipeline = []
-
+        # Persist to pipeline with SQLite WAL synchronization
+        from core.storage import atomic_save_json, safe_load_json
+        pipeline = safe_load_json(pipeline_file, default=[])
         pipeline.insert(0, lead_record)
         pipeline = pipeline[:50]
 
         try:
-            with open(pipeline_file, "w", encoding="utf-8") as f:
-                json.dump(pipeline, f, indent=2, ensure_ascii=False)
+            atomic_save_json(pipeline_file, pipeline)
         except Exception as e:
             return {"success": False, "error": str(e), "hook": hook}
 

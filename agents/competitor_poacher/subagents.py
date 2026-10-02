@@ -7,6 +7,7 @@ complaining about recurring monthly costs, price hikes, or downtime, and crafts
 targeted poacher pitch campaigns.
 """
 
+import os
 import json
 import time
 import secrets
@@ -53,11 +54,20 @@ SAMPLE_COMPETITOR_COMPLAINTS = [
 ]
 
 
-class CompetitorReviewScraperSubAgent:
-    def __init__(self):
-        self.name = "Competitor Review Scraper & Pain Point Detector"
+from core.subagent import BaseSubAgent
 
-    def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+
+class CompetitorReviewScraperSubAgent(BaseSubAgent):
+    def __init__(self):
+        super().__init__(
+            subagent_id="competitor_review_scraper",
+            name="Competitor Review Scraper & Pain Point Detector",
+            parent_agent_id="competitor_poacher",
+            description="Scans review sites for SaaS billing/downtime complaints."
+        )
+
+    def execute(self, payload: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        context = payload or {}
         target_competitor = context.get("competitor", "All Competitors")
         detected = SAMPLE_COMPETITOR_COMPLAINTS
         if target_competitor != "All Competitors":
@@ -71,11 +81,17 @@ class CompetitorReviewScraperSubAgent:
         }
 
 
-class PoacherCampaignGeneratorSubAgent:
+class PoacherCampaignGeneratorSubAgent(BaseSubAgent):
     def __init__(self):
-        self.name = "Poacher Campaign Pitch Generator"
+        super().__init__(
+            subagent_id="poacher_campaign_generator",
+            name="Poacher Campaign Pitch Generator",
+            parent_agent_id="competitor_poacher",
+            description="Crafts tailored anti-SaaS pitches."
+        )
 
-    def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+    def execute(self, payload: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        context = payload or {}
         complaints = context.get("complaints", SAMPLE_COMPETITOR_COMPLAINTS)
         generated_leads = []
 
