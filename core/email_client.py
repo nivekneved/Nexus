@@ -3,6 +3,7 @@ import email
 from email.header import decode_header
 import re
 import logging
+from typing import Optional, Dict
 
 logger = logging.getLogger(__name__)
 

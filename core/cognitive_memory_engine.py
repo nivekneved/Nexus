@@ -3,7 +3,6 @@ import os
 import json
 from typing import Dict, Any, List, Optional
 from core.paths import resolve_data_path
-from core.jarvis_memory import jarvis_memory
 from core.tiered_memory import tiered_memory
 from core.contact_history_service import contact_history_service
 
@@ -13,7 +12,7 @@ class CognitiveMemoryEngine:
     Tiered/Semantic Memory, and Contact/CRM History.
     """
     def __init__(self):
-        self.working = jarvis_memory
+        self.working = tiered_memory
         self.tiered = tiered_memory
         self.crm = contact_history_service
 
@@ -42,7 +41,6 @@ class CognitiveMemoryEngine:
 
     # --- Working Memory Routing ---
     def update_earnings(self, amount: float):
-        # Implementation depends on jarvis_memory methods
         if hasattr(self.working, 'update_earnings'):
             self.working.update_earnings(amount)
 

@@ -2,7 +2,6 @@
 import logging
 from typing import Dict, Any, List
 
-from core.jarvis_skills import jarvis_skills
 from core.tool_registry import tool_registry
 from core.addon_registry import addon_registry
 from core.scenario_library import DAILY_SCENARIOS
@@ -10,11 +9,11 @@ from core.scenario_library import DAILY_SCENARIOS
 class CoreSkillsEngine:
     """
     Unified Subagent and Skill Library Orchestrator.
-    Consolidates the standalone Jarvis Skills, Global Tool Registry,
+    Consolidates the Global Tool Registry,
     Addon Marketplace, and the massive 125 Scenario Library into a single interface.
     """
     def __init__(self):
-        self.skills = jarvis_skills
+        self.skills = tool_registry
         self.tools = tool_registry
         self.addons = addon_registry
         self.scenarios = DAILY_SCENARIOS

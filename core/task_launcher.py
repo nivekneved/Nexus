@@ -21,8 +21,7 @@ from typing import Dict, Any, List, Optional
 
 from core.paths import BASE_DIR, DATA_DIR, resolve_data_path
 from core.social_broadcaster import social_broadcaster
-from core.jarvis_memory import jarvis_memory
-from core.jarvis_skills import jarvis_skills
+from core.tiered_memory import tiered_memory
 from core.db import get_connection
 from core.scenario_library import DAILY_SCENARIOS
 
@@ -250,12 +249,17 @@ class TaskLauncherEngine:
         )
 
         # 2. Record to episodic memory
-        jarvis_memory.add_interaction(
-            session_id="vetting_console",
-            user_input=f"Approved operational task: {title}",
-            agent_response=f"Dispatched task {task_id} with custom vetted body.",
-            tokens_used=120,
-            latency_ms=15.0
+        tiered_memory.record_recall_event(
+            event_type="operational_task_dispatched",
+            details={
+                "session_id": "vetting_console",
+                "task_id": task_id,
+                "scenario_title": title,
+                "user_input": f"Approved operational task: {title}",
+                "agent_response": f"Dispatched task {task_id} with custom vetted body.",
+                "tokens_used": 120,
+                "latency_ms": 15.0
+            }
         )
 
         # 3. Share URLs

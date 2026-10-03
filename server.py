@@ -48,6 +48,12 @@ from core.market_maker import market_maker_engine
 from core.backup_service import create_full_enterprise_backup, list_backups_metadata, get_backup_manifest
 from scripts.restore import restore_backup as execute_restore_backup
 from core.digital_store_service import digital_store_service
+from core.sales_state_machine import sales_state_machine
+from core.payment_dispatcher import payment_dispatcher
+from core.cart_recovery_service import cart_recovery_service
+from core.product_factory_engine import product_factory as product_factory_engine
+from core.social_proof_engine import social_proof_engine
+from agents.lead_finder.agent import LeadFinderAgent
 from core.morning_triage_service import morning_triage_service
 from core.ecosystem_orchestrator import ecosystem_orchestrator
 
@@ -118,225 +124,8 @@ async def dashboard_auth_middleware(request: Request, call_next):
         or path.startswith("/api/donations")
         or path.startswith("/api/store")
         or path.startswith("/api/revenue")
-        or path.startswith("/api/jarvis")
-        or path.startswith("/api/cybersecurity")
-        or path.startswith("/download")
-    ):
-        response = await call_next(request)
-        if (path in ("/", "/license", "/donate", "/donations", "/store", "/cybersecurity")) and _DASHBOARD_TOKEN:
-            # secure=True enforces HTTPS-only cookie delivery; set False only for local HTTP dev
-            _is_secure = os.getenv("NEXUS_HTTPS", "false").lower() == "true"
-            response.set_cookie(key="nexus_token", value=_DASHBOARD_TOKEN, httponly=True, samesite="strict", secure=_is_secure)
-        return response
-
-    # 1. Seamless access for local development (localhost / loopback)
-    if (
-        client_ip in ("127.0.0.1", "localhost", "::1", "::ffff:127.0.0.1", "testclient")
-        or client_ip.startswith("127.")
-        or client_ip.endswith("127.0.0.1")
     ):
         return await call_next(request)
-
-    # 2. Check Authorization header (Bearer token)
-    auth_header = request.headers.get("Authorization", "").strip()
-    if auth_header == f"Bearer {_DASHBOARD_TOKEN}" or auth_header == _DASHBOARD_TOKEN:
-        return await call_next(request)
-
-    # 3. Check Cookie authentication
-    if request.cookies.get("nexus_token") == _DASHBOARD_TOKEN:
-        return await call_next(request)
-
-    # 4. Check token as query param (for browser SSE stream compatibility)
-    token_param = request.query_params.get("token", "")
-    if token_param == _DASHBOARD_TOKEN:
-        return await call_next(request)
-
-    return JSONResponse(
-        status_code=401,
-        content={"detail": "Unauthorized. Provide a valid Bearer token in the Authorization header."},
-        headers={"WWW-Authenticate": "Bearer"}
-    )
-
-# Initialize and auto-discover all Agent Plugins
-manager = AgentManager()
-manager.discover_plugins("agents")
-reporting_engine.agent_manager = manager
-
-# Pydantic Schemas
-class SimulateRequest(BaseModel):
-    sender: str
-    subject: str
-    body: str
-
-class RestoreRequest(BaseModel):
-    uid: str
-
-class UnsubscribeExecuteRequest(BaseModel):
-    subscription_id: str
-
-class RulesRequest(BaseModel):
-    whitelist_domains: str
-    blacklist_domains: str
-    blacklist_keywords: str
-    high_threshold: float
-    medium_threshold: float
-    dry_run: bool
-
-class AddonSetRequest(BaseModel):
-    is_active: bool
-
-class EmailAccountRequest(BaseModel):
-    id: Optional[str] = None
-    label: str
-    provider: str
-    email: str
-    password: Optional[str] = ""
-    imap_server: Optional[str] = None
-    imap_port: Optional[int] = 993
-    trash_folder: Optional[str] = None
-    review_folder: Optional[str] = None
-    is_enabled: Optional[bool] = True
-
-class CreatePaymentLinkRequest(BaseModel):
-    client_name: Optional[str] = ""
-    client_email: Optional[str] = ""
-    amount: float
-    currency: Optional[str] = "USD"
-    description: Optional[str] = "Nexus AI Workforce License"
-    method: Optional[str] = "paypal"
-
-class VerifyJuiceRequest(BaseModel):
-    juice_ref: str
-    payer_phone: Optional[str] = ""
-    amount_paid: Optional[float] = None
-
-class AIReplyRequest(BaseModel):
-    sender: str
-    subject: str
-    body: str
-    user_notes: Optional[str] = ""
-    tone: Optional[str] = "professional"
-    language: Optional[str] = "English"
-
-class DiscoverLeadsRequest(BaseModel):
-    niche: Optional[str] = "mauritius_hospitality"
-
-class MauritiusWhatsAppRequest(BaseModel):
-    phone: str
-    sector_id: str
-    custom_name: Optional[str] = ""
-
-class MauritiusDemoReplyRequest(BaseModel):
-    guest_message: str
-    sector_id: Optional[str] = "villas_hospitality"
-
-class GrowthCloneRequest(BaseModel):
-    model_id: str
-
-class PartnerDirectiveRequest(BaseModel):
-    directive: str
-    focus_area: Optional[str] = None
-
-class MeshContactRequest(BaseModel):
-    id: Optional[str] = None
-    name: str
-    handle: str
-    framework: Optional[str] = "Custom Autonomous Agent"
-    endpoint: Optional[str] = "http://127.0.0.1:9000/webhook"
-    trust_level: Optional[str] = "VERIFIED_PEER"
-    capabilities: Optional[List[str]] = []
-    status: Optional[str] = "online"
-    notes: Optional[str] = ""
-
-class MeshDispatchMessageRequest(BaseModel):
-    to_agent: str
-    intent: Optional[str] = "TASK_DISPATCH"
-    priority: Optional[str] = "NORMAL"
-    content: str
-    payload: Optional[Any] = None
-
-class MeshInboundWebhookRequest(BaseModel):
-    from_agent: str
-    intent: Optional[str] = "KNOWLEDGE_QUERY"
-    priority: Optional[str] = "NORMAL"
-    content: str
-    payload: Optional[Any] = None
-    token: Optional[str] = ""
-
-class SendEmailRequest(BaseModel):
-    account_id: Optional[str] = None
-    to_email: str
-    subject: str
-    body: str
-    reply_to: Optional[str] = None
-    from_name: Optional[str] = "Deven Pawaray"
-
-class DispatchLeadEmailRequest(BaseModel):
-    account_id: Optional[str] = None
-    custom_pitch: Optional[str] = None
-    subject: Optional[str] = None
-
-class VerifyEmailRequest(BaseModel):
-    email: str
-
-class SuppressRequest(BaseModel):
-    target: str
-    reason: Optional[str] = "Manual suppression / opt-out"
-
-class SweepBouncesRequest(BaseModel):
-    account_id: Optional[str] = None
-    dry_run: Optional[bool] = False
-
-class CreateDonationRequest(BaseModel):
-    donor_name: Optional[str] = "Kind Supporter"
-    donor_email: Optional[str] = "supporter@example.com"
-    amount: float = 1.00
-    currency: Optional[str] = "USD"
-    cause: Optional[str] = "Baby Ryan — Urgent Cardiac Surgery"
-
-class CreateStoreCheckoutRequest(BaseModel):
-    product_id: str
-    buyer_email: str
-    buyer_name: Optional[str] = "Valued Developer"
-    currency: Optional[str] = "USD"
-    payment_method: Optional[str] = "paypal"  # 'paypal', 'juice', 'crypto'
-    add_setup_service: Optional[bool] = False
-    coupon_code: Optional[str] = None
-
-
-# ==============================================================================
-# Sovereign AI & Automaton Capabilities (Soul, Survival, Replication, Treasury)
-# ==============================================================================
-
-class SoulReflectRequest(BaseModel):
-    note: Optional[str] = None
-
-class SurvivalOverrideRequest(BaseModel):
-    tier: Optional[str] = "auto"
-
-class SpawnChildRequest(BaseModel):
-    name: str
-    genesis_prompt: str
-    budget_usd: Optional[float] = 0.50
-
-class CryptoInvoiceRequest(BaseModel):
-    amount_usdc: float
-    memo: str
-    customer_ref: Optional[str] = "anonymous"
-
-class CryptoSendRequest(BaseModel):
-    recipient_address: str
-    amount_usdc: float
-    reason: str
-
-class CryptoBankSettleRequest(BaseModel):
-    amount_usdc: float
-    notes: Optional[str] = ""
-
-class X402ExecuteRequest(BaseModel):
-    endpoint_url: str
-    max_budget_usdc: Optional[float] = 5.0
-
 
 @app.get("/.well-known/agent-card.json")
 def get_erc8004_agent_card():
@@ -3130,9 +2919,7 @@ def serve_workforce_page():
 def serve_revenue_page():
     return FileResponse("static/revenue.html")
 
-@app.get("/jarvis")
-def serve_jarvis_page():
-    return FileResponse("static/jarvis.html")
+
 
 @app.get("/autopilot")
 def serve_autopilot_page():
@@ -3243,6 +3030,82 @@ def download_digital_product(product_id: str, token: Optional[str] = None):
         filename=filename,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'}
     )
+
+class StoreChatRequest(BaseModel):
+    session_id: str
+    message: str
+
+class PaymentLinkRequest(BaseModel):
+    product_id: str
+    amount_usd: float
+    email: str
+    rail: Optional[str] = "paypal"
+
+class CartInitRequest(BaseModel):
+    email: str
+    product_id: str
+    price: float
+
+@app.post("/api/store/chat")
+def api_store_chat(payload: StoreChatRequest):
+    """SalesGPT 7-Stage Conversational Sales State Machine for Store Chat."""
+    return sales_state_machine.advance_stage(payload.session_id, payload.message)
+
+@app.post("/api/store/payment-link")
+def api_store_payment_link(payload: PaymentLinkRequest):
+    """Stripe / Payment Link Dispatcher for secure checkout."""
+    return payment_dispatcher.create_secure_checkout_link(
+        product_id=payload.product_id,
+        amount_usd=payload.amount_usd,
+        email=payload.email,
+        rail=payload.rail or "paypal"
+    )
+
+@app.post("/api/store/cart/init")
+def api_store_cart_init(payload: CartInitRequest):
+    """Tracks cart initialization for abandonment monitoring."""
+    cart_id = cart_recovery_service.track_cart_init(payload.email, payload.product_id, payload.price)
+    return {"success": True, "cart_id": cart_id}
+
+@app.post("/api/store/cart/recover")
+def api_store_cart_recover():
+    """Triggers automated recovery hook dispatch for abandoned checkouts via LeadFinder/GrowthHacker."""
+    recovered = cart_recovery_service.check_and_recover_abandoned_carts()
+    return {"success": True, "recovered_count": len(recovered), "recovered_carts": recovered}
+
+class FactoryRunRequest(BaseModel):
+    niche_keyword: str
+
+class TestimonialRequest(BaseModel):
+    buyer: str
+    product: str
+    rating: int
+    comment: str
+
+@app.post("/api/factory/run")
+def api_factory_run(payload: FactoryRunRequest):
+    """Automated Product Factory: Scouts niche, specs, builds, QA-tests, and deploys $1 micro-tool."""
+    try:
+        res = product_factory_engine.run_assembly_line(payload.niche_keyword)
+        return {"success": True, "result": res}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/api/store/testimonials")
+def api_get_testimonials():
+    """Returns social proof and buyer testimonials for landing pages."""
+    return {"success": True, "testimonials": social_proof_engine.get_testimonials()}
+
+@app.post("/api/store/testimonials")
+def api_add_testimonial(payload: TestimonialRequest):
+    """Adds a new buyer testimonial to the social proof loop."""
+    res = social_proof_engine.add_testimonial(
+        buyer=payload.buyer,
+        product=payload.product,
+        rating=payload.rating,
+        comment=payload.comment
+    )
+    return {"success": True, "testimonial": res}
 
 class MicroTaskParseRequest(BaseModel):
     raw_invoice_text: str
@@ -3501,197 +3364,6 @@ def api_quick_executive_social_post():
     res = agent.run_cycle()
     return res
 
-
-# ==========================================
-# J.A.R.V.I.S. (Iron Man Voice & Assistant) Endpoints
-# ==========================================
-from core.jarvis_service import jarvis_service
-
-class JarvisChatRequest(BaseModel):
-    message: str
-    voice_mode: Optional[bool] = True
-
-class JarvisCommandRequest(BaseModel):
-    command: str
-
-@app.post("/api/jarvis/chat")
-def api_jarvis_chat(payload: JarvisChatRequest):
-    """Conversational endpoint with J.A.R.V.I.S. (Iron Man persona) with fleet command execution."""
-    res = jarvis_service.chat(
-        user_message=payload.message,
-        voice_mode=payload.voice_mode,
-        agent_manager=manager
-    )
-    return {
-        "success": True,
-        **res
-    }
-
-@app.get("/api/jarvis/status")
-def api_jarvis_status():
-    """Returns J.A.R.V.I.S. operational status, Arc Reactor core state, and fleet link."""
-    return {
-        "success": True,
-        "name": "J.A.R.V.I.S.",
-        "full_name": "Just A Rather Very Intelligent System",
-        "principal": "Deven Pawaray",
-        "power_level": "100%",
-        "status": "ONLINE",
-        "arc_reactor": "ACTIVE",
-        "gemini_active": jarvis_service.gemini_client is not None,
-        "fleet_count": len(manager.agents),
-        "history_count": len(jarvis_service.load_history(limit=100))
-    }
-
-@app.get("/api/jarvis/history")
-def api_jarvis_history(limit: int = 50):
-    """Retrieves conversation history with J.A.R.V.I.S."""
-    history = jarvis_service.load_history(limit=limit)
-    return {
-        "success": True,
-        "history": history
-    }
-
-@app.post("/api/jarvis/clear")
-def api_jarvis_clear_history():
-    """Resets J.A.R.V.I.S. conversation logs."""
-    cleared = jarvis_service.clear_history()
-    return {"success": cleared, "message": "J.A.R.V.I.S. conversation logs recycled, Sir."}
-
-@app.post("/api/jarvis/command")
-def api_jarvis_voice_command(payload: JarvisCommandRequest):
-    """Directly triggers a voice command action via J.A.R.V.I.S."""
-    res = jarvis_service.execute_voice_command(payload.command, agent_manager=manager)
-    return {"success": True, **res}
-
-# ═══════════════════════════════════════════════════════
-#    J.A.R.V.I.S. FULL AUTONOMOUS FILE & CODE ENGINE
-# ═══════════════════════════════════════════════════════
-
-class JarvisFileReadReq(BaseModel):
-    filepath: str
-    max_lines: Optional[int] = 1000
-
-class JarvisFileWriteReq(BaseModel):
-    filepath: str
-    content: str
-    create_backup: Optional[bool] = True
-
-class JarvisFileEditReq(BaseModel):
-    filepath: str
-    search: str
-    replace: str
-
-class JarvisFileImproveReq(BaseModel):
-    filepath: str
-    directive: Optional[str] = "Autonomous J.A.R.V.I.S. code enhancement"
-
-class JarvisFileListReq(BaseModel):
-    subpath: Optional[str] = ""
-    extension: Optional[str] = None
-
-@app.post("/api/jarvis/files/read")
-def api_jarvis_read_file(payload: JarvisFileReadReq):
-    """Allows J.A.R.V.I.S. to read and inspect any file across the workspace."""
-    from core.jarvis_file_engine import jarvis_file_engine
-    return jarvis_file_engine.read_file(payload.filepath, max_lines=payload.max_lines)
-
-@app.post("/api/jarvis/files/write")
-def api_jarvis_write_file(payload: JarvisFileWriteReq):
-    """Allows J.A.R.V.I.S. to create, update, or completely rewrite any file."""
-    from core.jarvis_file_engine import jarvis_file_engine
-    return jarvis_file_engine.write_file(payload.filepath, payload.content, create_backup=payload.create_backup)
-
-@app.post("/api/jarvis/files/edit")
-def api_jarvis_edit_file(payload: JarvisFileEditReq):
-    """Allows J.A.R.V.I.S. to perform surgical find-and-replace edits on any file."""
-    from core.jarvis_file_engine import jarvis_file_engine
-    return jarvis_file_engine.edit_file(payload.filepath, payload.search, payload.replace)
-
-@app.post("/api/jarvis/files/improve")
-def api_jarvis_improve_file(payload: JarvisFileImproveReq):
-    """Allows J.A.R.V.I.S. to audit, optimize, and refactor a target file."""
-    from core.jarvis_file_engine import jarvis_file_engine
-    return jarvis_file_engine.improve_file(payload.filepath, directive=payload.directive)
-
-@app.post("/api/jarvis/files/audit")
-def api_jarvis_audit_file(payload: JarvisFileReadReq):
-    """Allows J.A.R.V.I.S. to audit code quality, syntax, and security risks."""
-    from core.jarvis_file_engine import jarvis_file_engine
-    return jarvis_file_engine.audit_file(payload.filepath)
-
-@app.post("/api/jarvis/files/list")
-def api_jarvis_list_files(payload: JarvisFileListReq):
-    """Allows J.A.R.V.I.S. to enumerate all repository files."""
-    from core.jarvis_file_engine import jarvis_file_engine
-    return jarvis_file_engine.list_files(subpath=payload.subpath, extension=payload.extension)
-
-@app.get("/api/jarvis/reports")
-def api_jarvis_reports(target: Optional[str] = None):
-    """Allows J.A.R.V.I.S. to read, index, and synthesize workspace reports."""
-    return jarvis_service.read_reports(target=target)
-
-@app.get("/api/jarvis/stats")
-def api_jarvis_fleet_stats():
-    """Returns comprehensive fleet statistics aggregated by J.A.R.V.I.S."""
-    return jarvis_service.get_fleet_stats(agent_manager=manager)
-
-@app.get("/api/jarvis/revenue")
-def api_jarvis_revenue_analysis():
-    """Allows J.A.R.V.I.S. to analyze cash flow, invoices, treasury reserves, and monetization blueprints."""
-    return jarvis_service.analyze_revenue()
-
-# ═══════════════════════════════════════════════════════
-#    J.A.R.V.I.S. AGENCY SKILLS, MEMORY & EARNINGS APIS
-# ═══════════════════════════════════════════════════════
-
-class JarvisSkillExecReq(BaseModel):
-    skill_id: str
-    payload: Optional[Dict[str, Any]] = {}
-
-class JarvisDeliberateReq(BaseModel):
-    prompt: str
-    specialists: Optional[List[str]] = None
-
-@app.get("/api/jarvis/skills")
-def api_jarvis_get_skills(division: Optional[str] = None):
-    """Returns all specialized Agency skills endowed into J.A.R.V.I.S."""
-    return {
-        "success": True,
-        "skills": jarvis_service.get_skills(division=division)
-    }
-
-@app.post("/api/jarvis/skills/execute")
-def api_jarvis_execute_skill(payload: JarvisSkillExecReq):
-    """Directly triggers an Agency specialist action tool."""
-    return jarvis_service.execute_skill(payload.skill_id, payload.payload or {})
-
-@app.get("/api/jarvis/memory")
-def api_jarvis_get_memory():
-    """Retrieves J.A.R.V.I.S. 4-tier cognitive memory telemetry."""
-    return {
-        "success": True,
-        "memory": jarvis_service.get_memory_telemetry()
-    }
-
-@app.get("/api/jarvis/earnings")
-def api_jarvis_get_earnings():
-    """Returns real-time progress toward Sir Deven's Rs 150,000 MUR earnings target."""
-    from core.cognitive_memory_engine import cognitive_memory
-    return {
-        "success": True,
-        "earnings": cognitive_memory.working.get_earnings_status()
-    }
-
-@app.post("/api/jarvis/deliberate")
-def api_jarvis_deliberate(payload: JarvisDeliberateReq):
-    """Convenes the cognitive council of specialist brains to evaluate a prompt."""
-    return jarvis_service.deliberate(payload.prompt, specialist_ids=payload.specialists)
-
-@app.get("/api/jarvis/revenue/plan")
-def api_jarvis_revenue_plan():
-    """Returns the actionable revenue acceleration roadmap to hit Rs 150,000 MUR."""
-    return jarvis_service.get_revenue_acceleration_plan()
 
 # ═══════════════════════════════════════════════════════
 #    TASK LAUNCHER & SAMPLE VETTING ENDPOINTS (25 SCENARIOS)
@@ -3977,5 +3649,4 @@ def trigger_dunning_cycle():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
-
 
