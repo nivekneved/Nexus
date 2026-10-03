@@ -28,6 +28,8 @@ load_dotenv()
 
 from core.agent_manager import AgentManager
 manager = AgentManager()
+manager.discover_plugins("agents")
+agents = manager.agents
 from core.core_skills_engine import skills_engine
 from core.telemetry import telemetry
 from security.shield import shield
@@ -41,6 +43,7 @@ from core.treasury_engine import treasury_engine
 from core.inbox_feed_service import inbox_feed_service
 from core.mauritius_sales_engine import mauritius_sales_engine
 from core.executive_reporting_engine import reporting_engine
+reporting_engine.agent_manager = manager
 from core.executive_partner import executive_partner
 from core.cognitive_memory_engine import cognitive_memory
 from core.legal_guardrails import legal_guardrails
@@ -127,6 +130,181 @@ async def dashboard_auth_middleware(request: Request, call_next):
         or path.startswith("/api/revenue")
     ):
         return await call_next(request)
+
+# Pydantic Schemas
+class SimulateRequest(BaseModel):
+    sender: str
+    subject: str
+    body: str
+
+class RestoreRequest(BaseModel):
+    uid: str
+
+class UnsubscribeExecuteRequest(BaseModel):
+    subscription_id: str
+
+class RulesRequest(BaseModel):
+    whitelist_domains: str
+    blacklist_domains: str
+    blacklist_keywords: str
+    high_threshold: float
+    medium_threshold: float
+    dry_run: bool
+
+class AddonSetRequest(BaseModel):
+    is_active: bool
+
+class EmailAccountRequest(BaseModel):
+    id: Optional[str] = None
+    label: str
+    provider: str
+    email: str
+    password: Optional[str] = ""
+    imap_server: Optional[str] = None
+    imap_port: Optional[int] = 993
+    trash_folder: Optional[str] = None
+    review_folder: Optional[str] = None
+    is_enabled: Optional[bool] = True
+
+class CreatePaymentLinkRequest(BaseModel):
+    client_name: Optional[str] = ""
+    client_email: Optional[str] = ""
+    amount: float
+    currency: Optional[str] = "USD"
+    description: Optional[str] = "Nexus AI Workforce License"
+    method: Optional[str] = "paypal"
+
+class VerifyJuiceRequest(BaseModel):
+    juice_ref: str
+    payer_phone: Optional[str] = ""
+    amount_paid: Optional[float] = None
+
+class AIReplyRequest(BaseModel):
+    sender: str
+    subject: str
+    body: str
+    user_notes: Optional[str] = ""
+    tone: Optional[str] = "professional"
+    language: Optional[str] = "English"
+
+class DiscoverLeadsRequest(BaseModel):
+    niche: Optional[str] = "mauritius_hospitality"
+
+class MauritiusWhatsAppRequest(BaseModel):
+    phone: str
+    sector_id: str
+    custom_name: Optional[str] = ""
+
+class MauritiusDemoReplyRequest(BaseModel):
+    guest_message: str
+    sector_id: Optional[str] = "villas_hospitality"
+
+class GrowthCloneRequest(BaseModel):
+    model_id: str
+
+class PartnerDirectiveRequest(BaseModel):
+    directive: str
+    focus_area: Optional[str] = None
+
+class MeshContactRequest(BaseModel):
+    id: Optional[str] = None
+    name: str
+    handle: str
+    framework: Optional[str] = "Custom Autonomous Agent"
+    endpoint: Optional[str] = "http://127.0.0.1:9000/webhook"
+    trust_level: Optional[str] = "VERIFIED_PEER"
+    capabilities: Optional[List[str]] = []
+    status: Optional[str] = "online"
+    notes: Optional[str] = ""
+
+class MeshDispatchMessageRequest(BaseModel):
+    to_agent: str
+    intent: Optional[str] = "TASK_DISPATCH"
+    priority: Optional[str] = "NORMAL"
+    content: str
+    payload: Optional[Any] = None
+
+class MeshInboundWebhookRequest(BaseModel):
+    from_agent: str
+    intent: Optional[str] = "KNOWLEDGE_QUERY"
+    priority: Optional[str] = "NORMAL"
+    content: str
+    payload: Optional[Any] = None
+    token: Optional[str] = ""
+
+class SendEmailRequest(BaseModel):
+    account_id: Optional[str] = None
+    to_email: str
+    subject: str
+    body: str
+    reply_to: Optional[str] = None
+    from_name: Optional[str] = "Deven Pawaray"
+
+class DispatchLeadEmailRequest(BaseModel):
+    account_id: Optional[str] = None
+    custom_pitch: Optional[str] = None
+    subject: Optional[str] = None
+
+class VerifyEmailRequest(BaseModel):
+    email: str
+
+class SuppressRequest(BaseModel):
+    target: str
+    reason: Optional[str] = "Manual suppression / opt-out"
+
+class SweepBouncesRequest(BaseModel):
+    account_id: Optional[str] = None
+    dry_run: Optional[bool] = False
+
+class CreateDonationRequest(BaseModel):
+    donor_name: Optional[str] = "Kind Supporter"
+    donor_email: Optional[str] = "supporter@example.com"
+    amount: float = 1.00
+    currency: Optional[str] = "USD"
+    cause: Optional[str] = "Baby Ryan — Urgent Cardiac Surgery"
+
+class CreateStoreCheckoutRequest(BaseModel):
+    product_id: str
+    buyer_email: str
+    buyer_name: Optional[str] = "Valued Developer"
+    currency: Optional[str] = "USD"
+    payment_method: Optional[str] = "paypal"  # 'paypal', 'juice', 'crypto'
+    add_setup_service: Optional[bool] = False
+    coupon_code: Optional[str] = None
+
+# ==============================================================================
+# Sovereign AI & Automaton Capabilities (Soul, Survival, Replication, Treasury)
+# ==============================================================================
+
+class SoulReflectRequest(BaseModel):
+    note: Optional[str] = None
+
+class SurvivalOverrideRequest(BaseModel):
+    tier: Optional[str] = "auto"
+
+class SpawnChildRequest(BaseModel):
+    name: str
+    genesis_prompt: str
+    budget_usd: Optional[float] = 0.50
+
+class CryptoInvoiceRequest(BaseModel):
+    amount_usdc: float
+    memo: str
+    customer_ref: Optional[str] = "anonymous"
+
+class CryptoSendRequest(BaseModel):
+    recipient_address: str
+    amount_usdc: float
+    reason: str
+
+class CryptoBankSettleRequest(BaseModel):
+    amount_usdc: float
+    notes: Optional[str] = ""
+
+class X402ExecuteRequest(BaseModel):
+    endpoint_url: str
+    max_budget_usdc: Optional[float] = 5.0
+
 
 @app.get("/.well-known/agent-card.json")
 def get_erc8004_agent_card():

@@ -59,3 +59,10 @@ class AlibiConciergeAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "active_cases": 4}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Alibis Coordinated", "value": self.stats["alibis_coordinated"], "color": "blue"},
+            {"title": "Audits Passed", "value": self.stats["security_audits_passed"], "color": "purple"},
+            {"title": "Discreet Revenue", "value": f"${self.stats['revenue_usd']:,.0f} USD", "color": "green"}
+        ]

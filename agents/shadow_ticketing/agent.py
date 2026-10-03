@@ -60,3 +60,10 @@ class ShadowTicketingAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "upcoming_events": 2}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Events Curated", "value": self.stats["events_curated"], "color": "blue"},
+            {"title": "Tickets Sold", "value": self.stats["tickets_sold"], "color": "purple"},
+            {"title": "Ticketing Revenue", "value": f"${self.stats['revenue_usd']:,.0f} USD", "color": "green"}
+        ]

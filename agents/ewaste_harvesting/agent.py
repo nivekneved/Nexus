@@ -60,3 +60,10 @@ class EWasteHarvestingAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "lots_evaluated": 6}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Tons Processed", "value": f"{self.stats['tons_processed']} T", "color": "blue"},
+            {"title": "Precious Metals Recovered", "value": f"{self.stats['gold_palladium_recovered_grams']}g", "color": "yellow"},
+            {"title": "Net Recovery Profit", "value": f"${self.stats['net_recovery_profit_usd']:,.0f} USD", "color": "green"}
+        ]

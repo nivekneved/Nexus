@@ -59,3 +59,10 @@ class SpiteLogisticsAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "active_dispatches": 14}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Packages Dispatched", "value": self.stats["packages_dispatched"], "color": "blue"},
+            {"title": "Delivery Rate", "value": f"{self.stats['success_delivery_rate']}%", "color": "purple"},
+            {"title": "Courier Revenue", "value": f"${self.stats['revenue_usd']:,.0f} USD", "color": "green"}
+        ]

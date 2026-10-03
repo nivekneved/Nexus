@@ -59,3 +59,10 @@ class OdditiesCuriosAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "curios_listed": 12}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Specimens Cataloged", "value": self.stats["specimens_cataloged"], "color": "blue"},
+            {"title": "High-Value Sales", "value": self.stats["high_value_sales"], "color": "purple"},
+            {"title": "Curios Revenue", "value": f"${self.stats['revenue_usd']:,.0f} USD", "color": "green"}
+        ]

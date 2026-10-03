@@ -59,3 +59,10 @@ class OsintBountiesAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "active_bounties": 5}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Bounties Fulfilled", "value": self.stats["bounties_fulfilled"], "color": "blue"},
+            {"title": "Accuracy Rate", "value": f"{self.stats['accuracy_rate']}%", "color": "purple"},
+            {"title": "Bounty Fees Earned", "value": f"${self.stats['total_fees_earned_usd']:,.0f} USD", "color": "green"}
+        ]

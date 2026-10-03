@@ -59,3 +59,10 @@ class ReputationScrubberAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "active_scrub_cases": 9}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Assets Suppressed", "value": self.stats["assets_suppressed"], "color": "blue"},
+            {"title": "Clients Served", "value": self.stats["clients_served"], "color": "purple"},
+            {"title": "Scrubbing Revenue", "value": f"${self.stats['revenue_usd']:,.0f} USD", "color": "green"}
+        ]

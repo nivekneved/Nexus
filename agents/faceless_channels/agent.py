@@ -59,3 +59,10 @@ class FacelessChannelsAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "videos_rendered": 3}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Active Channels", "value": self.stats["active_channels"], "color": "blue"},
+            {"title": "Total Subscribers", "value": f"{self.stats['total_subscribers']:,}", "color": "purple"},
+            {"title": "Brokerage Valuation", "value": f"${self.stats['brokerage_valuation_usd']:,.0f} USD", "color": "green"}
+        ]

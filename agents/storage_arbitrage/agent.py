@@ -59,3 +59,10 @@ class StorageArbitrageAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "auctions_evaluated": 8}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Lockers Acquired", "value": self.stats["lockers_acquired"], "color": "blue"},
+            {"title": "Items Syndicated", "value": self.stats["items_syndicated"], "color": "purple"},
+            {"title": "Arbitrage Profit", "value": f"${self.stats['net_arbitrage_profit_usd']:,.0f} USD", "color": "green"}
+        ]

@@ -12,7 +12,7 @@ import json
 import time
 import secrets
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from core.paths import resolve_data_path
 
 POACHED_LEADS_FILE = resolve_data_path("competitor_poached_leads.json")

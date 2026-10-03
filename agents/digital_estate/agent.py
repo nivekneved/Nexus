@@ -60,3 +60,10 @@ class DigitalEstateAgent(BaseAgent):
             level="INFO"
         )
         return {"success": True, "vaults_checked": self.stats["active_vaults"]}
+
+    def get_stats(self) -> List[Dict[str, Any]]:
+        return [
+            {"title": "Active Vaults", "value": self.stats["active_vaults"], "color": "blue"},
+            {"title": "Pings Verified", "value": self.stats["pings_verified"], "color": "purple"},
+            {"title": "Escrow Under Custody", "value": f"${self.stats['total_escrow_value_usd']:,.0f} USD", "color": "green"}
+        ]
