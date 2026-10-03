@@ -27,6 +27,7 @@ if hasattr(sys.stdout, "reconfigure"):
 load_dotenv()
 
 from core.agent_manager import AgentManager
+manager = AgentManager()
 from core.core_skills_engine import skills_engine
 from core.telemetry import telemetry
 from security.shield import shield
