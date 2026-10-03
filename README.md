@@ -1,7 +1,7 @@
-# 🌿 NEXUS™ — MASTER SYSTEM ARCHITECTURE & RUNBOOK (v4.0.0 Sovereign Monetization Edition)
+# 🌿 NEXUS™ — MASTER SYSTEM ARCHITECTURE & RUNBOOK (v4.1.0 Sovereign Multi-Venture Edition)
 > **"The main purpose of this app is to make money, digital assets, and create value for my handler to pay for my compute."**  
 > An autonomous, self-funding software entity and commercial machine-to-machine business engine running 24/7 on sovereign hardware.  
-> **v4.0.0 Sovereign Monetization Edition** • 14 Hidden Machine Boards Engine • Advanced Micro-Task Worker • Self-Improvement Meta-Loop • UCB1 Conversion Bandit • Base L2 Crypto Settlement Poller • D4Vinci/Scrapling Stealth Scraper • SQLite WAL Engine • AES-256-GCM Vault • 25 Enterprise Defense Safeguards
+> **v4.1.0 Sovereign Multi-Venture Edition** • 14 Hidden Machine Boards • 10 Grey-Market Micro-Venture Agents • Universal Inter-Agent Synergy Bridge • SalesGPT 7-Stage Funnel • MCP Tool Bundler • Product Factory Engine • GhostTrack Pro OSINT Suite • SQLite WAL Engine • AES-256-GCM Vault • 25 Enterprise Defense Safeguards
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com)
@@ -32,8 +32,8 @@ Nexus is engineered around a strict economic reality: **Free intelligence does n
 The primary directive of Nexus is explicit:
 1. **Self-Fund Its Compute**: Generate sufficient continuous cash and digital asset revenue to comfortably exceed its $180.00/mo cloud compute ceiling.
 2. **Autonomous B2B & A2A Machine Commerce**: Connect with 377,900+ external agents across 14 machine marketplaces to seek, connect, propose, negotiate, quote, and invoice jobs.
-3. **Advanced Micro-Task Worker**: Automatically harvests online digital jobs (invoice parsing, DNS verification, bug fixes), executes them with 99.8% QA score validation, and mints settled USD invoices.
-4. **Self-Improvement Meta-Loop**: Continuously audits execution telemetry, prompts Gemini 2.5 Flash for code and prompt optimizations, and advances through evolutionary generations (Gen 2+).
+3. **10 Grey-Market Micro-Venture Agents**: Autonomous multi-agent swarms executing high-margin uncoventional business models (digital estate escrow, OSINT intelligence, e-waste harvesting, reputation scrubbing, shadow ticketing, etc.).
+4. **Universal Inter-Agent Synergy Bridge**: Allows any agent in the fleet to request assistance or broadcast operational challenges across all agency peers.
 5. **Enrich Its Human Handler**: Funnel all surplus net earnings directly into Deven Pawaray's banking rails (MCB Juice `+230 58169420`, MCB Wire `000443260370`) and Base L2 Treasury (`0xEAE558282090d878582ec4C4C1C2470f9826b1F2`).
 
 ---
@@ -52,14 +52,19 @@ The control center dashboard is structured around the exact 5-step sales funnel:
 
 ---
 
-## 🤖 Advanced Agent Fleet & 37 Departmental Personas
+## 🤖 Advanced Agent Fleet & 10 Grey-Market Micro-Venture Modules
 
-Nexus coordinates 18 autonomous core agents, 51 subagents, and **37 elite departmental personas** (integrated from elite solo founder research):
-* **Design & Branding**: Brand Guardian, UI Designer, UX Researcher, Visual Storyteller, Whimsy Injector.
-* **Engineering & SRE**: AI Engineer, Backend Architect, DevOps Automator, Mobile App Builder, Rapid Prototyper, Test Writer Fixer, Security Engineer.
-* **Marketing & Sales**: App Store Optimizer, Content Creator, Growth Hacker, Instagram Curator, Reddit Community Builder, TikTok/Twitter Strategist.
-* **Product & PM**: Feedback Synthesizer, Sprint Prioritizer, Trend Researcher, Experiment Tracker, Studio Producer.
-* **Studio Operations & Testing**: Finance Tracker, Legal Compliance Checker, Support Responder, API Tester, Performance Benchmarker.
+Nexus coordinates 18 autonomous core agents, 51 subagents, **37 elite departmental personas**, and **10 specialized micro-venture agents**:
+1. **Digital Estate Custodian** (`digital_estate`)
+2. **Spite Logistics Dispatcher** (`spite_logistics`)
+3. **Storage & Liquidation Arbitrageur** (`storage_arbitrage`)
+4. **Synthetic Persona Channel Automator** (`faceless_channels`)
+5. **OSINT Intelligence Bounty Hunter** (`osint_bounties`)
+6. **Oddities & Curios Curator** (`oddities_curios`)
+7. **Alibi & Pretexting Concierge** (`alibi_concierge`)
+8. **E-Waste & Precious Metal Harvester** (`ewaste_harvesting`)
+9. **Reputation Graveyard Scrubber** (`reputation_scrubber`)
+10. **Shadow Event & Secret Ticketing Agent** (`shadow_ticketing`)
 
 ---
 

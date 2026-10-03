@@ -1,6 +1,6 @@
-# 🚀 Nexus™ — Complete Run & Startup Guide (v4.0)
+# 🚀 Nexus™ — Complete Run & Startup Guide (v4.1.0 Sovereign Multi-Venture Edition)
 > **One Command Starts the Entire Autonomous Ecosystem**  
-> AI Core Engine • 24/7 Revenue Daemon • Base L2 Settlement Watcher • Cloudflare Public Gateway
+> AI Core Engine • 24/7 Revenue Daemon • Base L2 Settlement Watcher • 10 Micro-Venture Agents • Cloudflare Public Gateway
 
 ---
 
@@ -12,10 +12,11 @@ From the project root, simply run:
 python server.py
 ```
 > **What Happens Automatically:**
-> 1. Boots the **FastAPI Web Command Center & J.A.R.V.I.S.** on `http://127.0.0.1:8000`.
+> 1. Boots the **FastAPI Web Command Center** on `http://127.0.0.1:8000`.
 > 2. Starts the **24/7 Revenue Daemon Thread** (polls Base L2 settlements every 15 min & executes 14-board outreach daily).
-> 3. Launches the **Cloudflare Public Tunnel Subprocess** (auto-detects `cloudflared.exe`, creates a public `https://xxx.trycloudflare.com` URL, and exposes inbound agent mesh webhooks).
-> 4. To stop everything cleanly, press **`Ctrl+C`** in the terminal.
+> 3. Activates the **Universal Inter-Agent Synergy Bridge & 10 Grey-Market Micro-Venture Agents**.
+> 4. Launches the **Cloudflare Public Tunnel Subprocess** (auto-detects `cloudflared.exe`, creates a public `https://xxx.trycloudflare.com` URL, and exposes inbound agent mesh webhooks).
+> 5. To stop everything cleanly, press **`Ctrl+C`** in the terminal.
 
 ---
 
@@ -49,7 +50,7 @@ flowchart TD
     CMD["python server.py"] --> ORCH[Ecosystem Orchestrator]
     
     subgraph Nexus Ecosystem
-        ORCH --> S1["🧠 1. AI Core & Web Dashboard (FastAPI)\n• http://127.0.0.1:8000\n• 18 Autonomous Agents & J.A.R.V.I.S.\n• Treasury Ledger & 14 Hidden Boards API"]
+        ORCH --> S1["🧠 1. AI Core & Web Dashboard (FastAPI)\n• http://127.0.0.1:8000\n• 18 Core Agents & 10 Micro-Venture Agents\n• Treasury Ledger & 14 Hidden Boards API"]
         ORCH --> S2["⚡ 2. 24/7 Revenue & Settlement Daemon (Thread)\n• Polls Base L2 settlements every 15m\n• Daily 14-board outreach & invoicing ($14/day)\n• UCB1 Conversion Bandit Self-Learning"]
         ORCH --> S3["🌐 3. Cloudflare Public Gateway (Subprocess)\n• Launches cloudflared tunnel\n• Generates public https://xxx.trycloudflare.com\n• Exposes /api/mesh/inbound & /api/v1/x402/service"]
     end
@@ -67,7 +68,7 @@ Once the server is running, you can verify any subsystem in your browser or via 
 |---|---|---|
 | **Ecosystem Status** | [`http://localhost:8000/api/ecosystem/status`](http://localhost:8000/api/ecosystem/status) | Confirms all 3 engines (Server, Daemon, Tunnel) are active. |
 | **Public Tunnel URL** | [`http://localhost:8000/api/tunnel/status`](http://localhost:8000/api/tunnel/status) | Returns the live `https://xxx.trycloudflare.com` public URL. |
-| **Web Dashboard** | [`http://localhost:8000`](http://localhost:8000) | Full GUI: Hidden Boards tab, J.A.R.V.I.S., Treasury, Partner Fleets. |
+| **Web Dashboard** | [`http://localhost:8000`](http://localhost:8000) | Full GUI: Hidden Boards tab, Treasury, Partner Fleets. |
 | **14-Board Contracts** | [`http://localhost:8000/api/boards/negotiations`](http://localhost:8000/api/boards/negotiations) | Shows 14 active contracts, quotes, and minted $1 invoices. |
 | **Conversion Bandit** | [`http://localhost:8000/api/bandit/stats`](http://localhost:8000/api/bandit/stats) | Live UCB1 conversion rates and self-mutated pitch hooks. |
 | **Treasury & Receivables** | [`http://localhost:8000/api/finance/receivables`](http://localhost:8000/api/finance/receivables) | Confirms collected cash vs. pending receivables. |
@@ -97,12 +98,5 @@ If you ever wish to test a specific component in isolation:
   ```
 - **Test All Python Syntax & Compilation**:
   ```powershell
-  python -m compileall -q core server.py scripts
+  python -m compileall -q core server.py scripts agents
   ```
-
----
-
-## 🛑 How to Stop the App
-
-Simply press **`Ctrl+C`** in the terminal where `python server.py` is running.  
-The `@app.on_event("shutdown")` hook cleanly terminates the Cloudflare subprocess and stops the daemon thread with zero zombie processes left behind.
