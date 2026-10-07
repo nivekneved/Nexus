@@ -8084,7 +8084,7 @@ window.generateEnterpriseProposalDoc = async function() {
     const data = await res.json();
     if (data.success) {
       const p = data.proposal;
-      const text = \`=== NEXUS ENTERPRISE PROPOSAL & COMMERCIAL AGREEMENT ===\\nDeal ID: \${p.deal_id}\\nClient: \${p.client_name} (\${p.client_email})\\nNiche: \${p.niche}\\n\\n\${p.pitch_copy}\\n\\nInvoice Ref: \${p.invoice.id}\\nPayment URL: \${p.invoice.payment_url}\\nStatus: \${p.status}\\n=====================================================\`;
+      const text = `=== NEXUS ENTERPRISE PROPOSAL & COMMERCIAL AGREEMENT ===\nDeal ID: ${p.deal_id}\nClient: ${p.client_name} (${p.client_email})\nNiche: ${p.niche}\n\n${p.pitch_copy}\n\nInvoice Ref: ${p.invoice.id}\nPayment URL: ${p.invoice.payment_url}\nStatus: ${p.status}\n=====================================================`;
       document.getElementById("propPreviewArea").value = text;
       const linkContainer = document.getElementById("propPaymentLinkContainer");
       const linkBtn = document.getElementById("propPaymentLinkBtn");
@@ -8104,7 +8104,7 @@ window.generateEnterpriseProposalDoc = async function() {
 window.generateLegalSOW = function() {
   const name = document.getElementById("propClientName").value.trim() || "Valued Client";
   const niche = document.getElementById("propClientNiche").value.trim() || "Digital Operations";
-  const text = \`=== STATEMENT OF WORK (SOW) & MUTUAL NDA ===\\nClient: \${name}\\nProject: Turnkey \${niche} Deployment\\nProvider: Nexus Sovereign Engineering (Grand Baie, Mauritius)\\n\\n1. SCOPE OF WORK:\\nDeployment of sovereign AI multi-agent software suite, automated WhatsApp dispatch, and bilingual LLM concierge.\\n\\n2. INTELLECTUAL PROPERTY & TRANSFER:\\nFull white-label IP transfer upon complete settlement of upfront deployment fee.\\n\\n3. MAINTENANCE & SLA:\\n24/7 autonomous heartbeat monitoring with 99.9% uptime SLA.\\n\\n4. GOVERNING LAW:\\nLaws of the Republic of Mauritius.\\n\\nSigned by Authorized Nexus AI Managing Partner.\\n=============================================\`;
+  const text = `=== STATEMENT OF WORK (SOW) & MUTUAL NDA ===\nClient: ${name}\nProject: Turnkey ${niche} Deployment\nProvider: Nexus Sovereign Engineering (Grand Baie, Mauritius)\n\n1. SCOPE OF WORK:\nDeployment of sovereign AI multi-agent software suite, automated WhatsApp dispatch, and bilingual LLM concierge.\n\n2. INTELLECTUAL PROPERTY & TRANSFER:\nFull white-label IP transfer upon complete settlement of upfront deployment fee.\n\n3. MAINTENANCE & SLA:\n24/7 autonomous heartbeat monitoring with 99.9% uptime SLA.\n\n4. GOVERNING LAW:\nLaws of the Republic of Mauritius.\n\nSigned by Authorized Nexus AI Managing Partner.\n=============================================`;
   document.getElementById("propPreviewArea").value = text;
   if (typeof window.showToast === "function") window.showToast("SOW & NDA compiled successfully!", "success");
 };

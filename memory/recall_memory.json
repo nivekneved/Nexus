@@ -1,5 +1,14 @@
 [
   {
+    "timestamp": "2026-10-03 21:25:05",
+    "event_type": "NICHE_SCOUTED",
+    "details": {
+      "niche": "crypto tax calculator",
+      "total_views": 31987,
+      "tier": "🌱 EMERGING NICHE (Low Competition)"
+    }
+  },
+  {
     "timestamp": "2026-09-28 02:42:02",
     "event_type": "VETTED_TASK_EXECUTED:COMM_VENDING_TOOL",
     "details": {

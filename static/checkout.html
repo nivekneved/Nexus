@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Secure Checkout</title>
+    <link rel="stylesheet" href="/static/fonts/fonts.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body { background: #f8fafc; font-family: 'Inter', sans-serif; color: #0f172a; margin: 0; padding: 0; }
+
+        .checkout-header {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .checkout-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        /* Left Column: Form */
+        .checkout-form-section {
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title { font-size: 1.25rem; font-weight: 800; margin: 0 0 20px 0; display: flex; align-items: center; gap: 8px; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 6px; }
+        .form-input {
+            width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; transition: all 0.2s; box-sizing: border-box;
+        }
+        .form-input:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15); }
+
+        .payment-methods { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+        .payment-method {
+            border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between;
+        }
+        .payment-method:hover { border-color: #94a3b8; background: #f8fafc; }
+        .payment-method.active { border-color: #0ea5e9; background: #f0f9ff; box-shadow: 0 0 0 1px #0ea5e9; }
+        .pm-title { font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+
+        .btn-checkout {
+            width: 100%; background: #0f172a; color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 1.1rem; font-weight: 800; margin-top: 30px; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-checkout:hover { background: #1e293b; transform: translateY(-1px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+
+        /* Right Column: Order Summary */
+        .order-summary {
+            background: #f8fafc;
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            align-self: start;
+            position: sticky;
+            top: 40px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 1px solid #cbd5e1;
+        }
+
+        .product-title { font-size: 1.4rem; font-weight: 900; margin: 0 0 8px 0; }
+        .product-desc { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin: 0 0 20px 0; }
+
+        .price-row { display: flex; justify-content: space-between; font-size: 0.95rem; color: #475569; margin-bottom: 12px; }
+        .price-total { display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 900; color: #0f172a; margin-top: 20px; padding-top: 20px; border-top: 1px solid #cbd5e1; }
+
+        .trust-badges { display: flex; gap: 12px; justify-content: center; margin-top: 30px; opacity: 0.6; }
+        .trust-badge { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #475569; }
+
+        @media (max-width: 900px) {
+            .checkout-container { grid-template-columns: 1fr; }
+            .order-summary { position: static; order: -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="checkout-header">
+        <h2 style="margin:0; font-weight:900; letter-spacing:-0.5px; font-size:1.8rem;">
+            NEXUS <span style="color:#0ea5e9;">STORE</span>
+        </h2>
+    </header>
+
+    <div class="checkout-container">
+
+        <!-- Left: Form -->
+        <div class="checkout-form-section">
+            <h3 class="section-title"><span>1</span> Contact Information</h3>
+            <div class="form-group">
+                <label class="form-label">Email Address (For digital delivery/receipt)</label>
+                <input type="email" id="email" class="form-input" placeholder="you@example.com" required>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 40px;"><span>2</span> Shipping Address</h3>
+            <div class="form-row">
+                <div>
+                    <label class="form-label">First Name</label>
+                    <input type="text" id="fname" class="form-input" placeholder="John" required>
+                </div>
+                <div>
+                    <label class="form-label">Last Name</label>
+                    <input type="text" id="lname" class="form-input" placeholder="Doe" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Address</label>
+                <input type="text" id="address" class="form-input" placeholder="123 Main St" required>
+            </div>
+            <div class="form-row">
+                <div>
+                    <label class="form-label">City</label>
+                    <input type="text" id="city" class="form-input" placeholder="New York" required>
+                </div>
+                <div>
+                    <label class="form-label">ZIP / Postal Code</label>
+                    <input type="text" id="zip" class="form-input" placeholder="10001" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Country</label>
+                <select id="country" class="form-input">
+                    <option value="US">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="MU">Mauritius</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="FR">France</option>
+                </select>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 40px;"><span>3</span> Payment</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: -10px; margin-bottom: 20px;">All transactions are secure and encrypted.</p>
+
+            <div class="payment-methods">
+                <div class="payment-method active" onclick="selectPayment('credit')">
+                    <div class="pm-title">💳 Credit Card / PayPal</div>
+                    <div style="font-size:1.4rem;">🌐</div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('crypto')">
+                    <div class="pm-title">🔵 Base L2 USDC (Crypto)</div>
+                    <div style="font-size:1.4rem;">⛓️</div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('juice')">
+                    <div class="pm-title">🧃 MCB Juice (Mauritius Only)</div>
+                    <div style="font-size:1.4rem;">🇲🇺</div>
+                </div>
+            </div>
+
+            <button class="btn-checkout" onclick="processCheckout()" id="btnCheckout">
+                Complete Order • <span id="btnPrice">$0.00</span>
+            </button>
+        </div>
+
+        <!-- Right: Order Summary -->
+        <div class="order-summary">
+            <div class="product-image" id="prodIcon">📦</div>
+            <h2 class="product-title" id="prodTitle">Loading Product...</h2>
+            <p class="product-desc" id="prodDesc">Please wait while we fetch product details.</p>
+
+            <div style="margin-top: 30px;">
+                <div class="price-row">
+                    <span>Subtotal</span>
+                    <span id="subtotalPrice">$0.00</span>
+                </div>
+                <div class="price-row">
+                    <span>Shipping</span>
+                    <span style="color: #059669; font-weight: 700;">Calculated at next step</span>
+                </div>
+                <div class="price-row">
+                    <span>Taxes</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="price-total">
+                    <span>Total</span>
+                    <span id="totalPrice">$0.00</span>
+                </div>
+            </div>
+
+            <div class="trust-badges">
+                <div class="trust-badge">🔒 256-bit SSL</div>
+                <div class="trust-badge">🛡️ Buyer Protection</div>
+                <div class="trust-badge">⚡ Instant Dispatch</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentProduct = null;
+        let selectedPayment = 'credit';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('prod') || 'nexus-developer-bundle'; // Default fallback
+
+        async function loadProduct() {
+            try {
+                const res = await fetch('/api/store/products');
+                const data = await res.json();
+                currentProduct = data.catalog.find(p => p.id === productId);
+
+                if (!currentProduct) {
+                    document.getElementById('prodTitle').innerText = "Product Not Found";
+                    document.getElementById('prodDesc').innerText = "The requested product is unavailable.";
+                    return;
+                }
+
+                // Populate UI
+                document.getElementById('prodTitle').innerText = currentProduct.name;
+                document.getElementById('prodDesc').innerText = currentProduct.description || currentProduct.tagline;
+
+                // Fallback icons based on category
+                let icon = "📦";
+                if (currentProduct.badge && currentProduct.badge.includes("Agent")) icon = "🤖";
+                else if (currentProduct.badge && currentProduct.badge.includes("eBook")) icon = "📘";
+                else if (currentProduct.badge && currentProduct.badge.includes("Contract")) icon = "⛓️";
+                document.getElementById('prodIcon').innerText = icon;
+
+                updatePrices();
+            } catch (e) {
+                console.error("Failed to load product:", e);
+            }
+        }
+
+        function selectPayment(method) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            updatePrices();
+        }
+
+        function updatePrices() {
+            if (!currentProduct) return;
+
+            let symbol = "$";
+            let amount = currentProduct.price_usd;
+
+            if (selectedPayment === 'juice') {
+                symbol = "Rs ";
+                amount = currentProduct.price_mur;
+            }
+
+            const formatted = `${symbol}${amount.toFixed(2)}`;
+            document.getElementById('subtotalPrice').innerText = formatted;
+            document.getElementById('totalPrice').innerText = formatted;
+            document.getElementById('btnPrice').innerText = formatted;
+        }
+
+        async function processCheckout() {
+            if (!currentProduct) return;
+
+            const email = document.getElementById('email').value;
+            const fname = document.getElementById('fname').value;
+            const lname = document.getElementById('lname').value;
+            const address = document.getElementById('address').value;
+
+            if (!email || !fname || !lname || !address) {
+                alert("Please fill out all contact and shipping information.");
+                return;
+            }
+
+            const btn = document.getElementById('btnCheckout');
+            btn.disabled = true;
+            btn.innerText = "Processing Secure Checkout...";
+
+            // Map frontend selection to backend rails
+            let backendRail = "paypal";
+            if (selectedPayment === 'crypto') backendRail = "base_l2";
+            if (selectedPayment === 'juice') backendRail = "mcb_juice";
+
+            try {
+                const res = await fetch("/api/store/checkout", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        product_id: currentProduct.id,
+                        buyer_email: email,
+                        payment_method: backendRail,
+                        shipping_info: {
+                            name: `${fname} ${lname}`,
+                            address: address,
+                            city: document.getElementById('city').value,
+                            country: document.getElementById('country').value,
+                            zip: document.getElementById('zip').value
+                        }
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.success && data.payment_url) {
+                    window.location.href = data.payment_url;
+                } else {
+                    alert("Checkout error: " + (data.error || "Unknown error occurred."));
+                    btn.disabled = false;
+                    updatePrices();
+                }
+            } catch (e) {
+                alert("Network error processing checkout: " + e.message);
+                btn.disabled = false;
+                updatePrices();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadProduct);
+    </script>
+</body>
+</html>

@@ -66,31 +66,52 @@ class CompetitorPoacherAgent(BaseAgent):
         return load_poached_leads()
 
     def run_cycle(self) -> Dict[str, Any]:
-        """Runs the complete competitor review scanning and poacher pitch generation cycle."""
+        """Runs the complete competitor review scanning and poacher pitch generation cycle using PoacherOrchestrator."""
         self.log(
-            step="Review Scraping",
-            file_used="competitor_poacher/agent.py",
-            message="Scanning G2, Trustpilot & Capterra for SaaS price hike and downtime complaints...",
+            step="Poacher Recon Swarm",
+            file_used="poacher/core/orchestrator.py",
+            message="Executing high-speed competitive reconnaissance swarm via PoacherOrchestrator...",
             level="INFO"
         )
+        try:
+            import asyncio
+            from poacher.core.orchestrator import PoacherOrchestrator
+            orchestrator = PoacherOrchestrator()
+            card = asyncio.run(orchestrator.execute_poaching_campaign("HubSpot Enterprise", "hubspot.com"))
 
-        scraper = self.run_subagent("competitor_review_scraper", {})
-        complaints_data = scraper.get("data", {}).get("complaints", scraper.get("complaints", []))
-        generator = self.run_subagent("poacher_campaign_generator", {"complaints": complaints_data})
-
-        self.stats["poached_leads_ready"] = len(load_poached_leads())
-        self.log(
-            step="Poacher Pitch Generated",
-            file_used=POACHED_LEADS_FILE,
-            message=f"Successfully synthesized {generator.get('new_leads_generated', 0)} bespoke anti-SaaS poacher pitches.",
-            level="SUCCESS"
-        )
-
-        return {
-            "status": "Competitor Poacher Cycle Completed",
-            "scraper_results": scraper,
-            "campaign_results": generator
-        }
+            leads = load_poached_leads()
+            new_poached = {
+                "id": card.card_id,
+                "competitor": card.competitor_name,
+                "platform": "G2 / Trustpilot Recon",
+                "user": card.talent_roster[0].name if card.talent_roster else "Operations Lead",
+                "pain_category": card.churn_signals[0].pain_category if card.churn_signals else "Price Hike",
+                "complaint": card.churn_signals[0].review_snippet if card.churn_signals else "SaaS price increase with zero support.",
+                "offer_angle": f"Local deployment of Nexus Workforce with lifetime ownership. Stack: {', '.join(card.tech_stack[:3])}",
+                "pitch_draft": f"Hi there,\n\nWe noticed your team at {card.competitor_name} is navigating pricing and support friction. Nexus offers autonomous AI workstations with lifetime ownership and zero recurring seat fees.\n\nLet's connect!",
+                "status": "TARGET_SATURATED"
+            }
+            leads.insert(0, new_poached)
+            from core.storage import atomic_save_json
+            atomic_save_json(POACHED_LEADS_FILE, leads)
+            self.stats["poached_leads_ready"] = len(leads)
+            return {
+                "success": True,
+                "status": "Competitor Poacher Swarm Completed",
+                "card": card.model_dump(),
+                "poached_leads": leads
+            }
+        except Exception as e:
+            self.log(step="Poacher Error", file_used="poacher", message=str(e), level="ERROR")
+            scraper = self.run_subagent("competitor_review_scraper", {})
+            complaints_data = scraper.get("data", {}).get("complaints", scraper.get("complaints", []))
+            generator = self.run_subagent("poacher_campaign_generator", {"complaints": complaints_data})
+            self.stats["poached_leads_ready"] = len(load_poached_leads())
+            return {
+                "status": "Competitor Poacher Cycle Completed",
+                "scraper_results": scraper,
+                "campaign_results": generator
+            }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:
         return [

@@ -20,6 +20,18 @@
       "dest": "/static/store.html"
     },
     {
+      "src": "/products",
+      "dest": "/static/products.html"
+    },
+    {
+      "src": "/free",
+      "dest": "/static/squeeze.html"
+    },
+    {
+      "src": "/checkout",
+      "dest": "/static/checkout.html"
+    },
+    {
       "src": "/manual",
       "dest": "/static/Nexus_User_Manual.pdf"
     },

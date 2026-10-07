@@ -395,14 +395,16 @@ window.handleTriageAction = function(actionCmd) {
 };
 
 // Helper: Escape HTML
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+if (typeof window.escapeHtml !== 'function') {
+  window.escapeHtml = function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  };
 }
 
 // Auto-initialize when DOM is ready

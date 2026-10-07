@@ -60,8 +60,16 @@ from core.social_proof_engine import social_proof_engine
 from agents.lead_finder.agent import LeadFinderAgent
 from core.morning_triage_service import morning_triage_service
 from core.ecosystem_orchestrator import ecosystem_orchestrator
+from core.ghosttrack_bridge import ghosttrack_bridge
 
 app = FastAPI(title="Nexus AI Workforce Hub")
+
+import re
+from fastapi.responses import Response
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    return Response(content=b"", media_type="image/x-icon")
 
 # Start 4:00 PM Daily WhatsApp Executive Briefing Scheduler (Only in non-serverless persistent environments)
 if not os.getenv("VERCEL") and not os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
@@ -409,6 +417,21 @@ def send_crypto_endpoint(payload: CryptoSendRequest):
         amount_usdc=payload.amount_usdc,
         reason=payload.reason
     )
+
+class SmartContractSettleRequest(BaseModel):
+    amount_usd: float
+
+@app.get("/api/contracts/monetization")
+def get_smart_contract_monetization():
+    """Returns smart contract deployments and protocol fee revenue ledger."""
+    from core.smart_contract_monetization import smart_contract_monetization
+    return smart_contract_monetization.get_ledger()
+
+@app.post("/api/contracts/settle")
+def simulate_contract_settlement(req: SmartContractSettleRequest):
+    """Simulates an on-chain escrow release and routes the 1.5% protocol fee to the treasury."""
+    from core.smart_contract_monetization import smart_contract_monetization
+    return smart_contract_monetization.simulate_settlement(req.amount_usd)
 
 @app.post("/api/sovereignty/treasury/settle-bank")
 def settle_crypto_to_bank_endpoint(payload: CryptoBankSettleRequest):
@@ -1698,6 +1721,129 @@ def dispatch_lead_pitch_email(lead_id: str, req: Optional[DispatchLeadEmailReque
         logger.error(f"Error dispatching lead email pitch: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+class UpdateLeadRequest(BaseModel):
+    company: Optional[str] = None
+    contact_name: Optional[str] = None
+    contact_role: Optional[str] = None
+    contact_email: Optional[str] = None
+    pricing: Optional[str] = None
+    fit_score: Optional[int] = None
+    pain_point: Optional[str] = None
+    pitch_draft: Optional[str] = None
+
+def normalize_company_name(name: str) -> str:
+    if not name: return ""
+    clean = re.sub(r'#\d+', '', name)
+    clean = re.sub(r'[^\w\s]', '', clean)
+    return clean.strip().lower()
+
+@app.post("/api/leads/clean-duplicates")
+def clean_duplicate_leads():
+    """Removes duplicate leads by fuzzy company name from leads_pipeline.json."""
+    from core.storage import safe_load_json, atomic_save_json
+    pipeline = safe_load_json("leads_pipeline.json", default=[])
+    seen = set()
+    unique_leads = []
+    removed_count = 0
+    for lead in pipeline:
+        norm_key = normalize_company_name(lead.get("company", ""))
+        if norm_key not in seen and norm_key:
+            seen.add(norm_key)
+            unique_leads.append(lead)
+        else:
+            removed_count += 1
+    atomic_save_json("leads_pipeline.json", unique_leads)
+    return {"success": True, "removed_duplicates": removed_count, "remaining_leads": len(unique_leads)}
+
+@app.post("/api/leads/merge-duplicates")
+def merge_duplicate_leads():
+    """Intelligently merges duplicate leads by fuzzy company name, combining contacts and notes."""
+    from core.storage import safe_load_json, atomic_save_json
+    pipeline = safe_load_json("leads_pipeline.json", default=[])
+
+    merged_map = {}
+    merged_count = 0
+
+    for lead in pipeline:
+        norm_key = normalize_company_name(lead.get("company", ""))
+        if not norm_key:
+            continue
+
+        if norm_key not in merged_map:
+            merged_map[norm_key] = lead
+        else:
+            merged_count += 1
+            master = merged_map[norm_key]
+            if not master.get("contact_name") and lead.get("contact_name"):
+                master["contact_name"] = lead.get("contact_name")
+            if not master.get("contact_email") and lead.get("contact_email"):
+                master["contact_email"] = lead.get("contact_email")
+            if not master.get("contact_role") and lead.get("contact_role"):
+                master["contact_role"] = lead.get("contact_role")
+            if not master.get("phone") and lead.get("phone"):
+                master["phone"] = lead.get("phone")
+            if not master.get("pain_point") and lead.get("pain_point"):
+                master["pain_point"] = lead.get("pain_point")
+            if not master.get("pitch_draft") and lead.get("pitch_draft"):
+                master["pitch_draft"] = lead.get("pitch_draft")
+            if lead.get("fit_score", 0) > master.get("fit_score", 0):
+                master["fit_score"] = lead.get("fit_score")
+
+    unique_leads = list(merged_map.values())
+    atomic_save_json("leads_pipeline.json", unique_leads)
+    return {"success": True, "merged_records": merged_count, "total_leads": len(unique_leads)}
+
+@app.post("/api/leads/{lead_id}/update")
+def update_lead_details(lead_id: str, req: UpdateLeadRequest):
+    """Updates and saves lead details in leads_pipeline.json."""
+    from core.storage import safe_load_json, atomic_save_json
+    pipeline = safe_load_json("leads_pipeline.json", default=[])
+    updated = False
+    for lead in pipeline:
+        if lead.get("id") == lead_id:
+            if req.company is not None: lead["company"] = req.company
+            if req.contact_name is not None: lead["contact_name"] = req.contact_name
+            if req.contact_role is not None: lead["contact_role"] = req.contact_role
+            if req.contact_email is not None: lead["contact_email"] = req.contact_email
+            if req.pricing is not None: lead["pricing"] = req.pricing
+            if req.fit_score is not None: lead["fit_score"] = req.fit_score
+            if req.pain_point is not None: lead["pain_point"] = req.pain_point
+            if req.pitch_draft is not None: lead["pitch_draft"] = req.pitch_draft
+            updated = True
+            break
+    if updated:
+        atomic_save_json("leads_pipeline.json", pipeline)
+        return {"success": True, "message": "Lead updated and saved successfully."}
+    raise HTTPException(status_code=404, detail="Lead not found.")
+
+class BulkDeleteLeadsRequest(BaseModel):
+    lead_ids: List[str]
+
+@app.post("/api/leads/bulk-delete")
+def bulk_delete_leads(req: BulkDeleteLeadsRequest):
+    """Deletes selected leads from leads_pipeline.json."""
+    from core.storage import safe_load_json, atomic_save_json
+    pipeline = safe_load_json("leads_pipeline.json", default=[])
+    remaining = [l for l in pipeline if l.get("id") not in req.lead_ids]
+    atomic_save_json("leads_pipeline.json", remaining)
+    return {"success": True, "deleted_count": len(pipeline) - len(remaining), "remaining_leads": len(remaining)}
+
+@app.post("/api/leads/remove-dead-emails")
+def remove_dead_emails():
+    """Removes leads with synthetic/unverified email addresses."""
+    from core.storage import safe_load_json, atomic_save_json
+    pipeline = safe_load_json("leads_pipeline.json", default=[])
+    valid_leads = []
+    removed_count = 0
+    for lead in pipeline:
+        email = lead.get("contact_email", "")
+        if "lead_" in email or not email or "example.com" in email:
+            removed_count += 1
+        else:
+            valid_leads.append(lead)
+    atomic_save_json("leads_pipeline.json", valid_leads)
+    return {"success": True, "removed_count": removed_count, "remaining_leads": len(valid_leads)}
+
 class CampaignGenerateRequest(BaseModel):
     product_id: str
 
@@ -2004,6 +2150,18 @@ def get_autopilot_events(limit: int = 50):
 def get_morning_dossier():
     """Synthesizes the morning executive briefing of everything done while sleeping."""
     return reporting_engine.generate_morning_dossier()
+
+@app.get("/api/founder/morning-briefing")
+def get_morning_executive_briefing():
+    """Synthesizes overnight financial earnings, overnight accomplishments, completed tasks, and pending actions."""
+    from core.morning_executive_briefing import morning_briefing_service
+    return morning_briefing_service.generate_briefing()
+
+@app.post("/api/founder/earn-one-dollar")
+def execute_earn_one_dollar():
+    """Triggers an instant automated earning cycle to secure $1.00+ USD."""
+    from core.earn_one_dollar import earn_one_dollar_engine
+    return earn_one_dollar_engine.execute_earning_cycle()
 
 @app.post("/api/autopilot/dispatch-dossier")
 def dispatch_morning_dossier_to_whatsapp():
@@ -3074,6 +3232,10 @@ def serve_donations_page():
 def serve_seek_page():
     return FileResponse("static/seek.html")
 
+@app.get("/agent-config")
+def serve_agent_config_page():
+    return FileResponse("static/agent_config.html")
+
 @app.get("/connect")
 def serve_connect_page():
     return FileResponse("static/connect.html")
@@ -3164,7 +3326,41 @@ def serve_manual_pdf():
 @app.get("/api/store/products")
 def api_get_store_products():
     """Returns the digital product catalog."""
-    return {"success": True, "products": digital_store_service.get_catalog()}
+    return {"success": True, "catalog": digital_store_service.get_catalog()}
+
+@app.get("/free")
+def serve_squeeze_page():
+    """Serves the Squeeze Page (Tripwire Offer)."""
+    return FileResponse("static/squeeze.html")
+
+class MarketingSubscribeRequest(BaseModel):
+    email: str
+    source: Optional[str] = "Website"
+
+@app.post("/api/marketing/subscribe")
+def api_marketing_subscribe(payload: MarketingSubscribeRequest):
+    """Captures emails from the squeeze page into the marketing ledger."""
+    from core.storage import safe_load_json, atomic_save_json
+    ledger_file = "marketing_subscribers.json"
+    subs = safe_load_json(ledger_file, default=[])
+
+    if not any(s.get("email") == payload.email for s in subs):
+        subs.append({
+            "email": payload.email,
+            "source": payload.source,
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        })
+        atomic_save_json(ledger_file, subs)
+
+    return {"success": True, "message": "Subscribed successfully."}
+
+@app.get("/checkout.html")
+def serve_checkout_page():
+    return FileResponse("static/checkout.html")
+
+@app.get("/products.html")
+def serve_products_page():
+    return FileResponse("static/products.html")
 
 @app.post("/api/store/checkout")
 def api_create_store_checkout(payload: CreateStoreCheckoutRequest):
@@ -3310,6 +3506,46 @@ def api_factory_build_product(payload: BuildProductRequest):
     from core.product_factory_engine import product_factory
     res = product_factory.run_assembly_line(payload.niche_keyword)
     return res
+
+# ============================================================================
+# Autonomous Distribution Engine Endpoints (RFP Sniper & Social Seeding)
+# ============================================================================
+from core.rfp_sniper_bot import rfp_sniper_bot
+from core.social_seeding_service import social_seeding_service
+
+@app.post("/api/distribution/rfp/snipe")
+def api_distribution_rfp_snipe():
+    """Triggers autonomous freelance RFP sniping across live Upwork/Contra radars."""
+    res = rfp_sniper_bot.snipe_rfps(auto_dispatch_alert=True)
+    return res
+
+@app.post("/api/distribution/reddit/scan")
+def api_distribution_reddit_scan():
+    """Scans Reddit communities, synthesizes value-first answers with code snippets and $1 links."""
+    res = social_seeding_service.scan_and_seed(auto_dispatch_alert=True)
+    return res
+
+@app.get("/api/distribution/status")
+def api_distribution_status():
+    """Returns the live ledger of sniped freelance RFPs and queued social distribution posts."""
+    return {
+        "success": True,
+        "rfp_proposals": rfp_sniper_bot.get_ledger(),
+        "social_queue": social_seeding_service.get_queue(),
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+
+@app.post("/api/distribution/run-all")
+def api_distribution_run_all():
+    """Runs a concurrent distribution burst across both freelance RFP radar and Reddit communities."""
+    rfp_res = rfp_sniper_bot.snipe_rfps(auto_dispatch_alert=True)
+    social_res = social_seeding_service.scan_and_seed(auto_dispatch_alert=True)
+    return {
+        "success": True,
+        "rfp_result": rfp_res,
+        "social_result": social_res,
+        "message": "Autonomous distribution sweep executed successfully across all vectors."
+    }
 
 # ============================================================================
 # Anthropic Cybersecurity Skills & Live Scanner Endpoints

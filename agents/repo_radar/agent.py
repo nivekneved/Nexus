@@ -39,6 +39,17 @@ class RepoRadarAgent(BaseAgent):
             "scans_completed": 8
         }
         self._register_subagents()
+        self._register_mesh_services()
+
+    def _register_mesh_services(self):
+        from core.agent_synergy_bridge import agent_synergy_bridge
+        from core.osint_framework_bridge import osint_framework
+
+        async def shodan_service_handler(payload: dict) -> dict:
+            domain = payload.get("domain", "")
+            return await osint_framework.scan_shodan_intel(domain)
+
+        agent_synergy_bridge.register_service("repo_radar", "VULNERABILITY_SCAN", shodan_service_handler)
 
     def _register_subagents(self):
         self.register_subagent(DependabotSecuritySubAgent())

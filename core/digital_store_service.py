@@ -26,228 +26,116 @@ PRODUCTS_DIR = os.path.abspath("products")
 CUSTOM_CATALOG_FILE = os.path.join(PRODUCTS_DIR, "custom_catalog.json")
 
 CATALOG = {
-    "nexus-email-guardian": {
-        "id": "nexus-email-guardian",
-        "name": "Nexus™ Email Guardian",
-        "tagline": "Self-Hosted IMAP Spam Killer & 2FA Security Shield",
-        "description": "A lightweight, zero-dependency Python script that runs locally to purge marketing spam while locking down 2FA/OTP verification codes.",
-        "price_usd": 9.00,
-        "price_mur": 415.0,
-        "filename": "nexus_email_guardian.py",
-        "badge": "Anti-SaaS",
-        "features": [
-            "100% self-hosted — no 3rd-party reading your inbox",
-            "Protects 2FA, OTP, banking, and receipt emails",
-            "Auto-purges disposable spam TLDs (.xyz, .buzz, etc.)",
-            "Zero monthly subscription fee (Save $15/mo)"
-        ]
-    },
-    "nexus-whatsapp-bot": {
-        "id": "nexus-whatsapp-bot",
-        "name": "Nexus™ WhatsApp Bot Starter",
-        "tagline": "FastAPI Conversational Business Bot & Direct wa.me Router",
-        "description": "Production-ready FastAPI conversational WhatsApp concierge template. Ready for Meta Cloud API or direct wa.me link generation.",
-        "price_usd": 15.00,
-        "price_mur": 690.0,
-        "filename": "nexus_whatsapp_bot_starter.py",
-        "badge": "Commercial",
-        "features": [
-            "Instant 1-click wa.me customer chat links",
-            "Autonomous FAQ & business hours auto-responder",
-            "Integrated payment links (PayPal & MCB Juice)",
-            "Deployable in 60 seconds on any free VPS or local server"
-        ]
-    },
-    "nexus-b2b-scraper": {
-        "id": "nexus-b2b-scraper",
-        "name": "Nexus™ B2B Lead Scraper & MX Verifier",
-        "tagline": "DNS MX Gatekeeper & Zero-Bounce Email Verifier",
-        "description": "A high-speed DNS-level mail exchange verifier in Python. Filters out ghost domains, prevents SMTP bounce bans, and cleans prospect lists.",
-        "price_usd": 12.00,
-        "price_mur": 550.0,
-        "filename": "nexus_b2b_lead_scraper.py",
-        "badge": "Zero-Bounce",
-        "features": [
-            "Validates real DNS MX mail servers instantly",
-            "Prevents sender domain reputation damage & blacklisting",
-            "Zero external API keys or Hunter.io credits required",
-            "Processes thousands of leads in seconds"
-        ]
-    },
-    "nexus-mcb-recon": {
-        "id": "nexus-mcb-recon",
-        "name": "Nexus™ MCB Statement & Juice Reconciler",
-        "tagline": "Automated Bank Statement to Excel Ledger (100% Offline Privacy)",
-        "description": "Designed for Mauritian accountants, auditors, and business owners. Converts MCB statement PDFs and Juice exports into categorized, audit-ready Excel spreadsheets in 2 seconds.",
-        "price_usd": 29.00,
-        "price_mur": 1500.0,
-        "filename": "nexus_mcb_recon.py",
-        "badge": "🇲🇺 Mauritius B2B",
-        "features": [
-            "Zero cloud uploads: 100% financial privacy for client banking records",
-            "Auto-categorizes CEB, CWA, Mauritius Telecom, MRA VAT, and Juice transfers",
-            "Instant CSV / Excel output compatible with QuickBooks, Sage, and Excel",
-            "One-time purchase: No recurring monthly software fees"
-        ]
-    },
-    "nexus-invoice-pdf-extractor": {
-        "id": "nexus-invoice-pdf-extractor",
-        "name": "Nexus™ Invoice PDF & VAT Extractor",
-        "tagline": "Micro-Utility: Parses PDF invoices, calculates VAT, outputs CSV",
-        "description": "Lightweight, single-file Python script to batch extract line items, totals, and VAT from commercial PDF receipts and invoices locally.",
-        "price_usd": 1.00,
-        "price_mur": 45.0,
-        "filename": "nexus_invoice_pdf_extractor.py",
-        "badge": "⚡ $1 Micro-Tool",
-        "features": [
-            "Runs 100% locally with zero cloud telemetry",
-            "Extracts invoice tables, totals, and 15% VAT breakdown",
-            "Fast single-command CLI execution",
-            "Perpetual commercial rights for $1.00"
-        ]
-    },
-    "nexus-crypto-price-alert": {
-        "id": "nexus-crypto-price-alert",
-        "name": "Nexus™ Crypto Volatility & Price Alert",
-        "tagline": "Micro-Utility: Base L2, ETH & BTC Terminal Alert Daemon",
-        "description": "Self-hosted CLI daemon monitoring decentralized crypto feeds and triggering desktop or webhook alerts without paid CoinMarketCap API plans.",
-        "price_usd": 1.00,
-        "price_mur": 45.0,
-        "filename": "nexus_crypto_price_alert.py",
-        "badge": "⚡ $1 Micro-Tool",
-        "features": [
-            "Monitors on-chain liquidity and exchange prices",
-            "Zero subscription fees or API rate-limit paywalls",
-            "Configurable price thresholds and desktop pings",
-            "Perpetual commercial rights for $1.00"
-        ]
-    },
-    "nexus-seo-keyword-serp-tracker": {
-        "id": "nexus-seo-keyword-serp-tracker",
-        "name": "Nexus™ SERP Keyword Position Tracker",
-        "tagline": "Micro-Utility: Track Google Search rankings without Ahrefs",
-        "description": "Autonomous Python scraper tracking your domain rankings across target Google search keywords locally without expensive $99/mo SEO tools.",
-        "price_usd": 1.00,
-        "price_mur": 45.0,
-        "filename": "nexus_seo_keyword_serp_tracker.py",
-        "badge": "⚡ $1 Micro-Tool",
-        "features": [
-            "Track up to 100 keywords daily without monthly SaaS rent",
-            "Exports timestamped SERP movement logs into CSV",
-            "Zero proxy or third-party subscription requirements",
-            "Perpetual commercial rights for $1.00"
-        ]
-    },
-    "nexus-developer-bundle": {
-        "id": "nexus-developer-bundle",
-        "name": "Nexus™ Anti-SaaS Automation Arsenal (All 7 Tools)",
-        "tagline": "Complete Perpetual Suite (.zip) • Save $30+ vs Individual Buys",
-        "description": "Get all seven standalone Nexus automation utilities in a single master archive: Email Guardian, WhatsApp Bot, B2B Scraper, MCB Reconciler, Invoice Extractor, Crypto Alert, and SERP Tracker.",
-        "price_usd": 39.00,
-        "price_mur": 1800.0,
-        "filename": "nexus_dev_superpack.zip",
-        "badge": "🔥 Best Value (All 7)",
-        "features": [
-            "Includes all 7 standalone Python scripts & utilities",
-            "Full source code with MIT-style commercial usage rights",
-            "Replaces over $150/month in recurring SaaS subscriptions",
-            "Instant single-click zip download with developer guides"
-        ]
-    },
-    "nexus-agency-license": {
-        "id": "nexus-agency-license",
-        "name": "Nexus™ White-Label Agency Reseller Suite",
-        "tagline": "Redistribution Rights + Full Source + 1-on-1 Architecture Call",
-        "description": "Commercial redistribution license permitting technical agencies and freelancers to rebrand, bundle, and deploy Nexus tools for unlimited paying end-clients.",
+    "ghosttrack-osint-dossier": {
+        "id": "ghosttrack-osint-dossier",
+        "name": "GhostTrack Deep OSINT Executive Dossier",
+        "tagline": "Unredacted organizational mapping in < 30 mins",
+        "description": "On-demand competitive intelligence and deep executive contact dossiers. Delivered automatically via email within 15 minutes. Perfect for M&A scouts, headhunters, and enterprise closers.",
         "price_usd": 99.00,
         "price_mur": 4500.0,
-        "filename": "nexus_dev_superpack.zip",
-        "badge": "💼 Agency / Reseller",
+        "filename": "ghosttrack_dossier_target.pdf",
+        "badge": "🕵️ OSINT Report",
         "features": [
-            "Unlimited client commercial deployment & redistribution rights",
-            "All 7 Python automation scripts + white-label documentation",
-            "Private 45-minute 1-on-1 technical onboarding & architecture call with Deven Pawaray",
-            "Priority direct WhatsApp technical support for 12 months"
+            "Automated email/phone correlation",
+            "Cross-platform verification without manual browsing",
+            "Deep organizational mapping",
+            "Delivered in under 30 minutes"
         ]
     },
-    "nexus-competitor-poacher-agent": {
-        "id": "nexus-competitor-poacher-agent",
-        "name": "Nexus™ Competitor Poacher Agent",
-        "tagline": "Autonomous G2 & Trustpilot Review Scraper & Pitch Generator",
-        "description": "Scans G2, Trustpilot, and Capterra for disgruntled SaaS customers complaining about price hikes or outages, and auto-generates bespoke poacher pitches.",
+    "ai-red-team-audit": {
+        "id": "ai-red-team-audit",
+        "name": "AI Agent Red-Teaming & RAG Audit",
+        "tagline": "24-hour rapid security assessment for LLM startups",
+        "description": "Turnkey security audit for startups deploying LLM chatbots and agentic workflows. We test for indirect prompt injections, execute tool allowlisting audits, and provide an OWASP Top 10 certification.",
+        "price_usd": 399.00,
+        "price_mur": 18000.0,
+        "filename": "nexus_ai_redteam_report.pdf",
+        "badge": "🛡️ Security Audit",
+        "features": [
+            "Indirect prompt-injection test harnesses",
+            "OWASP Top 10 for Agentic AI checklists",
+            "Automated tool allowlisting auditing",
+            "24-hour rapid execution"
+        ]
+    },
+    "m2m-api-compute-key": {
+        "id": "m2m-api-compute-key",
+        "name": "Autonomous M2M Micro-Settlements (x402)",
+        "tagline": "API Key for Base L2 Programmatic Services",
+        "description": "Purchase programmatic access for your bots (ElizaOS, LangChain) to query Nexus services (AST syntax validation, context sanitization, escrow checks) at sub-dollar micro-fees.",
+        "price_usd": 1.00,
+        "price_mur": 45.0,
+        "filename": "nexus_x402_api_key.txt",
+        "badge": "🤖 M2M Compute",
+        "features": [
+            "Sub-dollar micro-fees in USDC",
+            "Coinbase x402 Payment Required protocol",
+            "AST Python code syntax validation",
+            "Zero human intervention required"
+        ]
+    },
+    "digital-vending-bundle": {
+        "id": "digital-vending-bundle",
+        "name": "The Digital Vending Machine Bundle",
+        "tagline": "Frictionless single-file Python power tools",
+        "description": "Self-serve micro-utilities solving acute technical headaches. Includes WhatsApp batch messengers, zombie SaaS unsubscribers, automated invoice parsers, and local CSV dedupers.",
         "price_usd": 19.00,
-        "price_mur": 880.0,
-        "filename": "nexus_competitor_poacher.py",
-        "badge": "🤖 AI Agent",
+        "price_mur": 850.0,
+        "filename": "nexus_vending_bundle.zip",
+        "badge": "⚡ Scripts",
         "features": [
-            "Monitors competitor review platforms for churn signals",
-            "Auto-generates tailored anti-SaaS conversion pitches",
-            "Zero recurring subscription fees",
-            "Perpetual commercial rights"
+            "Zero dependencies required",
+            "100% commercial ownership rights",
+            "Instant digital download",
+            "Replaces multiple SaaS subscriptions"
         ]
     },
-    "nexus-programmatic-seo-agent": {
-        "id": "nexus-programmatic-seo-agent",
-        "name": "Nexus™ Programmatic SEO Agent",
-        "tagline": "Autonomous Long-Tail Keyword Cluster & Article Generator",
-        "description": "Autonomous AI agent that maps keyword clusters, generates optimized SEO articles, and drives organic inbound search traffic.",
-        "price_usd": 24.00,
-        "price_mur": 1100.0,
-        "filename": "nexus_seo_writer.py",
-        "badge": "🤖 AI Agent",
+    "ar-recovery-concierge": {
+        "id": "ar-recovery-concierge",
+        "name": "Automated A/R Recovery Concierge (1 Month)",
+        "tagline": "Converts aged, overdue B2B receivables into settled cash",
+        "description": "A polite, persistent WhatsApp & Email automated recovery concierge. We automatically follow up on your stalled invoices using our dynamic dunning engine.",
+        "price_usd": 110.00,
+        "price_mur": 5000.0,
+        "filename": "ar_onboarding_webhook.json",
+        "badge": "💸 FinOps Service",
         "features": [
-            "Builds programmatic content silos automatically",
-            "Optimizes headers, meta descriptions, and keyword density",
-            "Zero monthly Ahrefs or Jasper subscription fees",
-            "Perpetual commercial rights"
+            "Polite escalating reminder intervals",
+            "WhatsApp & Email multi-channel routing",
+            "Funded by recovered cash",
+            "Ideal for medical practices & creative agencies"
         ]
     },
-    "nexus-stripe-chargeback-defender": {
-        "id": "nexus-stripe-chargeback-defender",
-        "name": "Nexus™ Chargeback & Dispute Defender",
-        "tagline": "Autonomous Stripe/PayPal Dispute Evidence Packager",
-        "description": "Instantly compiles delivery logs, digital download timestamps, and cryptographic HMAC receipts to defeat fraudulent credit card chargebacks.",
-        "price_usd": 39.00,
-        "price_mur": 1800.0,
-        "filename": "nexus_chargeback_defend.py",
-        "badge": "🛡️ Security Agent",
+    "turnkey-white-label-handover": {
+        "id": "turnkey-white-label-handover",
+        "name": "Turnkey Vertical White-Label Code Handover",
+        "tagline": "Complete IP transfer of ready-to-run web software",
+        "description": "Direct purchase of pre-built production suites (Medical 360™, i-Travellix™, Enn Rev Enn Sourir™). Eliminates months of custom agency development.",
+        "price_usd": 999.00,
+        "price_mur": 45000.0,
+        "filename": "turnkey_deployment_spec.pdf",
+        "badge": "📦 Full IP Transfer",
         "features": [
-            "Auto-submits digital audit trails to Stripe & PayPal APIs",
-            "Protects founder revenue from friendly fraud and disputes",
-            "Saves hours of manual evidence gathering",
-            "Perpetual commercial rights"
+            "Frontend portal + enterprise backend engine",
+            "Sandbox QA & zip packaging included",
+            "Zero recurring SaaS fees",
+            "Live in 48 hours"
         ]
     },
-    "nexus-base-l2-arbitrage-daemon": {
-        "id": "nexus-base-l2-arbitrage-daemon",
-        "name": "Nexus™ Base L2 Arbitrage & Gas Bot",
-        "tagline": "Autonomous DEX Liquidity Spread & Gas Fee Optimizer",
-        "description": "Self-hosted CLI daemon monitoring decentralized exchanges on Base for profitable price spreads and optimizing gas execution.",
-        "price_usd": 49.00,
-        "price_mur": 2250.0,
-        "filename": "nexus_crypto_arbitrage.py",
-        "badge": "⚡ Web3 Agent",
+    "bilingual-outbound-engine": {
+        "id": "bilingual-outbound-engine",
+        "name": "Bilingual French/English Cold Outbound Engine",
+        "tagline": "Signal-based acquisition pipeline setup",
+        "description": "Plug-and-play outbound acquisition pipeline built for agencies targeting French-speaking and bilingual markets (Mauritius, France, Switzerland).",
+        "price_usd": 550.00,
+        "price_mur": 25000.0,
+        "filename": "outbound_engine_config.json",
+        "badge": "🌍 Outbound Pipeline",
         "features": [
-            "Scans Aerodrome and Uniswap V3 on Base L2",
-            "Strict vault ceilings and transaction safety limits",
-            "Real-time profit calculation and gas estimation",
-            "Perpetual commercial rights"
-        ]
-    },
-    "nexus-social-short-clipper": {
-        "id": "nexus-social-short-clipper",
-        "name": "Nexus™ Viral Short & Reel Clipper",
-        "tagline": "Autonomous Long-Form Video to TikTok/Reels Short Generator",
-        "description": "Ingests long-form video or podcast recordings, isolates viral hooks using sentiment analysis, and outputs captioned vertical short clips.",
-        "price_usd": 19.00,
-        "price_mur": 880.0,
-        "filename": "nexus_viral_clipper.py",
-        "badge": "🤖 AI Agent",
-        "features": [
-            "Automated hooks and soundbite extraction",
-            "Neon kinetic auto-caption styling",
-            "Ready to export for TikTok, Reels, and Shorts",
-            "Perpetual commercial rights"
+            "Challenger messaging 3-touch sequence",
+            "UCB1 Conversion Bandit optimization",
+            "Deployed in under 72 hours",
+            "Bypasses generic spam filters"
         ]
     }
 }

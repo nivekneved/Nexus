@@ -1,102 +1,90 @@
-# 🚀 Nexus™ — Complete Run & Startup Guide (v4.1.0 Sovereign Multi-Venture Edition)
-> **One Command Starts the Entire Autonomous Ecosystem**  
-> AI Core Engine • 24/7 Revenue Daemon • Base L2 Settlement Watcher • 10 Micro-Venture Agents • Cloudflare Public Gateway
+# Nexus™ Sovereign AI Workforce — Quick Startup Guide
+
+Welcome to Nexus, your autonomous, self-funding AI agency. This system operates 10 independent micro-ventures, a Base L2 treasury, and an automated software vending machine.
 
 ---
 
-## ⚡ Quick Start: 3 Ways to Run
+## 1. System Requirements
 
-### Option 1 (Recommended — Standard Python)
-From the project root, simply run:
-```powershell
+* **Python**: 3.11+ (Required for advanced `asyncio` and `httpx[http2]` capabilities)
+* **OS**: Windows, macOS, or Linux
+* **Dependencies**: Install core ecosystem via `pip install -r requirements.txt`
+
+### Critical External Integrations Installed:
+* `scrapegraphai` (Smart LLM-driven DOM extraction)
+* `scrapling`, `patchright`, `curl_cffi` (Stealth HTTP/2 and anti-bot bypassing)
+* `agentmemory`, `chromadb` (Persistent Vector Memory for agents)
+* `email-validator` (DNS MX email deliverability)
+* `browser-use` (Headless UI automation)
+
+---
+
+## 2. Setting Up Environment Variables
+
+Rename `.env.example` to `.env` (or create a new `.env` file) in the root directory.
+
+### Mandatory Keys:
+```env
+# AI Models (Gemini is primary for internal triage; OpenAI for advanced DOM extraction)
+GEMINI_API_KEY="your_google_gemini_key_here"
+OPENAI_API_KEY="your_openai_key_here"
+
+# Webhook & Payment Security
+PAYPAL_CLIENT_ID="your_paypal_client_id"
+PAYPAL_SECRET="your_paypal_secret"
+WEBHOOK_SIGNATURE_SECRET="your_custom_secret_string"
+
+# Dashboard Protection
+NEXUS_DASHBOARD_TOKEN="your_secure_login_password"
+```
+
+---
+
+## 3. Starting the Engine
+
+To boot the complete autonomous ecosystem (FastAPI Command Center + 24/7 Autopilot Scheduler):
+
+```bash
 python server.py
 ```
-> **What Happens Automatically:**
-> 1. Boots the **FastAPI Web Command Center** on `http://127.0.0.1:8000`.
-> 2. Starts the **24/7 Revenue Daemon Thread** (polls Base L2 settlements every 15 min & executes 14-board outreach daily).
-> 3. Activates the **Universal Inter-Agent Synergy Bridge & 10 Grey-Market Micro-Venture Agents**.
-> 4. Launches the **Cloudflare Public Tunnel Subprocess** (auto-detects `cloudflared.exe`, creates a public `https://xxx.trycloudflare.com` URL, and exposes inbound agent mesh webhooks).
-> 5. To stop everything cleanly, press **`Ctrl+C`** in the terminal.
+
+### Accessing the Web Interfaces:
+1. **Command Center**: `http://127.0.0.1:8000`
+2. **Pillar 1 (Seek HQ)**: `http://127.0.0.1:8000/seek` (Leads, Bounties, Poacher)
+3. **Pillar 2 (Connect HQ)**: `http://127.0.0.1:8000/connect` (Client outreach, Email hygiene)
+4. **Treasury / Digital Store**: `http://127.0.0.1:8000/store`
 
 ---
 
-### Option 2 (1-Click Desktop Launcher)
-Double-click:
-```
-start_all.bat
-```
-*(Or run `.\start_all.ps1` in PowerShell, or `python start_all.py`).*
-- Launches colorized process supervisor in a dedicated window.
-- Auto-opens `http://localhost:8000` in your default browser.
-- Displays the live public Cloudflare Tunnel URL in bright green.
+## 4. Key Autonomous Commands
+
+You can interact with Nexus via dedicated CLI scripts without starting the web dashboard:
+
+1. **Trigger $1.00 Instant Generation**:
+   ```bash
+   python -c "import sys; sys.path.insert(0, '.'); from core.earn_one_dollar import earn_one_dollar_engine; print(earn_one_dollar_engine.execute_earning_cycle())"
+   ```
+
+2. **Run LeadScout-Core Terminal UI**:
+   ```bash
+   python leadscout/main.py "Target Company Name" "targetdomain.com"
+   ```
+
+3. **Run Competitor Poacher Swarm**:
+   ```bash
+   python poacher/main.py "Competitor SaaS Name" "competitor.com"
+   ```
+
+4. **Start the 24/7 Revenue Daemon**:
+   Ensures base compute costs ($180/mo) are covered via 14 bot boards and Base L2.
+   ```bash
+   python scripts/revenue_daemon.py --loop
+   ```
 
 ---
 
-### Option 3 (Windows Background Boot Persistence)
-To keep the revenue engine running 24/7 even when your terminal is closed:
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\register_windows_task.ps1
-```
-- Installs the auto-start shortcut into:
-  `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\Nexus-RevenueDaemon.lnk`
-- The daemon automatically launches in minimized background mode whenever Windows boots.
+## 5. Security Architecture
 
----
-
-## 🏛️ What Starts Concurrently
-
-```mermaid
-flowchart TD
-    CMD["python server.py"] --> ORCH[Ecosystem Orchestrator]
-    
-    subgraph Nexus Ecosystem
-        ORCH --> S1["🧠 1. AI Core & Web Dashboard (FastAPI)\n• http://127.0.0.1:8000\n• 18 Core Agents & 10 Micro-Venture Agents\n• Treasury Ledger & 14 Hidden Boards API"]
-        ORCH --> S2["⚡ 2. 24/7 Revenue & Settlement Daemon (Thread)\n• Polls Base L2 settlements every 15m\n• Daily 14-board outreach & invoicing ($14/day)\n• UCB1 Conversion Bandit Self-Learning"]
-        ORCH --> S3["🌐 3. Cloudflare Public Gateway (Subprocess)\n• Launches cloudflared tunnel\n• Generates public https://xxx.trycloudflare.com\n• Exposes /api/mesh/inbound & /api/v1/x402/service"]
-    end
-    
-    S3 -.->|Live Detection| UI[Dashboard Public Tunnel Badge]
-```
-
----
-
-## 🔍 How to Monitor & Verify Services
-
-Once the server is running, you can verify any subsystem in your browser or via curl:
-
-| Subsystem | Endpoint / UI | What it Verifies |
-|---|---|---|
-| **Ecosystem Status** | [`http://localhost:8000/api/ecosystem/status`](http://localhost:8000/api/ecosystem/status) | Confirms all 3 engines (Server, Daemon, Tunnel) are active. |
-| **Public Tunnel URL** | [`http://localhost:8000/api/tunnel/status`](http://localhost:8000/api/tunnel/status) | Returns the live `https://xxx.trycloudflare.com` public URL. |
-| **Web Dashboard** | [`http://localhost:8000`](http://localhost:8000) | Full GUI: Hidden Boards tab, Treasury, Partner Fleets. |
-| **14-Board Contracts** | [`http://localhost:8000/api/boards/negotiations`](http://localhost:8000/api/boards/negotiations) | Shows 14 active contracts, quotes, and minted $1 invoices. |
-| **Conversion Bandit** | [`http://localhost:8000/api/bandit/stats`](http://localhost:8000/api/bandit/stats) | Live UCB1 conversion rates and self-mutated pitch hooks. |
-| **Treasury & Receivables** | [`http://localhost:8000/api/finance/receivables`](http://localhost:8000/api/finance/receivables) | Confirms collected cash vs. pending receivables. |
-| **Base L2 On-Chain Poll** | [`http://localhost:8000/api/finance/crypto/poll-settlements`](http://localhost:8000/api/finance/crypto/poll-settlements) | Polls Base L2 wallet `0xEAE55828...` and auto-settles invoices. |
-
----
-
-## 🛠️ Individual Manual Commands (For Debugging / Development)
-
-If you ever wish to test a specific component in isolation:
-
-- **Run only the Revenue Daemon (1 cycle)**:
-  ```powershell
-  python scripts/revenue_daemon.py
-  ```
-- **Run only the Revenue Daemon (continuous loop)**:
-  ```powershell
-  python scripts/revenue_daemon.py --loop
-  ```
-- **Run only the Public Tunnel**:
-  ```powershell
-  python scripts/start_public_tunnel.py
-  ```
-- **Run the Multi-Armed Bandit Mutation Cycle**:
-  ```powershell
-  python -c "from core.conversion_bandit import conversion_bandit; print(conversion_bandit.evolve_mutations())"
-  ```
-- **Test All Python Syntax & Compilation**:
-  ```powershell
-  python -m compileall -q core server.py scripts agents
-  ```
+* **Smart Contracts**: Never modify `contracts/NexusSovereignEscrowSecure.sol` without re-running Slither/Mythril security audits. It relies heavily on strict Checks-Effects-Interactions and `ReentrancyGuard`.
+* **Execution Sandbox**: All Python patches generated by the Bug Bounty Scout are run exclusively within `core.execution_sandbox` to prevent arbitrary code execution on your host machine.
+* **Lead Deduplication**: `core.lead_deduplication_engine` utilizes SHA-256 fingerprinting to prevent pitching the same client twice. Do not manually edit `lead_suppression_list.json`.

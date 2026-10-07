@@ -1,50 +1,130 @@
 {
   "nexus-invoice-pdf-extractor": {
     "id": "nexus-invoice-pdf-extractor",
-    "name": "Nexus\u2122 Invoice Pdf Extractor",
-    "tagline": "Self-Hosted Invoice Pdf Extractor Automation Utility",
-    "description": "A self-hosted, lightweight Python script to automate invoice pdf extractor. Zero monthly subscriptions.",
+    "name": "Nexus™ PDF Invoice & VAT Extractor",
+    "tagline": "Self-Hosted PDF Invoice Line-Item & 15% VAT Extractor",
+    "description": "A self-hosted, lightweight Python script to extract tabular items, totals, and VAT from supplier invoices into CSV/JSON. Zero monthly SaaS fees.",
     "price_usd": 1.0,
     "price_mur": 45.0,
     "filename": "nexus_invoice_pdf_extractor.py",
-    "badge": "Automated",
+    "badge": "⚡ $1.00 Utility",
     "features": [
-      "100% self-hosted Python script for invoice pdf extractor",
+      "100% self-hosted Python script for invoice PDF parsing",
       "Zero external subscriptions or recurring API costs",
       "Standalone single-file architecture with clean CLI output",
-      "Commercial usage rights included with $1.00 purchase"
+      "Perpetual commercial rights included with $1.00 purchase"
+    ]
+  },
+  "nexus-whatsapp-bot-starter": {
+    "id": "nexus-whatsapp-bot-starter",
+    "name": "Nexus™ WhatsApp Business AI Bot Starter",
+    "tagline": "Standalone FastAPI Conversational WhatsApp Router",
+    "description": "Zero-bloat FastAPI webhook engine that connects WhatsApp to LLM completion pipelines. Handles auto-replies, customer triage, and lead captures.",
+    "price_usd": 1.0,
+    "price_mur": 45.0,
+    "filename": "nexus_whatsapp_bot_starter.py",
+    "badge": "⚡ $1.00 Utility",
+    "features": [
+      "Production-ready FastAPI webhook server",
+      "Multi-session conversational memory engine",
+      "Pre-configured CallMeBot & OpenWA integrations",
+      "Deploy anywhere with zero vendor lock-in"
+    ]
+  },
+  "nexus-b2b-lead-scraper": {
+    "id": "nexus-b2b-lead-scraper",
+    "name": "Nexus™ B2B Lead Scraper & DNS Verifier",
+    "tagline": "High-Speed Business Email & MX Gatekeeper",
+    "description": "Autonomous lead scraper that extracts business contact emails, checks DNS MX records, and filters disposable domains with zero bounce risk.",
+    "price_usd": 1.0,
+    "price_mur": 45.0,
+    "filename": "nexus_b2b_lead_scraper.py",
+    "badge": "⚡ $1.00 Utility",
+    "features": [
+      "Asynchronous DNS MX verification engine",
+      "Disposable email filtering & syntax validation",
+      "Direct CSV output formatted for cold outreach",
+      "Run locally with unlimited lead capacity"
+    ]
+  },
+  "nexus-email-guardian": {
+    "id": "nexus-email-guardian",
+    "name": "Nexus™ IMAP Email Guardian & 2FA Shield",
+    "tagline": "Autonomous Inbox Anti-Spam & Security Triage",
+    "description": "Scans IMAP mailboxes, auto-purges marketing spam and tracking beacons, while strictly whitelisting and immunizing critical 2FA OTP codes.",
+    "price_usd": 1.0,
+    "price_mur": 45.0,
+    "filename": "nexus_email_guardian.py",
+    "badge": "⚡ $1.00 Utility",
+    "features": [
+      "Works with Gmail, Outlook, Yahoo, and private IMAP",
+      "2FA & Banking OTP immune whitelist",
+      "Automated spam purger saving hours of inbox clutter",
+      "Zero telemetry—credentials remain strictly on your machine"
+    ]
+  },
+  "nexus-mcb-recon": {
+    "id": "nexus-mcb-recon",
+    "name": "Nexus™ MCB Statement & Juice Reconciler",
+    "tagline": "Mauritius Banking Statement & Payment Auditor",
+    "description": "Specialized banking reconciliation engine for MCB Juice PDF statements. Matches incoming domestic client payments against outstanding invoices automatically.",
+    "price_usd": 1.0,
+    "price_mur": 45.0,
+    "filename": "nexus_mcb_recon.py",
+    "badge": "⚡ $1.00 Utility",
+    "features": [
+      "Tailored for MCB Juice (+230) transaction formats",
+      "Detects duplicate and fraudulent payment references",
+      "Auto-generates reconciliation audit reports",
+      "Built for Mauritian entrepreneurs and accounting teams"
     ]
   },
   "nexus-crypto-price-alert": {
     "id": "nexus-crypto-price-alert",
-    "name": "Nexus\u2122 Crypto Price Alert",
-    "tagline": "Self-Hosted Crypto Price Alert Automation Utility",
-    "description": "A self-hosted, lightweight Python script to automate crypto price alert. Zero monthly subscriptions.",
+    "name": "Nexus™ Crypto Volatility Price Daemon",
+    "tagline": "Self-Hosted Crypto Feed & Threshold Alerting Daemon",
+    "description": "Lightweight daemon querying live on-chain DEX/CEX endpoints for BTC, ETH, SOL, and USDC with instant desktop and webhook push notifications.",
     "price_usd": 1.0,
     "price_mur": 45.0,
     "filename": "nexus_crypto_price_alert.py",
-    "badge": "Automated",
+    "badge": "⚡ $1.00 Utility",
     "features": [
-      "100% self-hosted Python script for crypto price alert",
-      "Zero external subscriptions or recurring API costs",
-      "Standalone single-file architecture with clean CLI output",
-      "Commercial usage rights included with $1.00 purchase"
+      "Direct Binance/Coinbase public feed integration",
+      "Custom price floor and ceiling triggers",
+      "Webhook alerts for Telegram, Discord, and Slack",
+      "Runs continuously with negligible CPU overhead"
     ]
   },
   "nexus-seo-keyword-serp-tracker": {
     "id": "nexus-seo-keyword-serp-tracker",
-    "name": "Nexus\u2122 SERP Keyword Tracker",
-    "tagline": "Self-Hosted Seo Keyword Serp Tracker Automation Utility",
-    "description": "Lightweight Python script to track Google search ranking movements locally without subscriptions.",
+    "name": "Nexus™ Local SERP Keyword Rank Tracker",
+    "tagline": "Self-Hosted Google Search Ranking Monitor",
+    "description": "Lightweight Python script to monitor Google search ranking movements locally without expensive monthly $99 SEO SaaS subscriptions.",
     "price_usd": 1.0,
     "price_mur": 45.0,
     "filename": "nexus_seo_keyword_serp_tracker.py",
-    "badge": "Automated",
+    "badge": "⚡ $1.00 Utility",
     "features": [
-      "100% self-hosted Python script for seo keyword serp tracker",
-      "Zero external subscriptions or recurring API costs",
-      "Standalone single-file architecture with clean CLI output",
-      "Commercial usage rights included with $1.00 purchase"
+      "Zero monthly subscriptions or third-party API costs",
+      "Historical rank shift tracking and CSV exports",
+      "Custom regional and localized Google query support",
+      "Standalone single-file architecture"
+    ]
+  },
+  "the-ai-agency-blueprint-ebook": {
+    "id": "the-ai-agency-blueprint-ebook",
+    "name": "The Automated AI Agency Blueprint (Full Edition)",
+    "tagline": "Complete Architectural Guide to Autonomous Digital Agencies",
+    "description": "The definitive operational playbook for deploying sovereign AI agent swarms, automated sales funnels, and zero-headcount client delivery.",
+    "price_usd": 29.0,
+    "price_mur": 1300.0,
+    "filename": "The_Automated_AI_Agency_Blueprint.pdf",
+    "badge": "📘 Master Playbook",
+    "features": [
+      "Full multi-agent architecture blueprints and diagrams",
+      "Sovereign treasury setup on Base L2 & domestic rails",
+      "Commercial contract templates and SLA disclosures",
+      "Direct code companion references included"
     ]
   }
 }

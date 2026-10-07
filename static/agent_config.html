@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Configuration & Swarm Runner — Nexus™</title>
+  <link rel="preload" href="/static/fonts/fonts.css" as="style">
+  <link rel="stylesheet" href="/static/fonts/fonts.css">
+  <link rel="stylesheet" href="/static/style.css?v=4.2.0">
+  <style>
+    body { background: #f8fafc; font-family: 'Inter', sans-serif; color: #0f172a; margin: 0; padding: 30px; }
+    .config-container { max-width: 680px; margin: 40px auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 36px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+    .config-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
+    .config-icon { width: 52px; height: 52px; border-radius: 12px; background: #f0f9ff; border: 1px solid #bae6fd; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .form-group { margin-bottom: 18px; }
+    .form-label { display: block; font-weight: 700; color: #334155; margin-bottom: 6px; font-size: 0.9rem; }
+    .form-control { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 9px; font-size: 0.9rem; outline: none; background: #fff; box-sizing: border-box; }
+    .form-control:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+    .action-row { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .toast-box { position: fixed; bottom: 24px; right: 24px; padding: 14px 20px; border-radius: 10px; background: #0f172a; color: #fff; font-weight: 600; font-size: 0.88rem; box-shadow: 0 10px 30px rgba(0,0,0,0.25); z-index: 9999; display: none; }
+  </style>
+</head>
+<body>
+  <div class="config-container">
+    <div class="config-header">
+      <div class="config-icon" id="agentIconEl">⚡</div>
+      <div>
+        <h1 id="agentTitleEl" style="margin: 0; font-size: 1.4rem; font-weight: 900; color: #0f172a;">Agent Configuration</h1>
+        <p id="agentDescEl" style="margin: 4px 0 0 0; color: #64748b; font-size: 0.9rem;">Configure search parameters and trigger autonomous swarm execution.</p>
+      </div>
+    </div>
+
+    <div id="configFormFields" style="display: flex; flex-direction: column; gap: 16px;">
+      <!-- Dynamic fields rendered here -->
+    </div>
+
+    <div class="action-row">
+      <button class="btn btn-secondary" onclick="window.location.href='/seek'">← Back to Seek HQ</button>
+      <button class="btn btn-primary" onclick="executeAgentFromConfig()" style="background: #0284c7; padding: 12px 24px; font-weight: 800; border-radius: 10px;">Run Scouting Swarm ⚡</button>
+    </div>
+  </div>
+
+  <div id="toastBox" class="toast-box"></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const agentId = urlParams.get('agent') || 'lead_finder';
+
+    const agentMetadata = {
+      lead_finder: { icon: "🎯", name: "B2B Lead Scout", desc: "Discovers corporate prospects, scores ICP fit, and crafts tailored cold outreach." },
+      competitor_poacher: { icon: "⚔️", name: "Competitor Poacher", desc: "Scans review sites and tenders for dissatisfied users and anti-SaaS migration." },
+      bounty_hunter: { icon: "🛡️", name: "Bug Bounty Scout", desc: "Scans security platforms for open bounties and issues with cash escrows." },
+      gig_matchmaker: { icon: "💼", name: "Freelance Gig Matchmaker", desc: "Scans remote contract feeds for high-ticket Python and AI engineering jobs." },
+      tech_trend_curator: { icon: "🧭", name: "Tech Trend Curator", desc: "Monitors agentic breakthroughs and autonomous protocol trends." },
+      grant_scout: { icon: "🏆", name: "Startup Grant Scout", desc: "Scans MRIC, EU Horizon, and Web3 Foundation grant programs." },
+      repo_radar: { icon: "🐙", name: "GitHub Repo Radar", desc: "Monitors dependency breaking changes and zero-day CVE disclosures." }
+    };
+
+    const industryOptions = `
+      <option value="SaaS / AI & Tech Consulting" selected>SaaS / AI & Tech Consulting</option>
+      <option value="Private Clinics & Healthcare">Private Clinics & Healthcare</option>
+      <option value="Luxury Resorts & Hospitality">Luxury Resorts & Hospitality</option>
+      <option value="Supply Chain & Logistics / Freight">Supply Chain & Logistics / Freight</option>
+      <option value="Cybersecurity & Defense">Cybersecurity & Defense</option>
+      <option value="Fintech & Banking">Fintech & Banking</option>
+      <option value="Real Estate & DMCs">Real Estate & DMCs</option>
+      <option value="NGOs & CSR Foundations">NGOs & CSR Foundations</option>
+      <option value="General Enterprise B2B">General Enterprise B2B</option>
+    `;
+
+    const geoOptions = `
+      <option value="Mauritius (Local Tenders & Directories)" selected>Mauritius (Local Tenders & Directories)</option>
+      <option value="East & South Africa (Kenya, South Africa, Nigeria)">East & South Africa (Kenya, South Africa, Nigeria)</option>
+      <option value="United Kingdom (London & Regional Tenders)">United Kingdom (London & Regional Tenders)</option>
+      <option value="European Union (France, Germany, Netherlands)">European Union (France, Germany, Netherlands)</option>
+      <option value="North America (US & Canada)">North America (US & Canada)</option>
+      <option value="Global / Remote">Global / Remote</option>
+    `;
+
+    function showToast(msg) {
+      const tb = document.getElementById("toastBox");
+      tb.innerHTML = msg;
+      tb.style.display = "block";
+      setTimeout(() => { tb.style.display = "none"; }, 4000);
+    }
+
+    function initConfigPage() {
+      const meta = agentMetadata[agentId] || { icon: "⚡", name: agentId, desc: "Configure scouting parameters." };
+      document.getElementById("agentIconEl").innerText = meta.icon;
+      document.getElementById("agentTitleEl").innerText = `${meta.name} Configuration`;
+      document.getElementById("agentDescEl").innerText = meta.desc;
+
+      const container = document.getElementById("configFormFields");
+      let html = `
+        <div class="form-group">
+          <label class="form-label">Target Industry / Vertical</label>
+          <select id="optIndustry" class="form-control">${industryOptions}</select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Geographic Focus</label>
+          <select id="optLocation" class="form-control">${geoOptions}</select>
+        </div>
+      `;
+
+      if (agentId === 'lead_finder') {
+        html += `
+          <div class="form-group">
+            <label class="form-label">Minimum ICP Fit Score (%)</label>
+            <input type="number" id="optFitScore" value="85" class="form-control">
+          </div>
+        `;
+      } else if (agentId === 'competitor_poacher') {
+        html += `
+          <div class="form-group">
+            <label class="form-label">Competitor Name / SaaS</label>
+            <input type="text" id="poachCompetitorName" value="HubSpot / Salesforce" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Customer Pain Point / Price Hike</label>
+            <input type="text" id="poachPainPoint" value="Raised prices by 40% with zero new features" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Competitor Review URL</label>
+            <input type="text" id="poachUrl" value="https://www.g2.com/products/competitor/reviews" class="form-control">
+          </div>
+        `;
+      } else if (agentId === 'bounty_hunter') {
+        html += `
+          <div class="form-group">
+            <label class="form-label">Security Platform</label>
+            <input type="text" id="optPlatform" value="HackerOne / Bugcrowd / Algora" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Minimum Bounty Reward ($ USD)</label>
+            <input type="number" id="optMinBounty" value="500" class="form-control">
+          </div>
+        `;
+      } else if (agentId === 'gig_matchmaker') {
+        html += `
+          <div class="form-group">
+            <label class="form-label">Tech Stack / Keywords</label>
+            <input type="text" id="optTech" value="Python / FastAPI / React / AI Agents" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Minimum Budget ($ USD)</label>
+            <input type="number" id="optMinBudget" value="2500" class="form-control">
+          </div>
+        `;
+      } else {
+        html += `
+          <div class="form-group">
+            <label class="form-label">Search Keyword / Scope</label>
+            <input type="text" id="optGeneric" value="Mauritius & Global Enterprise Intelligence" class="form-control">
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    async function executeAgentFromConfig() {
+      showToast(`⚙️ Saving configuration for ${agentId}...`);
+
+      if (agentId === 'competitor_poacher') {
+        const comp = document.getElementById("poachCompetitorName")?.value.trim() || "HubSpot";
+        const pain = document.getElementById("poachPainPoint")?.value.trim() || "Price hike";
+        const url = document.getElementById("poachUrl")?.value.trim() || "";
+
+        try {
+          await fetch("/api/growth/clone-tactic", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ competitor: comp, pain_point: pain, review_url: url })
+          });
+          showToast(`✅ Poacher campaign deployed successfully! Returning to Seek...`);
+          setTimeout(() => { window.location.href = '/seek'; }, 1500);
+          return;
+        } catch (e) {
+          showToast("Error launching poacher campaign: " + e.message);
+          return;
+        }
+      }
+
+      let configPayload = {
+        TARGET_INDUSTRY: document.getElementById("optIndustry")?.value || "SaaS",
+        TARGET_LOCATION: document.getElementById("optLocation")?.value || "Mauritius"
+      };
+
+      if (agentId === 'lead_finder') {
+        configPayload.MIN_FIT_SCORE = parseInt(document.getElementById("optFitScore")?.value) || 85;
+      } else if (agentId === 'bounty_hunter') {
+        configPayload.MIN_BOUNTY_USD = parseFloat(document.getElementById("optMinBounty")?.value) || 500;
+      } else if (agentId === 'gig_matchmaker') {
+        configPayload.MIN_BUDGET_USD = parseFloat(document.getElementById("optMinBudget")?.value) || 2500;
+      } else {
+        configPayload.SEARCH_KEYWORD = document.getElementById("optGeneric")?.value || "Enterprise Intel";
+      }
+
+      try {
+        await fetch(`/api/agents/${agentId}/config`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(configPayload)
+        });
+
+        showToast(`⚡ Executing ${agentId} scouting swarm with custom parameters...`);
+
+        await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
+        showToast(`✅ <strong>${agentId}</strong> completed successfully! Returning to Seek HQ...`);
+        setTimeout(() => { window.location.href = '/seek'; }, 1500);
+      } catch (e) {
+        showToast("Error executing agent swarm: " + e.message);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", initConfigPage);
+  </script>
+</body>
+</html>

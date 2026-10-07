@@ -556,23 +556,23 @@
         <div>
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
             <span class="badge-pill" style="background:#0284c7; color:#fff;">Pillar 2</span>
-            <span class="badge-pill badge-active">5 Active Comms Agents</span>
+            <span class="badge-pill badge-active">7 Active Agents</span>
           </div>
-          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">2. Connect & Client Outreach</h1>
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">2. Connect & Propose (Client Outreach & Commercial Proposals)</h1>
           <p style="color: #64748b; font-size: 0.92rem; margin: 6px 0 0 0;">
-            Multi-inbox hygiene, anti-spam shields, 24/7 VIP concierge triage, WhatsApp emergency dispatches, and bilingual EN/FR localization.
+            Unified client engagement, email hygiene, 24/7 VIP concierge triage, bilingual EN/FR localization, and automated commercial proposal & retainer closing.
           </p>
         </div>
         <div>
           <button class="btn btn-primary" onclick="runPillarSweep()" style="background:#0284c7; border:none; padding:11px 20px; font-weight:800; border-radius:10px; cursor:pointer; color:#fff;">
-            ⚡ Run Full Comms Sweep
+            ⚡ Run Full Connect & Propose Sweep
           </button>
         </div>
       </div>
 
-      <!-- Agent Cards for Pillar 2 -->
-      <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">Dedicated Pillar 2 Agents</h2>
-      <div class="agent-grid">
+      <!-- Agent Cards for Pillar 2 (List Only) -->
+      <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">Dedicated Connect & Propose Agents</h2>
+      <div class="agent-grid" style="display: flex !important; flex-direction: column !important; gap: 16px;">
         
         <!-- Agent 1: Email Hygiene -->
         <div class="agent-card" id="card-email_hygiene">
@@ -648,7 +648,33 @@
             <div id="results-bilingual_concierge" class="agent-quick-drawer" style="display:none;"></div>
           </div>
           <div class="agent-actions">
-            <button class="btn-run" onclick="triggerAgent('bilingual_concierge', this)">▶ Localize Messages</button>
+            <button class="btn-run" onclick="triggerAgent('bilingual_concierge', this)">▶ Localize Tone</button>
+          </div>
+        </div>
+
+        <!-- Agent 4: Commercial Proposal Drafter -->
+        <div class="agent-card" id="card-proposal_drafter">
+          <div>
+            <div class="agent-header">
+              <div class="agent-icon">📜</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="margin:0; font-size:1.05rem; font-weight:800; color:#0f172a;">Commercial Proposal Drafter</h3>
+                  <span class="badge-pill badge-active">Active</span>
+                </div>
+                <div style="font-size:0.75rem; color:#64748b; font-weight:600; margin-top:2px;">Employee #15 · Deal Closing Engine</div>
+              </div>
+            </div>
+            <p style="font-size:0.85rem; color:#475569; margin:0 0 10px 0; line-height:1.4;">
+              Synthesizes custom commercial proposals, scope-of-work documents, and retainer payment links for qualified leads.
+            </p>
+            <div style="font-size:0.8rem; color:#0369a1; font-weight:600; background:#f0f9ff; padding:6px 10px; border-radius:6px;">
+              Conversion: Instant Escrow Link Generation
+            </div>
+            <div id="results-proposal_drafter" class="agent-quick-drawer" style="display:none;"></div>
+          </div>
+          <div class="agent-actions">
+            <button class="btn-run" onclick="triggerAgent('lead_finder', this)">▶ Draft Proposal</button>
           </div>
         </div>
 
