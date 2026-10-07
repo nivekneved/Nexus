@@ -158,18 +158,23 @@ class RFPSniperBot:
         )
 
         return {
+            "proposal_text": proposal_text,
+            "offer_price_usd": offer_price_usd,
+            "checkout_url": checkout_url,
             "job_title": job["title"],
             "platform": job["platform"],
             "client_budget": job.get("budget", "Flexible"),
             "matched_product": product["name"],
             "product_id": product["id"],
-            "our_offer_price": offer_price_usd,
-            "checkout_url": checkout_url,
             "demo_link": demo_link,
-            "proposal_text": proposal_text,
             "status": "PROPOSAL_READY",
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
+
+    async def snipe_open_gigs(self) -> Dict[str, Any]:
+        """Runs the complete execution pipeline (Alias for snipe_rfps)."""
+        logger.info("[RFPSniperBot] Executing freelance gig sweep...")
+        return self.snipe_rfps(auto_dispatch_alert=False)
 
     def snipe_rfps(self, auto_dispatch_alert: bool = True) -> Dict[str, Any]:
         """Scans both live RSS and high-frequency active RFPs, preparing instant bids."""
