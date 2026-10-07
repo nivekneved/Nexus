@@ -32,18 +32,25 @@ class SocialShillBot:
         # Target scenarios mapped to our products
         scenarios = [
             {
-                "platform": "Reddit - r/SaaS",
-                "post_title": "How do you guys extract data from PDF invoices automatically?",
-                "product": "nexus-invoice-pdf-extractor",
-                "price": "$1.00",
-                "reply": "I struggled with this for months. Don't pay for Rossum or expensive APIs. I wrote a standalone Python script that extracts the tables and totals perfectly using local OCR. It's just a dollar on my store: https://nexus.mu/checkout.html?prod=nexus-invoice-pdf-extractor"
+                "platform": "Reddit - r/LangChain",
+                "post_title": "How are you guys preparing PDFs for ChromaDB/Pinecone?",
+                "product": "rag-data-prep-script",
+                "price": "$19.00",
+                "reply": "I stopped relying on generic document loaders. Built a custom chunking script that cleans and segments PDFs/Word docs perfectly for semantic search. Packaged the standalone Python script here: https://nexus.mu/checkout.html?prod=rag-data-prep-script"
+            },
+            {
+                "platform": "Reddit - r/LLMOps",
+                "post_title": "Deploying FastAPI + NextJS + OpenAI to production is a nightmare",
+                "product": "llmops-deployment-boilerplate",
+                "price": "$49.00",
+                "reply": "Save yourself 3 days of configuration hell. We built a complete Infrastructure-as-Code (IaC) boilerplate specifically for Vercel/FastAPI/OpenAI stacks. You can grab the zip file here and deploy in 10 minutes: https://nexus.mu/checkout.html?prod=llmops-deployment-boilerplate"
             },
             {
                 "platform": "IndieHackers",
-                "post_title": "What's the best way to get B2B leads without getting blocked?",
-                "product": "nexus-b2b-scraper",
-                "price": "$12.00",
-                "reply": "Instead of paying for Apollo, I use a custom headless scraper + zero-send SMTP validator. Ensures 0% bounce rate. I actually packaged the exact script I use here for $12: https://nexus.mu/checkout.html?prod=nexus-b2b-scraper"
+                "post_title": "Best way to repurpose long-form YouTube videos?",
+                "product": "faceless-content-multiplier",
+                "price": "$39.00",
+                "reply": "I built an autonomous content engine that downloads YouTube transcripts, uses an LLM to find the viral hooks, and generates Twitter threads. Packed it into a standalone script you can run locally: https://nexus.mu/checkout.html?prod=faceless-content-multiplier"
             }
         ]
 

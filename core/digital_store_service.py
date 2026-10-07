@@ -122,20 +122,132 @@ CATALOG = {
             "Live in 48 hours"
         ]
     },
-    "bilingual-outbound-engine": {
-        "id": "bilingual-outbound-engine",
-        "name": "Bilingual French/English Cold Outbound Engine",
-        "tagline": "Signal-based acquisition pipeline setup",
-        "description": "Plug-and-play outbound acquisition pipeline built for agencies targeting French-speaking and bilingual markets (Mauritius, France, Switzerland).",
-        "price_usd": 550.00,
-        "price_mur": 25000.0,
-        "filename": "outbound_engine_config.json",
-        "badge": "🌍 Outbound Pipeline",
+    "scaas-custom-deployment": {
+        "id": "scaas-custom-deployment",
+        "name": "Smart Contract as a Service (SCaaS)",
+        "tagline": "Custom Token & NFT Minting Contract Deployment",
+        "description": "We will write, audit, and deploy a custom ERC-20 token or ERC-721 NFT smart contract for your project on Ethereum or Base L2. Includes ownership transfer.",
+        "price_usd": 999.00,
+        "price_mur": 46000.0,
+        "filename": "scaas_onboarding_form.pdf",
+        "badge": "🚀 DFY Service",
         "features": [
-            "Challenger messaging 3-touch sequence",
-            "UCB1 Conversion Bandit optimization",
-            "Deployed in under 72 hours",
-            "Bypasses generic spam filters"
+            "Custom Solidity Smart Contract (ERC-20 or ERC-721)",
+            "Slither & Mythril Security Audit Report",
+            "Mainnet Deployment & Verification on Etherscan",
+            "Full Ownership Transfer to your Wallet"
+        ]
+    },
+    "ebook-ai-agency-blueprint": {
+        "id": "ebook-ai-agency-blueprint",
+        "name": "eBook: The Automated AI Agency Blueprint",
+        "tagline": "How to Build a $10k/mo Autonomous AI Agency",
+        "description": "The exact step-by-step blueprint on how to build, deploy, and monetize autonomous AI agents. Learn how to sell digital products, automate outreach, and run 24/7 bots.",
+        "price_usd": 29.00,
+        "price_mur": 1350.0,
+        "filename": "The_Automated_AI_Agency_Blueprint.pdf",
+        "badge": "📘 Bestselling eBook",
+        "features": [
+            "Instant PDF Download (80+ Pages)",
+            "Step-by-step setup guides for ChatGPT and local LLMs",
+            "Exactly how to automate Shopify and digital stores",
+            "The exact TikTok/Reels viral frameworks we use"
+        ]
+    },
+    "ai-financial-analyst": {
+        "id": "ai-financial-analyst",
+        "name": "Nexus™ AI Financial Analyst Bot",
+        "tagline": "Automated PDF bank statement to structured cash-flow projections",
+        "description": "A standalone LLM-powered script that ingests unstructured financial PDFs or MCB bank statements and outputs categorized Excel cash-flow projections.",
+        "price_usd": 49.00,
+        "price_mur": 2250.0,
+        "filename": "nexus_ai_financial_analyst.py",
+        "badge": "🤖 AI Agent",
+        "features": [
+            "LLM-powered spending classification",
+            "Bulk PDF ingestion and processing",
+            "Instant Excel cash-flow output",
+            "Perfect for freelance bookkeepers"
+        ]
+    },
+    "faceless-content-multiplier": {
+        "id": "faceless-content-multiplier",
+        "name": "Nexus™ Faceless Content Multiplier",
+        "tagline": "YouTube/Podcast to Viral Threads & Hooks automatically",
+        "description": "An autonomous content engine that scrapes long-form YouTube or Podcast URLs, downloads transcripts, and outputs viral Twitter threads and TikTok short scripts.",
+        "price_usd": 39.00,
+        "price_mur": 1800.0,
+        "filename": "nexus_content_multiplier.py",
+        "badge": "🎥 Content Tool",
+        "features": [
+            "Automatic YouTube transcript extraction",
+            "Viral hook generation using LLMs",
+            "Ready-to-post Twitter thread formatting",
+            "Drives massive inbound Squeeze Page traffic"
+        ]
+    },
+    "rag-data-prep-script": {
+        "id": "rag-data-prep-script",
+        "name": "Nexus™ RAG Data Preparation Pipeline",
+        "tagline": "Format your corporate data for ChromaDB & Pinecone",
+        "description": "A developer utility that cleans PDFs, Word documents, and text files, splitting them into optimized semantic chunks ready for vector database embeddings.",
+        "price_usd": 19.00,
+        "price_mur": 880.0,
+        "filename": "nexus_rag_data_prep.py",
+        "badge": "🧠 RAG Tool",
+        "features": [
+            "Optimized semantic chunking logic",
+            "Supports PDF, DOCX, and TXT files",
+            "Prepares data for LangChain / LlamaIndex",
+            "Zero cloud API fees"
+        ]
+    },
+    "llmops-deployment-boilerplate": {
+        "id": "llmops-deployment-boilerplate",
+        "name": "Nexus™ LLMOps Deployment Boilerplate",
+        "tagline": "Vercel + FastAPI + OpenAI Production Infrastructure",
+        "description": "A complete Infrastructure-as-Code (IaC) boilerplate package to deploy reliable LLM architectures. Save 3 days of configuration hell.",
+        "price_usd": 49.00,
+        "price_mur": 2250.0,
+        "filename": "nexus_llmops_boilerplate.zip",
+        "badge": "⚙️ Infra Code",
+        "features": [
+            "Production-ready FastAPI backend",
+            "Pre-configured Vercel/Next.js frontend",
+            "Built-in OpenAI integration and rate limiting",
+            "Deploy to production in minutes"
+        ]
+    },
+    "dfy-seo-audit": {
+        "id": "dfy-seo-audit",
+        "name": "Nexus™ DFY Automated SEO Audit",
+        "tagline": "Instantly generate a 10-page Technical SEO Report",
+        "description": "We run our Agency Audit Bot against your website and deliver a branded, highly-actionable PDF report uncovering lost revenue opportunities and technical bottlenecks.",
+        "price_usd": 29.00,
+        "price_mur": 1350.0,
+        "filename": "audit_intake_form.pdf",
+        "badge": "📊 DFY Service",
+        "features": [
+            "Core Web Vitals & Speed Analysis",
+            "Toxic Backlink Detection",
+            "Content Silo & Keyword Gap Analysis",
+            "Delivered in under 5 minutes"
+        ]
+    },
+    "dfy-tiktok-video-batch": {
+        "id": "dfy-tiktok-video-batch",
+        "name": "Nexus™ Faceless Video Batch (10 Videos)",
+        "tagline": "Automated TikToks/Reels ready to upload",
+        "description": "Our OpenMontage Video Engine will autonomously generate 10 high-retention, viral short-form videos for your niche, complete with AI voiceovers and kinetic captions.",
+        "price_usd": 39.00,
+        "price_mur": 1800.0,
+        "filename": "video_niche_intake.pdf",
+        "badge": "🎥 Media Batch",
+        "features": [
+            "10 ready-to-post MP4 files",
+            "Viral hook scripts included",
+            "AI Voiceover & Auto-Captions",
+            "100% Commercial usage rights"
         ]
     }
 }
