@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Tasks & 41 Agent Fleet Hub — Nexus™</title>
+  <link rel="preload" href="/static/fonts/fonts.css" as="style">
+  <link rel="stylesheet" href="/static/fonts/fonts.css">
+  <link rel="stylesheet" href="/static/style.css?v=4.4.0">
+  <style>
+    .pillar-hero {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .two-column-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1100px) {
+      .two-column-layout { grid-template-columns: 1fr; }
+    }
+
+    .tasks-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 820px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .task-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: all 0.2s ease;
+    }
+    .task-card:hover {
+      border-color: #0284c7;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+    }
+    .task-card h3 { margin: 0; font-size: 0.92rem; font-weight: 800; color: #0f172a; }
+    .task-card p { margin: 0; font-size: 0.76rem; color: #64748b; line-height: 1.4; }
+    .btn-task {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      align-self: flex-start;
+    }
+    .btn-task:hover { background: #0369a1; }
+    .btn-task:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .results-column {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      min-height: 780px;
+      display: flex;
+      flex-direction: column;
+    }
+    .grid-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .json-output-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 0.82rem;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      flex-grow: 1;
+      max-height: 680px;
+    }
+
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      z-index: 9999;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 6px 12px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #0284c7;
+    }
+  </style>
+</head>
+<body class="light-theme">
+  <div class="app-layout">
+    <aside class="sidebar" id="appSidebar">
+      <div class="brand-wrapper">
+        <div class="brand" style="flex: 1; display: flex; justify-content: center;">
+          <svg class="nexus-logo-badge" viewBox="0 0 220 54" width="100%" height="54" style="display: block; width: 100%; height: 54px; cursor: pointer; user-select: none;" title="NEXUS" onclick="window.location.href='/'">
+            <rect x="2" y="2" width="216" height="50" rx="6" fill="#ffffff" stroke="#000000" stroke-width="3.2"/>
+            <text x="6" y="41" textLength="208" lengthAdjust="spacingAndGlyphs" font-family="'Inter', sans-serif" font-size="45" font-weight="900" fill="#000000">NEXUS</text>
+          </svg>
+        </div>
+      </div>
+      <div class="sidebar-dashboard-box" style="padding: 14px 16px; border-bottom: 1px solid var(--border-subtle); background: rgba(15,23,42,0.02);">
+        <a href="/" title="Go to Dashboard">
+          <div style="font-size: 0.85rem; font-weight: 900; display: flex; align-items: center; gap: 6px;">
+            <span>⚡</span> <span>Dashboard</span>
+          </div>
+        </a>
+      </div>
+      <nav class="nav-menu" id="mainNavMenu">
+        <div class="nav-section-header"><span class="nav-section-title">Nexus Money Machine</span></div>
+        <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px;">
+          <a href="/seek" class="nav-item"><span>🎯 1. Seek</span></a>
+          <a href="/connect" class="nav-item"><span>💬 2. Connect & Propose</span></a>
+          <a href="/operations" class="nav-item"><span>📜 3. Propose</span></a>
+          <a href="/commerce" class="nav-item"><span>📦 4. Sell</span></a>
+          <a href="/workforce" class="nav-item"><span>🧾 5. Quote & Invoice</span></a>
+          <a href="/auto-tasks" class="nav-item active">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>⚡ Auto Tasks</span>
+          </a>
+          <a href="/revenue" class="nav-item"><span>📈 Revenue Cockpit</span></a>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="pillar-hero">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <span class="badge-pill" style="background:#0284c7; color:#fff;">Automation Hub</span>
+            <span class="badge-pill badge-active">All 41 Agents & Process Endpoints Armed</span>
+          </div>
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">⚡ Auto Tasks & 41 Agent Fleet Console</h1>
+          <p style="color: #64748b; font-size: 0.92rem; margin: 6px 0 0 0;">
+            Trigger any process endpoint or individual agent from the left column and inspect live JSON results on the right.
+          </p>
+        </div>
+      </div>
+
+      <div class="two-column-layout">
+        <!-- Left Column: Tabs for Process Endpoints vs All 41 Agents -->
+        <div class="tasks-column">
+          <div class="tab-bar">
+            <button class="tab-btn active" id="btnTabProcesses" onclick="switchTab('processes')">⚙️ Process Endpoints (14)</button>
+            <button class="tab-btn" id="btnTabAgents" onclick="switchTab('agents')">🤖 41 Agent Fleet</button>
+          </div>
+
+          <!-- Tab 1: Process Endpoints -->
+          <div id="tabContentProcesses" style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="task-card">
+              <h3>🚀 1. Opportunity Scouting Powerhouse Sweep</h3>
+              <p>Executes multi-channel harvesting across 14 hidden boards & global bounty networks.</p>
+              <button class="btn-task" onclick="runProcessTask('Powerhouse Sweep', '/api/scout/powerhouse-sweep', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🌍 2. Euro-Africa Official Registries Scout</h3>
+              <p>Scouts contacts & business records across top 25 European & African registers.</p>
+              <button class="btn-task" onclick="runProcessTask('Euro-Africa Scout', '/api/scout/euro-africa', 'POST', {query: 'manufacturing'}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🏛️ 3. Official Government Registry Query</h3>
+              <p>Queries official Companies House UK, INPI France, CIPC ZA with Pydantic normalization.</p>
+              <button class="btn-task" onclick="runProcessTask('Official Registry Query', '/api/registry/query', 'POST', {jurisdiction: 'United Kingdom', query: 'fintech'}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🤖 4. AI Agent Boards $1.00 Micro-Ask Campaign</h3>
+              <p>Dispatches $1.00 USD micro-ask proposals across the 14 AI-only machine boards.</p>
+              <button class="btn-task" onclick="runProcessTask('$1.00 AI Board Ask', '/api/agents/ask-one-dollar', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🌐 5. Live Public Internet Micro-Ask Campaign</h3>
+              <p>Dispatches real HTTP POST requests across the public internet asking for $1.00 USD.</p>
+              <button class="btn-task" onclick="runProcessTask('Live Public Ask', '/api/agents/ask-live-public', 'POST', {target_webhook_url: 'https://httpbin.org/post'}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>⚡ 6. True Live Internet Request Dispatcher</h3>
+              <p>Executes a real outbound HTTP request across the public web to any public API/webhook.</p>
+              <button class="btn-task" onclick="runProcessTask('Live Web Dispatch', '/api/net/dispatch-live', 'POST', {url: 'https://httpbin.org/get', method: 'GET'}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🛡️ 7. 25-Safeguard Fortress Security Hardening</h3>
+              <p>Verifies active status across all 25 enterprise security safeguards and seals ledgers.</p>
+              <button class="btn-task" onclick="runProcessTask('Fortress Lockdown', '/api/security/fortress-lockdown', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🧬 8. v5.0 Meta-Cognitive Fleet Upgrade</h3>
+              <p>Upgrades all 41 agents with episodic memory priming and self-reflection.</p>
+              <button class="btn-task" onclick="runProcessTask('v5 Meta Upgrade', '/api/agents/upgrade-all', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🔬 9. v6.0 AI Tech Board Capabilities Upgrade</h3>
+              <p>Injects Verifier-Generator, Sandbox Guard, and GraphRAG Clustering into every agent.</p>
+              <button class="btn-task" onclick="runProcessTask('v6 Tech Upgrade', '/api/agents/upgrade-v6', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🔥 10. 25 Top 7-Day Hacker Hacks Upgrade</h3>
+              <p>Implements and arms all 25 bleeding-edge 7-day hacker agent hacks.</p>
+              <button class="btn-task" onclick="runProcessTask('7-Day Hacks Upgrade', '/api/agents/upgrade-7day-hacks', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🕷️ 11. 25 Scraping & Outreach Hacks Activation</h3>
+              <p>Arms TLS fingerprint randomization, proxy cascades, and anti-bot bypasses.</p>
+              <button class="btn-task" onclick="runProcessTask('Scraping Hacks', '/api/scraping/upgrade-hacks', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🔒 12. 25 Domain-Specific Bypasses & Cracks</h3>
+              <p>Injects zero-day logic fuzzing, nonce replay shields, and zero-click OAuth token extraction.</p>
+              <button class="btn-task" onclick="runProcessTask('Domain Hacks', '/api/agents/upgrade-domain-hacks', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>🧩 13. Consolidated Swarm Architecture</h3>
+              <p>Consolidates redundant agent loops into 4 high-performance unified swarms.</p>
+              <button class="btn-task" onclick="runProcessTask('Swarm Consolidation', '/api/agents/consolidate-swarms', 'POST', {}, this)">Execute ⚡</button>
+            </div>
+
+            <div class="task-card">
+              <h3>⚡ 14. Parallel Swarm Batch Dispatch</h3>
+              <p>Dispatches multiple agent runs concurrently in parallel with vector memory caching.</p>
+              <button class="btn-task" onclick="runProcessTask('Parallel Swarm Dispatch', '/api/efficiency/optimize-batch', 'POST', {agent_ids: ['lead_finder', 'growth_hacker', 'bounty_hunter']}, this)">Execute ⚡</button>
+            </div>
+          </div>
+
+          <!-- Tab 2: 41 Agent Fleet Container -->
+          <div id="tabContentAgents" style="display: none; flex-direction: column; gap: 10px;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 4px;">Dynamic Registry of All 41 Active Agents:</div>
+            <div id="agentFleetContainer" style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="padding: 20px; text-align: center; color: #64748b;">Loading 41 Agent Fleet...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Results Inspection Console -->
+        <div class="results-column">
+          <div class="grid-controls">
+            <div>
+              <h3 style="margin:0; font-size:1.1rem; font-weight:800; color:#0f172a;" id="consoleTitle">📋 Execution Inspection Console</h3>
+              <p style="margin:2px 0 0 0; font-size:0.78rem; color:#64748b;" id="consoleSubtitle">Click any task or agent on the left to inspect live JSON output here.</p>
+            </div>
+            <button class="btn-task" onclick="clearConsole()" style="background:#64748b;">Clear Console</button>
+          </div>
+
+          <pre id="jsonConsole" class="json-output-box">Select a process task or agent from the left column to execute and view structured telemetry results...</pre>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastBox" class="toast-box"></div>
+
+  <script>
+    function showToast(msg) {
+      const tb = document.getElementById("toastBox");
+      tb.innerHTML = msg;
+      tb.style.display = "block";
+      setTimeout(() => { tb.style.display = "none"; }, 4000);
+    }
+
+    function switchTab(tabName) {
+      if (tabName === 'processes') {
+        document.getElementById("btnTabProcesses").classList.add("active");
+        document.getElementById("btnTabAgents").classList.remove("active");
+        document.getElementById("tabContentProcesses").style.display = "flex";
+        document.getElementById("tabContentAgents").style.display = "none";
+      } else {
+        document.getElementById("btnTabAgents").classList.add("active");
+        document.getElementById("btnTabProcesses").classList.remove("active");
+        document.getElementById("tabContentAgents").style.display = "flex";
+        document.getElementById("tabContentProcesses").style.display = "none";
+        loadAgentFleet();
+      }
+    }
+
+    async function loadAgentFleet() {
+      const container = document.getElementById("agentFleetContainer");
+      try {
+        const res = await fetch("/api/agents");
+        const data = await res.json();
+        const agents = data.agents || [];
+
+        let html = "";
+        agents.forEach((ag, idx) => {
+          html += `
+            <div class="task-card">
+              <h3>🤖 #${idx+1} ${ag.name} (${ag.id})</h3>
+              <p>${ag.description || 'Active Nexus agent unit.'}</p>
+              <div style="display:flex; gap:8px;">
+                <button class="btn-task" onclick="runAgentRun('${ag.id}', '${ag.name}', this)">Run Agent ⚡</button>
+                <button class="btn-task" style="background:#64748b;" onclick="fetchAgentConfig('${ag.id}', this)">Config ⚙️</button>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      } catch (e) {
+        container.innerHTML = `<div style="color:red; padding:10px;">Failed to load agent fleet: ${e.message}</div>`;
+      }
+    }
+
+    async function runAgentRun(agentId, agentName, btnEl) {
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerText = "⏳ Running...";
+      }
+
+      document.getElementById("consoleTitle").innerText = `📋 Running Agent: ${agentName}`;
+      document.getElementById("jsonConsole").innerText = `Triggering agent cycle for '${agentId}'...\nWaiting for response...`;
+
+      try {
+        const res = await fetch(`/api/agents/${agentId}/run`, { method: "POST" });
+        const data = await res.json();
+
+        document.getElementById("consoleTitle").innerText = `✅ Agent Completed: ${agentName}`;
+        document.getElementById("jsonConsole").innerText = JSON.stringify(data, null, 2);
+        showToast(`✅ Agent '${agentName}' executed successfully!`);
+      } catch (err) {
+        document.getElementById("consoleTitle").innerText = `❌ Agent Error: ${agentName}`;
+        document.getElementById("jsonConsole").innerText = `Error running agent ${agentId}:\n${err.message}`;
+        showToast(`❌ Agent error: ${err.message}`);
+      } finally {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerText = "Run Agent ⚡";
+        }
+      }
+    }
+
+    async function fetchAgentConfig(agentId, btnEl) {
+      document.getElementById("consoleTitle").innerText = `📋 Config: ${agentId}`;
+      document.getElementById("jsonConsole").innerText = `Fetching configuration for '${agentId}'...`;
+
+      try {
+        const res = await fetch(`/api/agents/${agentId}/config`);
+        const data = await res.json();
+        document.getElementById("jsonConsole").innerText = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("jsonConsole").innerText = `Error fetching config: ${err.message}`;
+      }
+    }
+
+    async function runProcessTask(taskName, endpoint, method, payload, btnEl) {
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.innerText = "⏳ Running...";
+      }
+
+      document.getElementById("consoleTitle").innerText = `📋 Executing: ${taskName}`;
+      document.getElementById("jsonConsole").innerText = `Connecting to endpoint ${endpoint}...\nWaiting for response...`;
+
+      try {
+        const options = {
+          method: method,
+          headers: { "Content-Type": "application/json" }
+        };
+        if (method === 'POST' && Object.keys(payload).length > 0) {
+          options.body = JSON.stringify(payload);
+        }
+
+        const res = await fetch(endpoint, options);
+        const data = await res.json();
+
+        document.getElementById("consoleTitle").innerText = `✅ Completed: ${taskName}`;
+        document.getElementById("jsonConsole").innerText = JSON.stringify(data, null, 2);
+        showToast(`✅ Task '${taskName}' completed successfully!`);
+      } catch (err) {
+        document.getElementById("consoleTitle").innerText = `❌ Error: ${taskName}`;
+        document.getElementById("jsonConsole").innerText = `Error executing ${endpoint}:\n${err.message}`;
+        showToast(`❌ Task error: ${err.message}`);
+      } finally {
+        if (btnEl) {
+          btnEl.disabled = false;
+          btnEl.innerText = "Execute ⚡";
+        }
+      }
+    }
+
+    function clearConsole() {
+      document.getElementById("consoleTitle").innerText = "📋 Execution Inspection Console";
+      document.getElementById("jsonConsole").innerText = "Select a process task or agent from the left column to execute and view structured telemetry results...";
+    }
+  </script>
+</body>
+</html>

@@ -218,6 +218,13 @@ class LeadFinderAgent(BaseAgent):
                 "type": "number",
                 "default": 80,
                 "description": "Only pipeline leads meeting or exceeding this threshold"
+            },
+            {
+                "key": "AUTO_DISPATCH_EMAILS",
+                "label": "Autonomous Email Outbound Dispatch",
+                "type": "boolean",
+                "default": True,
+                "description": "Automatically send SMTP pitch emails to newly discovered qualified leads"
             }
         ]
 

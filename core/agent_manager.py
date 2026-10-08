@@ -198,8 +198,7 @@ class AgentManager:
 
     def list_agents(self, primary_only: bool = False) -> List[Dict]:
         """Lists agents. If primary_only is True, returns only the 4 consolidated Domain Controllers."""
-        if primary_only or len(self.domain_controllers) > 0:
-            # Present the 4 primary domain controllers
+        if primary_only:
             return [dom.get_info() for dom in self.domain_controllers.values()]
         return [agent.get_info() for agent in self.agents.values()]
 

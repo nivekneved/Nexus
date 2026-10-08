@@ -75,9 +75,23 @@ class CompetitorPoacherAgent(BaseAgent):
         )
         try:
             import asyncio
+            import random
             from poacher.core.orchestrator import PoacherOrchestrator
+
+            competitors = [
+                ("HubSpot Enterprise", "hubspot.com"),
+                ("Salesforce CRM", "salesforce.com"),
+                ("Zendesk Support", "zendesk.com"),
+                ("Stripe Billing", "stripe.com"),
+                ("Shopify Plus", "shopify.com"),
+                ("Notion Team Workspace", "notion.so"),
+                ("Jira Software", "atlassian.com"),
+                ("ServiceNow ITSM", "servicenow.com")
+            ]
+            comp_name, comp_domain = random.choice(competitors)
+
             orchestrator = PoacherOrchestrator()
-            card = asyncio.run(orchestrator.execute_poaching_campaign("HubSpot Enterprise", "hubspot.com"))
+            card = asyncio.run(orchestrator.execute_poaching_campaign(comp_name, comp_domain))
 
             leads = load_poached_leads()
             new_poached = {

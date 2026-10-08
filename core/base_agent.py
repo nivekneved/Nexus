@@ -40,6 +40,21 @@ class BaseAgent(ABC):
             parent_id=self.agent_id
         )
 
+    async def invoke_peer_service(self, service_name: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """Allows this agent to invoke any capability on the Universal Synergy Mesh."""
+        from core.agent_synergy_bridge import agent_synergy_bridge
+        return await agent_synergy_bridge.invoke_service(self.agent_id, service_name, payload)
+
+    def save_memory_persistently(self, category: str, text: str, metadata: Optional[Dict[str, Any]] = None) -> bool:
+        """Saves a memory to persistent vector storage (ChromaDB) via agent memory service."""
+        from core.agent_memory_service import agent_memory_service
+        return agent_memory_service.save_memory(category, text, metadata)
+
+    def search_persistent_memory(self, category: str, query: str, n_results: int = 5) -> List[Dict[str, Any]]:
+        """Searches persistent vector storage for past insights and learnings."""
+        from core.agent_memory_service import agent_memory_service
+        return agent_memory_service.search_memory(category, query, n_results)
+
     def run_subagent(self, subagent_id: str, payload: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Executes a single-task subagent if enabled in the Addon Registry.
@@ -230,4 +245,14 @@ class BaseAgent(ABC):
             "current_config": self.get_config(),
             "subagents": subagents_info
         }
+
+    def query_official_registry(self, jurisdiction: str, query: str) -> Dict[str, Any]:
+        """Queries official European and African registries (Companies House, CIPC, etc.)."""
+        from core.official_registry_bridge import official_registry_bridge
+        return official_registry_bridge.query_official_registry(jurisdiction, query)
+
+    def scout_euro_africa_boards(self, query: str) -> Dict[str, Any]:
+        """Scouts official European and African business boards and chambers."""
+        from core.euro_africa_boards_engine import euro_africa_boards_engine
+        return euro_africa_boards_engine.ingest_euro_africa_directory(query)
 

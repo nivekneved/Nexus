@@ -61,6 +61,21 @@ from agents.lead_finder.agent import LeadFinderAgent
 from core.morning_triage_service import morning_triage_service
 from core.ecosystem_orchestrator import ecosystem_orchestrator
 from core.ghosttrack_bridge import ghosttrack_bridge
+from core.background_agent_loop import background_agent_loop
+from core.agent_efficiency_optimizer import agent_efficiency_optimizer
+from core.live_board_ask_engine import live_board_ask_engine
+from core.fortress_hardening import fortress_hardening
+from core.live_internet_dispatcher import live_internet_dispatcher
+from core.agent_board_ask_engine import agent_board_ask_engine
+from core.official_registry_bridge import official_registry_bridge
+from core.euro_africa_boards_engine import euro_africa_boards_engine
+from core.opportunity_scout_powerhouse import opportunity_scout_powerhouse
+from core.agent_consolidation_engine import agent_consolidation_engine
+from core.agent_domain_hacks import agent_domain_hacks_engine
+from core.scraping_board_hacks import scraping_hacks_engine
+from core.agent_7day_hacks import agent_7day_engine
+from core.agent_v6_capabilities import agent_v6_engine
+from core.agent_upgrade_engine import agent_upgrade_engine
 
 app = FastAPI(title="Nexus AI Workforce Hub")
 
@@ -634,6 +649,17 @@ def verify_security_shield():
     results = shield.verify_all_safeguards()
     return results
 
+
+# Fortress Hardening & 25-Safeguard Lockdown Endpoint
+@app.post("/api/security/fortress-lockdown")
+def fortress_lockdown():
+    """Performs real-time security verification across all 25 enterprise safeguards and seals the system."""
+    try:
+        report = fortress_hardening.execute_fortress_lockdown()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 # SubAgents Telemetry & Status
 @app.get("/api/subagents")
 def list_all_subagents():
@@ -704,6 +730,221 @@ def update_agent_config(agent_id: str, new_config: Dict[str, Any]):
         raise HTTPException(status_code=404, detail=f"Agent '{agent_id}' not found.")
     success = agent.save_config(new_config)
     return {"success": success, "message": f"Updated settings for {agent.name}"}
+
+
+# Background Agent Looping Endpoints
+class BackgroundTaskStartRequest(BaseModel):
+    agent_id: str
+    goal: str
+    max_iterations: Optional[int] = 15
+    interval_seconds: Optional[int] = 10
+
+@app.post("/api/background-agent-loops/start")
+def start_background_agent_loop(req: BackgroundTaskStartRequest):
+    """Starts an agent looping in the background until the task is completed or max iterations reached."""
+    try:
+        task = background_agent_loop.start_task_loop(
+            agent_id=req.agent_id,
+            goal=req.goal,
+            max_iterations=req.max_iterations,
+            interval_seconds=req.interval_seconds
+        )
+        return {"success": True, "task": task}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/background-agent-loops")
+def list_background_agent_loops():
+    """Lists all background agent loops and their execution state and results."""
+    return {
+        "success": True,
+        "tasks": background_agent_loop.get_all_tasks()
+    }
+
+@app.get("/api/background-agent-loops/{task_id}")
+def get_background_agent_loop_detail(task_id: str):
+    """Returns detailed logs and results for a specific background agent loop task."""
+    task = background_agent_loop.get_task(task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail=f"Background task '{task_id}' not found.")
+    return {"success": True, "task": task}
+
+@app.post("/api/background-agent-loops/{task_id}/stop")
+def stop_background_agent_loop(task_id: str):
+    """Stops a running background agent loop task."""
+    success = background_agent_loop.stop_task(task_id)
+    if not success:
+        raise HTTPException(status_code=404, detail=f"Active background task '{task_id}' not found or already completed.")
+    return {"success": True, "message": f"Task {task_id} stopped."}
+
+
+# Agent Efficiency & Parallel Swarm Optimization Endpoints
+class EfficiencyBatchRequest(BaseModel):
+    agent_ids: List[str]
+
+@app.post("/api/efficiency/optimize-batch")
+def optimize_and_dispatch_batch(req: EfficiencyBatchRequest):
+    """Dispatches multiple agent runs in parallel using thread pool workers and memory cache deduplication."""
+    try:
+        res = agent_efficiency_optimizer.optimize_and_dispatch_batch(req.agent_ids)
+        return res
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/efficiency/metrics")
+def get_efficiency_metrics():
+    """Returns real-time efficiency metrics, cache hit rates, and latency reduction stats."""
+    return {
+        "success": True,
+        "metrics": agent_efficiency_optimizer.get_efficiency_metrics()
+    }
+
+
+# Fleet Autonomous Upgrade Endpoint
+@app.post("/api/agents/upgrade-all")
+def upgrade_all_agents():
+    """Upgrades all 18 autonomous agents and 51 subagents with v5.0 Episodic Memory, Self-Reflection, and Dynamic Tool Binding."""
+    try:
+        report = agent_upgrade_engine.upgrade_entire_fleet()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Fleet v6.0 Cutting-Edge Upgrade Endpoint
+@app.post("/api/agents/upgrade-v6")
+def upgrade_v6_capabilities():
+    """Injects v6.0 cutting-edge AI tech board capabilities (Verifier-Generator, Sandbox Guard, GraphRAG Clustering) into every agent."""
+    try:
+        report = agent_v6_engine.inject_v6_capabilities()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Fleet 25 Top 7-Day Hacks Upgrade Endpoint
+@app.post("/api/agents/upgrade-7day-hacks")
+def upgrade_7day_hacks():
+    """Implements and injects all 25 top 7-day hacker agent hacks into every agent."""
+    try:
+        report = agent_7day_engine.implement_all_25_hacks()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 25 Scraping & Tech Board Outreach Hacks Endpoint
+@app.post("/api/scraping/upgrade-hacks")
+def upgrade_scraping_hacks():
+    """Activates and arms all 25 scraping and old/new tech board outreach hacks."""
+    try:
+        report = scraping_hacks_engine.implement_all_25_scraping_hacks()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 25 Domain-Specific Hacks, Bypasses & Cracks Endpoint
+@app.post("/api/agents/upgrade-domain-hacks")
+def upgrade_domain_hacks():
+    """Implements and arms 25 domain-specific bleeding-edge hacks, bypasses, and cracks for each agent."""
+    try:
+        report = agent_domain_hacks_engine.implement_domain_hacks_for_all_agents()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Fleet Consolidation & Swarm Unification Endpoint
+@app.post("/api/agents/consolidate-swarms")
+def consolidate_swarms():
+    """Consolidates redundant agent loops into 4 high-performance unified swarms while maintaining backward compatibility."""
+    try:
+        report = agent_consolidation_engine.execute_fleet_consolidation()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Opportunity Scouting Swarm Powerhouse Endpoint
+@app.post("/api/scout/powerhouse-sweep")
+def powerhouse_scout_sweep():
+    """Executes an intensive, multi-channel opportunity harvesting sweep across 14 hidden machine boards and bounty networks."""
+    try:
+        report = opportunity_scout_powerhouse.execute_powerhouse_sweep()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Euro-Africa Official Business Boards & Registries Ingestion Endpoint
+class EuroAfricaQueryRequest(BaseModel):
+    query: str = "manufacturing"
+
+@app.post("/api/scout/euro-africa")
+def euro_africa_scout(req: EuroAfricaQueryRequest):
+    """Scouts contacts, business info, and government registries across the top 25 European and African business boards."""
+    try:
+        report = euro_africa_boards_engine.ingest_euro_africa_directory(req.query)
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Official Registry & Compliant Pydantic Normalization Endpoint
+class RegistryQueryRequest(BaseModel):
+    jurisdiction: str = "United Kingdom"
+    query: str = "Nexus"
+
+@app.post("/api/registry/query")
+def official_registry_query(req: RegistryQueryRequest):
+    """Queries official government APIs (Companies House, INPI, CIPC) with Pydantic normalization and GDPR/POPIA PII redaction."""
+    try:
+        report = official_registry_bridge.query_official_registry(req.jurisdiction, req.query)
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# AI Agent Boards $1.00 Micro-Ask Campaign Endpoint
+@app.post("/api/agents/ask-one-dollar")
+def ask_one_dollar_campaign():
+    """Commands all agents to broadcast $1.00 USD micro-ask proposals across the 14 AI-only machine boards."""
+    try:
+        report = agent_board_ask_engine.execute_one_dollar_ask_campaign()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Live Public Internet AI Board Micro-Ask Campaign Endpoint
+class LiveBoardAskRequest(BaseModel):
+    target_webhook_url: str = "https://httpbin.org/post"
+
+@app.post("/api/agents/ask-live-public")
+def ask_live_public_campaign(req: LiveBoardAskRequest):
+    """Dispatches real, live HTTP POST requests across the public internet to public AI boards asking for $1.00 USD."""
+    try:
+        report = live_board_ask_engine.execute_live_public_ask_campaign(req.target_webhook_url)
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# True Live Public Internet Request Dispatcher Endpoint
+class LiveNetRequest(BaseModel):
+    url: str
+    method: str = "GET"
+    payload: Optional[Dict[str, Any]] = None
+
+@app.post("/api/net/dispatch-live")
+def dispatch_live_internet_request(req: LiveNetRequest):
+    """Dispatches a real, live outbound HTTP/HTTPS request across the public internet to public APIs and webhooks."""
+    try:
+        report = live_internet_dispatcher.dispatch_live_public_request(req.url, req.method, req.payload)
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/scheduler/status")
 def get_scheduler_status():
@@ -3255,6 +3496,10 @@ def serve_commerce_page():
 @app.get("/invoice")
 def serve_workforce_page():
     return FileResponse("static/workforce.html")
+
+@app.get("/auto-tasks")
+def serve_auto_tasks_page():
+    return FileResponse("static/auto_tasks.html")
 
 @app.get("/revenue")
 def serve_revenue_page():

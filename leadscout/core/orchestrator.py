@@ -11,6 +11,7 @@ from leadscout.core.card import LeadCard
 from leadscout.probes.base import BaseProbe
 from leadscout.probes.domain.dns_probe import InspectDNSAndMXTask
 from leadscout.probes.domain.tech_probe import InspectWebTechStackTask
+from leadscout.probes.domain.stealth_scrape_probe import StealthWebScrapeProbe
 from leadscout.probes.identity.search_probe import DiscoverKeyStaffTask
 from leadscout.probes.identity.social_probe import ResolveSocialProfilesTask
 from leadscout.probes.identity.bio_probe import QueryGravatarByHashTask, ExtractBioKeywordsTask
@@ -23,7 +24,7 @@ class RecursiveOrchestrator:
     def __init__(self, timeout_seconds: float = 30.0):
         self.timeout_seconds = timeout_seconds
         self.trigger_map: Dict[str, List[Type[BaseProbe]]] = {
-            "DOMAIN_RESOLVED": [InspectDNSAndMXTask, InspectWebTechStackTask, DiscoverKeyStaffTask],
+            "DOMAIN_RESOLVED": [InspectDNSAndMXTask, InspectWebTechStackTask, DiscoverKeyStaffTask, StealthWebScrapeProbe],
             "STAFF_DISCOVERED": [SynthesizeEmailPermutationsTask, ResolveSocialProfilesTask],
             "EMAIL_SYNTHESIZED": [AsyncSMTPValidationTask],
             "EMAIL_CONFIRMED": [QueryGravatarByHashTask, QueryDeveloperAPIsTask],

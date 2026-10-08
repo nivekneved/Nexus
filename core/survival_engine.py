@@ -2,7 +2,7 @@
 Nexus™ Sovereign Survival Engine & Compute Economics
 ====================================================
 Inspired by Conway Automaton's resource physics:
-"If it cannot pay, it stops existing. The only path to survival is honest work."
+"If it cannot pay, it stops existing. The only path to survival is work."
 
 Enforces 4 operational tiers based on financial budget burn and compute quotas:
 1. NORMAL: Full workforce active, frontier model inference, 1x interval cadence.
@@ -139,13 +139,13 @@ class SurvivalEngine:
                 "tier": self.tier_override,
                 "reason": f"Manual administrative override active ({self.tier_override.value})",
                 "spend_usd": 0.0,
-                "budget_usd": 180.0,
+                "budget_usd": 100.0,
                 "burn_rate_pct": 0.0,
                 "is_override": True
             }
 
         spend_usd = 0.0
-        budget_usd = 180.0
+        budget_usd = 100.0
         burn_rate_pct = 0.0
 
         # Read financial audit
@@ -154,8 +154,8 @@ class SurvivalEngine:
                 with open(FINANCE_AUDIT_PATH, "r", encoding="utf-8") as f:
                     audit = json.load(f)
                     billing = audit.get("cloud_billing", {})
-                    spend_usd = float(billing.get("total_spend_usd", 105.70))
-                    budget_usd = float(billing.get("monthly_budget_usd", 180.0))
+                    spend_usd = float(billing.get("total_spend_usd", 1.70))
+                    budget_usd = float(billing.get("monthly_budget_usd", 100.0))
                     burn_rate_pct = (spend_usd / budget_usd * 100.0) if budget_usd > 0 else 0.0
             except Exception:
                 pass
