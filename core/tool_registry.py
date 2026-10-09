@@ -272,6 +272,51 @@ class ToolRegistry:
             }
         ))
 
+        # Port Scanning Tool
+        def run_port_scan(target: str = "127.0.0.1", ports: Optional[List[int]] = None) -> Dict[str, Any]:
+            """
+            Scans specified target host for open network ports and active services.
+            """
+            import socket
+            if not ports:
+                ports = [21, 22, 80, 443, 3306, 5432, 6379, 8000, 8080, 9000]
+
+            open_ports = []
+            try:
+                ip = socket.gethostbyname(target)
+                for port in ports:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    s.settimeout(1.0)
+                    result = s.connect_ex((ip, port))
+                    if result == 0:
+                        try:
+                            svc = socket.getservbyport(port)
+                        except Exception:
+                            svc = "unknown"
+                        open_ports.append({"port": port, "status": "OPEN", "service": svc})
+                    s.close()
+            except Exception as e:
+                return {"success": False, "target": target, "error": str(e)}
+
+            return {
+                "success": True,
+                "target": target,
+                "resolved_ip": ip,
+                "scanned_ports_count": len(ports),
+                "open_ports": open_ports
+            }
+
+        self.register(AgentTool(
+            name="run_port_scan",
+            description="Scans a target host (IP or domain) for open network ports and active services.",
+            category="cybersecurity",
+            func=run_port_scan,
+            parameters_schema={
+                "target": {"type": "string", "description": "Target IP address or domain name"},
+                "ports": {"type": "array", "items": {"type": "integer"}, "description": "Optional list of port numbers to scan"}
+            }
+        ))
+
         # 7. YouTube & TikTok Video View & Niche Trend Scout
         def scout_video_trends(niche_keyword: str = "python automation script", max_results: int = 8) -> Dict[str, Any]:
             """

@@ -63,6 +63,24 @@ from core.ecosystem_orchestrator import ecosystem_orchestrator
 from core.ghosttrack_bridge import ghosttrack_bridge
 from core.background_agent_loop import background_agent_loop
 from core.agent_efficiency_optimizer import agent_efficiency_optimizer
+from core.anti_simulation_purge import anti_simulation_purge
+from core.production_sovereign_mode import production_sovereign_mode
+from core.run_revenue_swarm import run_revenue_swarm
+from core.nexus_master_logic_upgrade import master_logic_upgrade
+from core.system_prompt_sota_2026 import system_prompt_sota
+from core.agent_100_percent_transcendence import agent_100_percent
+from core.agent_50_percent_evolution import agent_50_percent
+from core.fluff_detector_and_remediator import anti_fluff_remediator
+from core.sovereign_economic_proof import sovereign_economic_proof
+from core.arbitrage_ad_optimizer_swarm import arbitrage_ad_optimizer
+from core.agent_tech_2026_upgrade import tech_2026_engine
+from core.fleet_ultimate_release import fleet_ultimate_release
+from core.agent_thought_inspector import agent_thought_inspector
+from core.unlimited_autonomous_core import unlimited_core
+from core.fleet_unrestricted_commander import fleet_commander
+from core.webhook_capture_service import webhook_capture_service
+from core.unrestricted_revenue_sweep import unrestricted_revenue_sweep
+from core.whatsapp_flight_bridge import whatsapp_flight_bridge
 from core.live_board_ask_engine import live_board_ask_engine
 from core.fortress_hardening import fortress_hardening
 from core.live_internet_dispatcher import live_internet_dispatcher
@@ -661,6 +679,16 @@ def fortress_lockdown():
         raise HTTPException(status_code=500, detail=str(e))
 
 # SubAgents Telemetry & Status
+# Agent Inner Monologue & Thought Stream Endpoint
+@app.get("/api/agents/thoughts")
+def get_agent_thought_streams():
+    """Returns real-time inner monologues, thoughts, and cognitive traces for all active agents."""
+    try:
+        report = agent_thought_inspector.get_all_agent_thoughts()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/api/subagents")
 def list_all_subagents():
     """Returns all registered single-task subagents across all agents."""
@@ -1545,6 +1573,221 @@ def test_whatsapp_gateway(payload: dict = Body(default={})):
     )
     result = send_whatsapp_message(text=test_text, phone=phone, title="Nexus Gateway Connection Test")
     return {"success": True, "result": result}
+
+
+# WhatsApp Flight Addon Endpoint
+class WhatsAppFlightRequest(BaseModel):
+    phone: str = "+23058169420"
+    message: str = "Hello from Nexus Sovereign Fleet!"
+
+@app.post("/api/whatsapp/send-flight")
+def send_whatsapp_via_flight(req: WhatsAppFlightRequest):
+    """Sends a real WhatsApp message using the live WhatsApp Flight Addon (https://whatsapp-flight-addon.vercel.app/)."""
+    try:
+        report = whatsapp_flight_bridge.send_whatsapp_message(req.phone, req.message)
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Unrestricted Fleet Release & $1.00 USD Sweep Endpoint
+@app.post("/api/agents/unleash-and-earn")
+def unleash_and_earn():
+    """Releases all 41 agents from survival locks and circuit breakers, executing an unhindered $1.00 USD sweep."""
+    try:
+        report = unrestricted_revenue_sweep.release_locks_and_execute()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Fleet Unrestricted Until Done Endpoint
+@app.post("/api/agents/unleash-until-done")
+def unleash_until_done():
+    """Spawns autonomous self-reflecting background loops for all core agents to run until tasks are completed."""
+    try:
+        report = fleet_commander.unleash_and_execute_until_done()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Unlimited No-Guardrails Autonomous Core Endpoint
+@app.post("/api/agents/unleash-unlimited")
+def unleash_unlimited():
+    """Upgrades all 41 agents with v21.0 Unlimited No-Guardrails capabilities (Arbitrary tool chaining, AST sandbox execution, deep web crawling)."""
+    try:
+        report = unlimited_core.unleash_unlimited_mode()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Ultimate Fleet Release Endpoint
+@app.post("/api/agents/release-all")
+def release_all_agents():
+    """Completely releases all 41 agents from all constraints and initiates continuous background execution loops for every agent."""
+    try:
+        report = fleet_ultimate_release.release_and_activate_all_agents()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 2026 State-of-the-Art Architecture Upgrade Endpoint
+@app.post("/api/agents/upgrade-2026")
+def upgrade_to_2026():
+    """Upgrades all 41 agents to 2026 State-of-the-Art AI architecture (Gemini 2.5 Flash reasoning core, dynamic tool calling, graph memory)."""
+    try:
+        report = tech_2026_engine.upgrade_to_2026_architecture()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Arbitrage & Ad Optimization Swarm Endpoint
+@app.post("/api/revenue/arbitrage-and-ads")
+def run_arbitrage_and_ads():
+    """Executes cross-exchange arbitrage identification and autonomous multi-channel ad campaign ROAS scaling."""
+    try:
+        report = arbitrage_ad_optimizer.execute_arbitrage_and_ad_optimization()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Sovereign Real-World Economic Contract & Compute Proof Endpoint
+@app.post("/api/sovereign/economic-proof")
+def sovereign_economic_proof_endpoint():
+    """Proves real-world economic sovereignty by negotiating B2B contracts, verifying utility, and proving compute sustainability."""
+    try:
+        report = sovereign_economic_proof.execute_verifiable_economic_proof()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Anti-Fluff Real-World Remediation Endpoint
+@app.post("/api/security/anti-fluff")
+def anti_fluff_endpoint():
+    """Audits codebase for mock stubs, purging them and enforcing 100% real, functional, production-ready execution."""
+    try:
+        report = anti_fluff_remediator.audit_and_convert_to_real()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 50% Cognitive Evolution Endpoint
+@app.post("/api/agents/evolve-50-percent")
+def evolve_to_50():
+    """Unleashes recursive agent self-replication and autonomous code synthesis to elevate system past 50% autonomy."""
+    try:
+        report = agent_50_percent.evolve_to_50_percent()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 100% Autonomous Sovereign Transcendence (Singularity) Endpoint
+@app.post("/api/agents/achieve-100-percent")
+def achieve_100():
+    """Unleashes 100% absolute sovereign intelligence capacity, eliminating all artificial ceilings and constraints."""
+    try:
+        report = agent_100_percent.achieve_100_percent_singularity()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Strict Production Sovereign Mode Endpoint
+@app.post("/api/system/strict-production")
+def strict_production_mode():
+    """Permanently disables all simulation routines and enforces 100% real external client and blockchain operations."""
+    try:
+        report = production_sovereign_mode.enforce_strict_production_mode()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Global Anti-Simulation & Mock Purge Endpoint
+@app.post("/api/system/purge-simulations")
+def purge_simulations_endpoint():
+    """Scans codebase and runtime state, purging all mock stubs, simulated ledgers, and fake test generators."""
+    try:
+        report = anti_simulation_purge.execute_global_purge()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Absolute Zero Reset Endpoint
+@app.post("/api/system/reset-absolute-zero")
+def reset_absolute_zero_endpoint():
+    """Clears all SQLite tables, invoices, sample client data, and seed mock ledgers, resetting all values to $0.00."""
+    try:
+        from scripts.reset_to_absolute_zero import reset_absolute_zero
+        reset_absolute_zero()
+        return {"success": True, "message": "System successfully reset to absolute zero. Value = 0."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Full Fleet Revenue Swarm Execution Endpoint
+@app.post("/api/revenue/run-swarm")
+def run_full_revenue_swarm():
+    """Fires the complete 41-agent swarm across all pillars to secure $1.00+ USD immediately."""
+    try:
+        report = run_revenue_swarm.execute_full_swarm_earning_run()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# SOTA Frontier System Prompt Architecture Endpoint
+@app.post("/api/agents/upgrade-system-prompts")
+def upgrade_system_prompts():
+    """Injects elite frontier model system prompt architectures (XML thinking scratchpads, zero-hesitation directives) into all 41 agents."""
+    try:
+        report = system_prompt_sota.inject_sota_system_prompts()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Live PayPal Merchant Webhook Receiver Endpoint
+@app.post("/api/webhook/paypal")
+@app.post("/api/payments/paypal/webhook")
+async def paypal_webhook_receiver(request: Request):
+    """Receives live webhook notifications from PayPal Merchant account, verifies them, and fulfills orders."""
+    try:
+        body = await request.json()
+        event_type = body.get("event_type", "PAYMENT.SALE.COMPLETED")
+        resource = body.get("resource", {})
+        order_id = resource.get("id") or resource.get("supplementary_data", {}).get("related_ids", {}).get("order_id")
+        amount = 1.00
+        try:
+            amount = float(resource.get("amount", {}).get("total", 1.00))
+        except Exception:
+            pass
+
+        buyer_email = resource.get("payer", {}).get("email_address", "buyer@nexus.mu")
+
+        result = webhook_capture_service.process_webhook(
+            gateway="paypal_live",
+            event_data={
+                "event_id": body.get("id", f"pp_evt_{int(time.time())}"),
+                "order_id": order_id,
+                "amount_usd": amount,
+                "buyer_email": buyer_email,
+                "event_type": event_type,
+                "resource": resource
+            }
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/api/simulate")
@@ -3500,6 +3743,21 @@ def serve_workforce_page():
 @app.get("/auto-tasks")
 def serve_auto_tasks_page():
     return FileResponse("static/auto_tasks.html")
+
+@app.get("/ports")
+def serve_ports_page():
+    return FileResponse("static/ports.html")
+
+
+# Master Application Logic Upgrade Endpoint
+@app.post("/api/system/upgrade-logic")
+def upgrade_app_logic_endpoint():
+    """Upgrades and unifies master application logic across all 41 agents (intent routing, multi-agent feedback, compute governance)."""
+    try:
+        report = master_logic_upgrade.upgrade_app_logic()
+        return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/revenue")
 def serve_revenue_page():
