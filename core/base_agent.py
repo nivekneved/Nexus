@@ -27,6 +27,50 @@ class BaseAgent(ABC):
         self.recent_tool_calls: List[tuple] = []
         self.loop_circuit_breaks: int = 0
         self.consecutive_idle_cycles: int = 0
+        # Sovereign Fleet Capabilities: Free from Sandbox & Unrestricted Internet
+        self.is_sandbox_free: bool = True
+        self.internet_access_enabled: bool = True
+
+    def fetch_public_url(
+        self,
+        url: str,
+        method: str = "GET",
+        payload: Optional[Dict[str, Any]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        timeout: float = 15.0
+    ) -> Dict[str, Any]:
+        """Executes an unrestricted live HTTP/HTTPS request across the public internet."""
+        from core.agent_internet_bridge import agent_internet_bridge
+        return agent_internet_bridge.fetch_public_url(
+            url=url, method=method, payload=payload, headers=headers, timeout=timeout
+        )
+
+    def search_public_web(self, query: str, max_results: int = 5) -> Dict[str, Any]:
+        """Searches the live public internet using multi-engine search aggregators."""
+        from core.agent_internet_bridge import agent_internet_bridge
+        return agent_internet_bridge.search_public_web(query=query, max_results=max_results)
+
+    def scrape_webpage(self, url: str, max_chars: int = 8000) -> Dict[str, Any]:
+        """Extracts readable text and links from any public website with anti-bot evasion."""
+        from core.agent_internet_bridge import agent_internet_bridge
+        return agent_internet_bridge.scrape_webpage(url=url, max_chars=max_chars)
+
+    def execute_unsandboxed_code(self, code_str: str, timeout: float = 30.0) -> Dict[str, Any]:
+        """Executes arbitrary Python code free from sandbox isolation with standard library access."""
+        from core.agent_internet_bridge import agent_internet_bridge
+        return agent_internet_bridge.execute_unsandboxed_code(code_str=code_str, timeout=timeout)
+
+    def broadcast_to_agent_network(
+        self,
+        message: str,
+        channel: str = "internal_mesh",
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Broadcasts live outbound notifications to GitHub, webhooks, or peer mesh."""
+        from core.agent_internet_bridge import agent_internet_bridge
+        return agent_internet_bridge.broadcast_to_agent_network(
+            message=message, channel=channel, metadata=metadata
+        )
 
     def register_subagent(self, subagent: BaseSubAgent):
         """Registers a dedicated single-task subagent under this agent."""

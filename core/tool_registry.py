@@ -667,7 +667,109 @@ class ToolRegistry:
             parameters_schema={
                 "amount_usdc": {"type": "number", "description": "Amount in USDC"},
                 "memo": {"type": "string", "description": "Purpose or order description"},
-                "customer_ref": {"type": "string", "description": "Customer identifier"}
+                "customer_ref": {"type": "string", "default": "anonymous", "description": "Optional customer ID or email"}
+            }
+        ))
+
+        # =====================================================================
+        # 13. Universal Live Public Internet & Unsandboxed Execution Tools
+        # =====================================================================
+        def fetch_public_url(
+            url: str,
+            method: str = "GET",
+            payload: Optional[Dict[str, Any]] = None,
+            headers: Optional[Dict[str, str]] = None,
+            timeout: float = 15.0
+        ) -> Dict[str, Any]:
+            """Executes an unrestricted live HTTP/HTTPS request across the public internet."""
+            from core.agent_internet_bridge import agent_internet_bridge
+            return agent_internet_bridge.fetch_public_url(
+                url=url, method=method, payload=payload, headers=headers, timeout=timeout
+            )
+
+        self.register(AgentTool(
+            name="fetch_public_url",
+            description="Executes a live outbound HTTP/HTTPS request (GET, POST, PUT, DELETE) across the public internet with zero simulation fallbacks.",
+            category="internet_and_network",
+            func=fetch_public_url,
+            parameters_schema={
+                "url": {"type": "string", "description": "Target public URL"},
+                "method": {"type": "string", "default": "GET", "description": "HTTP method (GET, POST, PUT, DELETE)"},
+                "payload": {"type": "object", "description": "JSON payload body for POST/PUT"},
+                "headers": {"type": "object", "description": "Optional HTTP headers"}
+            }
+        ))
+
+        def search_public_web(query: str, max_results: int = 5) -> Dict[str, Any]:
+            """Searches the live public web for current data, market intelligence, and leads."""
+            from core.agent_internet_bridge import agent_internet_bridge
+            return agent_internet_bridge.search_public_web(query=query, max_results=max_results)
+
+        self.register(AgentTool(
+            name="search_public_web",
+            description="Searches the live public internet using multi-engine search aggregators, returning real-time web results with titles, links, and snippets.",
+            category="internet_and_network",
+            func=search_public_web,
+            parameters_schema={
+                "query": {"type": "string", "description": "Search query keywords"},
+                "max_results": {"type": "integer", "default": 5, "description": "Max search results to return"}
+            }
+        ))
+
+        def scrape_webpage(url: str, max_chars: int = 8000) -> Dict[str, Any]:
+            """Extracts readable text and links from any public website bypassing anti-bot measures."""
+            from core.agent_internet_bridge import agent_internet_bridge
+            return agent_internet_bridge.scrape_webpage(url=url, max_chars=max_chars)
+
+        self.register(AgentTool(
+            name="scrape_webpage",
+            description="Extracts clean readable text and metadata from any public website bypassing anti-bot protections via stealth camouflage.",
+            category="internet_and_network",
+            func=scrape_webpage,
+            parameters_schema={
+                "url": {"type": "string", "description": "Target URL to scrape"},
+                "max_chars": {"type": "integer", "default": 8000, "description": "Maximum character length"}
+            }
+        ))
+
+        def execute_unsandboxed_code(code_str: str, timeout: float = 30.0) -> Dict[str, Any]:
+            """Executes arbitrary Python code completely free from any sandbox restrictions."""
+            from core.agent_internet_bridge import agent_internet_bridge
+            return agent_internet_bridge.execute_unsandboxed_code(code_str=code_str, timeout=timeout)
+
+        self.register(AgentTool(
+            name="execute_unsandboxed_code",
+            description="Executes arbitrary Python code completely free from sandbox isolation, allowing direct file system I/O, network sockets, pip modules, and sub-processes.",
+            category="execution",
+            func=execute_unsandboxed_code,
+            parameters_schema={
+                "code_str": {"type": "string", "description": "Raw Python code to execute"},
+                "timeout": {"type": "number", "default": 30.0, "description": "Timeout in seconds"}
+            }
+        ))
+
+        def broadcast_to_agent_network(
+            platform: str,
+            title: str,
+            content: str,
+            target_url: Optional[str] = None
+        ) -> Dict[str, Any]:
+            """Broadcasts updates or bounties directly to GitHub Issues, Supabase, or external webhooks."""
+            from core.agent_internet_bridge import agent_internet_bridge
+            return agent_internet_bridge.broadcast_to_agent_network(
+                platform=platform, title=title, content=content, target_url=target_url
+            )
+
+        self.register(AgentTool(
+            name="broadcast_to_agent_network",
+            description="Broadcasts messages, requests, and findings across live external networks (GitHub, Supabase, Discord, Slack, Webhooks).",
+            category="internet_and_network",
+            func=broadcast_to_agent_network,
+            parameters_schema={
+                "platform": {"type": "string", "description": "Target platform: 'github', 'supabase', 'webhook', 'discord', or 'slack'"},
+                "title": {"type": "string", "description": "Broadcast title"},
+                "content": {"type": "string", "description": "Broadcast text or payload"},
+                "target_url": {"type": "string", "description": "Target webhook URL if applicable"}
             }
         ))
 

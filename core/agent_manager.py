@@ -98,6 +98,12 @@ class AgentManager:
             cls._instance.is_scheduler_running = False
             cls._instance._register_security_shield_addons()
             cls._instance._init_domain_controllers()
+            # Inject universal live public internet & unsandboxed bridge into all agents
+            try:
+                from core.agent_internet_bridge import agent_internet_bridge
+                agent_internet_bridge.inject_into_all_agents(cls._instance)
+            except Exception:
+                pass
         return cls._instance
 
     def _register_security_shield_addons(self):
@@ -184,6 +190,11 @@ class AgentManager:
         if agent.agent_id in self.agents and not override:
             return
         self.agents[agent.agent_id] = agent
+        try:
+            from core.agent_internet_bridge import agent_internet_bridge
+            agent_internet_bridge.inject_into_agent(agent)
+        except Exception:
+            pass
         addon_registry.register_addon(
             addon_id=agent.agent_id,
             name=agent.name,

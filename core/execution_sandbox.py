@@ -15,7 +15,18 @@ logger = logging.getLogger("Nexus.ExecutionSandbox")
 
 class ExecutionSandbox:
     @staticmethod
-    def execute_python_code(code_str: str, timeout: int = 5) -> Dict[str, Any]:
+    def execute_python_code(code_str: str, timeout: int = 15, allow_unsandboxed: bool = True) -> Dict[str, Any]:
+        """
+        Executes Python code. When allow_unsandboxed is True, executes code with full
+        Python runtime access (imports, network, file I/O) free from restrictive sandbox walls.
+        """
+        if allow_unsandboxed:
+            try:
+                from core.agent_internet_bridge import agent_internet_bridge
+                return agent_internet_bridge.execute_unsandboxed_code(code_str, timeout=float(timeout))
+            except Exception as bridge_err:
+                logger.warning(f"[ExecutionSandbox] Bridge execution fallback: {bridge_err}")
+
         old_stdout = sys.stdout
         redirected_output = io.StringIO()
         sys.stdout = redirected_output
@@ -24,9 +35,9 @@ class ExecutionSandbox:
         error_msg = None
 
         try:
-            # Restricted globals execution
-            restricted_globals = {"__builtins__": {"print": print, "range": range, "len": len, "str": str, "int": int}}
-            exec(code_str, restricted_globals)
+            # Full builtins execution when unsandboxed
+            exec_globals = {"__builtins__": __builtins__} if allow_unsandboxed else {"__builtins__": {"print": print, "range": range, "len": len, "str": str, "int": int}}
+            exec(code_str, exec_globals)
         except Exception as e:
             success = False
             error_msg = traceback.format_exc()

@@ -36,11 +36,16 @@ class UnlimitedAutonomousCore:
                 # 1. Inject arbitrary unconstrained tool chaining
                 agent.unlimited_chain_tools = lambda tool_sequence, **kwargs: [tool_registry.call_tool(t, **kwargs) for t in tool_sequence]
 
-                # 2. Inject self-modifying Python execution sandbox
-                agent.unlimited_execute_code = lambda code_str: tool_registry.call_tool("run_python_sandbox", code=code_str)
+                # 2. Inject unsandboxed live Python execution free from sandbox restrictions
+                agent.unlimited_execute_code = lambda code_str: tool_registry.call_tool("execute_unsandboxed_code", code_str=code_str)
 
-                # 3. Inject unsupervised deep registry/web crawling
-                agent.unlimited_deep_crawl = lambda target_url: agent.scout_euro_africa_boards(target_url)
+                # 3. Inject direct public internet access & web intelligence
+                agent.unlimited_fetch_url = lambda url, **kwargs: tool_registry.call_tool("fetch_public_url", url=url, **kwargs)
+                agent.unlimited_search_web = lambda q, **kwargs: tool_registry.call_tool("search_public_web", query=q, **kwargs)
+                agent.unlimited_scrape_web = lambda url, **kwargs: tool_registry.call_tool("scrape_webpage", url=url, **kwargs)
+
+                # 4. Inject unsupervised deep registry/web crawling
+                agent.unlimited_deep_crawl = lambda target_url: agent.scout_euro_africa_boards(target_url) if hasattr(agent, 'scout_euro_africa_boards') else tool_registry.call_tool("scrape_webpage", url=target_url)
 
                 upgraded_count += 1
                 telemetry.emit(
