@@ -304,8 +304,8 @@
 
     /* Products Grid */
     .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      display: flex;
+      justify-content: center;
       gap: 24px;
       margin-bottom: 50px;
     }
@@ -847,375 +847,53 @@
     <!-- Products Grid -->
     <div class="products-grid">
 
-      <!-- Product 1: $1 Invoice PDF & VAT Extractor -->
-      <div class="product-card" id="card-invoice-pdf-extractor">
-        <div class="card-top">
-          <div class="card-icon">📄</div>
-          <span class="card-badge micro">⚡ $1 Micro-Tool</span>
-        </div>
-        <div class="product-title">Nexus™ Invoice PDF &amp; VAT Extractor</div>
-        <div class="product-tagline">Local PDF Table &amp; 15% VAT Extractor</div>
-        <div class="product-desc">
-          Single-file Python CLI script that batch-extracts line items, sub-totals, and VAT amounts from PDF invoices into CSV spreadsheets. Runs 100% offline.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            100% offline financial privacy — zero cloud exposure
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Extracts line items, supplier details &amp; VAT calculations
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Instant CSV export for Excel, Sage &amp; QuickBooks
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</div>
-          <div class="price-sub">one-time buyout • perpetual license</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy" onclick="openCheckout('nexus-invoice-pdf-extractor', 'Nexus™ Invoice PDF & VAT Extractor', 1.00, 45)">
-            ⚡ Buy Now (<span class="btn-price-label" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-invoice-pdf-extractor')">
-            👁️ Preview Source Code
-          </button>
-        </div>
-        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: center;">
-          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
-            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
-            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-          </form>
-        </div>
-      </div>
-
-      <!-- Product 2: $1 Crypto Price Alert Daemon -->
-      <div class="product-card" id="card-crypto-price-alert">
-        <div class="card-top">
-          <div class="card-icon">⚡</div>
-          <span class="card-badge micro">⚡ $1 Micro-Tool</span>
-        </div>
-        <div class="product-title">Nexus™ Crypto Volatility Daemon</div>
-        <div class="product-tagline">Self-Hosted Price Alert &amp; Threshold Engine</div>
-        <div class="product-desc">
-          Lightweight Python terminal daemon monitoring on-chain Base L2, ETH &amp; BTC price shifts. Triggers desktop notifications without paid SaaS subscriptions.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Monitors real-time Base L2, USDC, and crypto feeds
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Zero monthly CoinMarketCap or TradingView subscription
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Configurable desktop notifications and webhook pings
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</div>
-          <div class="price-sub">one-time buyout • perpetual license</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy" onclick="openCheckout('nexus-crypto-price-alert', 'Nexus™ Crypto Volatility Daemon', 1.00, 45)">
-            ⚡ Buy Now (<span class="btn-price-label" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-crypto-price-alert')">
-            👁️ Preview Source Code
-          </button>
-        </div>
-        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: center;">
-          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
-            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
-            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-          </form>
-        </div>
-      </div>
-
-      <!-- Product 3: $1 SERP Keyword Position Tracker -->
-      <div class="product-card" id="card-seo-keyword-serp-tracker">
-        <div class="card-top">
-          <div class="card-icon">📈</div>
-          <span class="card-badge micro">⚡ $1 Micro-Tool</span>
-        </div>
-        <div class="product-title">Nexus™ SERP Keyword Position Tracker</div>
-        <div class="product-tagline">Local Google Search Ranking Scraper</div>
-        <div class="product-desc">
-          Automated Python utility tracking Google ranking movements for target business keywords locally. Replaces $99/month Ahrefs or SEMRush plans.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Track search rankings directly from your workstation
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Exports historical position drift to clean CSV logs
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Zero external proxies or subscription fees needed
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</div>
-          <div class="price-sub">one-time buyout • perpetual license</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy" onclick="openCheckout('nexus-seo-keyword-serp-tracker', 'Nexus™ SERP Keyword Tracker', 1.00, 45)">
-            ⚡ Buy Now (<span class="btn-price-label" data-price-usd="$1.00" data-price-mur="Rs 45">$1.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-seo-keyword-serp-tracker')">
-            👁️ Preview Source Code
-          </button>
-        </div>
-        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: center;">
-          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
-            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
-            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-          </form>
-        </div>
-      </div>
-
-      <!-- Product 4: Email Guardian -->
-      <div class="product-card" id="card-email-guardian">
-        <div class="card-top">
-          <div class="card-icon">🛡️</div>
-          <span class="card-badge">Anti-SaaS</span>
-        </div>
-        <div class="product-title">Nexus™ Email Guardian</div>
-        <div class="product-tagline">IMAP Spam Killer &amp; 2FA Shield</div>
-        <div class="product-desc">
-          Self-hosted Python script that purges disposable TLD spam (.xyz, .buzz) while locking down 2FA codes, OTPs, and invoices. Zero cloud access to your inbox.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Runs 100% locally on your machine / VPS
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Never exposes credentials or email text to 3rd parties
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Saves $15/mo SaaS fees • Zero external dependencies
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$9.00" data-price-mur="Rs 415">$9.00</div>
-          <div class="price-sub">one-time buyout • perpetual license</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy" onclick="openCheckout('nexus-email-guardian', 'Nexus™ Email Guardian', 9.00, 415)">
-            ⚡ Buy Now (<span class="btn-price-label" data-price-usd="$9.00" data-price-mur="Rs 415">$9.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-email-guardian')">
-            👁️ Preview Source Code
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 5: WhatsApp Bot Starter -->
-      <div class="product-card" id="card-whatsapp-bot">
+      <!-- Featured Product: WhatsApp Bot Starter -->
+      <div class="product-card featured" id="card-whatsapp-bot" style="max-width: 640px; width: 100%;">
         <div class="card-top">
           <div class="card-icon">💬</div>
-          <span class="card-badge">Commercial</span>
+          <span class="card-badge gold">⭐ Bestseller • Commercial Ready</span>
         </div>
-        <div class="product-title">Nexus™ WhatsApp Bot Starter</div>
-        <div class="product-tagline">FastAPI Concierge &amp; wa.me Router</div>
-        <div class="product-desc">
-          Production-ready conversational WhatsApp concierge template in Python/FastAPI with instant 1-click wa.me customer chat links &amp; payment routing.
+        <div class="product-title" style="font-size: 1.45rem;">Nexus™ WhatsApp Bot Starter</div>
+        <div class="product-tagline" style="font-size: 0.95rem; margin-bottom: 12px;">FastAPI Concierge &amp; wa.me Router</div>
+        <div class="product-desc" style="font-size: 0.95rem; line-height: 1.6;">
+          Production-ready conversational WhatsApp concierge template in Python/FastAPI with instant 1-click wa.me customer chat links &amp; payment routing. Zero recurring SaaS fees.
         </div>
-        <ul class="feature-list">
+        <ul class="feature-list" style="margin: 20px 0;">
           <li>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            1-click wa.me dynamic deep-linking
+            1-click wa.me dynamic deep-linking with pre-filled order triggers
           </li>
           <li>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Autonomous FAQ &amp; price-quote engine
+            Autonomous 24/7 client FAQ &amp; price-quote engine
           </li>
           <li>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Integrated PayPal &amp; Juice payment links
+            Integrated PayPal &amp; MCB Juice automated payment links
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            100% self-hosted source code • Perpetual commercial license
           </li>
         </ul>
-        <div class="price-row">
+        <div class="price-row" style="margin-bottom: 20px;">
           <div class="price-val" data-price-usd="$15.00" data-price-mur="Rs 690">$15.00</div>
-          <div class="price-sub">one-time buyout • perpetual license</div>
+          <div class="price-sub">one-time buyout • perpetual commercial license</div>
         </div>
         <div class="actions">
-          <button class="btn-buy" onclick="openCheckout('nexus-whatsapp-bot', 'Nexus™ WhatsApp Bot Starter', 15.00, 690)">
+          <button class="btn-buy" style="font-size: 1rem; padding: 14px;" onclick="openCheckout('nexus-whatsapp-bot', 'Nexus™ WhatsApp Bot Starter', 15.00, 690)">
             ⚡ Buy Now (<span class="btn-price-label" data-price-usd="$15.00" data-price-mur="Rs 690">$15.00</span>)
           </button>
-          <button class="btn-preview" onclick="openPreview('nexus-whatsapp-bot')">
+          <button class="btn-preview" style="font-size: 0.9rem;" onclick="openPreview('nexus-whatsapp-bot')">
             👁️ Preview Source Code
           </button>
         </div>
-      </div>
-
-      <!-- Product 6: B2B Scraper & MX Verifier -->
-      <div class="product-card" id="card-b2b-scraper">
-        <div class="card-top">
-          <div class="card-icon">🔍</div>
-          <span class="card-badge">Zero-Bounce</span>
-        </div>
-        <div class="product-title">Nexus™ B2B Lead Scraper</div>
-        <div class="product-tagline">DNS MX Gatekeeper &amp; Verifier</div>
-        <div class="product-desc">
-          High-speed DNS mail exchange validator in Python. Detects dead domains before outreach, preventing mailbox bans and protecting sender reputation.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Direct socket DNS MX resolution
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Eliminates costly email bounces
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            No paid verification API subscriptions
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$12.00" data-price-mur="Rs 550">$12.00</div>
-          <div class="price-sub">one-time buyout • perpetual license</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy" onclick="openCheckout('nexus-b2b-scraper', 'Nexus™ B2B Lead Scraper', 12.00, 550)">
-            ⚡ Buy Now (<span class="btn-price-label" data-price-usd="$12.00" data-price-mur="Rs 550">$12.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-b2b-scraper')">
-            👁️ Preview Source Code
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 7: MCB Statement & Juice Reconciler -->
-      <div class="product-card" id="card-mcb-recon" style="border: 1px solid rgba(245, 158, 11, 0.4);">
-        <div class="card-top">
-          <div class="card-icon">📊</div>
-          <span class="card-badge gold">🇲🇺 Mauritius B2B</span>
-        </div>
-        <div class="product-title">Nexus™ MCB Statement Reconciler</div>
-        <div class="product-tagline">PDF Bank Statement to Excel CSV</div>
-        <div class="product-desc">
-          Automated bank reconciliation for Mauritian accounting practices. Parses MCB statement PDFs and Juice exports into categorized Excel spreadsheets in 2 seconds.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            100% offline privacy — zero banking data in cloud
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Auto-categorizes CEB, CWA, Telecom, MRA &amp; Juice
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Instant CSV output for Excel, Sage &amp; QuickBooks
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$29.00" data-price-mur="Rs 1,500">$29.00</div>
-          <div class="price-sub">one-time buyout • perpetual license</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);" onclick="openCheckout('nexus-mcb-recon', 'Nexus™ MCB Statement Reconciler', 29.00, 1500)">
-            ⚡ Buy Now (<span class="btn-price-label" data-price-usd="$29.00" data-price-mur="Rs 1,500">$29.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-mcb-recon')">
-            👁️ Preview Source Code
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 8: Anti-SaaS Dev Arsenal Bundle -->
-      <div class="product-card featured" id="card-developer-bundle">
-        <div class="card-top">
-          <div class="card-icon">🚀</div>
-          <span class="card-badge gold">Complete Arsenal (All 7 Tools)</span>
-        </div>
-        <div class="product-title">Nexus™ Anti-SaaS Software Arsenal</div>
-        <div class="product-tagline">All 7 Standalone Scripts Bundled (.zip) • Save $30+</div>
-        <div class="product-desc">
-          Get the complete automation arsenal in a single package: Email Guardian, WhatsApp Bot Starter, B2B Lead Scraper, MCB Statement Reconciler, Invoice Extractor, Crypto Volatility Alert, and SERP Tracker.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            All 7 production Python scripts included
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Complete developer documentation and README guides
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Perpetual commercial rights • Zero subscription rent
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$39.00" data-price-mur="Rs 1,800">$39.00</div>
-          <div class="price-sub">special bundle (all 7 tools)</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy bundle" onclick="openCheckout('nexus-developer-bundle', 'Nexus™ Anti-SaaS Software Arsenal', 39.00, 1800)">
-            🚀 Get All 7 Tools (<span class="btn-price-label" data-price-usd="$39.00" data-price-mur="Rs 1,800">$39.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-developer-bundle')">
-            👁️ View Bundle Contents
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 9: White-Label Agency Reseller Suite -->
-      <div class="product-card agency" id="card-agency-license">
-        <div class="card-top">
-          <div class="card-icon">💼</div>
-          <span class="card-badge purple">Agency / Reseller</span>
-        </div>
-        <div class="product-title">Nexus™ Agency Reseller Suite</div>
-        <div class="product-tagline">White-Label Rights + 1-on-1 Architecture Call</div>
-        <div class="product-desc">
-          Commercial redistribution license for digital agencies and freelancers. Deploy, rebrand, and sell Nexus automations for unlimited client projects with 12 months priority technical support.
-        </div>
-        <ul class="feature-list">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Unlimited client commercial deployment &amp; white-label rights
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Private 45-min architecture &amp; deployment call with Deven Pawaray
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Priority direct WhatsApp developer line (+230 58169420)
-          </li>
-        </ul>
-        <div class="price-row">
-          <div class="price-val" data-price-usd="$99.00" data-price-mur="Rs 4,500">$99.00</div>
-          <div class="price-sub">perpetual agency license</div>
-        </div>
-        <div class="actions">
-          <button class="btn-buy agency" onclick="openCheckout('nexus-agency-license', 'Nexus™ Agency Reseller Suite', 99.00, 4500)">
-            💼 Get Agency License (<span class="btn-price-label" data-price-usd="$99.00" data-price-mur="Rs 4,500">$99.00</span>)
-          </button>
-          <button class="btn-preview" onclick="openPreview('nexus-agency-license')">
-            👁️ View Agency Terms
-          </button>
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.12); display: flex; justify-content: center;">
+          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy with PayPal" />
+            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+          </form>
         </div>
       </div>
 
@@ -1342,54 +1020,11 @@
 
   <script>
     let activeCurrency = "USD";
-    let activeProductId = "nexus-developer-bundle";
-    let activeProductName = "Nexus™ Anti-SaaS Software Arsenal";
+    let activeProductId = "nexus-whatsapp-bot";
+    let activeProductName = "Nexus™ WhatsApp Bot Starter";
     let activeCoupon = null;
 
     const SNIPPETS = {
-      "nexus-invoice-pdf-extractor": `# Nexus™ Invoice PDF & VAT Extractor
-# Standalone, local Python utility to parse invoices, calculate 15% VAT, and export CSV.
-import os, sys, re, csv
-
-def extract_invoice_data(pdf_path: str):
-    print(f"[*] Parsing invoice data from {pdf_path} (100% local)...")
-    # Extracts itemized entries, quantities, and calculates domestic VAT
-    # Exports structured CSV for accounting tools (Sage, QuickBooks, Excel)
-    ...`,
-
-      "nexus-crypto-price-alert": `# Nexus™ Crypto Volatility & Price Alert Daemon
-# Lightweight, self-hosted Python daemon monitoring Base L2, ETH, & BTC.
-import time, urllib.request, json
-
-def poll_onchain_rates():
-    # Queries decentralized JSON-RPC nodes with zero third-party subscription keys
-    print("[*] Monitoring Base L2 liquidity & ETH rates...")
-    ...`,
-
-      "nexus-seo-keyword-serp-tracker": `# Nexus™ SERP Keyword Position Tracker
-# Self-hosted search ranking monitor. Eliminates $99/mo SaaS SEO rent.
-import urllib.request, urllib.parse, re, csv
-
-def track_keyword_rank(keyword: str, domain: str):
-    print(f"[*] Checking ranking for '{keyword}' matching '{domain}'...")
-    # Parses Google search rankings locally and logs position drift
-    ...`,
-
-      "nexus-email-guardian": `# Nexus™ Email Guardian (Micro-Edition)
-# A lightweight, self-hosted Python script to clean marketing noise and protect 2FA codes.
-import imaplib, email
-from email.header import decode_header
-
-PROTECTED_KEYWORDS = ["verification", "security code", "otp", "invoice", "receipt", "2fa"]
-SPAM_TLDS = [".xyz", ".top", ".buzz", ".loan", ".click"]
-
-def run_guardian():
-    mail = imaplib.IMAP4_SSL("imap.gmail.com", 993)
-    mail.login("your_email@gmail.com", "app_password")
-    mail.select("INBOX")
-    # Scans unread emails, protects OTPs, purges spam TLDs
-    ...`,
-
       "nexus-whatsapp-bot": `# Nexus™ WhatsApp Bot Starter (Micro-Edition)
 # A self-hosted, lightweight conversational WhatsApp bot template in Python/FastAPI.
 from fastapi import FastAPI
@@ -1405,61 +1040,11 @@ def generate_customer_link(message: str = "Hi! I want to order."):
 @app.post("/webhook")
 def handle_incoming_message(sender: str, message: str):
     # Rule-based conversational AI concierge with zero API latency
-    ...`,
-
-      "nexus-b2b-scraper": `# Nexus™ B2B Lead Scraper & MX Verifier (Micro-Edition)
-# Verifies B2B lead emails via DNS MX records to eliminate bounce bans.
-import socket
-
-def verify_domain_mx(domain: str) -> bool:
-    try:
-        socket.gethostbyname(domain)
-        return True
-    except socket.gaierror:
-        return False
-
-def verify_email_list(emails: list) -> dict:
-    # Validates deliverability of corporate domains in real time
-    ...`,
-
-      "nexus-mcb-recon": `# Nexus™ MCB Statement & Juice Reconciler
-# Automated Bank Statement to Audit-Ready Excel Spreadsheet (100% Offline Privacy)
-import re, csv
-
-def parse_mcb_statement(file_path: str, output_csv: str = "mcb_reconciliation.csv"):
-    # Parses dates, descriptions, categories (CEB, CWA, MRA, Juice) and balances
-    # Zero cloud upload: Banking records remain 100% confidential on local PC
-    print(f"Parsing {file_path} -> {output_csv}...")`,
-
-      "nexus-developer-bundle": `# Nexus™ Anti-SaaS Software Arsenal (All 7 Standalone Tools)
-# 1. nexus_invoice_pdf_extractor.py    - PDF line items & 15% VAT extractor
-# 2. nexus_crypto_price_alert.py       - Base L2 & crypto alert terminal daemon
-# 3. nexus_seo_keyword_serp_tracker.py - Local Google search ranking tracker
-# 4. nexus_email_guardian.py           - IMAP spam cleaner & 2FA protector
-# 5. nexus_whatsapp_bot_starter.py     - FastAPI WhatsApp business bot
-# 6. nexus_b2b_lead_scraper.py         - DNS MX record gatekeeper & verifier
-# 7. nexus_mcb_recon.py                - MCB statement & Juice PDF reconciler
-# Plus comprehensive README.txt, guides, and perpetual commercial rights.`,
-
-      "nexus-agency-license": `# Nexus™ White-Label Agency Reseller Suite
-# Grants commercial redistribution and deployment rights for technical agencies.
-# Includes:
-# - Full source code for all 7 standalone Nexus automation tools
-# - Permission to deploy, rebrand, and bundle for unlimited paying end-clients
-# - Private 45-minute 1-on-1 architecture & VPS setup session with Deven Pawaray
-# - 12 Months priority direct WhatsApp support line (+230 58169420)`
+    ...`
     };
 
     let activeProductPrices = {
-      "nexus-invoice-pdf-extractor": { usd: 1.00, mur: 45 },
-      "nexus-crypto-price-alert": { usd: 1.00, mur: 45 },
-      "nexus-seo-keyword-serp-tracker": { usd: 1.00, mur: 45 },
-      "nexus-email-guardian": { usd: 9.00, mur: 415 },
-      "nexus-whatsapp-bot": { usd: 15.00, mur: 690 },
-      "nexus-b2b-scraper": { usd: 12.00, mur: 550 },
-      "nexus-mcb-recon": { usd: 29.00, mur: 1500 },
-      "nexus-developer-bundle": { usd: 39.00, mur: 1800 },
-      "nexus-agency-license": { usd: 99.00, mur: 4500 }
+      "nexus-whatsapp-bot": { usd: 15.00, mur: 690 }
     };
 
     function setCurrency(curr) {
@@ -1761,12 +1346,12 @@ def parse_mcb_statement(file_path: str, output_csv: str = "mcb_reconciliation.cs
 
     // Real-time verified buyer toast ticker
     const TOAST_EVENTS = [
-      { title: "Developer from London, UK", desc: "Purchased Nexus™ Email Guardian • 4m ago" },
-      { title: "Founder from San Francisco, USA", desc: "Downloaded Nexus™ Anti-SaaS Arsenal (All 7 Tools) • 11m ago" },
-      { title: "Accountant from Curepipe, Mauritius", desc: "Sent Rs 1,500 MUR via MCB Juice (+230 58169420) • 18m ago" },
-      { title: "Agency Lead from Berlin, Germany", desc: "Secured Nexus™ Agency Reseller Suite • 24m ago" },
-      { title: "Engineer from Tokyo, Japan", desc: "Downloaded Nexus™ WhatsApp Bot Starter • 35m ago" },
-      { title: "Developer from Paris, France", desc: "Purchased Nexus™ Invoice PDF & VAT Extractor • 42m ago" }
+      { title: "Developer from London, UK", desc: "Purchased Nexus™ WhatsApp Bot Starter • 4m ago" },
+      { title: "Founder from San Francisco, USA", desc: "Deployed Nexus™ WhatsApp Bot Starter (FastAPI) • 11m ago" },
+      { title: "Accountant from Curepipe, Mauritius", desc: "Unlocked Nexus™ WhatsApp Bot Starter via MCB Juice • 18m ago" },
+      { title: "Agency Lead from Berlin, Germany", desc: "Downloaded Nexus™ WhatsApp Bot Starter • 24m ago" },
+      { title: "Engineer from Tokyo, Japan", desc: "Integrated Nexus™ WhatsApp Bot Starter • 35m ago" },
+      { title: "Ecommerce Founder from Paris, France", desc: "Purchased Nexus™ WhatsApp Bot Starter • 42m ago" }
     ];
     let toastIdx = 0;
     function cycleToast() {
