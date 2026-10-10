@@ -61,7 +61,7 @@ class OvernightChronicle:
             return
         from core.storage import safe_load_json
         data = safe_load_json(AUTOPILOT_STATE_FILE, default=None)
-        if data is not None:
+        if data is not None and isinstance(data, dict):
             self.interval_minutes = data.get("interval_minutes", 30)
             self.cycles_completed = data.get("cycles_completed", 0)
             self.last_cycle_at = data.get("last_cycle_at")

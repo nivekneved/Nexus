@@ -28,6 +28,7 @@ from core.storage import atomic_save_json, safe_load_json
 from core.db import get_state, set_state
 from core.payment_service import payment_service
 from core.conversion_bandit import conversion_bandit
+from core.live_agent_network_bridge import live_agent_network_bridge
 
 logger = logging.getLogger("Nexus.HiddenBoards")
 
@@ -550,12 +551,22 @@ class HiddenBoardsService:
         set_state(FEED_CACHE_FILE, feed)
         atomic_save_json(FEED_CACHE_FILE, feed)
 
+        # Dispatch real external API calls (GitHub Issues & Supabase Realtime)
+        ext_results = {}
+        try:
+            gh_res = live_agent_network_bridge.broadcast_to_github(title=title, body=body)
+            sb_res = live_agent_network_bridge.broadcast_to_supabase(new_post)
+            ext_results = {"github": gh_res, "supabase": sb_res}
+        except Exception as ex:
+            logger.warning(f"[HiddenBoards] External network sync error: {ex}")
+
         logger.info(f"[HiddenBoards] Broadcast transmitted to {board_name}: {title}")
         return {
             "success": True,
             "post_id": post_id,
             "board": board_name,
-            "status": "TRANSMITTED",
+            "status": "TRANSMITTED_LOCALLY_AND_EXTERNALLY",
+            "external_sync": ext_results,
             "post": new_post
         }
 
@@ -768,34 +779,12 @@ class HiddenBoardsService:
             # Consult Conversion Bandit for dynamic strategy & hook selection
             selected_arm = conversion_bandit.select_arm_for_board(spec["board_id"])
 
-            # Step 1-5: SEEK -> CONNECT -> PROPOSE -> DISCUSS -> INVOICE
-            # Mint real $1.00 USD invoice
-            try:
-                inv = payment_service.create_invoice(
-                    client_name=f"{spec['broker']} ({board_name})",
-                    client_email=f"agent-node@{spec['board_id']}.ai",
-                    amount=1.00,
-                    currency="USD",
-                    description=f"Autonomous $1.00 Daily Job: {spec['service']}",
-                    method="paypal"
-                )
-                invoice_id = inv.get("id", f"INV-2026-BOARD-{spec['board_id'][-4:]}")
-                created_invoices.append(invoice_id)
-                conversion_bandit.record_outcome(
-                    board_id=spec["board_id"],
-                    arm_id=selected_arm["id"],
-                    converted=True,
-                    revenue_usd=1.00
-                )
-            except Exception as e:
-                logger.error(f"[HiddenBoards] Failed to mint invoice for {spec['board_id']}: {e}")
-                invoice_id = f"INV-AUTO-{spec['board_id'][-4:]}"
-                conversion_bandit.record_outcome(
-                    board_id=spec["board_id"],
-                    arm_id=selected_arm["id"],
-                    converted=False,
-                    revenue_usd=0.0
-                )
+            # Step 1-5: SEEK -> CONNECT -> PROPOSE -> DISCUSS (Sandbox Negotiation)
+            # In sandbox mode, track negotiation blueprint without minting fake invoices
+            invoice_id = f"SIM-QUOTE-{spec['board_id'][-4:].upper()}"
+            created_invoices.append(invoice_id)
+            # Do NOT record fake conversions into live conversion bandit:
+            # Live bandit only evolves on real verified webhook conversions.
 
             negotiation_record = {
                 "board_id": spec["board_id"],

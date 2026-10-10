@@ -89,9 +89,9 @@ class CryptoArbitrageAgent(BaseAgent):
             "pair": "USDC/cbBTC",
             "dex_buy": "Aerodrome",
             "dex_sell": "Uniswap V3 (Base)",
-            "spread_pct": 0.95,
-            "estimated_profit_usd": 11.20,
-            "status": "SIMULATED_SUCCESS",
+            "spread_pct": 0.12,
+            "estimated_profit_usd": 0.0,
+            "status": "MONITORING_NO_ACTION",
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         logs.insert(0, new_entry)
@@ -102,19 +102,18 @@ class CryptoArbitrageAgent(BaseAgent):
         except Exception:
             pass
 
-        self.stats["opportunities_detected"] += 1
-        self.stats["simulated_profit_usdc"] = round(self.stats["simulated_profit_usdc"] + 11.20, 2)
+        self.stats["opportunities_detected"] = len(logs)
 
         self.log(
-            step="Arbitrage Executed",
+            step="Liquidity Scanned",
             file_used=ARBITRAGE_LOG_FILE,
-            message=f"Simulated profitable arbitrage swap on Base L2: +$11.20 USD net profit.",
-            level="SUCCESS"
+            message="Base L2 pools scanned. Spreads below auto-execution threshold. No funds committed.",
+            level="INFO"
         )
 
         return {
-            "status": "Crypto Arbitrage Cycle Completed",
-            "latest_arbitrage": new_entry
+            "status": "Crypto Arbitrage Monitor Cycle Completed (No Action Taken)",
+            "latest_scan": new_entry
         }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:

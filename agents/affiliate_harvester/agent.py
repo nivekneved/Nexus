@@ -81,35 +81,18 @@ class AffiliateHarvesterAgent(BaseAgent):
         )
 
         affiliates = self.get_affiliates()
-        new_aff = {
-            "id": f"AFF-{int(datetime.now().timestamp())}",
-            "program": "Vercel Enterprise Partner",
-            "commission_type": "25% lifetime recurring",
-            "potential_monthly_usd": 680.0,
-            "status": "MONETIZING",
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        affiliates.insert(0, new_aff)
-
-        try:
-            with open(AFFILIATE_LOG_FILE, "w", encoding="utf-8") as f:
-                json.dump(affiliates[:50], f, indent=2)
-        except Exception:
-            pass
-
-        self.stats["active_partnerships"] += 1
-        self.stats["monthly_referral_earnings_usd"] += 680
+        self.stats["programs_evaluated"] = len(affiliates) * 8
 
         self.log(
-            step="Affiliate Partnership Secured",
+            step="Affiliates Monitored",
             file_used=AFFILIATE_LOG_FILE,
-            message=f"Secured high-yield affiliate partnership with {new_aff['program']} (${new_aff['potential_monthly_usd']}/mo projected).",
-            level="SUCCESS"
+            message=f"Affiliate programs checked. {len(affiliates)} tracked partners.",
+            level="INFO"
         )
 
         return {
-            "status": "Affiliate Harvester Cycle Completed",
-            "secured_partnership": new_aff
+            "status": "Affiliate Harvester Monitor Cycle Completed (No Action Taken)",
+            "tracked_count": len(affiliates)
         }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:

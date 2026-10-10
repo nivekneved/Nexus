@@ -82,36 +82,18 @@ class BugBountyAgent(BaseAgent):
         )
 
         bounties = self.get_bounties()
-        new_bounty = {
-            "id": f"BOUNTY-{int(datetime.now().timestamp())}",
-            "platform": "Bugcrowd",
-            "target": "AI Enterprise Gateway L2",
-            "vulnerability": "Remote Code Execution (RCE) via Unsafe Deserialization",
-            "bounty_reward_usd": 5000.0,
-            "status": "TRIAGED_READY",
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        bounties.insert(0, new_bounty)
-
-        try:
-            with open(BOUNTY_LOG_FILE, "w", encoding="utf-8") as f:
-                json.dump(bounties[:50], f, indent=2)
-        except Exception:
-            pass
-
-        self.stats["bounties_tracked"] += 1
-        self.stats["potential_earnings_usd"] += 5000
+        self.stats["bounties_tracked"] = len(bounties)
 
         self.log(
-            step="High-Payout Bounty Discovered",
+            step="Bounties Monitored",
             file_used=BOUNTY_LOG_FILE,
-            message=f"Discovered high-payout bounty on {new_bounty['target']}: ${new_bounty['bounty_reward_usd']} USD reward.",
-            level="SUCCESS"
+            message=f"Bounty feeds monitored. {len(bounties)} tracked programs.",
+            level="INFO"
         )
 
         return {
-            "status": "Bug Bounty Harvester Cycle Completed",
-            "discovered_bounty": new_bounty
+            "status": "Bug Bounty Monitor Cycle Completed (No New Submissions)",
+            "tracked_count": len(bounties)
         }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:

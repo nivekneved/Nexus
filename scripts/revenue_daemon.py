@@ -92,12 +92,15 @@ def run_daemon_cycle():
 
         # 4. Receivables Status
         receivables = payment_service.get_receivables()
+        collected = float(receivables.get('collected_usd', 0.0))
+        compute_cap = 180.0
+        pct = (collected / compute_cap) * 100.0 if compute_cap > 0 else 0.0
         logger.info(
             f"=== Revenue Heartbeat Complete ===\n"
-            f"    Collected USD: ${receivables.get('collected_usd', 0):.2f}\n"
+            f"    Collected USD: ${collected:.2f}\n"
             f"    Pending USD:   ${receivables.get('pending_usd', 0):.2f}\n"
             f"    Total Invoices: {len(receivables.get('invoices', []))}\n"
-            f"    Compute Status: 100% FUNDED (Target $180/mo covered)"
+            f"    Compute Status: {pct:.1f}% FUNDED (${collected:.2f} / ${compute_cap:.2f} target)"
         )
     except Exception as e:
         logger.error(f"Error during daemon cycle: {e}", exc_info=True)

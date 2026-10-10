@@ -80,7 +80,13 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
 
         try:
             with open(p, "r", encoding="utf-8") as f:
-                return json.load(f)
+                data = json.load(f)
+                if default is not None:
+                    if isinstance(default, dict) and not isinstance(data, dict):
+                        return default
+                    if isinstance(default, list) and not isinstance(data, list):
+                        return default
+                return data
         except (json.JSONDecodeError, OSError) as e:
             logger.warning(f"[Storage] Corrupt JSON in {p}: {e}. Trying shadow backup...")
             bak = _get_bak_path(p)

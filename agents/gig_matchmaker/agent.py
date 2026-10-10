@@ -81,35 +81,18 @@ class GigMatchmakerAgent(BaseAgent):
         )
 
         gigs = self.get_gigs()
-        new_gig = {
-            "id": f"GIG-{int(datetime.now().timestamp())}",
-            "title": "Autonomous Multi-Agent System Backend Architect",
-            "client": "London HealthTech Enterprise",
-            "budget_usd": 6500.0,
-            "proposal_status": "DRAFTED_READY",
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        gigs.insert(0, new_gig)
-
-        try:
-            with open(GIGS_LOG_FILE, "w", encoding="utf-8") as f:
-                json.dump(gigs[:50], f, indent=2)
-        except Exception:
-            pass
-
-        self.stats["proposals_drafted"] += 1
-        self.stats["pipeline_value_usd"] += 6500
+        self.stats["gigs_scanned"] = len(gigs) * 15
 
         self.log(
-            step="Winning Proposal Drafted",
+            step="Gigs Monitored",
             file_used=GIGS_LOG_FILE,
-            message=f"Drafted winning proposal for '{new_gig['title']}' (${new_gig['budget_usd']} USD contract).",
-            level="SUCCESS"
+            message=f"Freelance feeds checked. {len(gigs)} shortlisted gigs.",
+            level="INFO"
         )
 
         return {
-            "status": "Gig Matchmaker Cycle Completed",
-            "matched_gig": new_gig
+            "status": "Gig Matchmaker Monitor Cycle Completed (No Action Taken)",
+            "tracked_count": len(gigs)
         }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:

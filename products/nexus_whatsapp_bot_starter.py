@@ -25,7 +25,7 @@ app = FastAPI(title="Nexus WhatsApp Bot Starter")
 # === BUSINESS CONFIGURATION ===
 BUSINESS_NAME = "My Fast Business"
 CONTACT_PHONE = "+23058169420"
-PAYMENT_LINK = "https://www.paypal.com/checkoutnow?token=86S57862G8674101J"
+PAYMENT_LINK = os.getenv("PAYPAL_DIRECT_PAYMENT_URL", "https://wa.me/23058169420?text=Order+Nexus+Bot")
 
 @app.get("/")
 def home():

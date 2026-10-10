@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Agent Thoughts & Cognitive Stream — Nexus™</title>
+  <link rel="preload" href="/static/fonts/fonts.css" as="style">
+  <link rel="stylesheet" href="/static/fonts/fonts.css">
+  <link rel="stylesheet" href="/static/style.css?v=4.4.0">
+  <style>
+    .pillar-hero {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(14, 165, 233, 0.05) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .two-column-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .two-column-layout { grid-template-columns: 1fr; }
+    }
+
+    .agents-list-column {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      max-height: 700px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .agent-list-item {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #f1f5f9;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .agent-list-item:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    .agent-list-item.active {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.1);
+    }
+
+    .agent-detail-column {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      min-height: 700px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .thought-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      max-height: 250px;
+    }
+    .commands-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #0f172a;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .badge-status {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .badge-active { background: #dcfce7; color: #166534; }
+    .badge-idle { background: #f1f5f9; color: #475569; }
+
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      z-index: 9999;
+      display: none;
+    }
+  </style>
+</head>
+<body class="light-theme">
+  <div class="app-layout">
+    <aside class="sidebar" id="appSidebar">
+      <div class="brand-wrapper">
+        <div class="brand" style="flex: 1; display: flex; justify-content: center;">
+          <svg class="nexus-logo-badge" viewBox="0 0 220 54" width="100%" height="54" style="display: block; width: 100%; height: 54px; cursor: pointer; user-select: none;" title="NEXUS" onclick="window.location.href='/'">
+            <rect x="2" y="2" width="216" height="50" rx="6" fill="#ffffff" stroke="#000000" stroke-width="3.2"/>
+            <text x="6" y="41" textLength="208" lengthAdjust="spacingAndGlyphs" font-family="'Inter', sans-serif" font-size="45" font-weight="900" fill="#000000">NEXUS</text>
+          </svg>
+        </div>
+      </div>
+      <div class="sidebar-dashboard-box" style="padding: 14px 16px; border-bottom: 1px solid var(--border-subtle); background: rgba(15,23,42,0.02);">
+        <a href="/" title="Go to Dashboard">
+          <div style="font-size: 0.85rem; font-weight: 900; display: flex; align-items: center; gap: 6px;">
+            <span>⚡</span> <span>Dashboard</span>
+          </div>
+        </a>
+      </div>
+      <nav class="nav-menu" id="mainNavMenu">
+        <div class="nav-section-header"><span class="nav-section-title">Nexus Money Machine</span></div>
+        <div class="nav-collapsible" style="display: flex; flex-direction: column; gap: 4px;">
+          <a href="/seek" class="nav-item"><span>🎯 1. Seek</span></a>
+          <a href="/connect" class="nav-item"><span>💬 2. Connect & Propose</span></a>
+          <a href="/operations" class="nav-item"><span>📜 3. Propose</span></a>
+          <a href="/commerce" class="nav-item"><span>📦 4. Sell</span></a>
+          <a href="/workforce" class="nav-item"><span>🧾 5. Quote & Invoice</span></a>
+                    <a href="/utility-config" class="nav-item" title="Micro-Utility Setup & Downloads">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>⚙️ Utility Setup</span>
+          </a>
+          <a href="/vertical-pms" class="nav-item" title="14 Vertical Project Managers & Lead Swarm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>👔 14 Vertical PMs</span>
+          </a>
+<a href="/emailing" class="nav-item"><span>✉️ Emailing</span></a>
+          <a href="/ports" class="nav-item"><span>🔍 Ports</span></a>
+          <a href="/db-backup" class="nav-item"><span>💾 DB Backup & Restore</span></a>
+          <a href="/agent-thoughts" class="nav-item active"><span>🧠 Agent Thoughts</span></a>
+          <a href="/revenue" class="nav-item"><span>📈 Revenue Cockpit</span></a>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="pillar-hero">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <span class="badge-pill" style="background:#10b981; color:#fff;">Live Telemetry</span>
+            <span class="badge-pill badge-active">Active (41 Agents)</span>
+          </div>
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin: 0;">🧠 Agent Cognitive Stream & Inspector</h1>
+          <p style="color: #64748b; font-size: 0.92rem; margin: 6px 0 0 0;">
+            Select an agent from the left to inspect real-time inner monologues, thoughts, and executed tool commands.
+          </p>
+        </div>
+        <div>
+          <button onclick="loadAgentThoughts()" style="background:#0284c7; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:800; cursor:pointer;">Refresh 🔄</button>
+        </div>
+      </div>
+
+      <!-- 2-Column Wireframe Layout -->
+      <div class="two-column-layout">
+        <!-- Left Column: List of Agents Working -->
+        <div class="agents-list-column">
+          <div style="font-weight: 800; font-size: 0.95rem; color: #0f172a; padding: 4px 8px; margin-bottom: 6px;">
+            Active Agents Working (<span id="agentCount">0</span>)
+          </div>
+          <div id="agentsListContainer" style="display:flex; flex-direction:column; gap:6px;">
+            <div style="padding:20px; text-align:center; color:#64748b; font-size:0.85rem;">Loading active agents...</div>
+          </div>
+        </div>
+
+        <!-- Right Column: Agent A Info (Thought & Commands Run) -->
+        <div class="agent-detail-column" id="agentDetailContainer">
+          <div style="text-align:center; color:#64748b; padding:100px 20px;">
+            <h3 style="margin:0; font-size:1.2rem; font-weight:800; color:#0f172a;">No Agent Selected</h3>
+            <p style="margin:8px 0 0 0; font-size:0.9rem;">Click any agent on the left to inspect its live inner monologue and executed commands.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastBox" class="toast-box"></div>
+
+  <script>
+    let globalAgentsData = [];
+    let selectedAgentId = null;
+
+    function showToast(msg) {
+      const tb = document.getElementById("toastBox");
+      tb.innerHTML = msg;
+      tb.style.display = "block";
+      setTimeout(() => { tb.style.display = "none"; }, 4000);
+    }
+
+    async function loadAgentThoughts() {
+      try {
+        const res = await fetch("/api/agents/thoughts");
+        const data = await res.json();
+        if (data.success && data.fleet_thought_streams) {
+          globalAgentsData = data.fleet_thought_streams;
+          document.getElementById("agentCount").innerText = globalAgentsData.length;
+          renderAgentsList();
+          if (selectedAgentId) {
+            renderAgentDetail(selectedAgentId);
+          } else if (globalAgentsData.length > 0) {
+            selectAgent(globalAgentsData[0].agent_id);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load agent thoughts:", err);
+      }
+    }
+
+    function renderAgentsList() {
+      const container = document.getElementById("agentsListContainer");
+      container.innerHTML = globalAgentsData.map(a => `
+        <div class="agent-list-item ${selectedAgentId === a.agent_id ? 'active' : ''}" onclick="selectAgent('${a.agent_id}')">
+          <div>
+            <div style="font-weight:800; font-size:0.88rem; color:#0f172a;">${a.agent_name}</div>
+            <div style="font-size:0.72rem; color:#64748b; font-family:monospace;">${a.agent_id}</div>
+          </div>
+          <span class="badge-status ${a.status === 'Active' ? 'badge-active' : 'badge-idle'}">${a.status}</span>
+        </div>
+      `).join('');
+    }
+
+    function selectAgent(agentId) {
+      selectedAgentId = agentId;
+      renderAgentsList();
+      renderAgentDetail(agentId);
+    }
+
+    function renderAgentDetail(agentId) {
+      const a = globalAgentsData.find(x => x.agent_id === agentId);
+      const container = document.getElementById("agentDetailContainer");
+      if (!a) return;
+
+      const traceHtml = a.recent_cognitive_trace && a.recent_cognitive_trace.length > 0
+        ? a.recent_cognitive_trace.map(t => `[${t.timestamp}] (${t.level}) ${t.step}: ${t.message}`).join('\n')
+        : 'No recent command trace recorded in session memory.';
+
+      container.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:start; border-bottom:1px solid #f1f5f9; padding-bottom:16px;">
+          <div>
+            <h2 style="margin:0; font-size:1.3rem; font-weight:900; color:#0f172a;">${a.agent_name}</h2>
+            <div style="font-size:0.8rem; color:#64748b; font-family:monospace; margin-top:2px;">ID: ${a.agent_id} | Status: ${a.status}</div>
+          </div>
+          <span class="badge-status ${a.status === 'Active' ? 'badge-active' : 'badge-idle'}">${a.status}</span>
+        </div>
+
+        <div>
+          <h4 style="margin:0 0 8px 0; font-size:0.95rem; font-weight:800; color:#334155;">🧠 Thought / Inner Monologue:</h4>
+          <div class="thought-box">${a.current_thought.inner_monologue}</div>
+          <div style="margin-top:6px; font-size:0.78rem; color:#64748b; display:flex; gap:16px;">
+            <span>Step: <strong style="color:#0284c7;">${a.current_thought.step}</strong></span>
+            <span>Target File: <strong style="color:#0f172a;">${a.current_thought.action_file}</strong></span>
+            <span>Timestamp: ${a.current_thought.timestamp}</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin:0 0 8px 0; font-size:0.95rem; font-weight:800; color:#334155;">⚡ Commands Run & Tool Executions:</h4>
+          <div class="commands-box">${traceHtml}</div>
+        </div>
+      `;
+    }
+
+    window.onload = () => {
+      loadAgentThoughts();
+      setInterval(loadAgentThoughts, 4000); // Auto-refresh every 4 seconds
+    };
+  </script>
+</body>
+</html>

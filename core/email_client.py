@@ -107,6 +107,43 @@ class EmailClient:
 
         return parsed_emails
 
+    def search_emails(self, query: str, folder="INBOX") -> list:
+        """
+        Searches the given folder for emails matching a query (e.g. sender or subject keyword)
+        using IMAP SEARCH.
+        """
+        if not self.mail:
+            raise RuntimeError("Not connected to email server. Call connect() first.")
+
+        self.mail.select(folder)
+        search_criteria = f'(OR (FROM "{query}") (SUBJECT "{query}"))'
+        try:
+            status, messages = self.mail.uid('search', None, search_criteria)
+        except Exception:
+            # Fallback to simple query if complex OR fails on some IMAP servers
+            status, messages = self.mail.uid('search', None, f'TEXT "{query}"')
+
+        if status != 'OK':
+            logger.warning(f"Could not search folder {folder} for query '{query}'")
+            return []
+
+        email_uids = messages[0].split()
+        logger.info(f"Found {len(email_uids)} email(s) matching '{query}' in {folder}")
+
+        parsed_emails = []
+        for uid in email_uids:
+            res, msg_data = self.mail.uid('fetch', uid, '(RFC822)')
+            if res != 'OK':
+                continue
+
+            for response_part in msg_data:
+                if isinstance(response_part, tuple):
+                    msg = email.message_from_bytes(response_part[1])
+                    parsed_email = self._parse_email(uid.decode('utf-8'), msg)
+                    parsed_emails.append(parsed_email)
+
+        return parsed_emails
+
     def _parse_email(self, uid: str, msg) -> dict:
         """Helper to extract sender, subject, date, unsubscribe header, and clean text body."""
         subject = self._decode_str(msg.get("Subject", "(No Subject)"))

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from core.freelance_arbitrage import freelance_arbitrage
 from core.android_compiler import android_compiler
@@ -14,7 +15,9 @@ from datetime import datetime
 from typing import Optional, Dict, Any, List
 
 import httpx
-from fastapi import FastAPI, HTTPException, Request, Body
+from fastapi import FastAPI, HTTPException, Request, Body, UploadFile, File
+import csv
+import io
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, StreamingResponse, JSONResponse, HTMLResponse
 from pydantic import BaseModel
@@ -63,6 +66,30 @@ from core.ecosystem_orchestrator import ecosystem_orchestrator
 from core.ghosttrack_bridge import ghosttrack_bridge
 from core.background_agent_loop import background_agent_loop
 from core.agent_efficiency_optimizer import agent_efficiency_optimizer
+from core.vertical_pm_lead_swarm import vertical_pm_lead_swarm
+from core.intrusive_penetrative_security import intrusive_security
+from core.agent_chain_value_auditor import agent_chain_auditor
+from core.global_50_indie_boards_engine import global_50_boards
+from core.agent_reverse_engineering_upgrade import agent_re_upgrade
+from core.recursive_entity_resolution import recursive_entity_resolution
+from core.reverse_phone_enrichment import reverse_phone_enrichment
+from core.github_readme_badge_generator import readme_badge_generator
+from core.mcp_agent_registry import mcp_agent_registry
+from core.long_tail_guerrilla_distribution import long_tail_guerrilla
+from core.agent_hyper_scaling_engine import agent_hyper_scaling
+from core.global_25_boards_expansion import global_25_boards
+from core.global_distribution_broadcast import global_distribution
+from core.utility_product_generator import utility_product_generator
+from core.micro_asset_revenue_blitz import micro_asset_blitz
+from core.active_agent_task_dispatcher import active_agent_dispatcher
+from core.perpetual_lead_sales_pipeline import perpetual_lead_sales
+from core.additional_sales_funnels import additional_sales_funnels
+from core.monetization_rescue_engine import monetization_rescue
+from core.recursive_revenue_profiler import recursive_revenue_profiler
+from core.agent_upgrade_v38 import agent_upgrade_v38
+from core.list_maintenance_service import list_maintenance_service
+from core.mass_email_service import mass_email_service
+from core.db_backup_manager import db_backup_manager
 from core.anti_simulation_purge import anti_simulation_purge
 from core.production_sovereign_mode import production_sovereign_mode
 from core.run_revenue_swarm import run_revenue_swarm
@@ -686,6 +713,15 @@ def get_agent_thought_streams():
     try:
         report = agent_thought_inspector.get_all_agent_thoughts()
         return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# Agent Chain-of-Value & Contribution Audit Endpoint
+@app.get("/api/agents/chain-value-audit")
+def get_agent_chain_value_audit():
+    """Returns run counts, turn-by-turn contributions, and value metrics for every agent in the fleet."""
+    try:
+        return agent_chain_auditor.audit_fleet_chain_value()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -1734,6 +1770,35 @@ def reset_absolute_zero_endpoint():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# Database Backup & Easy Restore Endpoints
+@app.post("/api/system/db/backup")
+def create_db_backup_endpoint():
+    """Creates a timestamped backup snapshot of SQLite DB and JSON ledgers."""
+    try:
+        return db_backup_manager.create_db_backup()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/system/db/backups")
+def list_db_backups_endpoint():
+    """Lists all available database backup snapshots."""
+    try:
+        return {"success": True, "backups": db_backup_manager.list_backups()}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class RestoreRequest(BaseModel):
+    backup_id: str
+
+@app.post("/api/system/db/restore")
+def restore_db_backup_endpoint(req: RestoreRequest):
+    """Restores SQLite DB and JSON ledgers from a specific backup snapshot."""
+    try:
+        return db_backup_manager.restore_db_backup(req.backup_id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Full Fleet Revenue Swarm Execution Endpoint
 @app.post("/api/revenue/run-swarm")
 def run_full_revenue_swarm():
@@ -2120,6 +2185,28 @@ def view_commercial_terms():
 def get_unified_email_feed(limit: int = 5):
     """Returns aggregated, prioritized emails from all 5 configured inboxes."""
     return inbox_feed_service.fetch_unified_feed(limit_per_account=limit)
+
+@app.get("/api/email/search-travellounge")
+def search_travellounge_emails():
+    """Connects to active IMAP inbox and retrieves all real emails from 'travellounge'."""
+    try:
+        from core.email_client import EmailClient
+        import os
+        email_user = os.getenv("EMAIL_USER", "devenpawaray@gmail.com")
+        email_pass = os.getenv("EMAIL_PASSWORD", "")
+        imap_server = os.getenv("IMAP_SERVER", "imap.gmail.com")
+        imap_port = int(os.getenv("IMAP_PORT", 993))
+
+        if not email_pass:
+            return {"success": False, "error": "Email password / app password is not configured in .env"}
+
+        client = EmailClient(host=imap_server, port=imap_port, username=email_user, password=email_pass)
+        client.connect()
+        emails = client.search_emails("travellounge")
+        client.disconnect()
+        return {"success": True, "query": "travellounge", "account": email_user, "count": len(emails), "emails": emails}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 @app.post("/api/email/ai-reply")
 def generate_email_ai_reply(req: AIReplyRequest):
@@ -3744,9 +3831,286 @@ def serve_workforce_page():
 def serve_auto_tasks_page():
     return FileResponse("static/auto_tasks.html")
 
+@app.get("/vertical-pms")
+def serve_vertical_pms_page():
+    return FileResponse("static/vertical_pms.html")
+
 @app.get("/ports")
 def serve_ports_page():
     return FileResponse("static/ports.html")
+
+@app.get("/emailing")
+def serve_emailing_page():
+    return FileResponse("static/emailing.html")
+
+@app.get("/utility-config")
+def serve_utility_config_page():
+    return FileResponse("static/utility_config.html")
+
+@app.get("/api/utility/config")
+def api_get_utility_config():
+    return {"success": True, "config": utility_product_generator.get_client_config()}
+
+@app.post("/api/utility/config")
+def api_save_utility_config(payload: Dict[str, Any] = Body(...)):
+    return utility_product_generator.save_client_config(payload)
+
+@app.get("/api/utility/download/{filename}")
+def api_download_utility_script(filename: str):
+    file_path = os.path.join("products", filename)
+    if os.path.exists(file_path):
+        return FileResponse(file_path, media_type="text/x-python", filename=filename)
+    raise HTTPException(status_code=404, detail="Script file not found.")
+
+@app.get("/api/emailing/contacts")
+def api_get_emailing_contacts(search: Optional[str] = None, page: int = 1, limit: int = 25):
+    return mass_email_service.get_contacts(search=search, page=page, limit=limit)
+
+@app.post("/api/emailing/import")
+async def api_import_emailing_contacts(file: UploadFile = File(...)):
+    import tempfile
+    try:
+        suffix = Path(file.filename).suffix or ".csv"
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+            tmp.write(await file.read())
+            tmp_path = tmp.name
+        res = mass_email_service.import_contacts_from_csv(tmp_path)
+        try:
+            os.remove(tmp_path)
+        except Exception:
+            pass
+        return res
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/emailing/export")
+def api_export_emailing_contacts():
+    contacts_data = mass_email_service.get_contacts(limit=10000).get("contacts", [])
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["Email", "Name", "Company", "Status", "Imported At"])
+    for c in contacts_data:
+        writer.writerow([c.get("email"), c.get("name"), c.get("company"), c.get("status"), c.get("imported_at")])
+    output.seek(0)
+    return StreamingResponse(iter([output.getvalue()]), media_type="text/csv", headers={"Content-Disposition": "attachment; filename=nexus_contacts_export.csv"})
+
+class CampaignRequest(BaseModel):
+    subject: str
+    body: str
+    target_ids: Optional[List[str]] = None
+
+@app.post("/api/emailing/campaign")
+def api_dispatch_emailing_campaign(req: CampaignRequest):
+    return mass_email_service.dispatch_campaign(subject=req.subject, body=req.body, target_ids=req.target_ids)
+
+@app.post("/api/emailing/clean-list")
+def api_clean_emailing_list():
+    """Sends the Email Hygiene Agent to audit, de-dupe, validate MX domains, and clean the contact list."""
+    try:
+        return list_maintenance_service.audit_and_clean_list()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/agents/upgrade-v38")
+def upgrade_agents_to_v38():
+    """Upgrades all 41 agents and domain controllers to v38.0 Sovereign Frontier Edition."""
+    try:
+        return agent_upgrade_v38.upgrade_fleet_to_v38()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/revenue/profile-and-optimize")
+def profile_and_optimize_endpoint():
+    """Profiles outbound network requests, applies revenue optimizations, and runs recursive goal-seeking loop with self-critique."""
+    try:
+        return recursive_revenue_profiler.profile_and_optimize()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/distribution/broadcast-all")
+def global_broadcast_endpoint():
+    """Broadcasts micro-utilities and sovereign AI offerings across all 14 AI boards and global channels."""
+    try:
+        return global_distribution.broadcast_to_all_platforms()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/distribution/broadcast-25-boards")
+def global_25_boards_endpoint():
+    """Broadcasts the $1.00 micro-utility storefront across all 25 international AI boards and developer syndicates."""
+    try:
+        return global_25_boards.broadcast_to_25_boards()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/agents/hyper-scale")
+def hyper_scale_agents_endpoint():
+    """Deploys 2026 online hyper-scaling architectures (async concurrency, distributed checkpointing, ReAct loops) across all 41 agents."""
+    try:
+        return agent_hyper_scaling.scale_fleet_capacity()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class FunnelEventRequest(BaseModel):
+    event_type: str
+    user_email: Optional[str] = "anonymous@nexus.mu"
+    product_id: str = "nexus-default-product"
+    metadata: Optional[Dict[str, Any]] = None
+
+@app.post("/api/revenue/funnel/track")
+def track_funnel_event_endpoint(req: FunnelEventRequest):
+    """Instruments critical conversion funnels for monetization analysis."""
+    try:
+        return monetization_rescue.track_funnel_event(
+            event_type=req.event_type,
+            user_email=req.user_email,
+            product_id=req.product_id,
+            metadata=req.metadata
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/revenue/funnel/analytics")
+def get_funnel_analytics_endpoint():
+    """Returns aggregated conversion funnel drop-off and conversion rate analytics."""
+    try:
+        return monetization_rescue.get_funnel_analytics()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/revenue/funnels/additional")
+def get_additional_sales_funnels_endpoint():
+    """Returns manifest of additional high-yield sales funnels ($1.00 upsell, B2B audit retainer, x402 API)."""
+    try:
+        return additional_sales_funnels.get_funnels_manifest()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/distribution/50-boards-manifest")
+def get_50_boards_manifest_endpoint():
+    """Returns manifest of all 50 indie maker, developer, AI, and B2B discovery boards."""
+    try:
+        return global_50_boards.get_50_boards_manifest()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/distribution/broadcast-50-indie-boards")
+def broadcast_50_boards_endpoint():
+    """Dispatches automated launch posts across all 50 indie maker, developer, and B2B boards."""
+    try:
+        return global_50_boards.broadcast_to_50_indie_boards()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/leads/vertical-manifest")
+def get_vertical_manifest_endpoint():
+    """Returns manifest of all 14 Project Manager verticals and their sub-agent teams."""
+    try:
+        return vertical_pm_lead_swarm.get_14_vertical_pm_manifest()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/leads/vertical-harvest")
+def execute_vertical_harvest_endpoint():
+    """Executes harvest sweep across all 14 vertical PMs, outputting Name, Email, Mobile, Title, Workplace."""
+    try:
+        return vertical_pm_lead_swarm.execute_vertical_harvest_sweep()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/distribution/guerrilla-blitz")
+def guerrilla_blitz_endpoint():
+    """Launches long-tail guerrilla distribution campaign across indie forums and niche directories (skipping page 1-10 saturation)."""
+    try:
+        return long_tail_guerrilla.launch_guerrilla_campaign()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/masterclass/badge")
+def generate_badge_endpoint(tool_name: str = "IMAP Spam Cleaner"):
+    """Generates viral GitHub README markdown/HTML badge for micro-utilities."""
+    try:
+        return readme_badge_generator.generate_badge_snippet(tool_name)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class ReverseEngineerRequest(BaseModel):
+    payload: str
+
+@app.post("/api/security/reverse-engineer")
+def reverse_engineer_endpoint(req: ReverseEngineerRequest):
+    """Performs automated reverse engineering, multi-format decoding (Base64, Hex, ROT13, XOR), and descrambling."""
+    try:
+        return agent_re_upgrade.decode_and_descramble(req.payload)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class PenetrativeScanRequest(BaseModel):
+    target_host: str = "127.0.0.1"
+    target_port: int = 8000
+
+@app.post("/api/security/penetrative-scan")
+def penetrative_scan_endpoint(req: PenetrativeScanRequest):
+    """Executes intrusive and penetrative security assessments (vulnerability fuzzing, banner grabbing, endpoint brute-forcing)."""
+    try:
+        return intrusive_security.execute_penetrative_scan(req.target_host, req.target_port)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/masterclass/mcp-manifest")
+def get_mcp_manifest_endpoint():
+    """Returns MCP server protocol descriptor and registered agent tools for autonomous agentic marketplace discovery."""
+    try:
+        return mcp_agent_registry.get_mcp_manifest()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/leads/perpetual-scour")
+def perpetual_lead_scour_endpoint():
+    """Continuously scours new B2B leads and routes them across the Universal Synergy Bridge to sales agents."""
+    try:
+        return perpetual_lead_sales.execute_perpetual_scour_and_dispatch()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class PhoneEnrichRequest(BaseModel):
+    phone_number: str
+
+@app.post("/api/leads/enrich-phone")
+def enrich_phone_endpoint(req: PhoneEnrichRequest):
+    """Takes a phone number and resolves it into a complete B2B contact profile (Name, Address, Email, Company)."""
+    try:
+        return reverse_phone_enrichment.enrich_lead_from_phone(req.phone_number)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class EntityResolveRequest(BaseModel):
+    seed_type: str # email, phone, domain, name, handle
+    seed_value: str
+
+@app.post("/api/leads/resolve-entity")
+def resolve_entity_endpoint(req: EntityResolveRequest):
+    """Recursively cascades from any single data point to resolve a complete 360-degree intelligence dossier."""
+    try:
+        return recursive_entity_resolution.resolve_entity_cascade(req.seed_type, req.seed_value)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/agents/eliminate-standby")
+def eliminate_standby_endpoint():
+    """Ensures zero agents are idle by assigning active tasks to every agent in the fleet."""
+    try:
+        return active_agent_dispatcher.assign_work_to_all_agents()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/db-backup")
+def serve_db_backup_page():
+    return FileResponse("static/db_backup.html")
+
+@app.get("/agent-thoughts")
+def serve_agent_thoughts_page():
+    return FileResponse("static/agent_thoughts.html")
 
 
 # Master Application Logic Upgrade Endpoint
@@ -3756,6 +4120,14 @@ def upgrade_app_logic_endpoint():
     try:
         report = master_logic_upgrade.upgrade_app_logic()
         return report
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/revenue/micro-blitz")
+def micro_asset_blitz_endpoint():
+    """Launches the $1.00 Micro-Asset Revenue Blitz across developer and freelancer communities."""
+    try:
+        return micro_asset_blitz.launch_micro_asset_blitz()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -3830,6 +4202,27 @@ def serve_manual_pdf():
 def api_get_store_products():
     """Returns the digital product catalog."""
     return {"success": True, "catalog": digital_store_service.get_catalog()}
+
+class CreateProductRequest(BaseModel):
+    id: str
+    name: str
+    tagline: Optional[str] = ""
+    description: Optional[str] = ""
+    price_usd: float = 1.00
+    price_mur: Optional[float] = 45.0
+    filename: Optional[str] = "product.py"
+    badge: Optional[str] = "⚡ $1.00 Product"
+    features: Optional[List[str]] = []
+    paypal_payment_url: Optional[str] = None
+
+@app.post("/api/store/products")
+def api_register_store_product(payload: CreateProductRequest):
+    """Registers or updates a real product in the digital store catalog with PayPal link."""
+    product_entry = payload.dict()
+    success = digital_store_service.register_custom_product(product_entry)
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to save product.")
+    return {"success": True, "product": product_entry}
 
 @app.get("/free")
 def serve_squeeze_page():

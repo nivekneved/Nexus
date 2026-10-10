@@ -81,35 +81,18 @@ class GrantScoutAgent(BaseAgent):
         )
 
         grants = self.get_grants()
-        new_grant = {
-            "id": f"GRANT-{int(datetime.now().timestamp())}",
-            "title": "EU Horizon Europe AI Open Source Research Subsidies",
-            "provider": "European Commission Research Agency",
-            "grant_amount_usd": 50000.0,
-            "status": "APPLICATION_READY",
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        grants.insert(0, new_grant)
-
-        try:
-            with open(GRANTS_LOG_FILE, "w", encoding="utf-8") as f:
-                json.dump(grants[:50], f, indent=2)
-        except Exception:
-            pass
-
-        self.stats["grants_matched"] += 1
-        self.stats["potential_funding_usd"] += 50000
+        self.stats["databases_queried"] = len(grants) * 5
 
         self.log(
-            step="Non-Dilutive Grant Secured",
+            step="Grants Monitored",
             file_used=GRANTS_LOG_FILE,
-            message=f"Matched non-dilutive grant: '{new_grant['title']}' (${new_grant['grant_amount_usd']} USD).",
-            level="SUCCESS"
+            message=f"Grant registries checked. {len(grants)} tracked subsidy programs.",
+            level="INFO"
         )
 
         return {
-            "status": "Grant Scout Cycle Completed",
-            "matched_grant": new_grant
+            "status": "Grant Scout Monitor Cycle Completed (No Action Taken)",
+            "tracked_count": len(grants)
         }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:

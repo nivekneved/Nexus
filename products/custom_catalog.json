@@ -8,6 +8,7 @@
     "price_mur": 45.0,
     "filename": "nexus_invoice_pdf_extractor.py",
     "badge": "⚡ $1.00 Utility",
+    "paypal_payment_url": "https://www.paypal.com/ncp/payment/B4SASTZDVFXY4",
     "features": [
       "100% self-hosted Python script for invoice PDF parsing",
       "Zero external subscriptions or recurring API costs",
@@ -24,6 +25,7 @@
     "price_mur": 45.0,
     "filename": "nexus_whatsapp_bot_starter.py",
     "badge": "⚡ $1.00 Utility",
+    "paypal_payment_url": "https://www.paypal.com/ncp/payment/B4SASTZDVFXY4",
     "features": [
       "Production-ready FastAPI webhook server",
       "Multi-session conversational memory engine",
@@ -40,6 +42,7 @@
     "price_mur": 45.0,
     "filename": "nexus_b2b_lead_scraper.py",
     "badge": "⚡ $1.00 Utility",
+    "paypal_payment_url": "https://www.paypal.com/ncp/payment/B4SASTZDVFXY4",
     "features": [
       "Asynchronous DNS MX verification engine",
       "Disposable email filtering & syntax validation",
@@ -56,6 +59,7 @@
     "price_mur": 45.0,
     "filename": "nexus_email_guardian.py",
     "badge": "⚡ $1.00 Utility",
+    "paypal_payment_url": "https://www.paypal.com/ncp/payment/B4SASTZDVFXY4",
     "features": [
       "Works with Gmail, Outlook, Yahoo, and private IMAP",
       "2FA & Banking OTP immune whitelist",
@@ -72,6 +76,7 @@
     "price_mur": 45.0,
     "filename": "nexus_mcb_recon.py",
     "badge": "⚡ $1.00 Utility",
+    "paypal_payment_url": "https://www.paypal.com/ncp/payment/B4SASTZDVFXY4",
     "features": [
       "Tailored for MCB Juice (+230) transaction formats",
       "Detects duplicate and fraudulent payment references",
@@ -88,6 +93,7 @@
     "price_mur": 45.0,
     "filename": "nexus_crypto_price_alert.py",
     "badge": "⚡ $1.00 Utility",
+    "paypal_payment_url": "https://www.paypal.com/ncp/payment/B4SASTZDVFXY4",
     "features": [
       "Direct Binance/Coinbase public feed integration",
       "Custom price floor and ceiling triggers",
@@ -104,6 +110,7 @@
     "price_mur": 45.0,
     "filename": "nexus_seo_keyword_serp_tracker.py",
     "badge": "⚡ $1.00 Utility",
+    "paypal_payment_url": "https://www.paypal.com/ncp/payment/B4SASTZDVFXY4",
     "features": [
       "Zero monthly subscriptions or third-party API costs",
       "Historical rank shift tracking and CSV exports",

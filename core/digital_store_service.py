@@ -318,6 +318,22 @@ class DigitalStoreService:
         custom = self._load_custom_catalog()
         return CATALOG.get(product_id) or custom.get(product_id)
 
+    def register_custom_product(self, product_entry: Dict[str, Any]) -> bool:
+        """Persistently saves or updates a custom digital product in custom_catalog.json."""
+        try:
+            custom = self._load_custom_catalog()
+            pid = product_entry.get("id")
+            if not pid:
+                return False
+            custom[pid] = product_entry
+            os.makedirs(PRODUCTS_DIR, exist_ok=True)
+            with open(CUSTOM_CATALOG_FILE, "w", encoding="utf-8") as f:
+                json.dump(custom, f, indent=2)
+            return True
+        except Exception as e:
+            print(f"[DigitalStoreService] Error saving custom product: {e}")
+            return False
+
     def create_checkout_order(
         self,
         product_id: str,
@@ -433,7 +449,9 @@ class DigitalStoreService:
                 "instructions": f"Envoyez Rs {total_amount:,.2f} au 58169420 avec la référence {juice_ref}."
             }
 
-        # 2. Global PayPal REST API Flow
+        # 2. Global PayPal REST API / Direct Link Flow
+        product_paypal_link = product.get("paypal_payment_url") or os.getenv("PAYPAL_DIRECT_PAYMENT_URL", "").strip().strip("'\"")
+
         inv = payment_service.create_invoice(
             client_name=buyer_name or "Valued Developer",
             client_email=buyer_email or "developer@example.com",
@@ -451,6 +469,8 @@ class DigitalStoreService:
                 record["download_token"] = download_token
                 record["delivery_status"] = "PENDING"
                 record["buyer_email"] = buyer_email
+                if product_paypal_link:
+                    record["direct_paypal_link"] = product_paypal_link
                 break
         payment_service.save_invoices(invoices)
 
@@ -460,7 +480,7 @@ class DigitalStoreService:
             "product_id": product_id,
             "product_name": product["name"],
             "order_id": inv.get("paypal_order_id"),
-            "checkout_url": inv.get("payment_url"),
+            "checkout_url": product_paypal_link or inv.get("payment_url"),
             "invoice_id": inv.get("id"),
             "amount": total_amount,
             "currency": "USD",
@@ -554,7 +574,7 @@ class DigitalStoreService:
         from core.email_client import EmailClient
         import os
 
-        email_user = os.getenv("EMAIL_ACCOUNT", "").strip()
+        email_user = os.getenv("EMAIL_USER", os.getenv("EMAIL_ACCOUNT", "")).strip()
         email_pass = os.getenv("EMAIL_PASSWORD", "").strip()
         if not email_user or not email_pass:
             return {"success": False, "error": "SMTP credentials not configured."}

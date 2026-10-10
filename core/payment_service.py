@@ -49,8 +49,8 @@ class PaymentService:
 
     def _get_paypal_creds(self) -> tuple[str, str]:
         load_dotenv(override=True)
-        client_id = os.getenv("PAYPAL_CLIENT_ID", "").strip()
-        secret = os.getenv("PAYPAL_SECRET", "").strip()
+        client_id = os.getenv("PAYPAL_CLIENT_ID", "").strip().strip("'\"")
+        secret = os.getenv("PAYPAL_SECRET", "").strip().strip("'\"")
         return client_id, secret
 
     def get_paypal_token(self) -> str:
@@ -90,9 +90,13 @@ class PaymentService:
         client_email: str = ""
     ) -> Dict[str, Any]:
         """Creates a live PayPal order and generates a 1-click checkout URL."""
+        # Check if direct hosted link is provided
+        direct_link = os.getenv("PAYPAL_DIRECT_PAYMENT_URL", "").strip().strip("'\"")
+        
         token = self.get_paypal_token()
         formatted_amount = f"{float(amount):.2f}"
         ref_id = f"NEXUS-{int(time.time())}"
+        app_url = os.getenv("PUBLIC_APP_URL", "http://localhost:8000").rstrip("/")
 
         payload = {
             "intent": "CAPTURE",
@@ -108,7 +112,9 @@ class PaymentService:
                 "brand_name": "Nexus Workforce",
                 "landing_page": "BILLING",
                 "user_action": "PAY_NOW",
-                "shipping_preference": "NO_SHIPPING"
+                "shipping_preference": "NO_SHIPPING",
+                "return_url": f"{app_url}/store?order_id={ref_id}&status=success",
+                "cancel_url": f"{app_url}/store?order_id={ref_id}&status=cancelled"
             }
         }
 
@@ -137,7 +143,8 @@ class PaymentService:
                 "currency": currency.upper(),
                 "description": description,
                 "client_name": client_name,
-                "client_email": client_email
+                "client_email": client_email,
+                "direct_link": direct_link or None
             }
 
     def check_paypal_order_status(self, order_id: str) -> Dict[str, Any]:
@@ -349,6 +356,7 @@ class PaymentService:
         }
 
         if method == "paypal":
+            direct_link = os.getenv("PAYPAL_DIRECT_PAYMENT_URL", "").strip().strip("'\"")
             try:
                 paypal_data = self.create_paypal_order(
                     amount=amount,
@@ -358,11 +366,17 @@ class PaymentService:
                     client_email=client_email
                 )
                 invoice_record["paypal_order_id"] = paypal_data.get("order_id")
-                invoice_record["payment_url"] = paypal_data.get("approve_url")
+                # Use approve_url from live order, or direct link if preferred
+                invoice_record["payment_url"] = direct_link or paypal_data.get("approve_url")
             except Exception as pe:
-                logger.warning(f"PayPal order creation failed, falling back to direct bank rail: {pe}")
-                wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
-                invoice_record["bank_details"] = wire_info
+                logger.warning(f"PayPal order creation encountered error: {pe}")
+                invoice_record["paypal_error"] = str(pe)
+                if direct_link:
+                    logger.info("Using configured PAYPAL_DIRECT_PAYMENT_URL fallback.")
+                    invoice_record["payment_url"] = direct_link
+                else:
+                    wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
+                    invoice_record["bank_details"] = wire_info
         else:
             wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
             invoice_record["bank_details"] = wire_info

@@ -6,7 +6,15 @@
     <title>Nexus Secure Checkout</title>
     <link rel="stylesheet" href="/static/fonts/fonts.css">
     <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Official PayPal SDK (Hosted Buttons Component) -->
+    <script 
+      src="https://www.paypal.com/sdk/js?client-id=BAAHMuGWbfMjh2bQSoL-OjfFFRn0ttduFxiPlkRR_kn0WHhdqNm2mhH6TbRCKJKzX_ZLKMtW1cKIlAQS40&components=hosted-buttons&disable-funding=venmo&currency=USD">
+    </script>
+
     <style>
+        .pp-B4SASTZDVFXY4{text-align:center;border:none;border-radius:0.35rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;transition:background-color 0.15s ease, transform 0.15s ease;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.18);}
+        .pp-B4SASTZDVFXY4:hover{background-color:#f5c52c;transform:translateY(-1px);}
         body { background: #f8fafc; font-family: 'Inter', sans-serif; color: #0f172a; margin: 0; padding: 0; }
 
         .checkout-header {
@@ -96,6 +104,14 @@
             .order-summary { position: static; order: -1; }
         }
     </style>
+  <!-- OpenGraph & Social Virality Meta Tags -->
+  property="og:title" content="Nexus™ — Sovereign AI Agent Workforce & Autonomous Commerce">
+  <meta property="og:description" content="Deploy autonomous multi-agent sovereign software entities that self-fund compute via AI micro-ventures and live PayPal / Base L2 commerce.">
+  <meta property="og:image" content="https://nexusbots-nu.vercel.app/static/nexus-banner.jpg">
+  <meta property="og:url" content="https://nexusbots-nu.vercel.app">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nexus™ — Sovereign AI Agent Workforce">
+  <meta name="twitter:description" content="Autonomous multi-agent sovereign software entity powered by Gemini 2.5 SOTA reasoning.">
 </head>
 <body>
 
@@ -166,6 +182,32 @@
                 <div class="payment-method" onclick="selectPayment('juice')">
                     <div class="pm-title">🧃 MCB Juice (Mauritius Only)</div>
                     <div style="font-size:1.4rem;">🇲🇺</div>
+                </div>
+            </div>
+
+            <!-- Instant PayPal Mobile QR Code -->
+            <div id="paypalQrBox" style="text-align: center; margin-top: 18px; padding: 16px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px;">
+                <div style="font-weight: 800; font-size: 0.88rem; color: #0f172a; margin-bottom: 8px;">
+                    📱 Instant 1-Scan Mobile PayPal Checkout
+                </div>
+                <img src="/static/Nexus-qrcode.png" alt="Nexus PayPal QR Code" style="width: 140px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); background:#fff; padding:6px;">
+                <div style="font-size: 0.78rem; color: #64748b; margin-top: 6px;">
+                    Scan with your phone camera or PayPal app for instant payment
+                </div>
+            </div>
+
+            <!-- Direct PayPal 1-Click Payment -->
+            <div id="paypalDirectBox" style="text-align: center; margin-top: 16px; padding: 16px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+                <div style="font-weight: 800; font-size: 0.88rem; color: #0f172a; margin-bottom: 10px;">
+                    💳 Direct 1-Click PayPal Checkout
+                </div>
+                <div id="paypal-container-B4SASTZDVFXY4" style="margin-bottom: 8px;"></div>
+                <div>
+                  <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+                    <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
+                    <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+                    <section style="font-size: 0.75rem; color: #64748b;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+                  </form>
                 </div>
             </div>
 
@@ -323,7 +365,18 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", loadProduct);
+        document.addEventListener("DOMContentLoaded", function() {
+            loadProduct();
+            if (window.paypal && paypal.HostedButtons) {
+                try {
+                    paypal.HostedButtons({
+                        hostedButtonId: "B4SASTZDVFXY4",
+                    }).render("#paypal-container-B4SASTZDVFXY4");
+                } catch(err) {
+                    console.warn("PayPal HostedButtons init warning:", err);
+                }
+            }
+        });
     </script>
 </body>
 </html>

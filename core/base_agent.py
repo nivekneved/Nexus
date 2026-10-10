@@ -285,3 +285,37 @@ class BaseAgent(ABC):
 
         return self.run_cycle()
 
+    def register_synergy_service(self, service_name: str, handler: Callable[..., Any]):
+        """Registers a service on the Universal Inter-Agent Synergy Bridge."""
+        from core.agent_synergy_bridge import agent_synergy_bridge
+        agent_synergy_bridge.register_service(self.agent_id, service_name, handler)
+
+    async def invoke_peer_service(self, service_name: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """Invokes a service provided by another peer agent across the Universal Synergy Bridge."""
+        from core.agent_synergy_bridge import agent_synergy_bridge
+        return await agent_synergy_bridge.invoke_service(self.agent_id, service_name, payload)
+
+    def resolve_entity(self, seed_type: str, seed_value: str) -> Dict[str, Any]:
+        """
+        Recursively cascades from any single piece of information (email, phone, domain, name)
+        to resolve a complete 360-degree intelligence dossier on the subject.
+        """
+        from core.recursive_entity_resolution import recursive_entity_resolution
+        return recursive_entity_resolution.resolve_entity_cascade(seed_type, seed_value)
+
+    def reverse_engineer(self, payload: str) -> Dict[str, Any]:
+        """
+        Performs automated reverse engineering, multi-format decoding (Base64, Hex, ROT13, XOR),
+        and descrambling on any obfuscated string or payload.
+        """
+        from core.agent_reverse_engineering_upgrade import agent_re_upgrade
+        return agent_re_upgrade.decode_and_descramble(payload)
+
+    def penetrative_security_scan(self, target_host: str = "127.0.0.1", target_port: int = 8000) -> Dict[str, Any]:
+        """
+        Executes intrusive and penetrative security assessments (vulnerability fuzzing, banner grabbing,
+        endpoint brute-forcing, and payload simulation).
+        """
+        from core.intrusive_penetrative_security import intrusive_security
+        return intrusive_security.execute_penetrative_scan(target_host, target_port)
+

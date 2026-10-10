@@ -32,7 +32,14 @@
   <!-- Revenue & Conversion Telemetry SDK -->
   <script src="/static/revenue_engine.js" defer></script>
 
+  <!-- Official PayPal SDK (Hosted Buttons Component) -->
+  <script 
+    src="https://www.paypal.com/sdk/js?client-id=BAAHMuGWbfMjh2bQSoL-OjfFFRn0ttduFxiPlkRR_kn0WHhdqNm2mhH6TbRCKJKzX_ZLKMtW1cKIlAQS40&components=hosted-buttons&disable-funding=venmo&currency=USD">
+  </script>
+
   <style>
+    .pp-B4SASTZDVFXY4{text-align:center;border:none;border-radius:0.35rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;transition:background-color 0.15s ease, transform 0.15s ease;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.18);}
+    .pp-B4SASTZDVFXY4:hover{background-color:#f5c52c;transform:translateY(-1px);}
     :root {
       --bg: #070b14;
       --card-bg: #0d1527;
@@ -877,6 +884,13 @@
             👁️ Preview Source Code
           </button>
         </div>
+        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: center;">
+          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
+            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+          </form>
+        </div>
       </div>
 
       <!-- Product 2: $1 Crypto Price Alert Daemon -->
@@ -916,6 +930,13 @@
             👁️ Preview Source Code
           </button>
         </div>
+        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: center;">
+          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
+            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+          </form>
+        </div>
       </div>
 
       <!-- Product 3: $1 SERP Keyword Position Tracker -->
@@ -954,6 +975,13 @@
           <button class="btn-preview" onclick="openPreview('nexus-seo-keyword-serp-tracker')">
             👁️ Preview Source Code
           </button>
+        </div>
+        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: center;">
+          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
+            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+          </form>
         </div>
       </div>
 
@@ -1238,6 +1266,32 @@
       <button id="btnConfirmPay" class="btn-buy" style="width: 100%;" onclick="executeCheckout()">
         ⚡ Proceed to Checkout (<span id="modalPayAmount">$1.00 USD</span>)
       </button>
+
+      <!-- Official PayPal Hosted Button & 1-Click Form Checkout -->
+      <div id="paypalHostedButtonSection" style="text-align: center; margin: 16px 0; padding: 14px; background: #0f172a; border-radius: 12px; border: 1px solid #334155;">
+        <div style="font-weight: 700; font-size: 0.84rem; color: #FFD140; margin-bottom: 10px;">
+          💳 Direct 1-Click PayPal Checkout ($1.00 USD)
+        </div>
+        <div id="paypal-container-B4SASTZDVFXY4" style="margin-bottom: 8px;"></div>
+        <div>
+          <form action="https://www.paypal.com/ncp/payment/B4SASTZDVFXY4" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+            <input class="pp-B4SASTZDVFXY4" type="submit" value="Buy Now" />
+            <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+            <section style="font-size: 0.75rem; color: #94a3b8;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+          </form>
+        </div>
+      </div>
+
+      <!-- Instant PayPal QR Code Drawer -->
+      <div id="paypalQrSection" style="text-align: center; margin: 16px 0; padding: 14px; background: #0f172a; border-radius: 12px; border: 1px solid #334155;">
+        <div style="font-weight: 700; font-size: 0.84rem; color: #38bdf8; margin-bottom: 8px;">
+          📱 Instant 1-Scan Mobile Pay ($1.00 USD)
+        </div>
+        <img src="/static/Nexus-qrcode.png" alt="Nexus PayPal QR Code" style="width: 130px; height: auto; border-radius: 8px; background: #fff; padding: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 6px;">
+          Scan with phone camera or PayPal app to pay $1.00 instantly
+        </div>
+      </div>
 
       <!-- MCB Juice In-Modal Drawer -->
       <div class="juice-drawer" id="juiceDrawer">
@@ -1727,6 +1781,19 @@ def parse_mcb_statement(file_path: str, output_csv: str = "mcb_reconciliation.cs
     }
     setInterval(cycleToast, 16000);
     setTimeout(cycleToast, 2500);
+
+    // Initialize PayPal Hosted Buttons SDK component
+    window.addEventListener("DOMContentLoaded", function() {
+      if (window.paypal && paypal.HostedButtons) {
+        try {
+          paypal.HostedButtons({
+            hostedButtonId: "B4SASTZDVFXY4",
+          }).render("#paypal-container-B4SASTZDVFXY4");
+        } catch (err) {
+          console.warn("PayPal HostedButtons render warning:", err);
+        }
+      }
+    });
   </script>
 
   <!-- Live Purchase Notification Toast -->
