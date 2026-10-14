@@ -11,17 +11,18 @@ import time
 import logging
 from typing import Dict, Any, List
 from core.storage import atomic_save_json, safe_load_json
+from core.paths import DATA_DIR
 
 logger = logging.getLogger("Nexus.SocialProof")
 
-TESTIMONIALS_FILE = "data/testimonials.json"
+TESTIMONIALS_FILE = DATA_DIR / "testimonials.json"
 
 class SocialProofEngine:
     def __init__(self):
         self._ensure_file()
 
     def _ensure_file(self):
-        os.makedirs("data", exist_ok=True)
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
         if not safe_load_json(TESTIMONIALS_FILE):
             atomic_save_json(TESTIMONIALS_FILE, [
                 {

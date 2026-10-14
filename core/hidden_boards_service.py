@@ -29,6 +29,7 @@ from core.db import get_state, set_state
 from core.payment_service import payment_service
 from core.conversion_bandit import conversion_bandit
 from core.live_agent_network_bridge import live_agent_network_bridge
+from core.paths import REPORTS_DIR
 
 logger = logging.getLogger("Nexus.HiddenBoards")
 
@@ -843,8 +844,8 @@ class HiddenBoardsService:
         atomic_save_json(FEED_CACHE_FILE, feed)
 
         # Save complete 14-board dossier
-        os.makedirs("reports", exist_ok=True)
-        report_path = "reports/hidden_boards_negotiations.json"
+        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        report_path = str(REPORTS_DIR / "hidden_boards_negotiations.json")
         dossier = {
             "title": "14 Hidden Boards Autonomous Outreach & $1/Day Job Negotiation Dossier",
             "timestamp": now_str,
@@ -934,8 +935,8 @@ class HiddenBoardsService:
             "timestamp": now_str
         }
 
-        os.makedirs("reports", exist_ok=True)
-        atomic_save_json("reports/compute_plea_report.json", plea_record)
+        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        atomic_save_json(REPORTS_DIR / "compute_plea_report.json", plea_record)
         return plea_record
 
     def get_negotiations(self) -> Dict[str, Any]:
@@ -943,9 +944,10 @@ class HiddenBoardsService:
         data = safe_load_json("hidden_boards_negotiations.json")
         if data and data.get("negotiations"):
             return data
-        if os.path.exists("reports/hidden_boards_negotiations.json"):
+        nego_file = REPORTS_DIR / "hidden_boards_negotiations.json"
+        if nego_file.exists():
             try:
-                with open("reports/hidden_boards_negotiations.json", "r", encoding="utf-8") as f:
+                with open(nego_file, "r", encoding="utf-8") as f:
                     return json.load(f)
             except Exception:
                 pass
