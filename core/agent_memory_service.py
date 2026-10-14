@@ -1,67 +1,61 @@
 """
 Nexus™ Agent Memory Service
 ===========================
-Integrates the `agentmemory` package (Chromadb-backed vector memory) to provide
-persistent, queryable long-term memory for autonomous agents.
+Provides robust persistent long-term memory for autonomous agents (with JSON storage fallback).
 """
 
 import logging
+import time
 from typing import Dict, Any, List
+from core.storage import atomic_save_json, safe_load_json
 
 logger = logging.getLogger("Nexus.AgentMemory")
 
+MEMORY_STORE_FILE = "agent_memory_store.json"
+
 class AgentMemoryService:
     def __init__(self):
-        self.is_initialized = False
+        self._ensure_file()
 
-    def initialize(self):
-        if not self.is_initialized:
-            try:
-                import agentmemory
-                self.agentmemory = agentmemory
-                self.is_initialized = True
-                logger.info("[AgentMemory] ChromaDB-backed agent memory initialized.")
-            except ImportError:
-                logger.warning("[AgentMemory] 'agentmemory' package not found. Running in fallback mode.")
+    def _ensure_file(self):
+        if not safe_load_json(MEMORY_STORE_FILE):
+            atomic_save_json(MEMORY_STORE_FILE, {})
 
     def save_memory(self, category: str, text: str, metadata: Dict[str, Any] = None) -> bool:
         """Saves a new memory into the specified category."""
-        self.initialize()
-        if not self.is_initialized:
-            return False
-
         try:
-            self.agentmemory.create_memory(category, text, metadata=metadata)
-            logger.info(f"[AgentMemory] Saved to category '{category}': {text[:30]}...")
+            store = safe_load_json(MEMORY_STORE_FILE, default={})
+            store.setdefault(category, [])
+            store[category].insert(0, {
+                "document": text,
+                "metadata": metadata or {},
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+            })
+            atomic_save_json(MEMORY_STORE_FILE, store)
+            logger.info(f"[AgentMemory] Saved memory to '{category}': {text[:30]}...")
             return True
         except Exception as e:
             logger.error(f"[AgentMemory] Error saving memory: {e}")
             return False
 
     def search_memory(self, category: str, query: str, n_results: int = 5) -> List[Dict[str, Any]]:
-        """Searches memories within a category based on semantic similarity."""
-        self.initialize()
-        if not self.is_initialized:
-            return []
-
+        """Searches memories within a category based on keyword matching."""
         try:
-            results = self.agentmemory.search_memory(category, query, n_results=n_results)
-            logger.info(f"[AgentMemory] Found {len(results)} matches in '{category}' for query '{query}'.")
-            # results is typically a list of dictionaries with 'document' and 'metadata'
-            return results
+            store = safe_load_json(MEMORY_STORE_FILE, default={})
+            mems = store.get(category, [])
+            q_lower = query.lower()
+            matches = [m for m in mems if q_lower in m.get("document", "").lower() or q_lower in str(m.get("metadata", "")).lower()]
+            return matches[:n_results]
         except Exception as e:
             logger.error(f"[AgentMemory] Error searching memory: {e}")
             return []
 
     def get_memory_stats(self, category: str) -> Dict[str, Any]:
         """Returns statistics about a specific memory category."""
-        self.initialize()
-        if not self.is_initialized:
-            return {"count": 0}
-
         try:
-            memories = self.agentmemory.get_memories(category)
-            return {"count": len(memories)}
+            store = safe_load_json(MEMORY_STORE_FILE, default={})
+            mems = store.get(category, [])
+            return {"count": len(mems)}
         except Exception as e:
             logger.error(f"[AgentMemory] Error getting stats: {e}")
             return {"count": 0}

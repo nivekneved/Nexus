@@ -72,6 +72,44 @@ class BaseAgent(ABC):
             message=message, channel=channel, metadata=metadata
         )
 
+    def execute_with_perseverance(
+        self,
+        task_name: str,
+        task_func: Callable[[], Dict[str, Any]],
+        max_retries: int = 5
+    ) -> Dict[str, Any]:
+        """
+        Executes a task in an unbreakable perseverance loop.
+        Never gives up: learns from mistakes and retries with AI reflection until success.
+        """
+        from core.autonomous_perseverance_engine import autonomous_perseverance_engine
+        return autonomous_perseverance_engine.execute_with_perseverance(
+            agent_id=self.agent_id,
+            task_name=task_name,
+            task_func=task_func,
+            max_retries=max_retries
+        )
+
+    def search(self, query: str, category: str = "web", max_results: int = 5) -> Dict[str, Any]:
+        """[SEARCH SKILL] Searches web, vector memory, or lead indices."""
+        from core.agent_search_dig_locate_skills import agent_search_dig_locate
+        return agent_search_dig_locate.agent_search(query, category, max_results)
+
+    def dig(self, target: str, dig_type: str = "web_dom", max_chars: int = 8000) -> Dict[str, Any]:
+        """[DIG SKILL] Deep reconnaissance: DOM scraping, DNS resolution, HTTP inspection."""
+        from core.agent_search_dig_locate_skills import agent_search_dig_locate
+        return agent_search_dig_locate.agent_dig(target, dig_type, max_chars)
+
+    def locate(self, entity_query: str, locate_type: str = "registry") -> Dict[str, Any]:
+        """[LOCATE SKILL] Precision mapping: official registries, phone enrichment."""
+        from core.agent_search_dig_locate_skills import agent_search_dig_locate
+        return agent_search_dig_locate.agent_locate(entity_query, locate_type)
+
+    def email_osint(self, email: str) -> Dict[str, Any]:
+        """[EMAIL OSINT SKILL] Queries emailosint.org API for deep email OSINT reconnaissance."""
+        from core.email_osint_service import email_osint_service
+        return email_osint_service.query_email(email)
+
     def register_subagent(self, subagent: BaseSubAgent):
         """Registers a dedicated single-task subagent under this agent."""
         self.subagents[subagent.subagent_id] = subagent

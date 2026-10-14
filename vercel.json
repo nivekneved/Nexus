@@ -48,6 +48,10 @@
       "dest": "/static/license.html"
     },
     {
+      "src": "/workforce",
+      "dest": "/static/workforce.html"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "api/index.py"
     },

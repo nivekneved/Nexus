@@ -4408,6 +4408,25 @@ def api_factory_build_product(payload: BuildProductRequest):
 # ============================================================================
 from core.rfp_sniper_bot import rfp_sniper_bot
 from core.social_seeding_service import social_seeding_service
+from core.master_fund_scour_engine import master_fund_scour_engine
+
+@app.post("/api/fund-scour/launch-all")
+def api_launch_all_fund_scour():
+    """Expands reach across 75+ boards/forums and launches all agents with unbreakable perseverance for fund collection."""
+    try:
+        res = master_fund_scour_engine.launch_all_agents_and_expand_reach()
+        return res
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/api/agents/upgrade-fleet-v100")
+def api_upgrade_fleet_v100():
+    """Upgrades all 41 agents in the fleet to v100.0 SOTA Sovereign Standards."""
+    try:
+        from core.fleet_sovereign_upgrade import fleet_sovereign_upgrade
+        return fleet_sovereign_upgrade.upgrade_entire_fleet()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 @app.post("/api/distribution/rfp/snipe")
 def api_distribution_rfp_snipe():

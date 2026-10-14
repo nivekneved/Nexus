@@ -79,9 +79,15 @@ daily_newsletter_digest.json
 daily_newsletter_digest.md
 mobile_notifications.json
 projects.json
-
 fleet_run_summary.json
 social_broadcast_queue.json
+agent_mistakes_memory.json
+master_fund_scour_ledger.json
+agent_memory_store.json
+global_25_boards_ledger.json
+global_50_indie_boards_ledger.json
+treasury_ledger.json
+webhook_events_log.json
 # ─── 5. Logs, Backups, Reports & Runtime Scratchpad ─────────────────────────
 logs/
 logs/**
