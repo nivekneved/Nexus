@@ -16,6 +16,90 @@
       "dest": "/static/$1"
     },
     {
+      "src": "/seek",
+      "dest": "/static/seek.html"
+    },
+    {
+      "src": "/connect",
+      "dest": "/static/connect.html"
+    },
+    {
+      "src": "/operations",
+      "dest": "/static/operations.html"
+    },
+    {
+      "src": "/commerce",
+      "dest": "/static/commerce.html"
+    },
+    {
+      "src": "/workforce",
+      "dest": "/static/workforce.html"
+    },
+    {
+      "src": "/auto-tasks",
+      "dest": "/static/auto_tasks.html"
+    },
+    {
+      "src": "/agent-thoughts",
+      "dest": "/static/agent_thoughts.html"
+    },
+    {
+      "src": "/agent-config",
+      "dest": "/static/agent_config.html"
+    },
+    {
+      "src": "/revenue",
+      "dest": "/static/revenue.html"
+    },
+    {
+      "src": "/autopilot",
+      "dest": "/static/autopilot.html"
+    },
+    {
+      "src": "/terminal",
+      "dest": "/static/terminal.html"
+    },
+    {
+      "src": "/addons",
+      "dest": "/static/addons.html"
+    },
+    {
+      "src": "/utility-config",
+      "dest": "/static/utility_config.html"
+    },
+    {
+      "src": "/vertical-pms",
+      "dest": "/static/vertical_pms.html"
+    },
+    {
+      "src": "/emailing",
+      "dest": "/static/emailing.html"
+    },
+    {
+      "src": "/ports",
+      "dest": "/static/ports.html"
+    },
+    {
+      "src": "/db-backup",
+      "dest": "/static/db_backup.html"
+    },
+    {
+      "src": "/simulator",
+      "dest": "/static/simulator.html"
+    },
+    {
+      "src": "/sovereign",
+      "dest": "/static/sovereign.html"
+    },
+    {
+      "src": "/cybersecurity",
+      "dest": "/static/cybersecurity.html"
+    },
+    {
+      "src": "/emergency-app-install",
+      "dest": "/static/emergency_app_install.html"
+    },
+    {
       "src": "/store",
       "dest": "/static/store.html"
     },
@@ -46,10 +130,6 @@
     {
       "src": "/license",
       "dest": "/static/license.html"
-    },
-    {
-      "src": "/workforce",
-      "dest": "/static/workforce.html"
     },
     {
       "src": "/api/(.*)",
