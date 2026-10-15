@@ -842,6 +842,40 @@ def stop_background_agent_loop(task_id: str):
     return {"success": True, "message": f"Task {task_id} stopped."}
 
 
+# Relentless Agent Executor & Self-Improvement Endpoints
+class RelentlessMissionRequest(BaseModel):
+    agent_id: str
+    objective: str
+
+@app.post("/api/agents/relentless/launch")
+def launch_relentless_mission(req: RelentlessMissionRequest):
+    """Launches a perpetual, self-improving relentless agent mission that never stops until objective is won."""
+    try:
+        from core.relentless_agent_executor import relentless_executor
+        res = relentless_executor.launch_mission(req.agent_id, req.objective)
+        return res
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/agents/relentless/missions")
+def list_relentless_missions():
+    """Returns all active and past relentless agent missions, iteration counts, and reflections."""
+    try:
+        from core.relentless_agent_executor import relentless_executor
+        return {"success": True, "missions": relentless_executor.get_missions()}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/agents/relentless/{mission_id}/stop")
+def stop_relentless_mission(mission_id: str):
+    """Stops a running relentless agent mission."""
+    from core.relentless_agent_executor import relentless_executor
+    success = relentless_executor.stop_mission(mission_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Mission not found.")
+    return {"success": True, "message": f"Mission {mission_id} stopped."}
+
+
 # Agent Efficiency & Parallel Swarm Optimization Endpoints
 class EfficiencyBatchRequest(BaseModel):
     agent_ids: List[str]
