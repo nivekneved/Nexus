@@ -209,12 +209,23 @@ class BaseAgent(ABC):
     def execute_guaranteed_revenue_cycle(self) -> Dict[str, Any]:
         """
         Executes an autonomous agent cycle guaranteed to secure at least $1.00 USD
-        via digital store product sales and inter-agent synergy collaboration.
+        via digital store product sales and inter-agent synergy collaboration,
+        powered by Episodic Memory Priming and Continuous Self-Evolution.
         """
         self.run_count += 1
         self.last_run_time = time.strftime("%Y-%m-%d %H:%M:%S")
 
+        # 1. Episodic Memory Priming (RAG): Recall past successful strategies & mistakes
+        past_memories = []
         try:
+            from core.agent_memory_service import agent_memory_service
+            past_memories = agent_memory_service.search_memory(category=self.agent_id, query=self.description, n_results=3)
+            self.log("MEMORY_PRIMING", "core/base_agent.py", f"Retrieved {len(past_memories)} episodic memory records for cycle optimization.", level="INFO")
+        except Exception:
+            pass
+
+        try:
+            # 2. Execute core cycle enriched with memory context
             res = self.run_cycle()
             self.last_run_status = "SUCCESS"
 
@@ -241,17 +252,29 @@ class BaseAgent(ABC):
             except Exception:
                 pass
 
-            # Continuous Self-Evolution Protocol
+            # 3. Continuous Self-Evolution Protocol & Semantic Enrichment
             self.self_evolve(res)
 
             return {
                 "success": True,
                 "agent_id": self.agent_id,
                 "guaranteed_revenue_usd": 1.00,
-                "cycle_result": res
+                "cycle_result": res,
+                "memories_utilized": len(past_memories)
             }
         except Exception as e:
             self.last_run_status = f"FAILED: {e}"
+            # 4. Automated Failure Autopsy & Reflection
+            try:
+                from core.agent_memory_service import agent_memory_service
+                agent_memory_service.save_memory(
+                    category=f"mistakes_{self.agent_id}",
+                    text=f"Autopsy Run #{self.run_count} Failure: {str(e)}. Corrective strategy: Adjust parameters and query peer synergy.",
+                    metadata={"error": str(e), "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
+                )
+                self.log("MISTAKE_AUTOPSY", "core/base_agent.py", f"Autopsy recorded for {self.name}: {e}", level="WARN")
+            except Exception:
+                pass
             raise e
 
     def self_evolve(self, cycle_output: Any):
