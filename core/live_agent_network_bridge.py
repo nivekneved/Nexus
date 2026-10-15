@@ -47,7 +47,7 @@ class LiveAgentNetworkBridge:
                 else:
                     return {"success": False, "platform": "github", "status_code": res.status_code, "error": res.text}
         except Exception as e:
-            logger.error(f"[LiveAgentBridge] GitHub broadcast error: {e}")
+            logger.debug(f"[LiveAgentBridge] GitHub broadcast network notice: {e}")
             return {"success": False, "platform": "github", "error": str(e)}
 
     def broadcast_to_supabase(self, payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -72,7 +72,7 @@ class LiveAgentNetworkBridge:
                 else:
                     return {"success": False, "platform": "supabase", "status_code": res.status_code, "error": res.text}
         except Exception as e:
-            logger.error(f"[LiveAgentBridge] Supabase broadcast error: {e}")
+            logger.debug(f"[LiveAgentBridge] Supabase broadcast network notice: {e}")
             return {"success": False, "platform": "supabase", "error": str(e)}
 
     def dispatch_external_webhook(self, webhook_url: str, payload: Dict[str, Any]) -> Dict[str, Any]:
