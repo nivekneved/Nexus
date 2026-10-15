@@ -39,13 +39,27 @@ class AgentMemoryService:
             return False
 
     def search_memory(self, category: str, query: str, n_results: int = 5) -> List[Dict[str, Any]]:
-        """Searches memories within a category based on keyword matching."""
+        """Searches memories within a category with Kronos-style temporal recency and keyword scoring."""
         try:
             store = safe_load_json(MEMORY_STORE_FILE, default={})
             mems = store.get(category, [])
             q_lower = query.lower()
-            matches = [m for m in mems if q_lower in m.get("document", "").lower() or q_lower in str(m.get("metadata", "")).lower()]
-            return matches[:n_results]
+
+            scored_mems = []
+            for idx, m in enumerate(mems):
+                doc = m.get("document", "").lower()
+                meta = str(m.get("metadata", "")).lower()
+                score = 0
+                if q_lower in doc or q_lower in meta:
+                    score += 10
+                # Kronos Temporal Recency Bonus: newer memories get higher temporal rank
+                recency_bonus = max(0, 1.0 - (idx * 0.05))
+                score += recency_bonus
+
+                scored_mems.append((score, m))
+
+            scored_mems.sort(key=lambda x: x[0], reverse=True)
+            return [m for score, m in scored_mems[:n_results]]
         except Exception as e:
             logger.error(f"[AgentMemory] Error searching memory: {e}")
             return []
