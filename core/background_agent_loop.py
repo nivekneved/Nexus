@@ -45,8 +45,11 @@ class BackgroundAgentTaskRunner:
     def _save_persistence(self):
         try:
             os.makedirs(BACKGROUND_TASKS_FILE.parent, exist_ok=True)
+            tasks_list = list(self.tasks.values())
+            if len(tasks_list) > 50:
+                tasks_list = tasks_list[-50:]
             with open(BACKGROUND_TASKS_FILE, "w", encoding="utf-8") as f:
-                json.dump(list(self.tasks.values()), f, indent=2, default=str)
+                json.dump(tasks_list, f, indent=2, default=str)
         except Exception as e:
             print(f"[BackgroundAgentLoop] Error saving persistence: {e}")
 
