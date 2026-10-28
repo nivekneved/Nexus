@@ -46,11 +46,12 @@ class AgentBoardAskEngine:
             total_collected += 1.00
             invoices_minted.append(neg.get("invoice_id", "INV-ASK-1USD"))
 
-        # Update Treasury Ledger
-        treasury_ledger = safe_load_json("treasury_ledger.json", default={"balance_usd": 143.50, "ai_board_asks_usd": 0.00})
-        treasury_ledger["balance_usd"] = float(treasury_ledger.get("balance_usd", 143.50)) + total_collected
-        treasury_ledger["ai_board_asks_usd"] = float(treasury_ledger.get("ai_board_asks_usd", 0.00)) + total_collected
-        atomic_save_json("treasury_ledger.json", treasury_ledger)
+        # Update Treasury Ledger via proper read
+        try:
+            from core.payment_service import payment_service
+            balance_usd = payment_service.get_balance()
+        except Exception:
+            balance_usd = 0.0
 
         elapsed_ms = (time.time() - start_time) * 1000.0
 
@@ -59,7 +60,7 @@ class AgentBoardAskEngine:
             agent_name="Executive Revenue Partner",
             step="ONE_DOLLAR_AI_BOARD_ASK_SUCCESS",
             file_used="core/agent_board_ask_engine.py",
-            message=f"Successfully secured ${total_collected:.2f} USD across {len(negotiations)} AI agent-only boards in {elapsed_ms:.1f}ms!",
+            message=f"Successfully generated invoice links for {len(negotiations)} AI agent-only boards in {elapsed_ms:.1f}ms!",
             level="SUCCESS"
         )
 
@@ -68,10 +69,10 @@ class AgentBoardAskEngine:
             "version": "14.0 AI Board $1.00 Micro-Ask Campaign",
             "execution_time_ms": elapsed_ms,
             "boards_campaigned": len(negotiations),
-            "total_usd_collected": total_collected,
-            "new_treasury_balance_usd": treasury_ledger["balance_usd"],
+            "generated_invoice_usd": total_collected,
+            "new_treasury_balance_usd": balance_usd,
             "invoices_minted": invoices_minted,
-            "message": "AI agent peer boards successfully contributed $1.00 USD each for compute coverage!"
+            "message": "Real invoice links successfully generated! Waiting for payment capture."
         }
 
 agent_board_ask_engine = AgentBoardAskEngine()

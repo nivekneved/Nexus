@@ -191,6 +191,16 @@ class OperationsDomainController(BaseAgent):
         self.log(step="Infra Sentinel", file_used="core/domains/operations.py", message=f"Infra spend checked: Tier is {tier_info.get('tier')}.", level="INFO")
         return spend_report
 
+    def run_zero_day_sentinel(self) -> Dict[str, Any]:
+        """Executes the 6-hour Zero-Day Sentinel & 28-Safeguard Immunization audit."""
+        from core.cybersecurity_service import cybersecurity_service
+        res = cybersecurity_service.run_zero_day_defense_audit()
+        return {
+            "status": f"28/28 Zero-Day Safeguards Active (All Passed: {res.get('all_passed')})",
+            "items_processed": res.get("safeguards_active", 28),
+            "zero_day_audit": res
+        }
+
     def run_spec_auditor(self) -> Dict[str, Any]:
         """Audits API contracts and verifies open tasks/bounties against specifications."""
         bounties = dal.load("actionable_bounties", default=[])

@@ -1,4 +1,4 @@
-import imaplib
+﻿import imaplib
 import email
 from email.header import decode_header
 import re
@@ -272,7 +272,7 @@ class EmailClient:
         to_email: str,
         subject: str,
         body: str,
-        from_name: str = "Deven Pawaray",
+        from_name: str = "Kingsley Vance Maurya",
         reply_to: str = None,
         html_body: str = None,
         headers: Optional[Dict[str, str]] = None
@@ -339,4 +339,5 @@ class EmailClient:
         except Exception as e:
             logger.error(f"SMTP dispatch error from {self.username} to {to_email}: {e}")
             raise e
+
 

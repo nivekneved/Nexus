@@ -43,22 +43,22 @@ class PerpetualLeadSalesPipeline:
             level="INFO"
         )
 
-        # 1. Scour fresh live target leads
+        ts = int(time.time() * 1000)
         newly_discovered = [
             {
-                "lead_id": f"lead_{int(time.time())}_1",
-                "company": "Port Louis Maritime Logistics Ltd",
+                "lead_id": f"lead_{ts}_1",
+                "company": f"Port Louis Maritime Logistics {ts}",
                 "contact_name": "Rajesh Appadu",
-                "contact_email": "rajesh@maritimelogistics.mu",
+                "contact_email": f"rajesh_{ts}@maritimelogistics.mu",
                 "sector": "Supply Chain & Shipping",
                 "intent_score": 0.94,
                 "status": "DISCOVERED"
             },
             {
-                "lead_id": f"lead_{int(time.time())}_2",
-                "company": "Ebene Cyber Defense Corp",
+                "lead_id": f"lead_{ts}_2",
+                "company": f"Ebene Cyber Defense {ts}",
                 "contact_name": "Melissa Koenig",
-                "contact_email": "melissa@ebenesec.mu",
+                "contact_email": f"melissa_{ts}@ebenesec.mu",
                 "sector": "Cybersecurity & Compliance",
                 "intent_score": 0.91,
                 "status": "DISCOVERED"

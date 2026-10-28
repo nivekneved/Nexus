@@ -1,5 +1,6 @@
 import os
 import json
+import requests
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 
@@ -134,8 +135,33 @@ class MarketMakerEngine:
     def run_cycle(self) -> Dict[str, Any]:
         """Runs one full loop: Harvest -> Evaluate -> Synthesize -> Propagate -> Ledger."""
         print("[MarketMaker] Harvesting opportunities from hidden boards...")
+
+        # ACTUALLY PUTTING WHEELS ON IT: Don't pretend to match fake board data.
+        # Let's pull a real market data point (e.g. BTC price) to prove real-world contact.
+        real_price = None
+        try:
+             resp = requests.get("https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT", timeout=5)
+             if resp.status_code == 200:
+                  real_price = resp.json().get("price")
+        except Exception:
+             pass
+
+        if real_price:
+             print(f"[MarketMaker] Live Market Data Acquired: BTC = ${float(real_price):,.2f}")
+        else:
+             print("[MarketMaker] Failed to acquire live market data.")
+
         opps_response = hidden_boards_service.scrape_money_opportunities()
         opportunities = opps_response.get("opportunities", [])
+
+        # Since hidden_boards_service now returns a warning instead of fake data,
+        # we will handle empty opportunities gracefully.
+        if not opportunities:
+             return {
+                 "success": False,
+                 "error": "No live opportunities fetched. Simulation disabled.",
+                 "live_btc_price": real_price
+             }
 
         ledger = self.get_ledger()
         bids_placed = set(ledger.get("bids_placed", []))

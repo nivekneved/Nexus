@@ -1,12 +1,12 @@
-{
-  "owner": "Deven Pawaray",
+﻿{
+  "owner": "Kingsley Vance Maurya",
   "brand": "Nexus AI Workforce",
   "default_currency": "USD",
   "mcb_juice": "+230 58169420",
   "verified_product_blueprints": [
     {
       "id": "nexus-invoice-pdf-extractor",
-      "name": "Nexus™ Invoice Pdf Extractor",
+      "name": "Nexusâ„¢ Invoice Pdf Extractor",
       "tagline": "Self-Hosted Invoice Pdf Extractor Automation Utility",
       "description": "A self-hosted, lightweight Python script to automate invoice pdf extractor. Zero monthly subscriptions.",
       "price_usd": 1.0,
@@ -22,7 +22,7 @@
     },
     {
       "id": "nexus-crypto-price-alert",
-      "name": "Nexus™ Crypto Price Alert",
+      "name": "Nexusâ„¢ Crypto Price Alert",
       "tagline": "Self-Hosted Crypto Price Alert Automation Utility",
       "description": "A self-hosted, lightweight Python script to automate crypto price alert. Zero monthly subscriptions.",
       "price_usd": 1.0,

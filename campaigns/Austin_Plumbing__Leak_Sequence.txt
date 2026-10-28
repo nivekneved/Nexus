@@ -1,0 +1,18 @@
+﻿TO: service@austinplumbing.com
+SUBJECT: Home Depot receipts going missing? (Quick question)
+--------------------------------------------------
+Hi Team,
+
+I was looking at Austin Plumbing & Leak online and noticed you have a decent sized field team.
+
+Quick question: How much billable material are you writing off every month because your guys lose the Home Depot/Lowe's receipts in their trucks?
+
+I just finished building 'ReceiptChase'â€”itâ€™s a dead-simple app for your field guys. They literally just snap a photo of the receipt and tag the job before they even leave the parking lot. It syncs straight to your office dashboard so your bookkeeper doesn't have to chase them on Fridays.
+
+I'm not selling a SaaS subscription. I'm selling the complete software and intellectual property (IP) outright for Rs 85,000 MUR (~$1,888 USD). You own it forever, host it yourself, and never pay a monthly fee.
+
+If you want to see a live demo of how it stops material leakage, check it out here: https://nexus.mu/turnkey_fleet
+
+Best,
+Kingsley Vance Maurya
+Nexus Principal Engineering

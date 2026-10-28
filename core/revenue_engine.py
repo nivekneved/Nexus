@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
-Nexus Workforce Engine — Conversion Recovery & Revenue Telemetry Engine
+Nexus Workforce Engine â€” Conversion Recovery & Revenue Telemetry Engine
 =============================================================================
 Diagnoses revenue bottlenecks, captures abandoned checkout leads in real-time,
 and automates recovery campaigns via email and WhatsApp to turn lost prospects
@@ -73,7 +73,7 @@ class RevenueEngine:
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cart = cart_details or {}
         product_id = cart.get("product_id", "nexus-developer-bundle")
-        product_name = cart.get("product_name", "Nexus™ Software Utility")
+        product_name = cart.get("product_name", "Nexusâ„¢ Software Utility")
         amount = float(cart.get("amount", 9.00))
         currency = cart.get("currency", "USD").upper()
 
@@ -164,7 +164,7 @@ class RevenueEngine:
 
         contact = lead.get("contact", "")
         buyer_name = lead.get("buyer_name", "Developer")
-        prod_name = lead.get("product_name", "Nexus™ Software Utility")
+        prod_name = lead.get("product_name", "Nexusâ„¢ Software Utility")
         currency = lead.get("currency", "USD")
         orig_price = lead.get("amount", 9.0)
         disc_price = lead.get("discounted_amount", orig_price * 0.85)
@@ -173,16 +173,16 @@ class RevenueEngine:
 
         curr_symbol = "$" if currency == "USD" else "Rs "
         whatsapp_phone = os.getenv("FOUNDER_WHATSAPP", "+23058169420")
-        founder_name = os.getenv("FOUNDER_NAME", "Deven Pawaray")
+        founder_name = os.getenv("FOUNDER_NAME", "Kingsley Vance Maurya")
 
         # 1. Prepare copy for WhatsApp
         wa_message = (
-            f"Hello {buyer_name}! 👋\n\n"
+            f"Hello {buyer_name}! ðŸ‘‹\n\n"
             f"I noticed you were checking out *{prod_name}* on the Nexus Store.\n\n"
             f"To help you get started without friction, here is a private 15% discount:\n"
-            f"🎁 Coupon: *{disc_code}* (Only {curr_symbol}{disc_price:,.2f} {currency})\n"
-            f"🔗 Complete 1-Click Access: https://nexus-workforce.vercel.app{rec_url}\n\n"
-            f"Let me know if you have any questions or need custom integration help! — {founder_name}"
+            f"ðŸŽ Coupon: *{disc_code}* (Only {curr_symbol}{disc_price:,.2f} {currency})\n"
+            f"ðŸ”— Complete 1-Click Access: https://nexus-workforce.vercel.app{rec_url}\n\n"
+            f"Let me know if you have any questions or need custom integration help! â€” {founder_name}"
         )
         wa_link = f"https://wa.me/{whatsapp_phone.replace('+', '').replace(' ', '')}?text={urllib.parse.quote(wa_message)}"
 
@@ -202,7 +202,7 @@ class RevenueEngine:
                         smtp_host="smtp.gmail.com",
                         smtp_port=465
                     )
-                    subject = f"Complete your setup: 15% off {prod_name} (Nexus™ Anti-SaaS)"
+                    subject = f"Complete your setup: 15% off {prod_name} (Nexusâ„¢ Anti-SaaS)"
                     body_text = (
                         f"Hi {buyer_name},\n\n"
                         f"We noticed you were checking out {prod_name}.\n\n"
@@ -219,7 +219,7 @@ class RevenueEngine:
                     html_body = f"""
                     <div style="background:#070b14;color:#f8fafc;padding:30px;font-family:sans-serif;">
                       <div style="max-width:560px;margin:0 auto;background:#0d1527;border:1px solid #1e2c4f;border-radius:16px;padding:28px;">
-                        <h2 style="color:#38bdf8;margin-top:0;">⚡ Nexus™ Anti-SaaS Arsenal</h2>
+                        <h2 style="color:#38bdf8;margin-top:0;">âš¡ Nexusâ„¢ Anti-SaaS Arsenal</h2>
                         <p style="font-size:16px;color:#cbd5e1;">Hi <strong>{buyer_name}</strong>,</p>
                         <p style="color:#94a3b8;line-height:1.6;">You were almost done securing your perpetual license for <strong>{prod_name}</strong>.</p>
                         <div style="background:rgba(56,189,248,0.08);border:1px dashed #38bdf8;border-radius:12px;padding:18px;margin:20px 0;text-align:center;">
@@ -229,7 +229,7 @@ class RevenueEngine:
                         </div>
                         <div style="text-align:center;margin:25px 0;">
                           <a href="https://nexus-workforce.vercel.app{rec_url}" style="background:linear-gradient(135deg,#0284c7,#0369a1);color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:16px;display:inline-block;">
-                            ⚡ Complete Checkout &amp; Download Source
+                            âš¡ Complete Checkout &amp; Download Source
                           </a>
                         </div>
                         <p style="font-size:12px;color:#64748b;margin-top:20px;">Questions? Reply directly to this email or reach us on WhatsApp: {whatsapp_phone}</p>
@@ -415,3 +415,4 @@ class RevenueEngine:
 
 
 revenue_engine = RevenueEngine()
+

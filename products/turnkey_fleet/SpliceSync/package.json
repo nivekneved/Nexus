@@ -1,0 +1,10 @@
+{
+  "name": "splicesync-nexus-turnkey",
+  "version": "1.0.0",
+  "description": "Version control tracker for video editors parsing client emails.",
+  "main": "App.tsx",
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.6"
+  }
+}

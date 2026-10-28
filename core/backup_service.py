@@ -1,5 +1,5 @@
-"""
-Nexus Workforce Engine — Comprehensive Enterprise Backup & Database Exporter
+﻿"""
+Nexus Workforce Engine â€” Comprehensive Enterprise Backup & Database Exporter
 Backs up all app branches, full databases, schemas in JSON and SQL, with 1-click restore features.
 """
 
@@ -186,7 +186,7 @@ def generate_sql_database_and_dumps(json_dir: str, sql_dir: str):
     dump_sql_path = os.path.join(sql_dir, "data_dump.sql")
 
     ddl = """-- =========================================================================
--- Nexus Workforce Engine — Unified Relational Database Schema
+-- Nexus Workforce Engine â€” Unified Relational Database Schema
 -- Compatible with SQLite, PostgreSQL, and MySQL
 -- Generated: {timestamp}
 -- =========================================================================
@@ -591,7 +591,7 @@ CREATE TABLE IF NOT EXISTS influencer_campaigns (
     # Generate complete SQL data dump (.sql text file)
     with open(dump_sql_path, "w", encoding="utf-8") as dump_f:
         dump_f.write(f"-- =========================================================================\n")
-        dump_f.write(f"-- Nexus Workforce Engine — Full SQL Database Dump\n")
+        dump_f.write(f"-- Nexus Workforce Engine â€” Full SQL Database Dump\n")
         dump_f.write(f"-- Dump Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         dump_f.write(f"-- =========================================================================\n\n")
         for line in conn.iterdump():
@@ -703,7 +703,7 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
     # Save branch and environment metadata
     branch_meta = {
         "backup_date": now.strftime("%Y-%m-%d %H:%M:%S"),
-        "principal": "Deven Pawaray (devenpawaray@gmail.com | +230 58169420)",
+        "principal": "Kingsley Vance Maurya (devenpawaray@gmail.com | +230 58169420)",
         "managing_partner": "Nexus AI (Executive Managing Partner)",
         "current_branch": current_branch,
         "active_branches": git_branches_list if git_branches_list else ["main"],
@@ -737,8 +737,8 @@ def create_full_enterprise_backup() -> Dict[str, Any]:
     manifest = {
         "backup_id": backup_name,
         "created_at": now.strftime("%Y-%m-%d %H:%M:%S"),
-        "creator": "Nexus AI (Executive Managing Partner on behalf of Deven Pawaray)",
-        "principal": "Deven Pawaray",
+        "creator": "Nexus AI (Executive Managing Partner on behalf of Kingsley Vance Maurya)",
+        "principal": "Kingsley Vance Maurya",
         "total_files": total_files,
         "total_bytes": total_bytes,
         "json_files_count": len(copied_json_files),
@@ -862,12 +862,13 @@ def get_backup_manifest(backup_id: str) -> Optional[Dict[str, Any]]:
 
 if __name__ == "__main__":
     result = create_full_enterprise_backup()
-    print("\n✅ FULL ENTERPRISE BACKUP COMPLETED!")
-    print(f"📁 Backup Folder: {result['backup_path']}")
-    print(f"📦 Total Files Backed Up: {result['total_files']} ({result['total_bytes'] / 1024:.1f} KB)")
-    print(f"📄 JSON Stores: {result['json_databases_saved']} databases")
-    print(f"🗄️ SQL DB: {result['sql_database_saved']}")
-    print(f"📜 SQL Dump: {result['sql_dump_saved']}")
-    print(f"📐 Schemas: {len(result['schemas_generated'])} JSON Schemas")
-    print(f"🗜️ App Source: {result['source_zip']}")
+    print("\nâœ… FULL ENTERPRISE BACKUP COMPLETED!")
+    print(f"ðŸ“ Backup Folder: {result['backup_path']}")
+    print(f"ðŸ“¦ Total Files Backed Up: {result['total_files']} ({result['total_bytes'] / 1024:.1f} KB)")
+    print(f"ðŸ“„ JSON Stores: {result['json_databases_saved']} databases")
+    print(f"ðŸ—„ï¸ SQL DB: {result['sql_database_saved']}")
+    print(f"ðŸ“œ SQL Dump: {result['sql_dump_saved']}")
+    print(f"ðŸ“ Schemas: {len(result['schemas_generated'])} JSON Schemas")
+    print(f"ðŸ—œï¸ App Source: {result['source_zip']}")
+
 

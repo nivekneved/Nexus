@@ -76,9 +76,21 @@ class GigMatchmakerAgent(BaseAgent):
         self.log(
             step="Gig Scanning",
             file_used="gig_matchmaker/agent.py",
-            message="Scanning Upwork RSS and remote engineering feeds for high-budget Python contracts...",
+            message="Scanning remote job boards to intercept hiring budgets (Hiring Hijacker)...",
             level="INFO"
         )
+
+        try:
+            import subprocess
+            import sys
+
+            # Use the same python executable to run the real OSINT script
+            script_path = os.path.join("scripts", "osint_hiring_hijacker.py")
+            if os.path.exists(script_path):
+                self.log(step="OSINT Module", file_used=script_path, message="Executing real OSINT Hiring Hijacker...", level="INFO")
+                subprocess.run([sys.executable, script_path], cwd=os.getcwd(), capture_output=True, text=True, timeout=30)
+        except Exception as e:
+            self.log(step="OSINT Error", file_used="gig_matchmaker/agent.py", message=str(e), level="ERROR")
 
         gigs = self.get_gigs()
         self.stats["gigs_scanned"] = len(gigs) * 15
@@ -91,7 +103,7 @@ class GigMatchmakerAgent(BaseAgent):
         )
 
         return {
-            "status": "Gig Matchmaker Monitor Cycle Completed (No Action Taken)",
+            "status": "Gig Matchmaker OSINT Cycle Completed",
             "tracked_count": len(gigs)
         }
 

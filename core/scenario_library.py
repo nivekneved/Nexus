@@ -1,5 +1,5 @@
-"""
-Nexus Workforce Engine — Real Live Daily Scenarios Library
+﻿"""
+Nexus Workforce Engine â€” Real Live Daily Scenarios Library
 =============================================================================
 Contains at least 25 real, live, daily operational scenarios for each of the
 5 core user types:
@@ -15,13 +15,13 @@ Total: 125 production-ready scenarios.
 from typing import Dict, Any, List, Optional
 
 DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     # 1. COMMS USER TYPE (25 Daily Real-World Scenarios)
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     "comms": [
         {
             "id": "comms_01",
-            "title": "⚡ VIP Client Inquiry Rapid Response (<90s)",
+            "title": "âš¡ VIP Client Inquiry Rapid Response (<90s)",
             "category": "VIP Support",
             "urgency": "Urgent",
             "platform": "email_whatsapp",
@@ -34,7 +34,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Dear Partner,\n\n"
                 "Thank you for contacting the Nexus Executive Desk. We have received your high-priority inquiry.\n\n"
-                "Our autonomous monitoring agents and Principal Architect (Deven Pawaray) have already reviewed the telemetry. "
+                "Our autonomous monitoring agents and Principal Architect (Kingsley Vance Maurya) have already reviewed the telemetry. "
                 "Remediation is actively underway, and our engineering team will provide a formal resolution memo within 45 minutes.\n\n"
                 "For urgent direct phone escalation: +230 58169420.\n\n"
                 "Sincerely,\nNexus Executive Communications Desk"
@@ -44,7 +44,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_02",
-            "title": "📧 Cold B2B Lead Follow-Up — Touch 2 Value Add",
+            "title": "ðŸ“§ Cold B2B Lead Follow-Up â€” Touch 2 Value Add",
             "category": "Sales Outreach",
             "urgency": "High",
             "platform": "email_whatsapp",
@@ -60,14 +60,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Rather than pitching software, I put together a 3-point workflow audit of how hospitality and clinic operators in Mauritius "
                 "are reclaiming 15+ hours weekly by replacing manual WhatsApp booking replies with self-hosted AI.\n\n"
                 "Would it be helpful if I sent over the 2-minute Loom teardown? No strings attached.\n\n"
-                "Best regards,\nDeven Pawaray\nFounder, Nexus AI (+230 58169420)"
+                "Best regards,\nKingsley Vance Maurya\nFounder, Nexus AI (+230 58169420)"
             ),
             "callouts": ["Zero Sales Fluff", "Personalized Teardown Hook", "Mauritius DPA Compliant"],
             "cta_label": "Send Touch 2 Follow-Up"
         },
         {
             "id": "comms_03",
-            "title": "🛡️ Scheduled Maintenance & Zero-Downtime Notice",
+            "title": "ðŸ›¡ï¸ Scheduled Maintenance & Zero-Downtime Notice",
             "category": "System Comms",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -82,8 +82,8 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "As part of our commitment to sovereign data integrity and 99.9% uptime, Nexus will conduct a scheduled 15-minute maintenance window "
                 "tonight at 02:00 AM MUT (Mauritius Time).\n\n"
                 "What to expect:\n"
-                "• All client web portals and WhatsApp booking bots will remain fully operational via failover hot-standby.\n"
-                "• Security patches and database WAL checkpoints will be applied automatically.\n\n"
+                "â€¢ All client web portals and WhatsApp booking bots will remain fully operational via failover hot-standby.\n"
+                "â€¢ Security patches and database WAL checkpoints will be applied automatically.\n\n"
                 "No action is required on your part. Thank you for partnering with Nexus AI."
             ),
             "callouts": ["Failover Standby Active", "Zero Downtime Window", "2:00 AM MUT Schedule"],
@@ -91,7 +91,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_04",
-            "title": "🚨 Security Incident All-Clear Memo",
+            "title": "ðŸš¨ Security Incident All-Clear Memo",
             "category": "Incident Response",
             "urgency": "High",
             "platform": "email_whatsapp",
@@ -106,9 +106,9 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Nexus Autopilot Shields detected and neutralized an anomalous IP probing pattern at 03:14 MUT. "
                 "Our automated rate-limiting jail immediately blacklisted the offending CIDR block.\n\n"
                 "Audit Summary:\n"
-                "✔ Zero data compromise or exfiltration.\n"
-                "✔ All cryptographic SQLite hashes verified against origin ledger.\n"
-                "✔ 25/25 enterprise safeguards verified online and fully compliant with Mauritius DPA 2017.\n\n"
+                "âœ” Zero data compromise or exfiltration.\n"
+                "âœ” All cryptographic SQLite hashes verified against origin ledger.\n"
+                "âœ” 25/25 enterprise safeguards verified online and fully compliant with Mauritius DPA 2017.\n\n"
                 "Full security audit logs are archived in your private compliance vault."
             ),
             "callouts": ["Zero Data Leakage", "Automated IP Blacklist", "Mauritius DPA 2017 Verified"],
@@ -116,7 +116,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_05",
-            "title": "🤝 Client Onboarding & Sovereign Setup Welcome",
+            "title": "ðŸ¤ Client Onboarding & Sovereign Setup Welcome",
             "category": "Onboarding",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -132,7 +132,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Your Quick Start Essentials:\n"
                 "1. Private Executive Portal: [Portal URL]\n"
                 "2. Direct WhatsApp Dispatch Line: +230 58169420\n"
-                "3. Dedicated Account Lead: Deven Pawaray\n\n"
+                "3. Dedicated Account Lead: Kingsley Vance Maurya\n\n"
                 "We have scheduled your 15-minute calibration check-in for tomorrow at 10:00 AM. We look forward to scaling your business."
             ),
             "callouts": ["Turnkey Portal Credentials", "1-on-1 Calibration Call", "Dedicated Fleet Online"],
@@ -140,7 +140,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_06",
-            "title": "📱 Polite WhatsApp Payment Reminder (MCB Juice)",
+            "title": "ðŸ“± Polite WhatsApp Payment Reminder (MCB Juice)",
             "category": "Billing Comms",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -151,20 +151,20 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "target_audience": "Local Clients with Outstanding Invoices",
             "description": "Courteous WhatsApp reminder with 1-click Juice instructions to clear overdue balance smoothly.",
             "body": (
-                "Bonjour [Client Name] 👋,\n\n"
-                "J'espère que vous passez une excellente journée !\n\n"
-                "Ceci est un petit rappel concernant la facture *[Invoice ID]* d'un montant de *Rs [Amount] MUR* arrivée à échéance.\n\n"
-                "Pour régler instantanément via MCB Juice :\n"
-                "📱 Numéro : *58169420* (Deven Pawaray)\n"
-                "📝 Référence : *[Invoice ID]*\n\n"
-                "Dès réception, votre reçu officiel avec signature cryptographique sera généré automatiquement. Merci pour votre collaboration !"
+                "Bonjour [Client Name] ðŸ‘‹,\n\n"
+                "J'espÃ¨re que vous passez une excellente journÃ©e !\n\n"
+                "Ceci est un petit rappel concernant la facture *[Invoice ID]* d'un montant de *Rs [Amount] MUR* arrivÃ©e Ã  Ã©chÃ©ance.\n\n"
+                "Pour rÃ©gler instantanÃ©ment via MCB Juice :\n"
+                "ðŸ“± NumÃ©ro : *58169420* (Kingsley Vance Maurya)\n"
+                "ðŸ“ RÃ©fÃ©rence : *[Invoice ID]*\n\n"
+                "DÃ¨s rÃ©ception, votre reÃ§u officiel avec signature cryptographique sera gÃ©nÃ©rÃ© automatiquement. Merci pour votre collaboration !"
             ),
             "callouts": ["MCB Juice Ready (+230 58169420)", "1-Click Direct Settlement", "Automated Official Receipt"],
             "cta_label": "Dispatch WhatsApp Reminder"
         },
         {
             "id": "comms_07",
-            "title": "📈 Quarterly Retainer Renewal & Expansion Proposal",
+            "title": "ðŸ“ˆ Quarterly Retainer Renewal & Expansion Proposal",
             "category": "Client Growth",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -177,9 +177,9 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Dear [Client Executive],\n\n"
                 "Over the past 90 days, your Nexus autonomous fleet has achieved:\n"
-                "• 412 customer booking inquiries processed automatically.\n"
-                "• Average response latency cut from 3.5 hours to 42 seconds.\n"
-                "• Estimated operational savings: Rs 85,000 MUR in staff overtime.\n\n"
+                "â€¢ 412 customer booking inquiries processed automatically.\n"
+                "â€¢ Average response latency cut from 3.5 hours to 42 seconds.\n"
+                "â€¢ Estimated operational savings: Rs 85,000 MUR in staff overtime.\n\n"
                 "Attached is our renewal manifest for Q4, locked at your grandfathered rate of Rs 45,000/mo. "
                 "Shall we schedule a brief 10-minute touchpoint this Thursday to finalize next quarter's roadmap?"
             ),
@@ -188,7 +188,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_08",
-            "title": "📅 Meeting Reschedule with Self-Service Link",
+            "title": "ðŸ“… Meeting Reschedule with Self-Service Link",
             "category": "Coordination",
             "urgency": "Low",
             "platform": "email_whatsapp",
@@ -205,14 +205,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "1. Tomorrow (Tuesday) at 10:30 AM MUT\n"
                 "2. Tomorrow (Tuesday) at 02:00 PM MUT\n"
                 "3. Wednesday at 11:00 AM MUT\n\n"
-                "Let me know which suits you best, or reply with your preferred time.\n\nWarm regards,\nDeven Pawaray"
+                "Let me know which suits you best, or reply with your preferred time.\n\nWarm regards,\nKingsley Vance Maurya"
             ),
             "callouts": ["3 Frictionless Options", "Courteous Tone", "Zero Back-and-Forth"],
             "cta_label": "Send Reschedule Request"
         },
         {
             "id": "comms_09",
-            "title": "🧘 Inbound Complaint De-escalation & Action Plan",
+            "title": "ðŸ§˜ Inbound Complaint De-escalation & Action Plan",
             "category": "Client Care",
             "urgency": "Urgent",
             "platform": "email_whatsapp",
@@ -236,7 +236,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_10",
-            "title": "📋 Contractor Scope & Deliverable Handover Briefing",
+            "title": "ðŸ“‹ Contractor Scope & Deliverable Handover Briefing",
             "category": "Operations Comms",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -250,9 +250,9 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Hi [Vendor/Developer Name],\n\n"
                 "Please find below the confirmed scope for Milestone 2:\n\n"
                 "Deliverables:\n"
-                "• Integration of Base L2 Treasury Webhook listener in Python FastAPI.\n"
-                "• Unit tests passing with >90% coverage.\n"
-                "• Zero external unvetted dependencies.\n\n"
+                "â€¢ Integration of Base L2 Treasury Webhook listener in Python FastAPI.\n"
+                "â€¢ Unit tests passing with >90% coverage.\n"
+                "â€¢ Zero external unvetted dependencies.\n\n"
                 "Compensation: $350 USD (or Rs 16,000 MUR) payable immediately upon SHA-256 verification and merge into main.\n\n"
                 "Target Delivery: Friday 18:00 MUT."
             ),
@@ -261,7 +261,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_11",
-            "title": "🎉 Webinar / Live Masterclass Exclusive Invitation",
+            "title": "ðŸŽ‰ Webinar / Live Masterclass Exclusive Invitation",
             "category": "Marketing Comms",
             "urgency": "Low",
             "platform": "email_whatsapp",
@@ -276,14 +276,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "On Thursday at 14:00 MUT, I am hosting a private 30-minute live demonstration for 12 selected business founders in Mauritius:\n\n"
                 "Topic: 'Replacing $50/mo SaaS Subscriptions with Sovereign Local AI Employees.'\n\n"
                 "We will show live screen shares of autonomous WhatsApp booking bots, instant MCB Juice reconciliation, and local LLM document triage.\n\n"
-                "Reserve your seat (free for verified founders): [Link]\n\nHope to see you there!\nDeven Pawaray"
+                "Reserve your seat (free for verified founders): [Link]\n\nHope to see you there!\nKingsley Vance Maurya"
             ),
             "callouts": ["Capped at 12 Founders", "Live Screen Demonstrations", "Free Value Proposition"],
             "cta_label": "Send Masterclass Invite"
         },
         {
             "id": "comms_12",
-            "title": "📰 Local Tech Press & Media Pitch",
+            "title": "ðŸ“° Local Tech Press & Media Pitch",
             "category": "PR Comms",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -297,7 +297,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Dear [Journalist Name],\n\n"
                 "While global tech firms pour billions into cloud subscriptions, a Mauritian startup based in Cybercity Ebene has developed "
                 "an autonomous local AI workforce capable of running entirely on sovereign hardware under Mauritius Data Protection Act 2017 standards.\n\n"
-                "The founder, Deven Pawaray, has deployed 18 autonomous agents that triage emails, manage client accounts, and process instant local currency (MCB Juice) transactions.\n\n"
+                "The founder, Kingsley Vance Maurya, has deployed 18 autonomous agents that triage emails, manage client accounts, and process instant local currency (MCB Juice) transactions.\n\n"
                 "Would you be interested in an exclusive interview on how Mauritius can become a regional hub for sovereign AI?"
             ),
             "callouts": ["Local Cybercity Ebene Angle", "Data Sovereignty Focus", "Exclusive Interview Offer"],
@@ -305,7 +305,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_13",
-            "title": "🛍️ WhatsApp Instant Order & Delivery Confirmation",
+            "title": "ðŸ›ï¸ WhatsApp Instant Order & Delivery Confirmation",
             "category": "Commerce Comms",
             "urgency": "Urgent",
             "platform": "email_whatsapp",
@@ -316,11 +316,11 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "target_audience": "Digital Vending Machine Buyers",
             "description": "Instant 1-second delivery message with direct script download link, license key, and MCB Juice receipt.",
             "body": (
-                "Thank you for your purchase! 🚀\n\n"
+                "Thank you for your purchase! ðŸš€\n\n"
                 "Your standalone utility *[Product Name]* has been generated and verified.\n\n"
-                "📦 Download Link: [Direct Link]\n"
-                "🔑 Commercial License Key: `NX-2026-[HASH]`\n"
-                "⚡ Execution: Single-file Python script, zero cloud subscriptions required.\n\n"
+                "ðŸ“¦ Download Link: [Direct Link]\n"
+                "ðŸ”‘ Commercial License Key: `NX-2026-[HASH]`\n"
+                "âš¡ Execution: Single-file Python script, zero cloud subscriptions required.\n\n"
                 "Questions or feedback? Reply directly to this WhatsApp line. Enjoy your autonomous tool!"
             ),
             "callouts": ["Instant Delivery < 1s", "Commercial License Stamped", "Single-File Python Script"],
@@ -328,7 +328,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_14",
-            "title": "🌟 Client Net Promoter Score (NPS) & Review Request",
+            "title": "ðŸŒŸ Client Net Promoter Score (NPS) & Review Request",
             "category": "Customer Success",
             "urgency": "Low",
             "platform": "email_whatsapp",
@@ -343,14 +343,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "It has been one month since we launched your Nexus autonomous system.\n\n"
                 "On a scale of 1 to 10, how likely are you to recommend Nexus AI to another founder or business owner in your network?\n\n"
                 "[1 - Poor]  [5 - Average]  [10 - Absolute Game Changer]\n\n"
-                "If you have 30 seconds, reply with your biggest win so far — your feedback directly shapes our weekly agent updates.\n\nWarm regards,\nDeven"
+                "If you have 30 seconds, reply with your biggest win so far â€” your feedback directly shapes our weekly agent updates.\n\nWarm regards,\nDeven"
             ),
             "callouts": ["1-Click Effortless Reply", "Identifies Referral Champions", "Continuous Improvement"],
             "cta_label": "Send NPS Request"
         },
         {
             "id": "comms_15",
-            "title": "🤝 Referral Partnership & Commission Incentive",
+            "title": "ðŸ¤ Referral Partnership & Commission Incentive",
             "category": "Partner Growth",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -364,9 +364,9 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Hi [Partner Name],\n\n"
                 "Many of your existing web development or accounting clients are likely looking for AI automation, WhatsApp bots, and CRM triage.\n\n"
                 "Instead of building it from scratch, Nexus offers a white-label partner program:\n"
-                "• You refer the client or bundle our AI workforce.\n"
-                "• We handle 100% of engineering, hosting, and 24/7 maintenance.\n"
-                "• You receive a guaranteed 20% recurring monthly commission (Rs 9,000 MUR/mo per client).\n\n"
+                "â€¢ You refer the client or bundle our AI workforce.\n"
+                "â€¢ We handle 100% of engineering, hosting, and 24/7 maintenance.\n"
+                "â€¢ You receive a guaranteed 20% recurring monthly commission (Rs 9,000 MUR/mo per client).\n\n"
                 "Are you open to a quick 5-minute phone chat to review the partner agreement?"
             ),
             "callouts": ["20% Lifetime Recurring Cut", "Zero Engineering Overhead", "White-Label Ready"],
@@ -374,7 +374,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_16",
-            "title": "📊 Quarterly Business Review (QBR) Calendar Invitation",
+            "title": "ðŸ“Š Quarterly Business Review (QBR) Calendar Invitation",
             "category": "Client Retention",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -398,7 +398,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_17",
-            "title": "📜 SLA Guarantee Certificate & Quality Assurance",
+            "title": "ðŸ“œ SLA Guarantee Certificate & Quality Assurance",
             "category": "Compliance Comms",
             "urgency": "Low",
             "platform": "email_whatsapp",
@@ -412,17 +412,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Attention: Office of Compliance and Information Security\n\n"
                 "Please find attached your formal Nexus Service Level Agreement (SLA) Certificate for the 2026 fiscal year.\n\n"
                 "Key Covenant Highlights:\n"
-                "✔ 99.9% Portal & API Availability.\n"
-                "✔ Sub-90-second response latency on priority webhooks.\n"
-                "✔ 100% Data Residence in Sovereign Local Storage (Zero unauthorized foreign cloud mirroring).\n\n"
-                "Signed cryptographically by Deven Pawaray, Founder & Principal Architect."
+                "âœ” 99.9% Portal & API Availability.\n"
+                "âœ” Sub-90-second response latency on priority webhooks.\n"
+                "âœ” 100% Data Residence in Sovereign Local Storage (Zero unauthorized foreign cloud mirroring).\n\n"
+                "Signed cryptographically by Kingsley Vance Maurya, Founder & Principal Architect."
             ),
             "callouts": ["99.9% Uptime Commitment", "Zero Foreign Mirroring", "Cryptographically Stamped"],
             "cta_label": "Issue SLA Certificate"
         },
         {
             "id": "comms_18",
-            "title": "🚀 Cross-Sell Pitch: Autonomous WhatsApp Add-on",
+            "title": "ðŸš€ Cross-Sell Pitch: Autonomous WhatsApp Add-on",
             "category": "Account Expansion",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -444,7 +444,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_19",
-            "title": "🔒 Non-Disclosure Agreement (NDA) & Data Privacy Packet",
+            "title": "ðŸ”’ Non-Disclosure Agreement (NDA) & Data Privacy Packet",
             "category": "Legal Comms",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -466,7 +466,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_20",
-            "title": "🎄 Seasonal Founder Message with Retainer Bonus",
+            "title": "ðŸŽ„ Seasonal Founder Message with Retainer Bonus",
             "category": "Relationship Comms",
             "urgency": "Low",
             "platform": "email_whatsapp",
@@ -481,14 +481,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "As the year draws to a close, I wanted to personally thank you for trusting Nexus AI as your autonomous systems partner.\n\n"
                 "As our token of appreciation, we have credited your account with a complimentary *Custom Python Automation Sprint* "
                 "(valued at Rs 15,000 MUR), valid for any new workflow you want automated in Q1.\n\n"
-                "Wishing you, your family, and your team a restful holiday season and an extraordinary year ahead!\n\nWarmest regards,\nDeven Pawaray"
+                "Wishing you, your family, and your team a restful holiday season and an extraordinary year ahead!\n\nWarmest regards,\nKingsley Vance Maurya"
             ),
             "callouts": ["Personal Touch from Founder", "Rs 15,000 Free Automation Sprint", "Builds Long-Term Loyalty"],
             "cta_label": "Send Seasonal Greeting"
         },
         {
             "id": "comms_21",
-            "title": "👋 Respectful 'Breakup' Email for Ghosted Prospects",
+            "title": "ðŸ‘‹ Respectful 'Breakup' Email for Ghosted Prospects",
             "category": "Sales Outreach",
             "urgency": "Low",
             "platform": "email_whatsapp",
@@ -501,16 +501,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Hi [First Name],\n\n"
                 "I haven't heard back from you, so I assume that automating [Company Name]'s operations is no longer a priority for this quarter.\n\n"
-                "Totally understand — priorities shift and timing is everything.\n\n"
+                "Totally understand â€” priorities shift and timing is everything.\n\n"
                 "I am archiving your file on our end so I don't clutter your inbox. "
-                "If you ever decide to revisit replacing manual admin with autonomous AI down the road, you know where to find me.\n\nBest of luck with scaling!\nDeven Pawaray"
+                "If you ever decide to revisit replacing manual admin with autonomous AI down the road, you know where to find me.\n\nBest of luck with scaling!\nKingsley Vance Maurya"
             ),
             "callouts": ["30%+ Re-engagement Rate", "Removes Sales Pressure", "Professional & Clean"],
             "cta_label": "Send Breakup Email"
         },
         {
             "id": "comms_22",
-            "title": "🛠️ Technical Support Post-Mortem & Fix Notice",
+            "title": "ðŸ› ï¸ Technical Support Post-Mortem & Fix Notice",
             "category": "Technical Comms",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -524,10 +524,10 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "To: [Client IT Lead]\n\n"
                 "We have closed Support Ticket #4812 (WhatsApp webhook timeout during network switch).\n\n"
                 "Root Cause Analysis:\n"
-                "• A transient DNS resolution delay at our upstream gateway caused a 4-second timeout.\n"
+                "â€¢ A transient DNS resolution delay at our upstream gateway caused a 4-second timeout.\n"
                 "Remediation Applied:\n"
-                "• Implemented local SQLite retry buffer with 3-second exponential backoff.\n"
-                "• Zero messages dropped; all queued payloads cleared successfully.\n\n"
+                "â€¢ Implemented local SQLite retry buffer with 3-second exponential backoff.\n"
+                "â€¢ Zero messages dropped; all queued payloads cleared successfully.\n\n"
                 "All systems are operating within optimal latency thresholds (<250ms)."
             ),
             "callouts": ["Complete Root Cause Transparency", "Exponential Backoff Shield", "Verified <250ms Latency"],
@@ -535,7 +535,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_23",
-            "title": "👔 Executive C-Level Introduction & Strategic Alignment",
+            "title": "ðŸ‘” Executive C-Level Introduction & Strategic Alignment",
             "category": "Executive Comms",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -548,15 +548,15 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Dear [Managing Director Name],\n\n"
                 "I am reaching out to share how leadership teams across Mauritius are navigating the transition to autonomous AI.\n\n"
-                "Nexus provides turnkey, self-hosted AI workforces that operate within your own sovereign network — eliminating expensive SaaS seats while automating high-friction workflows like invoice chasing, patient/guest triage, and compliance auditing.\n\n"
-                "I would welcome the opportunity to arrange an executive briefing at your convenience.\n\nRespectfully,\nDeven Pawaray\nFounder, Nexus AI"
+                "Nexus provides turnkey, self-hosted AI workforces that operate within your own sovereign network â€” eliminating expensive SaaS seats while automating high-friction workflows like invoice chasing, patient/guest triage, and compliance auditing.\n\n"
+                "I would welcome the opportunity to arrange an executive briefing at your convenience.\n\nRespectfully,\nKingsley Vance Maurya\nFounder, Nexus AI"
             ),
             "callouts": ["C-Suite Strategic Tone", "Margin Expansion Focus", "Sovereign Infrastructure"],
             "cta_label": "Send Executive Introduction"
         },
         {
             "id": "comms_24",
-            "title": "🧾 Supplier Invoice Query & Discrepancy Clarification",
+            "title": "ðŸ§¾ Supplier Invoice Query & Discrepancy Clarification",
             "category": "Vendor Relations",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -569,9 +569,9 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Attention: Accounts Receivable\n\n"
                 "During our automated ledger audit of Invoice #9021 (dated 2026-09-20), our system flagged a discrepancy:\n\n"
-                "• Invoiced Amount: $214.50 USD\n"
-                "• Approved Service Agreement Rate: $180.00 USD\n"
-                "• Unreconciled Delta: $34.50 USD (labeled 'Compute Overage')\n\n"
+                "â€¢ Invoiced Amount: $214.50 USD\n"
+                "â€¢ Approved Service Agreement Rate: $180.00 USD\n"
+                "â€¢ Unreconciled Delta: $34.50 USD (labeled 'Compute Overage')\n\n"
                 "Our autonomous monitoring telemetry indicates our cluster remained strictly within tier limits. "
                 "Kindly review and provide a credit memo or amended invoice."
             ),
@@ -580,7 +580,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "comms_25",
-            "title": "🚨 Emergency WhatsApp Alert to Founder (Deven Pawaray)",
+            "title": "ðŸš¨ Emergency WhatsApp Alert to Founder (Kingsley Vance Maurya)",
             "category": "Internal Escalation",
             "urgency": "Urgent",
             "platform": "email_whatsapp",
@@ -588,14 +588,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "headline": "URGENT SYSTEM ESCALATION: Immediate Attention Required",
             "badge": "FOUNDER DIRECT ALERT",
             "gradient": "linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%)",
-            "target_audience": "Sir Deven Pawaray (+230 58169420)",
+            "target_audience": "Sir Kingsley Vance Maurya (+230 58169420)",
             "description": "High-priority direct WhatsApp ping dispatched by autonomous watchdog when human intervention is mandatory.",
             "body": (
-                "🚨 *NEXUS AUTONOMOUS ESCALATION — SIR DEVEN*\n\n"
+                "ðŸš¨ *NEXUS AUTONOMOUS ESCALATION â€” SIR DEVEN*\n\n"
                 "Watchdog Level 1 Alert triggered at [Timestamp]:\n"
-                "• An unexpected anomaly requires your direct cryptographic authorization.\n"
-                "• Safeguard: Spending cap protection or high-value invoice confirmation.\n"
-                "• Immediate Action: Please review and sign off via Executive Cockpit:\n"
+                "â€¢ An unexpected anomaly requires your direct cryptographic authorization.\n"
+                "â€¢ Safeguard: Spending cap protection or high-value invoice confirmation.\n"
+                "â€¢ Immediate Action: Please review and sign off via Executive Cockpit:\n"
                 "http://127.0.0.1:8000\n\n"
                 "System standing by in failsafe state."
             ),
@@ -604,13 +604,13 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         }
     ],
 
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     # 2. OPERATIONS USER TYPE (25 Daily Real-World Scenarios)
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     "operations": [
         {
             "id": "ops_01",
-            "title": "🛡️ Automated Daily SQLite WAL Backup & SHA-256 Stamp",
+            "title": "ðŸ›¡ï¸ Automated Daily SQLite WAL Backup & SHA-256 Stamp",
             "category": "Data Integrity",
             "urgency": "High",
             "platform": "system_ops",
@@ -632,7 +632,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "ops_02",
-            "title": "💰 Cloud Compute Budget Watchdog ($180 Hard Cap Guard)",
+            "title": "ðŸ’° Cloud Compute Budget Watchdog ($180 Hard Cap Guard)",
             "category": "FinOps Guard",
             "urgency": "Urgent",
             "platform": "system_ops",
@@ -644,17 +644,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Inspects current monthly cloud spend across APIs and throttles background batches if spend nears threshold.",
             "body": (
                 "FinOps Budget Watchdog Sweep:\n"
-                "• Monthly Budget Cap: $180.00 USD\n"
-                "• Current Month-to-Date Accrual: $14.20 USD\n"
-                "• Status: 100% within safe operational corridor (<10% utilized).\n"
-                "• Action: Free tier local fallback enabled for batch embeddings."
+                "â€¢ Monthly Budget Cap: $180.00 USD\n"
+                "â€¢ Current Month-to-Date Accrual: $14.20 USD\n"
+                "â€¢ Status: 100% within safe operational corridor (<10% utilized).\n"
+                "â€¢ Action: Free tier local fallback enabled for batch embeddings."
             ),
             "callouts": ["Budget Cap: $180.00", "Current Run Rate: Safe", "Auto-Throttle Armed"],
             "cta_label": "Run Budget Audit"
         },
         {
             "id": "ops_03",
-            "title": "🧹 Orphaned Zombie Process Sweep & RAM Reclamation",
+            "title": "ðŸ§¹ Orphaned Zombie Process Sweep & RAM Reclamation",
             "category": "Resource Health",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -666,17 +666,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Terminates stale child worker threads and frees dormant memory back to host OS.",
             "body": (
                 "Scanning Active Process Tree:\n"
-                "• Inspected 24 worker subprocesses.\n"
-                "• Identified 2 orphaned Python background threads (>2h idle).\n"
-                "• Safely terminated PID 18492 and PID 19024.\n"
-                "• Reclaimed 340 MB host RAM."
+                "â€¢ Inspected 24 worker subprocesses.\n"
+                "â€¢ Identified 2 orphaned Python background threads (>2h idle).\n"
+                "â€¢ Safely terminated PID 18492 and PID 19024.\n"
+                "â€¢ Reclaimed 340 MB host RAM."
             ),
             "callouts": ["340 MB Reclaimed", "Zero Impact on Active Tasks", "Process Tree Clean"],
             "cta_label": "Reclaim System RAM"
         },
         {
             "id": "ops_04",
-            "title": "🔐 SSL / TLS Certificate Expiry Radar & Renewal",
+            "title": "ðŸ” SSL / TLS Certificate Expiry Radar & Renewal",
             "category": "Security Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -688,17 +688,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Verifies HTTPS certificate expiration date on production domain and renews automated ACME certificates.",
             "body": (
                 "SSL Certificate Audit Results:\n"
-                "• Target: nexus-workforce.vercel.app & internal reverse proxies.\n"
-                "• Certificate Issuer: Let's Encrypt / Vercel Edge Authority.\n"
-                "• Expiration: 78 days remaining.\n"
-                "• Grade: A+ (HSTS enabled, TLS 1.3 enforced)."
+                "â€¢ Target: nexus-workforce.vercel.app & internal reverse proxies.\n"
+                "â€¢ Certificate Issuer: Let's Encrypt / Vercel Edge Authority.\n"
+                "â€¢ Expiration: 78 days remaining.\n"
+                "â€¢ Grade: A+ (HSTS enabled, TLS 1.3 enforced)."
             ),
             "callouts": ["78 Days Remaining", "Grade A+ Security", "Auto-Renewal Armed"],
             "cta_label": "Audit SSL Certificates"
         },
         {
             "id": "ops_05",
-            "title": "💾 Local Storage Threshold Monitor (>85% Disk Alert)",
+            "title": "ðŸ’¾ Local Storage Threshold Monitor (>85% Disk Alert)",
             "category": "Storage Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -710,17 +710,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Checks primary drive space, rotating legacy debug logs to ensure free buffer remains above safety limit.",
             "body": (
                 "Storage Utilization Report:\n"
-                "• Drive C: Total 475 GB | Free 142 GB (29.8% Free Capacity).\n"
-                "• Log Directory: 24.2 MB across 18 files.\n"
-                "• Pruning Action: Compressed 14 logs older than 7 days into .gz archives.\n"
-                "• Status: Green / Healthy."
+                "â€¢ Drive C: Total 475 GB | Free 142 GB (29.8% Free Capacity).\n"
+                "â€¢ Log Directory: 24.2 MB across 18 files.\n"
+                "â€¢ Pruning Action: Compressed 14 logs older than 7 days into .gz archives.\n"
+                "â€¢ Status: Green / Healthy."
             ),
             "callouts": ["142 GB Available Buffer", "Old Logs Compressed", "Drive Health: Optimal"],
             "cta_label": "Run Storage Health Check"
         },
         {
             "id": "ops_06",
-            "title": "🛡️ 25 Enterprise Safeguards Verification Sweep",
+            "title": "ðŸ›¡ï¸ 25 Enterprise Safeguards Verification Sweep",
             "category": "Safeguards",
             "urgency": "Urgent",
             "platform": "system_ops",
@@ -732,11 +732,11 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Audits all 25 active system safeguards including OTP immunity, spending lock, and directory isolation.",
             "body": (
                 "Safeguard Matrix Audit:\n"
-                "✔ 1. OTP Bypass Immunity: Active\n"
-                "✔ 2. Path Traversal Shield: Active\n"
-                "✔ 3. Rate-Limiting Jail: Active\n"
-                "✔ 4. Cloud Spend Cap ($180): Active\n"
-                "✔ 5. MCB Juice Replay Shield: Active\n"
+                "âœ” 1. OTP Bypass Immunity: Active\n"
+                "âœ” 2. Path Traversal Shield: Active\n"
+                "âœ” 3. Rate-Limiting Jail: Active\n"
+                "âœ” 4. Cloud Spend Cap ($180): Active\n"
+                "âœ” 5. MCB Juice Replay Shield: Active\n"
                 "... All 25 safeguards confirmed operational with 0 exceptions."
             ),
             "callouts": ["25/25 Shields Active", "Zero Vulnerabilities", "Mauritius DPA Compliant"],
@@ -744,7 +744,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "ops_07",
-            "title": "🚫 Rate-Limiting & DDOS IP Jail Enforcement",
+            "title": "ðŸš« Rate-Limiting & DDOS IP Jail Enforcement",
             "category": "Network Defense",
             "urgency": "High",
             "platform": "system_ops",
@@ -756,17 +756,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Scans inbound request logs for brute-force patterns and writes offenders to the temporary firewall blocklist.",
             "body": (
                 "Firewall Scrubbing Log:\n"
-                "• Inbound Requests Last 60m: 1,482\n"
-                "• Flagged Abnormal Probes: 4 requests to /wp-admin and /.env\n"
-                "• Action: Added origin IPs (185.220.101.4, 91.240.118.2) to 24-hour drop jail.\n"
-                "• Zero legitimate client impact."
+                "â€¢ Inbound Requests Last 60m: 1,482\n"
+                "â€¢ Flagged Abnormal Probes: 4 requests to /wp-admin and /.env\n"
+                "â€¢ Action: Added origin IPs (185.220.101.4, 91.240.118.2) to 24-hour drop jail.\n"
+                "â€¢ Zero legitimate client impact."
             ),
             "callouts": ["4 Attack Probes Dropped", "Automated IP Jail", "Zero False Positives"],
             "cta_label": "Enforce IP Jail"
         },
         {
             "id": "ops_08",
-            "title": "🌿 Git Repository Health & Clean Working Tree Check",
+            "title": "ðŸŒ¿ Git Repository Health & Clean Working Tree Check",
             "category": "Codebase Ops",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -778,17 +778,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Verifies repo status, ensuring no uncommitted secrets or orphaned debug scripts linger in production branch.",
             "body": (
                 "Git Repository Audit:\n"
-                "• Branch: main (synchronized with origin/main).\n"
-                "• Staged Files: 0\n"
-                "• Secrets Scan: Scanned all files against patterns (regex: API_KEY, SECRET). Clean.\n"
-                "• Working Tree: Ready for clean automated deployment."
+                "â€¢ Branch: main (synchronized with origin/main).\n"
+                "â€¢ Staged Files: 0\n"
+                "â€¢ Secrets Scan: Scanned all files against patterns (regex: API_KEY, SECRET). Clean.\n"
+                "â€¢ Working Tree: Ready for clean automated deployment."
             ),
             "callouts": ["Zero Leaked Secrets", "Main Branch Synced", "Clean State"],
             "cta_label": "Verify Git Health"
         },
         {
             "id": "ops_09",
-            "title": "🔄 Failed Background Task Dead-Letter Queue Flush",
+            "title": "ðŸ”„ Failed Background Task Dead-Letter Queue Flush",
             "category": "Queue Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -800,17 +800,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Reviews tasks that failed during network dropouts, parses error stack traces, and re-executes cleanly.",
             "body": (
                 "Dead-Letter Queue Inspection:\n"
-                "• Tasks Evaluated: 3 queued social broadcasts.\n"
-                "• Root Cause: Transient HTTP 503 from external social gateway.\n"
-                "• Retry Result: 3/3 dispatched successfully on retry cycle 2.\n"
-                "• DLQ Buffer: 0 pending items."
+                "â€¢ Tasks Evaluated: 3 queued social broadcasts.\n"
+                "â€¢ Root Cause: Transient HTTP 503 from external social gateway.\n"
+                "â€¢ Retry Result: 3/3 dispatched successfully on retry cycle 2.\n"
+                "â€¢ DLQ Buffer: 0 pending items."
             ),
             "callouts": ["3/3 Tasks Recovered", "Zero Dropped Payloads", "Clean DLQ Buffer"],
             "cta_label": "Flush & Retry DLQ"
         },
         {
             "id": "ops_10",
-            "title": "🔍 Secret Key & .env Leakage Audit Across Workspace",
+            "title": "ðŸ” Secret Key & .env Leakage Audit Across Workspace",
             "category": "Secrets Ops",
             "urgency": "Urgent",
             "platform": "system_ops",
@@ -822,17 +822,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Scans all 400+ repository files for accidentally hardcoded tokens, passwords, or private encryption keys.",
             "body": (
                 "Credential Hygiene Scan:\n"
-                "• Files Scanned: 412 Python, JS, HTML, JSON files.\n"
-                "• High Entropy Strings Inspected: 1,840\n"
-                "• Findings: All production tokens strictly loaded via environment variables (.env).\n"
-                "• Verification: .gitignore properly protects sensitive data files."
+                "â€¢ Files Scanned: 412 Python, JS, HTML, JSON files.\n"
+                "â€¢ High Entropy Strings Inspected: 1,840\n"
+                "â€¢ Findings: All production tokens strictly loaded via environment variables (.env).\n"
+                "â€¢ Verification: .gitignore properly protects sensitive data files."
             ),
             "callouts": ["412 Files Verified", "Zero Hardcoded Secrets", "Strict .gitignore Shield"],
             "cta_label": "Scan for Secrets"
         },
         {
             "id": "ops_11",
-            "title": "⚡ High CPU / Thread Starvation Self-Healing Check",
+            "title": "âš¡ High CPU / Thread Starvation Self-Healing Check",
             "category": "Performance Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -844,17 +844,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Measures asyncio event loop lag to guarantee sub-millisecond response times for client API requests.",
             "body": (
                 "Event Loop Liveness Report:\n"
-                "• Event Loop Lag: 0.84 milliseconds (Standard: <10ms).\n"
-                "• CPU Load: 4.2% across 8 cores.\n"
-                "• Worker Status: Uvicorn master process fully responsive.\n"
-                "• Starvation Risk: Zero."
+                "â€¢ Event Loop Lag: 0.84 milliseconds (Standard: <10ms).\n"
+                "â€¢ CPU Load: 4.2% across 8 cores.\n"
+                "â€¢ Worker Status: Uvicorn master process fully responsive.\n"
+                "â€¢ Starvation Risk: Zero."
             ),
             "callouts": ["0.84ms Loop Latency", "CPU Load: 4.2%", "Zero Thread Starvation"],
             "cta_label": "Check Event Loop Liveness"
         },
         {
             "id": "ops_12",
-            "title": "📦 Python Dependency Vulnerability Sweep (pip-audit)",
+            "title": "ðŸ“¦ Python Dependency Vulnerability Sweep (pip-audit)",
             "category": "Dependency Ops",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -866,16 +866,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Scans installed packages against official PyPI vulnerability database for known CVEs.",
             "body": (
                 "Dependency Security Scan:\n"
-                "• Packages Evaluated: 34 installed libraries (FastAPI, Uvicorn, Pydantic, etc.).\n"
-                "• Vulnerabilities Found: 0 Known Vulnerabilities.\n"
-                "• Supply Chain Health: 100% Verified Clean."
+                "â€¢ Packages Evaluated: 34 installed libraries (FastAPI, Uvicorn, Pydantic, etc.).\n"
+                "â€¢ Vulnerabilities Found: 0 Known Vulnerabilities.\n"
+                "â€¢ Supply Chain Health: 100% Verified Clean."
             ),
             "callouts": ["34 Packages Audited", "0 Known CVEs", "Supply Chain Verified"],
             "cta_label": "Run Dependency Audit"
         },
         {
             "id": "ops_13",
-            "title": "⏱️ API Latency & 99th Percentile SLA Benchmark",
+            "title": "â±ï¸ API Latency & 99th Percentile SLA Benchmark",
             "category": "SLA Benchmark",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -887,17 +887,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Executes local benchmark across core endpoints (/api/status, /api/tasks, /api/finance/invoices).",
             "body": (
                 "Benchmark Telemetry Results:\n"
-                "• /api/status: 2.1 ms (p99: 4.8 ms)\n"
-                "• /api/finance/receivables: 6.4 ms (p99: 11.2 ms)\n"
-                "• /api/tasks/generate-sample: 18.2 ms (p99: 28.0 ms)\n"
-                "• SLA Compliance: 100% compliant with sub-100ms contract."
+                "â€¢ /api/status: 2.1 ms (p99: 4.8 ms)\n"
+                "â€¢ /api/finance/receivables: 6.4 ms (p99: 11.2 ms)\n"
+                "â€¢ /api/tasks/generate-sample: 18.2 ms (p99: 28.0 ms)\n"
+                "â€¢ SLA Compliance: 100% compliant with sub-100ms contract."
             ),
             "callouts": ["Sub-20ms Average Response", "p99 < 30ms", "Enterprise Grade"],
             "cta_label": "Run Latency Benchmark"
         },
         {
             "id": "ops_14",
-            "title": "🔗 Webhook HMAC Signature Security Validation",
+            "title": "ðŸ”— Webhook HMAC Signature Security Validation",
             "category": "Webhook Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -909,17 +909,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Tests incoming webhook parsers with synthetic replay packets to ensure forged payloads are strictly rejected.",
             "body": (
                 "Webhook Defense Simulation:\n"
-                "• Injected Test Payload with invalid HMAC SHA-256 header.\n"
-                "• Gateway Response: HTTP 401 Unauthorized (Blocked in 1.2ms).\n"
-                "• Replay Shield: Dropped duplicate timestamp token.\n"
-                "• Result: Zero spoofing vulnerability."
+                "â€¢ Injected Test Payload with invalid HMAC SHA-256 header.\n"
+                "â€¢ Gateway Response: HTTP 401 Unauthorized (Blocked in 1.2ms).\n"
+                "â€¢ Replay Shield: Dropped duplicate timestamp token.\n"
+                "â€¢ Result: Zero spoofing vulnerability."
             ),
             "callouts": ["Forged Payloads Blocked", "Replay Protection Verified", "Instant HTTP 401 Rejection"],
             "cta_label": "Test Webhook Shields"
         },
         {
             "id": "ops_15",
-            "title": "🧹 Cache Pruning & Expired Session Cleanse",
+            "title": "ðŸ§¹ Cache Pruning & Expired Session Cleanse",
             "category": "Cache Ops",
             "urgency": "Low",
             "platform": "system_ops",
@@ -931,17 +931,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Purges expired auth tokens and temporary CSRF nonces to prevent state accumulation.",
             "body": (
                 "Session Maintenance Manifest:\n"
-                "• Scanned Active Session Store: 18 entries.\n"
-                "• Expired Sessions Purged: 6 (>24h since activity).\n"
-                "• Nonces Invalidated: 12 consumed payment nonces.\n"
-                "• Memory Footprint: Minimalized."
+                "â€¢ Scanned Active Session Store: 18 entries.\n"
+                "â€¢ Expired Sessions Purged: 6 (>24h since activity).\n"
+                "â€¢ Nonces Invalidated: 12 consumed payment nonces.\n"
+                "â€¢ Memory Footprint: Minimalized."
             ),
             "callouts": ["Expired Tokens Flushed", "CSRF Nonces Cleared", "Zero State Bloat"],
             "cta_label": "Prune Expired Sessions"
         },
         {
             "id": "ops_16",
-            "title": "🗄️ Database Connection Pool Leak Detection",
+            "title": "ðŸ—„ï¸ Database Connection Pool Leak Detection",
             "category": "Database Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -953,17 +953,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Audits database connection context managers ensuring zero lingering locks or unclosed file handles.",
             "body": (
                 "Connection Pool Audit:\n"
-                "• Open Connections: 1 active read-write pool.\n"
-                "• Unclosed Cursors: 0\n"
-                "• Lock Timeouts Last 24h: 0\n"
-                "• Status: Clean transactional boundaries maintained."
+                "â€¢ Open Connections: 1 active read-write pool.\n"
+                "â€¢ Unclosed Cursors: 0\n"
+                "â€¢ Lock Timeouts Last 24h: 0\n"
+                "â€¢ Status: Clean transactional boundaries maintained."
             ),
             "callouts": ["Zero Leaked Cursors", "Zero Lock Timeouts", "100% Context Clean"],
             "cta_label": "Audit Connection Pool"
         },
         {
             "id": "ops_17",
-            "title": "📜 Log Rotation & Gzip Compression Manifest",
+            "title": "ðŸ“œ Log Rotation & Gzip Compression Manifest",
             "category": "Log Ops",
             "urgency": "Low",
             "platform": "system_ops",
@@ -975,16 +975,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Rotates application server logs exceeding 10MB into compressed archives with retention limits.",
             "body": (
                 "Log Rotation Execution:\n"
-                "• Rotated: server.log (12.4 MB) -> server_20260927.log.gz (840 KB).\n"
-                "• Active Log: Created fresh server.log with standard header.\n"
-                "• Retention Enforcement: Kept last 30 rotated days; deleted logs >60 days old."
+                "â€¢ Rotated: server.log (12.4 MB) -> server_20260927.log.gz (840 KB).\n"
+                "â€¢ Active Log: Created fresh server.log with standard header.\n"
+                "â€¢ Retention Enforcement: Kept last 30 rotated days; deleted logs >60 days old."
             ),
             "callouts": ["93% Compression Ratio", "Active Log Fresh", "Automated Retention"],
             "cta_label": "Rotate Application Logs"
         },
         {
             "id": "ops_18",
-            "title": "🌐 Multi-Region DNS Resolution & Uptime Ping",
+            "title": "ðŸŒ Multi-Region DNS Resolution & Uptime Ping",
             "category": "Network Ops",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -996,18 +996,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Pings primary portal from 4 simulated regions (Mauritius, London, Frankfurt, Singapore) to verify reachability.",
             "body": (
                 "Global Edge Uptime Report:\n"
-                "• Port Louis (MU): 12 ms latency (100% reachability)\n"
-                "• London (UK): 138 ms latency (100% reachability)\n"
-                "• Frankfurt (DE): 142 ms latency (100% reachability)\n"
-                "• Singapore (SG): 84 ms latency (100% reachability)\n"
-                "• Global Health: All nodes reporting green."
+                "â€¢ Port Louis (MU): 12 ms latency (100% reachability)\n"
+                "â€¢ London (UK): 138 ms latency (100% reachability)\n"
+                "â€¢ Frankfurt (DE): 142 ms latency (100% reachability)\n"
+                "â€¢ Singapore (SG): 84 ms latency (100% reachability)\n"
+                "â€¢ Global Health: All nodes reporting green."
             ),
             "callouts": ["100% Reachability", "Port Louis: 12ms", "Global Edge Validated"],
             "cta_label": "Execute Global Uptime Ping"
         },
         {
             "id": "ops_19",
-            "title": "🤖 Autonomous Daemon Autopilot Heartbeat Verification",
+            "title": "ðŸ¤– Autonomous Daemon Autopilot Heartbeat Verification",
             "category": "Autopilot Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -1019,17 +1019,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Verifies that the autonomous overnight daemon is firing its scheduled 30-minute sweeps continuously.",
             "body": (
                 "Autopilot Heartbeat Telemetry:\n"
-                "• Daemon State: ACTIVE & AUTONOMOUS\n"
-                "• Last Heartbeat: 4 minutes ago\n"
-                "• Cycles Completed Last 24h: 48/48 (100% on schedule)\n"
-                "• Next Execution Window: In 26 minutes."
+                "â€¢ Daemon State: ACTIVE & AUTONOMOUS\n"
+                "â€¢ Last Heartbeat: 4 minutes ago\n"
+                "â€¢ Cycles Completed Last 24h: 48/48 (100% on schedule)\n"
+                "â€¢ Next Execution Window: In 26 minutes."
             ),
             "callouts": ["48/48 Cycles Completed", "Heartbeat Healthy", "Zero Missed Sweeps"],
             "cta_label": "Verify Daemon Heartbeat"
         },
         {
             "id": "ops_20",
-            "title": "🔥 Disaster Recovery Simulation & Cold-Start Dry Run",
+            "title": "ðŸ”¥ Disaster Recovery Simulation & Cold-Start Dry Run",
             "category": "Disaster Recovery",
             "urgency": "High",
             "platform": "system_ops",
@@ -1041,18 +1041,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Restores the latest backup into a temporary SQLite database to verify data restorability and schema validity.",
             "body": (
                 "Disaster Recovery Simulation:\n"
-                "• Target Backup: backups/snapshot_latest.tar.gz\n"
-                "• Extracted to isolated scratch/ directory.\n"
-                "• SQLite Schema Verification: `PRAGMA integrity_check` -> ok.\n"
-                "• Restored Records: 124 memory items, 14 products, 18 invoices.\n"
-                "• Cold-Start Recovery Time: 2.8 seconds."
+                "â€¢ Target Backup: backups/snapshot_latest.tar.gz\n"
+                "â€¢ Extracted to isolated scratch/ directory.\n"
+                "â€¢ SQLite Schema Verification: `PRAGMA integrity_check` -> ok.\n"
+                "â€¢ Restored Records: 124 memory items, 14 products, 18 invoices.\n"
+                "â€¢ Cold-Start Recovery Time: 2.8 seconds."
             ),
             "callouts": ["2.8s Cold-Start Time", "PRAGMA Check: OK", "100% Data Fidelity"],
             "cta_label": "Run Disaster Recovery Test"
         },
         {
             "id": "ops_21",
-            "title": "🔒 Sovereign Directory Access & File Permission Lockdown",
+            "title": "ðŸ”’ Sovereign Directory Access & File Permission Lockdown",
             "category": "Permissions Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -1064,17 +1064,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Verifies that core data files cannot be read or overwritten by unauthenticated local accounts.",
             "body": (
                 "Filesystem Security Audit:\n"
-                "• Evaluated: data/, memory/, backups/, .env\n"
-                "• ACL Check: Restricted to current user (Deven Pawaray) and service daemon.\n"
-                "• World-Writable Paths: 0 found.\n"
-                "• Sandbox Integrity: Enforced."
+                "â€¢ Evaluated: data/, memory/, backups/, .env\n"
+                "â€¢ ACL Check: Restricted to current user (Kingsley Vance Maurya) and service daemon.\n"
+                "â€¢ World-Writable Paths: 0 found.\n"
+                "â€¢ Sandbox Integrity: Enforced."
             ),
             "callouts": ["Zero World-Writable Files", "User ACL Restricted", "Sovereign Isolation"],
             "cta_label": "Enforce File Permissions"
         },
         {
             "id": "ops_22",
-            "title": "📱 WhatsApp Gateway Daemon Socket Reconnection",
+            "title": "ðŸ“± WhatsApp Gateway Daemon Socket Reconnection",
             "category": "Messaging Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -1086,17 +1086,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Tests connectivity to WhatsApp API daemon, resetting stale keep-alive sessions before dropouts occur.",
             "body": (
                 "WhatsApp Gateway Probe:\n"
-                "• Gateway Socket: CONNECTED\n"
-                "• Dispatch Line: +230 58169420\n"
-                "• Ping Latency: 180 ms\n"
-                "• Status: Clean message buffer ready for outbound dispatches."
+                "â€¢ Gateway Socket: CONNECTED\n"
+                "â€¢ Dispatch Line: +230 58169420\n"
+                "â€¢ Ping Latency: 180 ms\n"
+                "â€¢ Status: Clean message buffer ready for outbound dispatches."
             ),
             "callouts": ["Socket Connected", "+230 58169420 Ready", "Zero Inbound Queue Lag"],
             "cta_label": "Test WhatsApp Gateway"
         },
         {
             "id": "ops_23",
-            "title": "💳 PayPal & MCB Juice Webhook Listener Health Check",
+            "title": "ðŸ’³ PayPal & MCB Juice Webhook Listener Health Check",
             "category": "Payment Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -1108,17 +1108,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Verifies that IPN listeners and Juice verification endpoints respond to health pings within 5 milliseconds.",
             "body": (
                 "Payment Listener Health Check:\n"
-                "• Route: /api/finance/payment-link -> 200 OK (1.8 ms)\n"
-                "• Route: /api/finance/invoices/{id}/verify-juice -> 200 OK (2.4 ms)\n"
-                "• Route: /api/paypal/webhook -> 200 OK (1.9 ms)\n"
-                "• Ready to capture and settle live transactions."
+                "â€¢ Route: /api/finance/payment-link -> 200 OK (1.8 ms)\n"
+                "â€¢ Route: /api/finance/invoices/{id}/verify-juice -> 200 OK (2.4 ms)\n"
+                "â€¢ Route: /api/paypal/webhook -> 200 OK (1.9 ms)\n"
+                "â€¢ Ready to capture and settle live transactions."
             ),
             "callouts": ["100% Listener Uptime", "< 3ms Latency", "Settlement Rails Active"],
             "cta_label": "Verify Payment Listeners"
         },
         {
             "id": "ops_24",
-            "title": "☕ Automated Morning Error Log Summary for Executive Standup",
+            "title": "â˜• Automated Morning Error Log Summary for Executive Standup",
             "category": "Reporting Ops",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -1126,22 +1126,22 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "headline": "Daily Operations Intelligence & Error Log Digest",
             "badge": "EXECUTIVE DIGEST",
             "gradient": "linear-gradient(135deg, #475569 0%, #1e293b 100%)",
-            "target_audience": "Sir Deven Pawaray",
+            "target_audience": "Sir Kingsley Vance Maurya",
             "description": "Parses the overnight error log, deduplicating warnings and presenting a clean 3-bullet morning briefing.",
             "body": (
                 "Morning Operations Standup Digest:\n"
-                "• Total Requests Processed (Last 24h): 4,892\n"
-                "• Critical Errors: 0\n"
-                "• Minor Warnings: 2 (handled retry on external DNS lookup)\n"
-                "• System Uptime: 99.98%\n"
-                "• Conclusion: Fleet fully primed for peak business hours."
+                "â€¢ Total Requests Processed (Last 24h): 4,892\n"
+                "â€¢ Critical Errors: 0\n"
+                "â€¢ Minor Warnings: 2 (handled retry on external DNS lookup)\n"
+                "â€¢ System Uptime: 99.98%\n"
+                "â€¢ Conclusion: Fleet fully primed for peak business hours."
             ),
             "callouts": ["Zero Critical Errors", "4,892 Requests Handled", "99.98% Uptime"],
             "cta_label": "Compile Morning Digest"
         },
         {
             "id": "ops_25",
-            "title": "🛡️ Host OS Kernel & Patch Status Vulnerability Flagging",
+            "title": "ðŸ›¡ï¸ Host OS Kernel & Patch Status Vulnerability Flagging",
             "category": "OS Ops",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -1153,23 +1153,23 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Inspects system patch levels, firewall rules, and open ports to guarantee zero unauthorized listen ports.",
             "body": (
                 "Host Security Baseline Audit:\n"
-                "• Listening Ports: 8000 (FastAPI), 443 (HTTPS via Tunnel). Zero stray ports.\n"
-                "• Firewall State: Windows Defender Active with strict ingress rules.\n"
-                "• Memory Integrity Shield: Enabled.\n"
-                "• Compliance Status: Hardened."
+                "â€¢ Listening Ports: 8000 (FastAPI), 443 (HTTPS via Tunnel). Zero stray ports.\n"
+                "â€¢ Firewall State: Windows Defender Active with strict ingress rules.\n"
+                "â€¢ Memory Integrity Shield: Enabled.\n"
+                "â€¢ Compliance Status: Hardened."
             ),
             "callouts": ["Strict Listening Ports Only", "Ingress Firewall Active", "Host Hardened"],
             "cta_label": "Audit Host Baseline"
         }
     ],
 
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     # 3. COMMERCE & TREASURY USER TYPE (25 Daily Real-World Scenarios)
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     "commerce": [
         {
             "id": "commerce_01",
-            "title": "🛒 1-Click $1 Python Script Compilation & Store Publishing",
+            "title": "ðŸ›’ 1-Click $1 Python Script Compilation & Store Publishing",
             "category": "Digital Store",
             "urgency": "High",
             "platform": "store_commerce",
@@ -1181,10 +1181,10 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Compiles a tested, standalone Python tool into products/, updates custom_catalog.json, and makes it available for 1-click checkout.",
             "body": (
                 "New Digital Product Staging:\n"
-                "• Product: Nexus™ Bulk PDF Invoicer\n"
-                "• Architecture: Standalone single-file Python CLI script\n"
-                "• Pricing: $1.00 USD / Rs 45 MUR (1-click PayPal & MCB Juice)\n"
-                "• Rights: Full commercial usage rights included\n"
+                "â€¢ Product: Nexusâ„¢ Bulk PDF Invoicer\n"
+                "â€¢ Architecture: Standalone single-file Python CLI script\n"
+                "â€¢ Pricing: $1.00 USD / Rs 45 MUR (1-click PayPal & MCB Juice)\n"
+                "â€¢ Rights: Full commercial usage rights included\n"
                 "Ready to compile, save into products/, and publish live to /store."
             ),
             "callouts": ["$1.00 USD / Rs 45 MUR", "1-Second Instant Delivery", "100% Gross Margin"],
@@ -1192,7 +1192,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "commerce_02",
-            "title": "📱 MCB Juice Instant Transfer Verification & Settle",
+            "title": "ðŸ“± MCB Juice Instant Transfer Verification & Settle",
             "category": "Settlement",
             "urgency": "Urgent",
             "platform": "store_commerce",
@@ -1204,18 +1204,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Validates client MCB Juice transaction reference number against replay shield and automatically marks invoice as SETTLED.",
             "body": (
                 "Processing MCB Juice Reconciliation:\n"
-                "• Client Transfer Ref: JCE94120418\n"
-                "• Beneficiary: Deven Pawaray (+230 58169420)\n"
-                "• Amount: Rs 45,000 MUR\n"
-                "• Anti-Replay Verification: PASSED (New unique transaction code)\n"
-                "• Action: Mark invoice COMPLETED, generate official cryptographic tax receipt."
+                "â€¢ Client Transfer Ref: JCE94120418\n"
+                "â€¢ Beneficiary: Kingsley Vance Maurya (+230 58169420)\n"
+                "â€¢ Amount: Rs 45,000 MUR\n"
+                "â€¢ Anti-Replay Verification: PASSED (New unique transaction code)\n"
+                "â€¢ Action: Mark invoice COMPLETED, generate official cryptographic tax receipt."
             ),
             "callouts": ["Instant Verification", "Replay Shield Passed", "Official MRA Receipt"],
             "cta_label": "Reconcile Juice Payment"
         },
         {
             "id": "commerce_03",
-            "title": "💳 PayPal 1-Click Invoice Generation for International Client",
+            "title": "ðŸ’³ PayPal 1-Click Invoice Generation for International Client",
             "category": "Invoicing",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1227,17 +1227,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Generates a cryptographically signed PayPal invoice URL with pre-filled amounts and instant webhook fulfillment.",
             "body": (
                 "PayPal Commercial Invoice Manifest:\n"
-                "• Client: DevAgency UK Ltd (alex@devagency.co.uk)\n"
-                "• Product: Nexus Autonomous Fleet Commercial Lifetime License\n"
-                "• Amount: $249.00 USD\n"
-                "• Webhook Action: Auto-dispatch full source code zip upon payment capture."
+                "â€¢ Client: DevAgency UK Ltd (alex@devagency.co.uk)\n"
+                "â€¢ Product: Nexus Autonomous Fleet Commercial Lifetime License\n"
+                "â€¢ Amount: $249.00 USD\n"
+                "â€¢ Webhook Action: Auto-dispatch full source code zip upon payment capture."
             ),
             "callouts": ["1-Click Checkout", "Instant Automated Delivery", "$249.00 USD Settlement"],
             "cta_label": "Generate PayPal Link"
         },
         {
             "id": "commerce_04",
-            "title": "🧾 MRA-Compliant Tax Receipt Generation (Section 50L CSR)",
+            "title": "ðŸ§¾ MRA-Compliant Tax Receipt Generation (Section 50L CSR)",
             "category": "Tax & Compliance",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1249,18 +1249,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Mints an official printable PDF receipt with Mauritius Revenue Authority tax deduction accreditation details.",
             "body": (
                 "Generating Official Tax Receipt:\n"
-                "• Recipient: Corporate CSR Donor\n"
-                "• Donation Target: Enn Rev Enn Sourir (Child Medical Treatment Fund)\n"
-                "• Amount: Rs 25,000 MUR\n"
-                "• Tax Benefit: 15% MRA Section 50L Deduction Qualified\n"
-                "• Cryptographic Integrity Seal: Applied."
+                "â€¢ Recipient: Corporate CSR Donor\n"
+                "â€¢ Donation Target: Enn Rev Enn Sourir (Child Medical Treatment Fund)\n"
+                "â€¢ Amount: Rs 25,000 MUR\n"
+                "â€¢ Tax Benefit: 15% MRA Section 50L Deduction Qualified\n"
+                "â€¢ Cryptographic Integrity Seal: Applied."
             ),
             "callouts": ["15% MRA Tax Deduction", "Section 50L Compliant", "Printable PDF Receipt"],
             "cta_label": "Mint MRA Tax Receipt"
         },
         {
             "id": "commerce_05",
-            "title": "⛓️ Base L2 Blockchain Treasury Sweep & USDC Verification",
+            "title": "â›“ï¸ Base L2 Blockchain Treasury Sweep & USDC Verification",
             "category": "Treasury",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1272,17 +1272,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Queries Base L2 smart contract vault for incoming USDC payments and sweeps them to cold multisig storage.",
             "body": (
                 "Base L2 Treasury Synchronizer:\n"
-                "• Network: Base Mainnet (Chain ID 8453)\n"
-                "• Vault Balance: 1,420.50 USDC\n"
-                "• Gas Fee: $0.002 USD\n"
-                "• Sweep Status: Confirmed and cryptographically verified on-chain."
+                "â€¢ Network: Base Mainnet (Chain ID 8453)\n"
+                "â€¢ Vault Balance: 1,420.50 USDC\n"
+                "â€¢ Gas Fee: $0.002 USD\n"
+                "â€¢ Sweep Status: Confirmed and cryptographically verified on-chain."
             ),
             "callouts": ["Base L2 Mainnet", "Gas Fee: < $0.01", "Verifiable On-Chain"],
             "cta_label": "Sync Base Treasury"
         },
         {
             "id": "commerce_06",
-            "title": "🏷️ Dynamic Catalog Pricing Adjustment ($1.00 USD / Rs 45 MUR)",
+            "title": "ðŸ·ï¸ Dynamic Catalog Pricing Adjustment ($1.00 USD / Rs 45 MUR)",
             "category": "Catalog Ops",
             "urgency": "Low",
             "platform": "store_commerce",
@@ -1294,17 +1294,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Synchronizes store pricing across 14 micro-tools based on live USD/MUR exchange rates to maintain exact $1 parity.",
             "body": (
                 "Dynamic Pricing Synchronization:\n"
-                "• Live FX Rate: 1 USD = 45.20 MUR\n"
-                "• Updated: 14 tools in products/custom_catalog.json\n"
-                "• Domestic Price: Rs 45.00 MUR (rounded for clean MCB Juice payments)\n"
-                "• International Price: $1.00 USD."
+                "â€¢ Live FX Rate: 1 USD = 45.20 MUR\n"
+                "â€¢ Updated: 14 tools in products/custom_catalog.json\n"
+                "â€¢ Domestic Price: Rs 45.00 MUR (rounded for clean MCB Juice payments)\n"
+                "â€¢ International Price: $1.00 USD."
             ),
             "callouts": ["14 Tools Updated", "Clean Rs 45 MUR Parity", "Instant Store Sync"],
             "cta_label": "Update Store Pricing"
         },
         {
             "id": "commerce_07",
-            "title": "🏃 Abandoned Cart WhatsApp Recovery Trigger",
+            "title": "ðŸƒ Abandoned Cart WhatsApp Recovery Trigger",
             "category": "Conversion",
             "urgency": "High",
             "platform": "store_commerce",
@@ -1315,18 +1315,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "target_audience": "Shoppers who entered phone but didn't pay",
             "description": "Sends a friendly 1-click WhatsApp message with direct Juice instructions to recover dropped checkouts.",
             "body": (
-                "Bonjour 👋,\n\n"
-                "Nous avons remarqué que vous avez initié l'achat de *Nexus™ Instant Invoicer* sans finaliser votre commande.\n\n"
-                "Votre outil est prêt ! Pour finaliser en 1 clic par Juice :\n"
-                "📱 Envoyez *Rs 45* au *58169420* (Deven Pawaray).\n"
-                "Votre lien de téléchargement s'activera immédiatement. Besoin d'aide ? Répondez à ce message !"
+                "Bonjour ðŸ‘‹,\n\n"
+                "Nous avons remarquÃ© que vous avez initiÃ© l'achat de *Nexusâ„¢ Instant Invoicer* sans finaliser votre commande.\n\n"
+                "Votre outil est prÃªt ! Pour finaliser en 1 clic par Juice :\n"
+                "ðŸ“± Envoyez *Rs 45* au *58169420* (Kingsley Vance Maurya).\n"
+                "Votre lien de tÃ©lÃ©chargement s'activera immÃ©diatement. Besoin d'aide ? RÃ©pondez Ã  ce message !"
             ),
             "callouts": ["38% Recovery Rate", "Frictionless 1-Click Juice", "Automated Timing"],
             "cta_label": "Send Cart Recovery"
         },
         {
             "id": "commerce_08",
-            "title": "📦 Monthly Retainer Batch Invoicing (Rs 45,000 MUR Accounts)",
+            "title": "ðŸ“¦ Monthly Retainer Batch Invoicing (Rs 45,000 MUR Accounts)",
             "category": "Invoicing",
             "urgency": "High",
             "platform": "store_commerce",
@@ -1338,18 +1338,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Generates, registers in SQLite ledger, and dispatches monthly invoices to all active B2B retainer accounts simultaneously.",
             "body": (
                 "Batch Invoicing Execution:\n"
-                "• Client Accounts: 3 Active Enterprise Retainers\n"
-                "• Invoice Amount: Rs 45,000 MUR each (Total: Rs 135,000 MUR)\n"
-                "• Payment Rails: MCB Wire / Juice (+230 58169420)\n"
-                "• Due Date: Net 15\n"
-                "• Dispatch: Automated PDF generation and WhatsApp delivery."
+                "â€¢ Client Accounts: 3 Active Enterprise Retainers\n"
+                "â€¢ Invoice Amount: Rs 45,000 MUR each (Total: Rs 135,000 MUR)\n"
+                "â€¢ Payment Rails: MCB Wire / Juice (+230 58169420)\n"
+                "â€¢ Due Date: Net 15\n"
+                "â€¢ Dispatch: Automated PDF generation and WhatsApp delivery."
             ),
             "callouts": ["Rs 135,000 MUR Total Value", "Net 15 Stamped", "Batch Automated"],
             "cta_label": "Execute Batch Invoicing"
         },
         {
             "id": "commerce_09",
-            "title": "📜 High-Ticket Commercial Licensing Agreement Issuance",
+            "title": "ðŸ“œ High-Ticket Commercial Licensing Agreement Issuance",
             "category": "Licensing",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1361,18 +1361,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Mints a non-exclusive, perpetual commercial source license certificate granting full white-label redistribution rights.",
             "body": (
                 "Commercial License Staging:\n"
-                "• Licensee: Sovereign Tech Ltd\n"
-                "• Grant: Perpetual White-Label Deployment for 18 Autonomous Agents\n"
-                "• Consideration: $1,000 USD (or Rs 45,000 MUR)\n"
-                "• Restrictions: Zero resale of source as an unbundled competitor\n"
-                "• Cryptographic Seal: SHA-256 certificate stamped."
+                "â€¢ Licensee: Sovereign Tech Ltd\n"
+                "â€¢ Grant: Perpetual White-Label Deployment for 18 Autonomous Agents\n"
+                "â€¢ Consideration: $1,000 USD (or Rs 45,000 MUR)\n"
+                "â€¢ Restrictions: Zero resale of source as an unbundled competitor\n"
+                "â€¢ Cryptographic Seal: SHA-256 certificate stamped."
             ),
             "callouts": ["Full White-Label Rights", "Perpetual Validity", "Cryptographic Protection"],
             "cta_label": "Issue Enterprise License"
         },
         {
             "id": "commerce_10",
-            "title": "💸 Instant Refund & Credit Memo Issuance with Anti-Replay",
+            "title": "ðŸ’¸ Instant Refund & Credit Memo Issuance with Anti-Replay",
             "category": "Disputes & Refunds",
             "urgency": "High",
             "platform": "store_commerce",
@@ -1384,17 +1384,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Issues an immediate 100% money-back refund on a $1 tool or invoice, invalidating the license key cleanly.",
             "body": (
                 "Processing Credit Memo / Refund:\n"
-                "• Order Ref: ORD-9182 ($1.00 USD / Rs 45 MUR)\n"
-                "• Reason: Customer requested alternate tool format\n"
-                "• Action: Reversal processed via original rail (MCB Juice / PayPal)\n"
-                "• Ledger: License key revoked; ledger balanced with zero fee penalty."
+                "â€¢ Order Ref: ORD-9182 ($1.00 USD / Rs 45 MUR)\n"
+                "â€¢ Reason: Customer requested alternate tool format\n"
+                "â€¢ Action: Reversal processed via original rail (MCB Juice / PayPal)\n"
+                "â€¢ Ledger: License key revoked; ledger balanced with zero fee penalty."
             ),
             "callouts": ["100% Money-Back Honor", "License Cleanly Revoked", "Zero Chargeback Risk"],
             "cta_label": "Process Clean Refund"
         },
         {
             "id": "commerce_11",
-            "title": "💱 Real-Time Foreign Exchange (FX) Reconciliation",
+            "title": "ðŸ’± Real-Time Foreign Exchange (FX) Reconciliation",
             "category": "Treasury",
             "urgency": "Low",
             "platform": "store_commerce",
@@ -1406,17 +1406,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Revalues cash reserves held in MUR (MCB Bank) and USD (PayPal & Base L2) into unified MUR reporting.",
             "body": (
                 "Treasury Revaluation Summary:\n"
-                "• Cash in MUR (MCB Juice / Current Acc): Rs 64,200.00 MUR\n"
-                "• Foreign Assets (USD): $1,420.00 USD @ 45.20 = Rs 64,184.00 MUR\n"
-                "• Combined Liquid Treasury: Rs 128,384.00 MUR\n"
-                "• Runway: Infinite (Zero cloud infrastructure debt)."
+                "â€¢ Cash in MUR (MCB Juice / Current Acc): Rs 64,200.00 MUR\n"
+                "â€¢ Foreign Assets (USD): $1,420.00 USD @ 45.20 = Rs 64,184.00 MUR\n"
+                "â€¢ Combined Liquid Treasury: Rs 128,384.00 MUR\n"
+                "â€¢ Runway: Infinite (Zero cloud infrastructure debt)."
             ),
             "callouts": ["Unified MUR Balance Sheet", "Rs 128,384 Liquid", "Zero Cloud Debt"],
             "cta_label": "Run FX Revaluation"
         },
         {
             "id": "commerce_12",
-            "title": "🤝 Affiliate Referral Commission Calculation & Payout",
+            "title": "ðŸ¤ Affiliate Referral Commission Calculation & Payout",
             "category": "Affiliate Ops",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1428,18 +1428,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Calculates monthly affiliate earnings from closed client retainers and formats instant Juice transfer instructions.",
             "body": (
                 "Affiliate Settlement Manifest:\n"
-                "• Partner: Cybercity Digital Agency\n"
-                "• Referred Client: HealthClinic Grand Baie (Rs 45,000 MUR Retainer)\n"
-                "• Commission Rate: 20% Guaranteed\n"
-                "• Payout Amount: Rs 9,000.00 MUR\n"
-                "• Delivery: Instant MCB Juice Transfer."
+                "â€¢ Partner: Cybercity Digital Agency\n"
+                "â€¢ Referred Client: HealthClinic Grand Baie (Rs 45,000 MUR Retainer)\n"
+                "â€¢ Commission Rate: 20% Guaranteed\n"
+                "â€¢ Payout Amount: Rs 9,000.00 MUR\n"
+                "â€¢ Delivery: Instant MCB Juice Transfer."
             ),
             "callouts": ["20% Partner Cut", "Rs 9,000 MUR Settled", "Builds Partner Loyalty"],
             "cta_label": "Generate Payout Slip"
         },
         {
             "id": "commerce_13",
-            "title": "🔑 Cryptographic License Key Stamping & Validation",
+            "title": "ðŸ”‘ Cryptographic License Key Stamping & Validation",
             "category": "Digital Rights",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1451,17 +1451,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Generates a verifiable offline license key tied to customer email and hardware fingerprint.",
             "body": (
                 "License Stamping Engine:\n"
-                "• User: client@mauritiustech.mu\n"
-                "• Product: Nexus SEO Keyword SERP Tracker\n"
-                "• License Signature: `NX-2026-8F92-A1C4-MUR`\n"
-                "• Verification: 100% offline mathematical validation (No phone-home DRM)."
+                "â€¢ User: client@mauritiustech.mu\n"
+                "â€¢ Product: Nexus SEO Keyword SERP Tracker\n"
+                "â€¢ License Signature: `NX-2026-8F92-A1C4-MUR`\n"
+                "â€¢ Verification: 100% offline mathematical validation (No phone-home DRM)."
             ),
             "callouts": ["100% Offline DRM", "Cryptographically Signed", "Hardware Sovereign"],
             "cta_label": "Mint License Key"
         },
         {
             "id": "commerce_14",
-            "title": "⚠️ Recurring Subscription Failure Alert & Dunning Sequence",
+            "title": "âš ï¸ Recurring Subscription Failure Alert & Dunning Sequence",
             "category": "Dunning",
             "urgency": "High",
             "platform": "store_commerce",
@@ -1484,7 +1484,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "commerce_15",
-            "title": "📊 Daily Cash Flow & Liquidity Report for Sir Deven",
+            "title": "ðŸ“Š Daily Cash Flow & Liquidity Report for Sir Deven",
             "category": "Reporting",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1492,23 +1492,23 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "headline": "Executive Morning Cash Flow & Liquidity Intelligence",
             "badge": "CASH FLOW REPORT",
             "gradient": "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-            "target_audience": "Sir Deven Pawaray",
+            "target_audience": "Sir Kingsley Vance Maurya",
             "description": "Summarizes all inflows, pending receivables, and net profit margins across all payment channels over the last 24h.",
             "body": (
                 "Daily Cash Flow Telemetry:\n"
-                "• Settled Inflow (Last 24h): Rs 45,045 MUR\n"
+                "â€¢ Settled Inflow (Last 24h): Rs 45,045 MUR\n"
                 "  - 1x Retainer Settlement: Rs 45,000 MUR\n"
                 "  - 1x Digital Tool Sale: Rs 45 MUR ($1.00)\n"
-                "• Outstanding Receivables: Rs 0.00 MUR (100% collected!)\n"
-                "• Net Operating Margin: 98.4%\n"
-                "• Progress to Rs 150k MUR Target: 30.0% Complete."
+                "â€¢ Outstanding Receivables: Rs 0.00 MUR (100% collected!)\n"
+                "â€¢ Net Operating Margin: 98.4%\n"
+                "â€¢ Progress to Rs 150k MUR Target: 30.0% Complete."
             ),
             "callouts": ["Rs 45,045 Settled", "98.4% Operating Margin", "Zero Bad Debt"],
             "cta_label": "Generate Cash Flow Report"
         },
         {
             "id": "commerce_16",
-            "title": "🚫 Fraudulent Juice Reference Detection & Blacklist",
+            "title": "ðŸš« Fraudulent Juice Reference Detection & Blacklist",
             "category": "Fraud Prevention",
             "urgency": "Urgent",
             "platform": "store_commerce",
@@ -1520,17 +1520,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Catches spoofed or re-submitted Juice transaction codes and locks out the submitting IP automatically.",
             "body": (
                 "Anti-Fraud Watchdog Action:\n"
-                "• Submitted Ref: JCE94120418\n"
-                "• Analysis: Match found in historical settlement ledger (Used on 2026-09-18).\n"
-                "• Attempted Exploit: Replay attack on $1 download portal.\n"
-                "• Defense: Blocked download token, recorded incident, blacklisted IP."
+                "â€¢ Submitted Ref: JCE94120418\n"
+                "â€¢ Analysis: Match found in historical settlement ledger (Used on 2026-09-18).\n"
+                "â€¢ Attempted Exploit: Replay attack on $1 download portal.\n"
+                "â€¢ Defense: Blocked download token, recorded incident, blacklisted IP."
             ),
             "callouts": ["Replay Attack Neutralized", "Zero Inventory Loss", "Automated IP Blacklist"],
             "cta_label": "Audit Fraud Incident"
         },
         {
             "id": "commerce_17",
-            "title": "🎟️ Promo Code & Launch Discount Voucher Campaign",
+            "title": "ðŸŽŸï¸ Promo Code & Launch Discount Voucher Campaign",
             "category": "Promotions",
             "urgency": "Low",
             "platform": "store_commerce",
@@ -1542,18 +1542,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Mints a time-limited promotional voucher code with usage caps for Mauritius business networking events.",
             "body": (
                 "Promotional Campaign Configuration:\n"
-                "• Code: `NEXUS-EBENE-2026`\n"
-                "• Benefit: 50% discount on initial AI fleet setup (Rs 7,500 MUR value)\n"
-                "• Cap: First 5 Mauritius companies only\n"
-                "• Expiration: 14 days\n"
-                "• Status: Active in payment checkout controller."
+                "â€¢ Code: `NEXUS-EBENE-2026`\n"
+                "â€¢ Benefit: 50% discount on initial AI fleet setup (Rs 7,500 MUR value)\n"
+                "â€¢ Cap: First 5 Mauritius companies only\n"
+                "â€¢ Expiration: 14 days\n"
+                "â€¢ Status: Active in payment checkout controller."
             ),
             "callouts": ["5-Company Exclusive Cap", "Rs 7,500 MUR Incentive", "14-Day Expiration"],
             "cta_label": "Activate Promo Campaign"
         },
         {
             "id": "commerce_18",
-            "title": "📋 Custom Enterprise Quotation Builder with Scope Breakdown",
+            "title": "ðŸ“‹ Custom Enterprise Quotation Builder with Scope Breakdown",
             "category": "Quotations",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1565,19 +1565,19 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Compiles a transparent itemized quotation including setup, hosting, security safeguards, and training.",
             "body": (
                 "Quotation #QT-2026-44:\n"
-                "• Client: Mauritius Hospitality Holdings\n"
-                "• Scope: VillaFlow WhatsApp AI Concierge + Medical Emergency Protocol\n"
-                "• Implementation: Rs 25,000 MUR (one-time)\n"
-                "• Monthly Fleet Maintenance: Rs 35,000 MUR/mo\n"
-                "• Total Commitment (Year 1): Rs 445,000 MUR\n"
-                "• Validity: 30 days."
+                "â€¢ Client: Mauritius Hospitality Holdings\n"
+                "â€¢ Scope: VillaFlow WhatsApp AI Concierge + Medical Emergency Protocol\n"
+                "â€¢ Implementation: Rs 25,000 MUR (one-time)\n"
+                "â€¢ Monthly Fleet Maintenance: Rs 35,000 MUR/mo\n"
+                "â€¢ Total Commitment (Year 1): Rs 445,000 MUR\n"
+                "â€¢ Validity: 30 days."
             ),
             "callouts": ["Itemized Scope Breakdown", "30-Day Rate Lock", "Enterprise Specification"],
             "cta_label": "Generate Formal Quote"
         },
         {
             "id": "commerce_19",
-            "title": "📦 Digital Product Superpack Zip Bundling & Checksum",
+            "title": "ðŸ“¦ Digital Product Superpack Zip Bundling & Checksum",
             "category": "Fulfillment",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1589,18 +1589,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Packages all 14 standalone micro-tools into products/nexus_dev_superpack.zip and generates SHA-256 validation stamp.",
             "body": (
                 "Superpack Rebuild Manifest:\n"
-                "• Included Tools: 14 single-file Python scripts\n"
-                "• Extras: Complete documentation, sample datasets, commercial license\n"
-                "• Compression: Zip Deflate (4.3 MB)\n"
-                "• SHA-256 Checksum: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`\n"
-                "• Ready for instant $5.00 delivery."
+                "â€¢ Included Tools: 14 single-file Python scripts\n"
+                "â€¢ Extras: Complete documentation, sample datasets, commercial license\n"
+                "â€¢ Compression: Zip Deflate (4.3 MB)\n"
+                "â€¢ SHA-256 Checksum: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`\n"
+                "â€¢ Ready for instant $5.00 delivery."
             ),
             "callouts": ["14 Tools Included", "SHA-256 Verified", "Instant Fulfillment Ready"],
             "cta_label": "Rebuild Superpack"
         },
         {
             "id": "commerce_20",
-            "title": "📁 Expense Categorization & Receipt Archival for Tax Season",
+            "title": "ðŸ“ Expense Categorization & Receipt Archival for Tax Season",
             "category": "Bookkeeping",
             "urgency": "Low",
             "platform": "store_commerce",
@@ -1612,18 +1612,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Logs all operational expenses (domain renewals, hardware parts) with attached PDF vouchers ready for annual filing.",
             "body": (
                 "Expense Classification Ledger:\n"
-                "• Period: Current Fiscal Quarter\n"
-                "• Total Operating Expenses: Rs 4,820 MUR ($106 USD)\n"
-                "• Categories: Domain Infrastructure (Rs 1,200), Server Hardware (Rs 3,620)\n"
-                "• Cloud SaaS Subscriptions: Rs 0 (100% Sovereign!)\n"
-                "• MRA Tax Deductibility: Verified."
+                "â€¢ Period: Current Fiscal Quarter\n"
+                "â€¢ Total Operating Expenses: Rs 4,820 MUR ($106 USD)\n"
+                "â€¢ Categories: Domain Infrastructure (Rs 1,200), Server Hardware (Rs 3,620)\n"
+                "â€¢ Cloud SaaS Subscriptions: Rs 0 (100% Sovereign!)\n"
+                "â€¢ MRA Tax Deductibility: Verified."
             ),
             "callouts": ["Zero Cloud SaaS Overhead", "Organized MRA Categories", "Tax Ready"],
             "cta_label": "Archive Expense Records"
         },
         {
             "id": "commerce_21",
-            "title": "🤝 Client Deposit Settle & Escrow Release Acknowledgment",
+            "title": "ðŸ¤ Client Deposit Settle & Escrow Release Acknowledgment",
             "category": "Milestones",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1635,17 +1635,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Confirms receipt of 50% mobilization deposit and unlocks sprint development environments.",
             "body": (
                 "Milestone 1 Settlement Notice:\n"
-                "• Project: Turnkey Hospital Portal Deployment\n"
-                "• Mobilization Deposit: Rs 22,500 MUR (50% of Rs 45,000 contract)\n"
-                "• Status: Funds cleared via MCB Wire\n"
-                "• Action: Sprint 1 codebase initialized; staging URL shared with client."
+                "â€¢ Project: Turnkey Hospital Portal Deployment\n"
+                "â€¢ Mobilization Deposit: Rs 22,500 MUR (50% of Rs 45,000 contract)\n"
+                "â€¢ Status: Funds cleared via MCB Wire\n"
+                "â€¢ Action: Sprint 1 codebase initialized; staging URL shared with client."
             ),
             "callouts": ["50% Mobilization Cleared", "Sprint 1 Unlocked", "Staging Provisioned"],
             "cta_label": "Send Escrow Clearance"
         },
         {
             "id": "commerce_22",
-            "title": "⚠️ Overdue Invoice Escalation Level 2 with Interest Notice",
+            "title": "âš ï¸ Overdue Invoice Escalation Level 2 with Interest Notice",
             "category": "Collections",
             "urgency": "High",
             "platform": "store_commerce",
@@ -1657,7 +1657,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Stern, legally compliant notification regarding unpaid commercial balances nearing suspension threshold.",
             "body": (
                 "Attention: Head of Finance / Accounts Payable\n\n"
-                "Re: Unsettled Invoice #INV-2901 (Rs 45,000 MUR — 32 Days Past Due)\n\n"
+                "Re: Unsettled Invoice #INV-2901 (Rs 45,000 MUR â€” 32 Days Past Due)\n\n"
                 "Despite multiple courtesy reminders, this balance remains outstanding. "
                 "Per Section 4.2 of our commercial agreement, accounts exceeding 35 days overdue are subject to temporary automated agent suspension.\n\n"
                 "Please settle via MCB Juice (+230 58169420) or wire by tomorrow 17:00 MUT to avoid service disruption."
@@ -1667,7 +1667,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "commerce_23",
-            "title": "🖥️ Physical On-Premise AI Appliance Hardware Invoicing",
+            "title": "ðŸ–¥ï¸ Physical On-Premise AI Appliance Hardware Invoicing",
             "category": "Hardware Sales",
             "urgency": "Standard",
             "platform": "store_commerce",
@@ -1679,17 +1679,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Issues official invoice for pre-configured, air-gapped Mini PC loaded with Nexus AI fleet.",
             "body": (
                 "Hardware Invoice Manifest:\n"
-                "• Item: Nexus Sovereign Appliance (Intel i7, 32GB RAM, 1TB NVMe, Pre-Installed Fleet)\n"
-                "• Price: Rs 65,000 MUR (Hardware + Setup + 1-Year Local Warranty)\n"
-                "• Delivery: Ebene Cybercity / On-Site Installation Included\n"
-                "• Terms: 50% deposit, balance on physical delivery."
+                "â€¢ Item: Nexus Sovereign Appliance (Intel i7, 32GB RAM, 1TB NVMe, Pre-Installed Fleet)\n"
+                "â€¢ Price: Rs 65,000 MUR (Hardware + Setup + 1-Year Local Warranty)\n"
+                "â€¢ Delivery: Ebene Cybercity / On-Site Installation Included\n"
+                "â€¢ Terms: 50% deposit, balance on physical delivery."
             ),
             "callouts": ["Physical Air-Gapped Box", "Rs 65,000 MUR Turnkey", "On-Site Installation Included"],
             "cta_label": "Generate Hardware Invoice"
         },
         {
             "id": "commerce_24",
-            "title": "🔒 Zero-Knowledge Financial Proof for Stakeholders",
+            "title": "ðŸ”’ Zero-Knowledge Financial Proof for Stakeholders",
             "category": "Financial Proof",
             "urgency": "Low",
             "platform": "store_commerce",
@@ -1701,17 +1701,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Generates a verifiable proof of positive cash flow and zero debt without exposing individual client names.",
             "body": (
                 "Financial Attestation Summary:\n"
-                "• Debt: Rs 0.00 MUR (Zero debt or external venture obligations)\n"
-                "• Operating Cash Reserve: > 6 Months Operating Buffer\n"
-                "• Revenue Stream: Diversified across B2B retainers and digital micro-products\n"
-                "• Verification Hash: Stamped by local SQLite WAL ledger."
+                "â€¢ Debt: Rs 0.00 MUR (Zero debt or external venture obligations)\n"
+                "â€¢ Operating Cash Reserve: > 6 Months Operating Buffer\n"
+                "â€¢ Revenue Stream: Diversified across B2B retainers and digital micro-products\n"
+                "â€¢ Verification Hash: Stamped by local SQLite WAL ledger."
             ),
             "callouts": ["Zero Debt Verified", "6+ Months Cash Runway", "Privacy-Preserving Proof"],
             "cta_label": "Generate Solvency Memo"
         },
         {
             "id": "commerce_25",
-            "title": "🎯 End-of-Month Earnings Milestone vs Rs 150k MUR Target",
+            "title": "ðŸŽ¯ End-of-Month Earnings Milestone vs Rs 150k MUR Target",
             "category": "Target Milestone",
             "urgency": "High",
             "platform": "store_commerce",
@@ -1719,30 +1719,30 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "headline": "Revenue Goal Radar: Rs 150,000 MUR Target Tracking",
             "badge": "EARNINGS MILESTONE",
             "gradient": "linear-gradient(135deg, #059669 0%, #10b981 100%)",
-            "target_audience": "Sir Deven Pawaray",
+            "target_audience": "Sir Kingsley Vance Maurya",
             "description": "Analyzes the remaining gap to hit Rs 150,000 MUR monthly earnings and highlights fastest cash acceleration paths.",
             "body": (
                 "Revenue Acceleration Analysis:\n"
-                "• Monthly Goal: Rs 150,000 MUR\n"
-                "• Collected to Date: Rs 45,045 MUR\n"
-                "• Remaining Gap: Rs 104,955 MUR\n"
-                "• High-Probability Path to Hit Target:\n"
+                "â€¢ Monthly Goal: Rs 150,000 MUR\n"
+                "â€¢ Collected to Date: Rs 45,045 MUR\n"
+                "â€¢ Remaining Gap: Rs 104,955 MUR\n"
+                "â€¢ High-Probability Path to Hit Target:\n"
                 "  1. Close 2x Pending Mauritius Clinic/Hospitality Retainers (2 x Rs 45,000 = Rs 90,000 MUR)\n"
                 "  2. Sell 8x Founder Lifetime Source Licenses (8 x $249 = Rs 90,000 MUR)\n"
-                "• Execution Horizon: 12 Days Remaining."
+                "â€¢ Execution Horizon: 12 Days Remaining."
             ),
             "callouts": ["Goal: Rs 150,000 MUR", "2 Deals to Close Gap", "High-Converting Actions"],
             "cta_label": "Review Revenue Plan"
         }
     ],
 
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     # 4. RESEARCH & INTELLIGENCE USER TYPE (25 Daily Real-World Scenarios)
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     "research": [
         {
             "id": "research_01",
-            "title": "🏥 Mauritius Niche Lead Scouting: Private Clinics & Diagnostics",
+            "title": "ðŸ¥ Mauritius Niche Lead Scouting: Private Clinics & Diagnostics",
             "category": "Lead Scouting",
             "urgency": "High",
             "platform": "lead_crm",
@@ -1754,18 +1754,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Identifies clinics running appointments manually via phone/ledger and drafts targeted Medical 360 solution hooks.",
             "body": (
                 "Clinic Intelligence Briefing:\n"
-                "• Target Sector: Private Diagnostic & Dental Practices (Mauritius)\n"
-                "• Discovered Prospects: 12 qualified clinics without automated patient portals\n"
-                "• Primary Pain Point: Secretariat overwhelmed with 80+ daily phone booking queries\n"
-                "• Proposed Solution: Medical 360™ Patient & Appointment Portal (Rs 45,000 MUR)\n"
-                "• Outreach Readiness: Direct WhatsApp & email contact lines extracted."
+                "â€¢ Target Sector: Private Diagnostic & Dental Practices (Mauritius)\n"
+                "â€¢ Discovered Prospects: 12 qualified clinics without automated patient portals\n"
+                "â€¢ Primary Pain Point: Secretariat overwhelmed with 80+ daily phone booking queries\n"
+                "â€¢ Proposed Solution: Medical 360â„¢ Patient & Appointment Portal (Rs 45,000 MUR)\n"
+                "â€¢ Outreach Readiness: Direct WhatsApp & email contact lines extracted."
             ),
             "callouts": ["12 High-Value Leads", "Overwhelmed Secretariat Pain", "Rs 45,000 Turnkey Retainer"],
             "cta_label": "Import Clinic Leads"
         },
         {
             "id": "research_02",
-            "title": "🏝️ Mauritius Niche Lead Scouting: Inbound Travel DMCs & Villas",
+            "title": "ðŸï¸ Mauritius Niche Lead Scouting: Inbound Travel DMCs & Villas",
             "category": "Lead Scouting",
             "urgency": "High",
             "platform": "lead_crm",
@@ -1777,17 +1777,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Finds tourism operators losing after-hours bookings to competitors and packages the VillaFlow WhatsApp bot pitch.",
             "body": (
                 "Hospitality Lead Intelligence:\n"
-                "• Target: Luxury boutique villas and catamaran charter operators\n"
-                "• Operational Gap: Zero response between 18:00 and 08:00 MUT (International guest queries lost)\n"
-                "• Best-Fit Solution: VillaFlow 24/7 Bilingual WhatsApp Concierge (Rs 25,000 setup + Rs 15,000/mo)\n"
-                "• ROI Multiplier: Just 1 recovered booking per month covers full retainer cost."
+                "â€¢ Target: Luxury boutique villas and catamaran charter operators\n"
+                "â€¢ Operational Gap: Zero response between 18:00 and 08:00 MUT (International guest queries lost)\n"
+                "â€¢ Best-Fit Solution: VillaFlow 24/7 Bilingual WhatsApp Concierge (Rs 25,000 setup + Rs 15,000/mo)\n"
+                "â€¢ ROI Multiplier: Just 1 recovered booking per month covers full retainer cost."
             ),
             "callouts": ["Recovers After-Hours Bookings", "1 Deal Pays for Full Year", "Bilingual FR/EN"],
             "cta_label": "Import Hospitality Leads"
         },
         {
             "id": "research_03",
-            "title": "🏢 Ebene Cybercity FinTech & BPO Corporate Scouting",
+            "title": "ðŸ¢ Ebene Cybercity FinTech & BPO Corporate Scouting",
             "category": "Corporate Scouting",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -1799,17 +1799,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Maps IT leadership across Ebene Cybercity needing sovereign email triage under Mauritius Data Protection Act.",
             "body": (
                 "Cybercity Corporate Prospecting:\n"
-                "• Discovered: 8 corporate management companies handling high email volume\n"
-                "• Compliance Mandate: Strict data sovereignty requirements under DPA 2017\n"
-                "• Hook: Sovereign local AI fleet running on-premise without US cloud data leakage\n"
-                "• Deal Size: Rs 65,000 - Rs 120,000 MUR implementation."
+                "â€¢ Discovered: 8 corporate management companies handling high email volume\n"
+                "â€¢ Compliance Mandate: Strict data sovereignty requirements under DPA 2017\n"
+                "â€¢ Hook: Sovereign local AI fleet running on-premise without US cloud data leakage\n"
+                "â€¢ Deal Size: Rs 65,000 - Rs 120,000 MUR implementation."
             ),
             "callouts": ["Mauritius DPA 2017 Compliance", "Cybercity Ebene Focus", "High-Ticket Enterprise"],
             "cta_label": "Import Corporate Leads"
         },
         {
             "id": "research_04",
-            "title": "🔎 Competitor Pricing & SaaS Feature Matrix Benchmark",
+            "title": "ðŸ”Ž Competitor Pricing & SaaS Feature Matrix Benchmark",
             "category": "Competitive Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -1821,17 +1821,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Compares Nexus one-time / retainer model against Zendesk, HubSpot, and Zapier to equip Sir with sharp objection handles.",
             "body": (
                 "Competitive Benchmark Matrix:\n"
-                "• Competitor Stack (HubSpot + Zendesk + Zapier): $380/mo recurring ($4,560/year)\n"
-                "• Data Residence: US cloud servers (GDPR / DPA cross-border risk)\n"
-                "• Nexus Solution: Rs 45,000 MUR one-time + sovereign hardware ownership\n"
-                "• Sales Killshot: 'Nexus pays for itself in 4 months and eliminates monthly subscription bills forever.'"
+                "â€¢ Competitor Stack (HubSpot + Zendesk + Zapier): $380/mo recurring ($4,560/year)\n"
+                "â€¢ Data Residence: US cloud servers (GDPR / DPA cross-border risk)\n"
+                "â€¢ Nexus Solution: Rs 45,000 MUR one-time + sovereign hardware ownership\n"
+                "â€¢ Sales Killshot: 'Nexus pays for itself in 4 months and eliminates monthly subscription bills forever.'"
             ),
             "callouts": ["Saves $4,560/year", "100% Data Residence", "4-Month Full Payback"],
             "cta_label": "Review Competitor Matrix"
         },
         {
             "id": "research_05",
-            "title": "🛡️ GitHub CVE Radar Scan for Upstream Python Packages",
+            "title": "ðŸ›¡ï¸ GitHub CVE Radar Scan for Upstream Python Packages",
             "category": "Security Research",
             "urgency": "High",
             "platform": "lead_crm",
@@ -1843,17 +1843,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Queries GitHub Advisory Database for zero-day vulnerabilities affecting FastAPI, Uvicorn, or cryptography libs.",
             "body": (
                 "CVE Radar Scan Results:\n"
-                "• Repositories Monitored: fastapi, uvicorn, pydantic, sqlite3, requests\n"
-                "• Critical Advisories Past 7 Days: 0\n"
-                "• Moderate Advisories: 0\n"
-                "• Status: Clean operational bill of health."
+                "â€¢ Repositories Monitored: fastapi, uvicorn, pydantic, sqlite3, requests\n"
+                "â€¢ Critical Advisories Past 7 Days: 0\n"
+                "â€¢ Moderate Advisories: 0\n"
+                "â€¢ Status: Clean operational bill of health."
             ),
             "callouts": ["Zero Critical Advisories", "Active GitHub Advisory Sync", "Zero-Day Shield"],
             "cta_label": "Execute CVE Radar Scan"
         },
         {
             "id": "research_06",
-            "title": "🚀 Global Indie Hacker & Product Hunt Trend Radar",
+            "title": "ðŸš€ Global Indie Hacker & Product Hunt Trend Radar",
             "category": "Product Discovery",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -1865,16 +1865,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Scrapes top trending developer pain points to identify new micro-tools for the Nexus $1 Digital Vending Machine.",
             "body": (
                 "Trend Discovery Briefing:\n"
-                "• Top Trending Search: 'Automated SQLite Backup Script' & 'Local PDF Watermarker'\n"
-                "• Opportunity: Developers hate monthly subscriptions for basic file transformations\n"
-                "• Recommendation: Package 'Nexus™ Standalone PDF Watermarker' for $1.00 USD / Rs 45 MUR."
+                "â€¢ Top Trending Search: 'Automated SQLite Backup Script' & 'Local PDF Watermarker'\n"
+                "â€¢ Opportunity: Developers hate monthly subscriptions for basic file transformations\n"
+                "â€¢ Recommendation: Package 'Nexusâ„¢ Standalone PDF Watermarker' for $1.00 USD / Rs 45 MUR."
             ),
             "callouts": ["High Buyer Intent", "Build Once, Sell Forever", "$1 Instant Impulse Buy"],
             "cta_label": "Ideate New Tool"
         },
         {
             "id": "research_07",
-            "title": "📜 Mauritius Data Protection Act 2017 Regulatory Audit",
+            "title": "ðŸ“œ Mauritius Data Protection Act 2017 Regulatory Audit",
             "category": "Regulatory Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -1886,17 +1886,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Validates Nexus architecture against all 8 principles of the Mauritius Data Protection Act 2017.",
             "body": (
                 "DPA 2017 Regulatory Assessment:\n"
-                "✔ Principle 1 (Lawfulness & Fairness): Explicit opt-in client consent logged in SQLite.\n"
-                "✔ Principle 2 (Purpose Limitation): Data used strictly for specified automation.\n"
-                "✔ Principle 5 (Data Security): AES-256 local encryption; zero foreign mirroring.\n"
-                "• Verdict: 100% compliant with Data Protection Office (DPO) standards."
+                "âœ” Principle 1 (Lawfulness & Fairness): Explicit opt-in client consent logged in SQLite.\n"
+                "âœ” Principle 2 (Purpose Limitation): Data used strictly for specified automation.\n"
+                "âœ” Principle 5 (Data Security): AES-256 local encryption; zero foreign mirroring.\n"
+                "â€¢ Verdict: 100% compliant with Data Protection Office (DPO) standards."
             ),
             "callouts": ["100% DPO Mauritius Compliant", "AES-256 Encryption", "Zero Foreign Mirroring"],
             "cta_label": "Generate DPA Audit Memo"
         },
         {
             "id": "research_08",
-            "title": "📱 Local B2B Decision Maker Phone & WhatsApp Enrichment",
+            "title": "ðŸ“± Local B2B Decision Maker Phone & WhatsApp Enrichment",
             "category": "Data Enrichment",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -1908,17 +1908,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Enriches raw company names with verified Mauritian mobile numbers (+230) and Managing Director names.",
             "body": (
                 "Enrichment Batch Progress:\n"
-                "• Input: 10 Mauritius target companies\n"
-                "• Enriched: 10/10 verified with Managing Director / General Manager names\n"
-                "• Mobile Coverage: 9/10 direct +230 numbers identified for WhatsApp outreach\n"
-                "• Ready for 1-click tailored outreach."
+                "â€¢ Input: 10 Mauritius target companies\n"
+                "â€¢ Enriched: 10/10 verified with Managing Director / General Manager names\n"
+                "â€¢ Mobile Coverage: 9/10 direct +230 numbers identified for WhatsApp outreach\n"
+                "â€¢ Ready for 1-click tailored outreach."
             ),
             "callouts": ["90% Direct Mobile Match", "Verified C-Level Decision Makers", "+230 Mauritius Numbers"],
             "cta_label": "Enrich Lead Dataset"
         },
         {
             "id": "research_09",
-            "title": "✍️ High-Converting Cold Email Subject Line A/B Test Research",
+            "title": "âœï¸ High-Converting Cold Email Subject Line A/B Test Research",
             "category": "Copywriting Intel",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -1930,17 +1930,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Analyzes historical open rates to determine the top-performing subject line formats for Mauritian executives.",
             "body": (
                 "Subject Line Performance Analysis:\n"
-                "• Winner A: 'Quick question regarding [Company] WhatsApp bookings' (64.2% Open Rate)\n"
-                "• Winner B: '[Company] operations bottleneck audit' (58.9% Open Rate)\n"
-                "• Loser C: 'Introducing Nexus AI Solutions' (18.4% Open Rate — Avoid generic sales pitch!)\n"
-                "• Recommendation: Use Winner A for all hospitality prospects."
+                "â€¢ Winner A: 'Quick question regarding [Company] WhatsApp bookings' (64.2% Open Rate)\n"
+                "â€¢ Winner B: '[Company] operations bottleneck audit' (58.9% Open Rate)\n"
+                "â€¢ Loser C: 'Introducing Nexus AI Solutions' (18.4% Open Rate â€” Avoid generic sales pitch!)\n"
+                "â€¢ Recommendation: Use Winner A for all hospitality prospects."
             ),
             "callouts": ["64.2% Open Rate", "Eliminates Generic Pitches", "Tested on Local Inboxes"],
             "cta_label": "Apply Top Subject Line"
         },
         {
             "id": "research_10",
-            "title": "💻 Enterprise Client Tech Stack Fingerprinting",
+            "title": "ðŸ’» Enterprise Client Tech Stack Fingerprinting",
             "category": "Tech Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -1952,17 +1952,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Inspects target company website HTTP headers, CMS, and DNS to identify slow loading times and legacy tooling.",
             "body": (
                 "Tech Stack Teardown for [Target Company]:\n"
-                "• CMS: Legacy WordPress 5.8 (Last updated 2 years ago)\n"
-                "• PageSpeed Mobile Score: 38/100 (Takes 5.4 seconds to load)\n"
-                "• Booking Mechanism: Static HTML email contact form (Zero auto-confirmation)\n"
-                "• Pitch Angle: 'Your site takes 5.4s to load and loses mobile bookings; our turnkey portal loads in 0.4s.'"
+                "â€¢ CMS: Legacy WordPress 5.8 (Last updated 2 years ago)\n"
+                "â€¢ PageSpeed Mobile Score: 38/100 (Takes 5.4 seconds to load)\n"
+                "â€¢ Booking Mechanism: Static HTML email contact form (Zero auto-confirmation)\n"
+                "â€¢ Pitch Angle: 'Your site takes 5.4s to load and loses mobile bookings; our turnkey portal loads in 0.4s.'"
             ),
             "callouts": ["Identifies Real Tech Debt", "Evidence-Based Sales Hook", "Sharp Technical Edge"],
             "cta_label": "Fingerprint Prospect"
         },
         {
             "id": "research_11",
-            "title": "📈 Total Addressable Market (TAM) Analysis: Mauritius AI Automation",
+            "title": "ðŸ“ˆ Total Addressable Market (TAM) Analysis: Mauritius AI Automation",
             "category": "Market Sizing",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -1974,18 +1974,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Calculates total market opportunity across tourism, medical, financial, and legal sectors in Mauritius.",
             "body": (
                 "Mauritius AI Automation TAM Calculation:\n"
-                "• Registered SMEs in Target Verticals: ~3,400 companies\n"
-                "• Serviceable Addressable Market (SAM): 420 mid-market firms with >15 staff\n"
-                "• Serviceable Obtainable Market (SOM): 50 retainer clients @ Rs 45k/mo\n"
-                "• Annual Potential at 50 Clients: Rs 27,000,000 MUR / year ($600,000 USD)\n"
-                "• Current Penetration: < 2% (Massive blue ocean runway)."
+                "â€¢ Registered SMEs in Target Verticals: ~3,400 companies\n"
+                "â€¢ Serviceable Addressable Market (SAM): 420 mid-market firms with >15 staff\n"
+                "â€¢ Serviceable Obtainable Market (SOM): 50 retainer clients @ Rs 45k/mo\n"
+                "â€¢ Annual Potential at 50 Clients: Rs 27,000,000 MUR / year ($600,000 USD)\n"
+                "â€¢ Current Penetration: < 2% (Massive blue ocean runway)."
             ),
             "callouts": ["Rs 27M MUR Market Potential", "Blue Ocean in Mauritius", "50-Client Target"],
             "cta_label": "View Market Sizing Memo"
         },
         {
             "id": "research_12",
-            "title": "🏛️ CSR Tax Exemption (MRA 50L) Corporate Budget Radar",
+            "title": "ðŸ›ï¸ CSR Tax Exemption (MRA 50L) Corporate Budget Radar",
             "category": "CSR Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -1997,17 +1997,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Maps annual CSR allocation cycles of top Mauritian conglomerates to pitch corporate crowdfunding sponsorship.",
             "body": (
                 "Corporate CSR Radar:\n"
-                "• Regulatory Mandate: Mauritius companies must allocate 2% of book profits to CSR\n"
-                "• Target Conglomerates: IBL Group, Rogers, CIEL, MCB Foundation\n"
-                "• Key Pitch: Sponsor Enn Rev Enn Sourir NGO child medical fund with transparent blockchain-backed fund tracking\n"
-                "• MRA Benefit: Full 15% tax deduction under Section 50L."
+                "â€¢ Regulatory Mandate: Mauritius companies must allocate 2% of book profits to CSR\n"
+                "â€¢ Target Conglomerates: IBL Group, Rogers, CIEL, MCB Foundation\n"
+                "â€¢ Key Pitch: Sponsor Enn Rev Enn Sourir NGO child medical fund with transparent blockchain-backed fund tracking\n"
+                "â€¢ MRA Benefit: Full 15% tax deduction under Section 50L."
             ),
             "callouts": ["2% Mandatory CSR Budgets", "MRA Section 50L Tax Shield", "High Corporate Goodwill"],
             "cta_label": "Prospect CSR Donors"
         },
         {
             "id": "research_13",
-            "title": "🧠 Open Source LLM & Model Efficiency Benchmark",
+            "title": "ðŸ§  Open Source LLM & Model Efficiency Benchmark",
             "category": "Model Research",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -2019,16 +2019,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Compares token cost, latency, and response quality between Gemini 2.5 Flash and quantized local models.",
             "body": (
                 "LLM Engine Efficiency Benchmark:\n"
-                "• Gemini 2.5 Flash: 420ms response, $0.075 / 1M input tokens (Superior for complex extraction)\n"
-                "• Local Quantized Llama-3-8B: 850ms response, $0.00 marginal cost (Ideal for offline confidential triage)\n"
-                "• Hybrid Policy: Route public/creative tasks to Gemini; route confidential customer PII locally."
+                "â€¢ Gemini 2.5 Flash: 420ms response, $0.075 / 1M input tokens (Superior for complex extraction)\n"
+                "â€¢ Local Quantized Llama-3-8B: 850ms response, $0.00 marginal cost (Ideal for offline confidential triage)\n"
+                "â€¢ Hybrid Policy: Route public/creative tasks to Gemini; route confidential customer PII locally."
             ),
             "callouts": ["$0.00 Marginal Local Cost", "420ms Gemini Response", "Privacy-Preserving Hybrid"],
             "cta_label": "Run Model Benchmark"
         },
         {
             "id": "research_14",
-            "title": "🌐 SEO Keyword SERP Tracker for 'AI Automation Mauritius'",
+            "title": "ðŸŒ SEO Keyword SERP Tracker for 'AI Automation Mauritius'",
             "category": "SEO Intel",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -2040,17 +2040,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Tracks Google rankings for high-intent B2B search terms across Mauritius and the Indian Ocean region.",
             "body": (
                 "SERP Rank Tracking Report:\n"
-                "• 'AI Automation Mauritius': Rank #1 (Organic)\n"
-                "• 'WhatsApp Booking Bot Mauritius': Rank #2 (Organic)\n"
-                "• 'Autonomous AI Workforce': Rank #4\n"
-                "• Recommended Action: Add case study on Alison / Enn Rev Enn Sourir to capture CSR keywords."
+                "â€¢ 'AI Automation Mauritius': Rank #1 (Organic)\n"
+                "â€¢ 'WhatsApp Booking Bot Mauritius': Rank #2 (Organic)\n"
+                "â€¢ 'Autonomous AI Workforce': Rank #4\n"
+                "â€¢ Recommended Action: Add case study on Alison / Enn Rev Enn Sourir to capture CSR keywords."
             ),
             "callouts": ["#1 for AI Automation Mauritius", "Zero Paid Ad Spend Required", "High Inbound Authority"],
             "cta_label": "Audit SEO Rankings"
         },
         {
             "id": "research_15",
-            "title": "📢 Social Sentiment & Competitor Brand Mention Monitoring",
+            "title": "ðŸ“¢ Social Sentiment & Competitor Brand Mention Monitoring",
             "category": "Sentiment Intel",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -2062,16 +2062,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Monitors LinkedIn and Twitter for discussions around business automation in Cybercity and Mauritius.",
             "body": (
                 "Social Sentiment Sweep:\n"
-                "• Monitored Keywords: 'Mauritius AI', 'Cybercity automation', 'Deven Pawaray'\n"
-                "• Sentiment Breakdown: 92% Positive / Informative, 8% Inquiries\n"
-                "• Opportunity Identified: 2 founders on LinkedIn complaining about expensive HubSpot license renewals."
+                "â€¢ Monitored Keywords: 'Mauritius AI', 'Cybercity automation', 'Kingsley Vance Maurya'\n"
+                "â€¢ Sentiment Breakdown: 92% Positive / Informative, 8% Inquiries\n"
+                "â€¢ Opportunity Identified: 2 founders on LinkedIn complaining about expensive HubSpot license renewals."
             ),
             "callouts": ["92% Positive Sentiment", "Identified 2 Warm Leads", "Real-Time Opportunity Catch"],
             "cta_label": "Review Social Mentions"
         },
         {
             "id": "research_16",
-            "title": "⚡ Client Website Speed & Conversion Friction Teardown",
+            "title": "âš¡ Client Website Speed & Conversion Friction Teardown",
             "category": "Audit Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -2083,17 +2083,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Generates a 1-page visual audit showing prospective clients exactly how much money they lose to slow page loads.",
             "body": (
                 "Prospect Website Friction Audit:\n"
-                "• Prospect: Grand Baie Boat Charters\n"
-                "• Mobile Load Time: 6.2 seconds (74% bounce rate)\n"
-                "• Booking Form: 12 mandatory fields (massive friction)\n"
-                "• Nexus Teardown Solution: 1-click WhatsApp instant quote button reduces booking time to 15 seconds."
+                "â€¢ Prospect: Grand Baie Boat Charters\n"
+                "â€¢ Mobile Load Time: 6.2 seconds (74% bounce rate)\n"
+                "â€¢ Booking Form: 12 mandatory fields (massive friction)\n"
+                "â€¢ Nexus Teardown Solution: 1-click WhatsApp instant quote button reduces booking time to 15 seconds."
             ),
             "callouts": ["Exposes 74% Drop-Off", "Generates High Urgency", "Turnkey Nexus Fix"],
             "cta_label": "Generate Friction Report"
         },
         {
             "id": "research_17",
-            "title": "🏛️ Government Procurement & E-Tender Automation Radar",
+            "title": "ðŸ›ï¸ Government Procurement & E-Tender Automation Radar",
             "category": "Tender Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -2105,16 +2105,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Monitors public e-procurement notices from Mauritius government bodies for software modernization RFPs.",
             "body": (
                 "Procurement Radar Digest:\n"
-                "• Active Public Tenders: 2 digitization RFPs from state-owned enterprises\n"
-                "• Keywords: 'Document Management', 'Automated Triage', 'Citizen Portal'\n"
-                "• Feasibility: Nexus architecture meets 100% of data residency and security prerequisites."
+                "â€¢ Active Public Tenders: 2 digitization RFPs from state-owned enterprises\n"
+                "â€¢ Keywords: 'Document Management', 'Automated Triage', 'Citizen Portal'\n"
+                "â€¢ Feasibility: Nexus architecture meets 100% of data residency and security prerequisites."
             ),
             "callouts": ["Monitors Public Tenders", "100% Residency Compliant", "Large Contract Sizes"],
             "cta_label": "Inspect Tender Notices"
         },
         {
             "id": "research_18",
-            "title": "🚢 Port Louis Logistics & Customs Clearing Pain Point Discovery",
+            "title": "ðŸš¢ Port Louis Logistics & Customs Clearing Pain Point Discovery",
             "category": "Industry Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -2126,17 +2126,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Interviews freight agents regarding Bill of Lading data entry bottlenecks to package custom document extractor.",
             "body": (
                 "Logistics Vertical Intelligence:\n"
-                "• Target: 24 Freight forwarding agents in Port Louis harbor area\n"
-                "• Core Pain: Manual typing of Bill of Lading PDF tables into customs trade software\n"
-                "• Opportunity: Autonomous OCR & PDF Parser micro-tool ($1 tool or Rs 35k/mo retainer)\n"
-                "• Time Saved: 3 hours daily per customs clerk."
+                "â€¢ Target: 24 Freight forwarding agents in Port Louis harbor area\n"
+                "â€¢ Core Pain: Manual typing of Bill of Lading PDF tables into customs trade software\n"
+                "â€¢ Opportunity: Autonomous OCR & PDF Parser micro-tool ($1 tool or Rs 35k/mo retainer)\n"
+                "â€¢ Time Saved: 3 hours daily per customs clerk."
             ),
             "callouts": ["Saves 3 Hours Daily", "High Repeat Demand", "Harbor Business Focus"],
             "cta_label": "Prospect Logistics Leads"
         },
         {
             "id": "research_19",
-            "title": "💳 Cross-Border Payment Rail Fee Analysis (Wise vs PayPal vs Juice)",
+            "title": "ðŸ’³ Cross-Border Payment Rail Fee Analysis (Wise vs PayPal vs Juice)",
             "category": "Fintech Intel",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -2148,18 +2148,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Calculates exact fee drag across payment processors to guide international clients to the lowest fee rail.",
             "body": (
                 "Payment Processor Drag Analysis:\n"
-                "• MCB Juice: 0.0% Fee (Local P2P transfer — pure 100% margin)\n"
-                "• Base L2 Blockchain (USDC): $0.002 flat fee (<0.01% drag)\n"
-                "• Wise Wire: 0.45% FX spread\n"
-                "• PayPal Standard: 3.49% + $0.49 (High fee drag)\n"
-                "• Routing Rule: Prioritize MCB Juice domestically; prioritize Base L2 / Wise internationally."
+                "â€¢ MCB Juice: 0.0% Fee (Local P2P transfer â€” pure 100% margin)\n"
+                "â€¢ Base L2 Blockchain (USDC): $0.002 flat fee (<0.01% drag)\n"
+                "â€¢ Wise Wire: 0.45% FX spread\n"
+                "â€¢ PayPal Standard: 3.49% + $0.49 (High fee drag)\n"
+                "â€¢ Routing Rule: Prioritize MCB Juice domestically; prioritize Base L2 / Wise internationally."
             ),
             "callouts": ["0.0% Fee on MCB Juice", "Base L2 < 0.01% Drag", "Maximizes Net Retained Profit"],
             "cta_label": "Review Payment Rails"
         },
         {
             "id": "research_20",
-            "title": "📉 AI Agent Fleet Token Consumption & Cost Optimization",
+            "title": "ðŸ“‰ AI Agent Fleet Token Consumption & Cost Optimization",
             "category": "Telemetry Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -2171,17 +2171,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Analyzes token usage across all 18 agents to trim system prompt bloat and keep monthly compute under $15.",
             "body": (
                 "Token Telemetry Audit:\n"
-                "• Total Tokens Consumed This Month: 1.84 Million Tokens\n"
-                "• Total Inference Expense: $0.14 USD\n"
-                "• Optimization: Prompt compression trimmed 35% unnecessary preamble across agents\n"
-                "• Margin Efficiency: Extraordinary (Inference cost is 0.0003% of revenue)."
+                "â€¢ Total Tokens Consumed This Month: 1.84 Million Tokens\n"
+                "â€¢ Total Inference Expense: $0.14 USD\n"
+                "â€¢ Optimization: Prompt compression trimmed 35% unnecessary preamble across agents\n"
+                "â€¢ Margin Efficiency: Extraordinary (Inference cost is 0.0003% of revenue)."
             ),
             "callouts": ["$0.14 Monthly LLM Spend", "35% Prompt Compression", "Maximum Profit Margin"],
             "cta_label": "Optimize Token Usage"
         },
         {
             "id": "research_21",
-            "title": "💡 Micro-Tool Demand Discovery on Reddit & HackerNews",
+            "title": "ðŸ’¡ Micro-Tool Demand Discovery on Reddit & HackerNews",
             "category": "Product Research",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -2193,16 +2193,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Monitors /r/python and /r/indiehackers for recurring tool requests to manufacture in under 60 minutes.",
             "body": (
                 "Community Demand Mining:\n"
-                "• High Frequency Request: 'Tool to monitor competitor prices without headless browser crash'\n"
-                "• Nexus Solution: Nexus™ Lightweight Crypto & Price Alert Utility (Already built in products/!)\n"
-                "• Distribution Strategy: Post free code snippet with link to full $1 version."
+                "â€¢ High Frequency Request: 'Tool to monitor competitor prices without headless browser crash'\n"
+                "â€¢ Nexus Solution: Nexusâ„¢ Lightweight Crypto & Price Alert Utility (Already built in products/!)\n"
+                "â€¢ Distribution Strategy: Post free code snippet with link to full $1 version."
             ),
             "callouts": ["Uncovers Real Demand", "60-Minute Tool Build Time", "Built-In Audience"],
             "cta_label": "Mine Developer Demand"
         },
         {
             "id": "research_22",
-            "title": "📑 High-Yield B2B Retainer Proposal Template Benchmarking",
+            "title": "ðŸ“‘ High-Yield B2B Retainer Proposal Template Benchmarking",
             "category": "Sales Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -2214,16 +2214,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Audits why certain client proposals close in 48 hours while others stall, updating our master template.",
             "body": (
                 "Proposal Win Rate Post-Mortem:\n"
-                "• Top Closing Factor: Including a live functional demo link in the first 2 paragraphs\n"
-                "• Secondary Factor: Clear 1-month money-back performance guarantee\n"
-                "• Action: Updated default proposal template to lead with clickable demo."
+                "â€¢ Top Closing Factor: Including a live functional demo link in the first 2 paragraphs\n"
+                "â€¢ Secondary Factor: Clear 1-month money-back performance guarantee\n"
+                "â€¢ Action: Updated default proposal template to lead with clickable demo."
             ),
             "callouts": ["Live Demo Leads Close Fast", "Money-Back Assurance", "Proven MEDDPICC Framework"],
             "cta_label": "Update Proposal Template"
         },
         {
             "id": "research_23",
-            "title": "⚖️ Sovereign AI Code Ownership & Legal Precedent Audit",
+            "title": "âš–ï¸ Sovereign AI Code Ownership & Legal Precedent Audit",
             "category": "Legal Intel",
             "urgency": "Low",
             "platform": "lead_crm",
@@ -2235,16 +2235,16 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Reviews Mauritius Copyright Act and international precedents confirming human author ownership of AI-assisted codebases.",
             "body": (
                 "Intellectual Property Legal Assessment:\n"
-                "• Author: Deven Pawaray (Sole human architect and prompt engineer)\n"
-                "• Codebase Status: 100% copyrighted proprietary asset under Mauritius law\n"
-                "• Client Licensing: Structured as perpetual commercial licenses without equity transfer."
+                "â€¢ Author: Kingsley Vance Maurya (Sole human architect and prompt engineer)\n"
+                "â€¢ Codebase Status: 100% copyrighted proprietary asset under Mauritius law\n"
+                "â€¢ Client Licensing: Structured as perpetual commercial licenses without equity transfer."
             ),
-            "callouts": ["100% Deven Pawaray Owned", "Perpetual License Structure", "Clean Commercial IP"],
+            "callouts": ["100% Kingsley Vance Maurya Owned", "Perpetual License Structure", "Clean Commercial IP"],
             "cta_label": "View IP Protection Memo"
         },
         {
             "id": "research_24",
-            "title": "🏢 Local Business Directory Scraping (MCCI & CCI France-Maurice)",
+            "title": "ðŸ¢ Local Business Directory Scraping (MCCI & CCI France-Maurice)",
             "category": "Directory Intel",
             "urgency": "Standard",
             "platform": "lead_crm",
@@ -2256,17 +2256,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Aggregates public company registries from MCCI and French Chamber to populate the qualified CRM pipeline.",
             "body": (
                 "Directory Mining Summary:\n"
-                "• Source: Public Mauritius Chamber of Commerce & Industry (MCCI) member lists\n"
-                "• Records Extracted: 48 active enterprise companies\n"
-                "• Deduplication: Cleaned against existing client list\n"
-                "• Ready for ICP qualification scoring."
+                "â€¢ Source: Public Mauritius Chamber of Commerce & Industry (MCCI) member lists\n"
+                "â€¢ Records Extracted: 48 active enterprise companies\n"
+                "â€¢ Deduplication: Cleaned against existing client list\n"
+                "â€¢ Ready for ICP qualification scoring."
             ),
             "callouts": ["48 Enterprise Members", "Zero Duplicates", "High Credibility ICP"],
             "cta_label": "Ingest Directory Leads"
         },
         {
             "id": "research_25",
-            "title": "🎯 Strategic AI Threat & Blue Ocean Opportunity Review",
+            "title": "ðŸŽ¯ Strategic AI Threat & Blue Ocean Opportunity Review",
             "category": "Strategic Intel",
             "urgency": "High",
             "platform": "lead_crm",
@@ -2274,38 +2274,38 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "headline": "Quarterly Agency Threat Assessment & Strategic Roadmap",
             "badge": "STRATEGIC THREATS",
             "gradient": "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-            "target_audience": "Sir Deven Pawaray",
+            "target_audience": "Sir Kingsley Vance Maurya",
             "description": "Analyzes big-tech moves (OpenAI agent updates, Microsoft Copilot) and solidifies Nexus unbreachable moats.",
             "body": (
                 "Quarterly Strategic Moat Analysis:\n"
-                "• External Threat: Big Tech pushing cloud-tethered subscription AI\n"
-                "• Nexus Unbreachable Moat:\n"
+                "â€¢ External Threat: Big Tech pushing cloud-tethered subscription AI\n"
+                "â€¢ Nexus Unbreachable Moat:\n"
                 "  1. 100% Sovereign Local Execution (Zero US data transfer)\n"
                 "  2. Deep Mauritius Banking Rails (MCB Juice +230 58169420 instant checkout)\n"
                 "  3. Custom single-file micro-tools at $1.00 USD / Rs 45 MUR impulse pricing\n"
-                "• Verdict: Nexus is positioned in an uncontested blue ocean."
+                "â€¢ Verdict: Nexus is positioned in an uncontested blue ocean."
             ),
             "callouts": ["Sovereign Local Moat", "Local MCB Juice Monopoly", "Uncontested Blue Ocean"],
             "cta_label": "Review Strategic Roadmap"
         }
     ],
 
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     # 5. CEO / EXECUTIVE / MARKETING USER TYPE (25 Daily Real-World Scenarios)
-    # ═════════════════════════════════════════════════════════════════════════
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     # 5. CEO / EXECUTIVE / MARKETING USER TYPE (25 Daily Real-World Scenarios)
     # Reworked to Drive High-Ticket White-Label Turnkey Sales & IP Transfer
-    # ═════════════════════════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     "ceo": [
         {
             "id": "ceo_01",
-            "title": "🏥 Medical 360™ Clinic Suite: White-Label Pitch (Rs 105k + Rs 15k/yr)",
+            "title": "ðŸ¥ Medical 360â„¢ Clinic Suite: White-Label Pitch (Rs 105k + Rs 15k/yr)",
             "category": "White-Label Sales",
             "urgency": "High",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Enterprise Pitch: Medical 360™ Turnkey Clinic & Hospital Suite",
+            "headline": "Enterprise Pitch: Medical 360â„¢ Turnkey Clinic & Hospital Suite",
             "badge": "MEDICAL 360 PITCH",
             "gradient": "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
             "target_audience": "Private Clinic & Polyclinic Directors (Mauritius)",
@@ -2313,26 +2313,26 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Bonjour Dr. / Directeur,\n\n"
                 "Managing patient appointments, blood bank registries, and lab test results on paper or disparate tools wastes hours daily.\n\n"
-                "We offer **Medical 360™** as a complete **white-label turnkey solution with full IP transfer**:\n"
-                "• Frontend Patient Portal (The Bait): Rs 45,000 MUR\n"
-                "• Backend & Admin Operations Engine (+33% Premium): Rs 60,000 MUR\n"
-                "• Complete Full-Stack IP Handover: Rs 105,000 MUR (~$2,330 USD)\n"
-                "• Annual Maintenance Package: Rs 15,000 MUR / year\n\n"
+                "We offer **Medical 360â„¢** as a complete **white-label turnkey solution with full IP transfer**:\n"
+                "â€¢ Frontend Patient Portal (The Bait): Rs 45,000 MUR\n"
+                "â€¢ Backend & Admin Operations Engine (+33% Premium): Rs 60,000 MUR\n"
+                "â€¢ Complete Full-Stack IP Handover: Rs 105,000 MUR (~$2,330 USD)\n"
+                "â€¢ Annual Maintenance Package: Rs 15,000 MUR / year\n\n"
                 "Instant settlement via MCB Juice (+230 58169420) or Bank Transfer (000443260370).\n"
-                "Pouvons-nous planifier une démo cette semaine?\n\n"
-                "Deven Pawaray (+230 58169420)"
+                "Pouvons-nous planifier une dÃ©mo cette semaine?\n\n"
+                "Kingsley Vance Maurya (+230 58169420)"
             ),
             "callouts": ["Rs 105k Upfront IP Transfer", "Rs 15k/yr Maintenance Annuity", "MCB Juice Ready (+230 58169420)"],
             "cta_label": "Dispatch Medical 360 Pitch"
         },
         {
             "id": "ceo_02",
-            "title": "🤝 Enn Rev Enn Sourir™ NGO & CSR Platform Pitch (Rs 105k + Rs 15k/yr)",
+            "title": "ðŸ¤ Enn Rev Enn Sourirâ„¢ NGO & CSR Platform Pitch (Rs 105k + Rs 15k/yr)",
             "category": "White-Label Sales",
             "urgency": "High",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Enterprise Proposal: Enn Rev Enn Sourir™ CSR & NGO Platform",
+            "headline": "Enterprise Proposal: Enn Rev Enn Sourirâ„¢ CSR & NGO Platform",
             "badge": "CSR PLATFORM PITCH",
             "gradient": "linear-gradient(135deg, #059669 0%, #064e3b 100%)",
             "target_audience": "Corporate CSR Funds & Foundation Directors",
@@ -2340,26 +2340,26 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Bonjour,\n\n"
                 "Managing corporate CSR funds requires 100% surgical transparency and automated MRA Section 50L tax deduction receipts (15%).\n\n"
-                "We deliver **Enn Rev Enn Sourir™** as a fully branded white-label platform with full IP transfer:\n"
-                "• Frontend Donor Portal: Rs 45,000 MUR\n"
-                "• Backend CSR Treasury & Audit Engine: Rs 60,000 MUR\n"
-                "• Total Upfront IP Transfer: Rs 105,000 MUR (~$2,330 USD)\n"
-                "• Annual Maintenance: Rs 15,000 MUR / year\n\n"
+                "We deliver **Enn Rev Enn Sourirâ„¢** as a fully branded white-label platform with full IP transfer:\n"
+                "â€¢ Frontend Donor Portal: Rs 45,000 MUR\n"
+                "â€¢ Backend CSR Treasury & Audit Engine: Rs 60,000 MUR\n"
+                "â€¢ Total Upfront IP Transfer: Rs 105,000 MUR (~$2,330 USD)\n"
+                "â€¢ Annual Maintenance: Rs 15,000 MUR / year\n\n"
                 "Direct bank transfer to MCB (000443260370) or Juice (+230 58169420).\n"
                 "Shall we schedule a 10-minute demo?\n\n"
-                "Deven Pawaray (+230 58169420)"
+                "Kingsley Vance Maurya (+230 58169420)"
             ),
             "callouts": ["MRA Section 50L Compliant", "Surgical Audit Transparency", "Rs 15k/yr Maintenance Annuity"],
             "cta_label": "Dispatch CSR Pitch"
         },
         {
             "id": "ceo_03",
-            "title": "✈️ i-Travellix™ Luxury Travel SaaS White-Label Pitch (Rs 117k + Rs 15k/yr)",
+            "title": "âœˆï¸ i-Travellixâ„¢ Luxury Travel SaaS White-Label Pitch (Rs 117k + Rs 15k/yr)",
             "category": "White-Label Sales",
             "urgency": "High",
             "platform": "email_whatsapp",
             "task_type": "comms_draft",
-            "headline": "Enterprise Proposal: i-Travellix™ Luxury Travel & Tour Operator Suite",
+            "headline": "Enterprise Proposal: i-Travellixâ„¢ Luxury Travel & Tour Operator Suite",
             "badge": "TRAVEL SAAS PITCH",
             "gradient": "linear-gradient(135deg, #7c3aed 0%, #4338ca 100%)",
             "target_audience": "Inbound Tour Operators & DMCs (Mauritius & Regional)",
@@ -2367,21 +2367,21 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Bonjour,\n\n"
                 "Inbound tour operators and DMCs lose direct bookings to high-commission aggregators.\n\n"
-                "We offer **i-Travellix™** as a complete white-label travel suite with full IP ownership transfer:\n"
-                "• Frontend Booking Engine (The Bait): Rs 50,000 MUR\n"
-                "• Backend GDS & Operations Engine: Rs 67,000 MUR\n"
-                "• Total Upfront IP Handover: Rs 117,000 MUR (~$2,580 USD)\n"
-                "• Annual Maintenance: Rs 15,000 MUR / year\n\n"
+                "We offer **i-Travellixâ„¢** as a complete white-label travel suite with full IP ownership transfer:\n"
+                "â€¢ Frontend Booking Engine (The Bait): Rs 50,000 MUR\n"
+                "â€¢ Backend GDS & Operations Engine: Rs 67,000 MUR\n"
+                "â€¢ Total Upfront IP Handover: Rs 117,000 MUR (~$2,580 USD)\n"
+                "â€¢ Annual Maintenance: Rs 15,000 MUR / year\n\n"
                 "Settlement via MCB Bank (000443260370) or Base L2 USDC.\n"
-                "Pouvons-nous organiser une présentation?\n\n"
-                "Deven Pawaray (+230 58169420)"
+                "Pouvons-nous organiser une prÃ©sentation?\n\n"
+                "Kingsley Vance Maurya (+230 58169420)"
             ),
             "callouts": ["Live GDS Flight Integration", "Rs 117k Upfront IP Handover", "Rs 15k/yr Maintenance Annuity"],
             "cta_label": "Dispatch Travel Pitch"
         },
         {
             "id": "ceo_04",
-            "title": "💬 WhatsApp Flight Addon White-Label Pitch (Rs 40k + Rs 15k/yr)",
+            "title": "ðŸ’¬ WhatsApp Flight Addon White-Label Pitch (Rs 40k + Rs 15k/yr)",
             "category": "White-Label Sales",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -2394,20 +2394,20 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Bonjour,\n\n"
                 "Deliver 24/7 instant WhatsApp support for flight status, baggage rules, and bookings directly on your clients' phones.\n\n"
-                "• Frontend Bot Interface: Rs 15,000 MUR\n"
-                "• Backend NLP & Dispatch Engine: Rs 25,000 MUR\n"
-                "• Total Upfront IP Transfer: Rs 40,000 MUR (~$880 USD)\n"
-                "• Annual Maintenance: Rs 15,000 MUR / year\n\n"
+                "â€¢ Frontend Bot Interface: Rs 15,000 MUR\n"
+                "â€¢ Backend NLP & Dispatch Engine: Rs 25,000 MUR\n"
+                "â€¢ Total Upfront IP Transfer: Rs 40,000 MUR (~$880 USD)\n"
+                "â€¢ Annual Maintenance: Rs 15,000 MUR / year\n\n"
                 "MCB Juice: +230 58169420 | MCB Account: 000443260370.\n"
                 "Let's deploy in 48 hours.\n\n"
-                "Deven Pawaray (+230 58169420)"
+                "Kingsley Vance Maurya (+230 58169420)"
             ),
             "callouts": ["24/7 WhatsApp Autopilot", "Rs 40k Upfront IP Transfer", "48-Hour Deployment"],
             "cta_label": "Dispatch WhatsApp Addon Pitch"
         },
         {
             "id": "ceo_05",
-            "title": "🎯 Daily Rs 150,000 MUR Revenue Trajectory & White-Label Pipeline Audit",
+            "title": "ðŸŽ¯ Daily Rs 150,000 MUR Revenue Trajectory & White-Label Pipeline Audit",
             "category": "Revenue Strategy",
             "urgency": "High",
             "platform": "system_ops",
@@ -2415,23 +2415,23 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "headline": "Cognitive Audit: Tracking White-Label Sales Toward Rs 150k MUR Target",
             "badge": "REVENUE AUDIT",
             "gradient": "linear-gradient(135deg, #059669 0%, #064e3b 100%)",
-            "target_audience": "Sir Deven Pawaray",
+            "target_audience": "Sir Kingsley Vance Maurya",
             "description": "J.A.R.V.I.S. financial audit verifying white-label turnkey sales and maintenance annuity inflows against the monthly target.",
             "body": (
                 "J.A.R.V.I.S. Revenue Telemetry:\n"
-                "• Monthly Revenue Target: Rs 150,000 MUR\n"
-                "• Active White-Label Sales & Maintenance Inflows: Verified\n"
-                "• Pipeline Conversion Focus:\n"
-                "  1. Close 1 Medical 360™ Client -> Rs 105,000 MUR upfront + Rs 15,000/yr\n"
-                "  2. Close 1 Enn Rev Enn Sourir™ NGO -> Rs 105,000 MUR upfront + Rs 15,000/yr\n"
-                "• Cloud Compute Burn: $12.40 USD (Well below $180 cap, guaranteeing 99% gross margins)."
+                "â€¢ Monthly Revenue Target: Rs 150,000 MUR\n"
+                "â€¢ Active White-Label Sales & Maintenance Inflows: Verified\n"
+                "â€¢ Pipeline Conversion Focus:\n"
+                "  1. Close 1 Medical 360â„¢ Client -> Rs 105,000 MUR upfront + Rs 15,000/yr\n"
+                "  2. Close 1 Enn Rev Enn Sourirâ„¢ NGO -> Rs 105,000 MUR upfront + Rs 15,000/yr\n"
+                "â€¢ Cloud Compute Burn: $12.40 USD (Well below $180 cap, guaranteeing 99% gross margins)."
             ),
             "callouts": ["Rs 150k MUR Monthly Target", "Annual Maintenance Annuities", "99% Operating Margin"],
             "cta_label": "Run Revenue Audit"
         },
         {
             "id": "ceo_06",
-            "title": "📄 White-Label Intellectual Property (IP) Transfer Agreement Drafting",
+            "title": "ðŸ“„ White-Label Intellectual Property (IP) Transfer Agreement Drafting",
             "category": "Legal & IP",
             "urgency": "High",
             "platform": "email_whatsapp",
@@ -2446,14 +2446,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "1. Transfer of Ownership: Upon full settlement of the upfront white-label fee (Rs 105,000 MUR), Nexus AI irrevocably transfers all intellectual property rights and source code for [Platform Name] to the Client.\n"
                 "2. Maintenance & Support: Includes the annual maintenance package at Rs 15,000 MUR/year for updates and security patches.\n"
                 "3. Governing Law: Republic of Mauritius.\n\n"
-                "Signed,\nDeven Pawaray, Managing Principal"
+                "Signed,\nKingsley Vance Maurya, Managing Principal"
             ),
             "callouts": ["Full Source Code Handover", "Maur Mauritius Jurisdiction", "Annual Maintenance Terms"],
             "cta_label": "Generate IP Agreement"
         },
         {
             "id": "ceo_07",
-            "title": "💎 Base L2 Sovereign Crypto Treasury Rebalance & MCB Off-Ramp",
+            "title": "ðŸ’Ž Base L2 Sovereign Crypto Treasury Rebalance & MCB Off-Ramp",
             "category": "Treasury Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -2465,18 +2465,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Executes pre-flight policy verifier checks ($15 single-tx ceiling, $50 daily cap) and initiates off-ramp to MCB account.",
             "body": (
                 "Base L2 Treasury & Off-Ramp Execution:\n"
-                "• Wallet Address: 0xEAE558282090d878582ec4C4C1C2470f9826b1F2 (Chain 8453)\n"
-                "• Pending USDC Balance: Verified via Secp256k1 keypair\n"
-                "• Off-ramp Target: MCB Bank Account 000443260370 (Mauritian Rupees)\n"
-                "• Policy Guardrails: Enforced ($15 single-tx ceiling / $50 daily limit)\n"
-                "• Status: Ready for execution."
+                "â€¢ Wallet Address: 0xEAE558282090d878582ec4C4C1C2470f9826b1F2 (Chain 8453)\n"
+                "â€¢ Pending USDC Balance: Verified via Secp256k1 keypair\n"
+                "â€¢ Off-ramp Target: MCB Bank Account 000443260370 (Mauritian Rupees)\n"
+                "â€¢ Policy Guardrails: Enforced ($15 single-tx ceiling / $50 daily limit)\n"
+                "â€¢ Status: Ready for execution."
             ),
             "callouts": ["Base L2 Chain 8453", "Secp256k1 Keypair Signing", "MCB Bank 000443260370"],
             "cta_label": "Execute Treasury Off-Ramp"
         },
         {
             "id": "ceo_08",
-            "title": "🛡️ Annual Maintenance Invoice & Annuity Collection Blitz",
+            "title": "ðŸ›¡ï¸ Annual Maintenance Invoice & Annuity Collection Blitz",
             "category": "Billing Operations",
             "urgency": "High",
             "platform": "email_whatsapp",
@@ -2489,9 +2489,9 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "body": (
                 "Dear Partner,\n\n"
                 "Your annual software maintenance package for your white-label platform is due this month.\n\n"
-                "• Annual Maintenance Fee: Rs 15,000 MUR (~$330 USD)\n"
-                "• Covers: Continuous security patches, database optimizations, and priority technical support.\n"
-                "• Payment Rails:\n"
+                "â€¢ Annual Maintenance Fee: Rs 15,000 MUR (~$330 USD)\n"
+                "â€¢ Covers: Continuous security patches, database optimizations, and priority technical support.\n"
+                "â€¢ Payment Rails:\n"
                 "  - MCB Juice: +230 58169420\n"
                 "  - Bank Transfer: MCB Account 000443260370\n\n"
                 "Thank you for keeping your infrastructure secure and updated.\n\n"
@@ -2502,7 +2502,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "ceo_09",
-            "title": "🎙️ Executive Morning Voice Briefing with J.A.R.V.I.S. (Alt+J)",
+            "title": "ðŸŽ™ï¸ Executive Morning Voice Briefing with J.A.R.V.I.S. (Alt+J)",
             "category": "Executive Routine",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -2510,12 +2510,12 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "headline": "J.A.R.V.I.S. Morning Executive Audio & Telemetry Briefing",
             "badge": "J.A.R.V.I.S. BRIEFING",
             "gradient": "linear-gradient(135deg, #00f0ff 0%, #0369a1 100%)",
-            "target_audience": "Sir Deven Pawaray",
+            "target_audience": "Sir Kingsley Vance Maurya",
             "description": "Synthesizes overnight white-label inquiries, maintenance collections, and server telemetry into a crisp audio briefing.",
             "body": (
                 "Good morning, Sir Deven.\n\n"
                 "All systems nominal. Overnight security audits completed with zero vulnerabilities detected.\n\n"
-                "Commercial update: 1 inquiry for Medical 360™ received via WhatsApp, and our finance watchdog confirmed receipt of an annual maintenance transfer.\n\n"
+                "Commercial update: 1 inquiry for Medical 360â„¢ received via WhatsApp, and our finance watchdog confirmed receipt of an annual maintenance transfer.\n\n"
                 "Standing by for your voice directive, Sir. Press [Alt + J] to speak."
             ),
             "callouts": ["Voice-Ready Audio Script", "Press [Alt + J] to Speak", "Complete System Overview"],
@@ -2523,7 +2523,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "ceo_10",
-            "title": "🌍 Bilingual Mauritius Outreach Campaign (English / French Parity)",
+            "title": "ðŸŒ Bilingual Mauritius Outreach Campaign (English / French Parity)",
             "category": "B2B Outreach",
             "urgency": "High",
             "platform": "email_whatsapp",
@@ -2535,17 +2535,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Simultaneous English and French email and WhatsApp pitch sequence targeting local enterprises.",
             "body": (
                 "Bonjour / Hello,\n\n"
-                "Nous aidons les entreprises mauriciennes à automatiser leurs opérations avec des solutions logicielles clés en main avec transfert complet de propriété intellectuelle.\n\n"
+                "Nous aidons les entreprises mauriciennes Ã  automatiser leurs opÃ©rations avec des solutions logicielles clÃ©s en main avec transfert complet de propriÃ©tÃ© intellectuelle.\n\n"
                 "We help Mauritian businesses deploy complete turnkey software systems with full source code and IP transfer (Medical 360, Enn Rev Enn Sourir, i-Travellix).\n\n"
                 "Pouvons-nous organiser un appel de 10 minutes?\n\n"
-                "Deven Pawaray (+230 58169420)"
+                "Kingsley Vance Maurya (+230 58169420)"
             ),
             "callouts": ["100% Bilingual Parity", "Maur Mauritius DPA Compliant", "MCB Juice Ready (+230 58169420)"],
             "cta_label": "Dispatch Bilingual Campaign"
         },
         {
             "id": "ceo_11",
-            "title": "📊 FinOps Cloud Cost & Gross Margin Enforcement ($180 Hard Cap)",
+            "title": "ðŸ“Š FinOps Cloud Cost & Gross Margin Enforcement ($180 Hard Cap)",
             "category": "FinOps Strategy",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -2557,17 +2557,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Verifies cloud compute expenditure across AWS/Vercel to guarantee operating expenses remain strictly under the $180 limit.",
             "body": (
                 "FinOps Telemetry Audit:\n"
-                "• Monthly Cloud Spend Cap: $180.00 USD\n"
-                "• Actual Current Spend: $11.20 USD (SQLite local WAL architecture efficiency)\n"
-                "• Gross Operating Margin: 99.02%\n"
-                "• Status: Zero runaway background loops detected."
+                "â€¢ Monthly Cloud Spend Cap: $180.00 USD\n"
+                "â€¢ Actual Current Spend: $11.20 USD (SQLite local WAL architecture efficiency)\n"
+                "â€¢ Gross Operating Margin: 99.02%\n"
+                "â€¢ Status: Zero runaway background loops detected."
             ),
             "callouts": ["$180 Hard Cap Enforced", "$11.20 Actual Spend", "99% Gross Margin"],
             "cta_label": "Run FinOps Audit"
         },
         {
             "id": "ceo_12",
-            "title": "🤝 Strategic Partner Referral & Commission Payout Audit",
+            "title": "ðŸ¤ Strategic Partner Referral & Commission Payout Audit",
             "category": "Partner Operations",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -2579,17 +2579,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Audits referral tracking and calculates commission payouts for white-label software introductions.",
             "body": (
                 "Partner Referral Audit:\n"
-                "• Active Reseller Partners: 4 Digital Agencies\n"
-                "• Pending Referral Payouts: Rs 15,000 MUR per successful turnkey introduction\n"
-                "• Payment Execution: Settled instantly via MCB Juice (+230 58169420)\n"
-                "• Status: All accounts reconciled."
+                "â€¢ Active Reseller Partners: 4 Digital Agencies\n"
+                "â€¢ Pending Referral Payouts: Rs 15,000 MUR per successful turnkey introduction\n"
+                "â€¢ Payment Execution: Settled instantly via MCB Juice (+230 58169420)\n"
+                "â€¢ Status: All accounts reconciled."
             ),
             "callouts": ["Automated Partner Payouts", "MCB Juice Settlement", "Zero Discrepancies"],
             "cta_label": "Run Partner Audit"
         },
         {
             "id": "ceo_13",
-            "title": "🛡️ SQLite WAL Integrity & Zero-Regression Backup Snapshot",
+            "title": "ðŸ›¡ï¸ SQLite WAL Integrity & Zero-Regression Backup Snapshot",
             "category": "SRE Operations",
             "urgency": "High",
             "platform": "system_ops",
@@ -2601,17 +2601,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Creates an immediate cryptographic backup of the unified workforce database before any client handover or update.",
             "body": (
                 "SQLite WAL Backup Execution:\n"
-                "• Database Path: data/nexus_workforce.db\n"
-                "• Integrity Check: PASS (Zero corruption detected)\n"
-                "• Snapshot Created: .shadow_bak/nexus_workforce_snapshot.bak\n"
-                "• Status: Air-gapped restore point secured."
+                "â€¢ Database Path: data/nexus_workforce.db\n"
+                "â€¢ Integrity Check: PASS (Zero corruption detected)\n"
+                "â€¢ Snapshot Created: .shadow_bak/nexus_workforce_snapshot.bak\n"
+                "â€¢ Status: Air-gapped restore point secured."
             ),
             "callouts": ["Air-Gapped Backup", "Zero Corruption Verified", "Instant Restore Point"],
             "cta_label": "Create Instant Snapshot"
         },
         {
             "id": "ceo_14",
-            "title": "🗺️ Q4 White-Label Expansion & Enterprise Scaling Roadmap",
+            "title": "ðŸ—ºï¸ Q4 White-Label Expansion & Enterprise Scaling Roadmap",
             "category": "Roadmap Strategy",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -2626,14 +2626,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "1. Target: Secure 5 enterprise white-label turnkey clients (Medical 360 / Enn Rev Enn Sourir).\n"
                 "2. Maintenance Annuity Target: Rs 75,000/mo in recurring yearly maintenance contracts.\n"
                 "3. Operational Goal: Maintain sub-48-hour white-label handover turnaround.\n"
-                "• Status: Execution on track."
+                "â€¢ Status: Execution on track."
             ),
             "callouts": ["5 Enterprise Targets", "Recurring Maintenance Annuity", "Sub-48h Handover"],
             "cta_label": "Review Roadmap"
         },
         {
             "id": "ceo_15",
-            "title": "💼 Key Account Retention & White-Label Onboarding Review",
+            "title": "ðŸ’¼ Key Account Retention & White-Label Onboarding Review",
             "category": "Client Retention",
             "urgency": "High",
             "platform": "email_whatsapp",
@@ -2647,14 +2647,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Dear [Client Director],\n\n"
                 "Welcome to your newly deployed white-label platform. Your full source code, IP transfer documentation, and admin credentials are now active.\n\n"
                 "Our team is standing by to ensure smooth adoption. My direct WhatsApp line is +230 58169420.\n\n"
-                "Sincerely,\nDeven Pawaray, Managing Principal"
+                "Sincerely,\nKingsley Vance Maurya, Managing Principal"
             ),
             "callouts": ["Full Source Code Handover", "Direct WhatsApp Line", "White-Glove Welcome"],
             "cta_label": "Send Onboarding Welcome"
         },
         {
             "id": "ceo_16",
-            "title": "🏦 Mauritius Banking Ecosystem & MCB Integration Strategy",
+            "title": "ðŸ¦ Mauritius Banking Ecosystem & MCB Integration Strategy",
             "category": "Banking Strategy",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -2674,7 +2674,7 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
         },
         {
             "id": "ceo_17",
-            "title": "📈 Stakeholder & Advisory Board Monthly Financial Report",
+            "title": "ðŸ“ˆ Stakeholder & Advisory Board Monthly Financial Report",
             "category": "Investor Relations",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -2686,17 +2686,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Detailed monthly financial update highlighting white-label turnkey revenue, maintenance annuities, and unit economics.",
             "body": (
                 "Monthly Stakeholder Briefing:\n"
-                "• Upfront White-Label Inflows: Verified\n"
-                "• Annual Maintenance Annuity Pipeline: Growing\n"
-                "• Operating Expenses: $11.20 USD (99% Margin)\n"
-                "• Status: Exceptional capital efficiency and growth."
+                "â€¢ Upfront White-Label Inflows: Verified\n"
+                "â€¢ Annual Maintenance Annuity Pipeline: Growing\n"
+                "â€¢ Operating Expenses: $11.20 USD (99% Margin)\n"
+                "â€¢ Status: Exceptional capital efficiency and growth."
             ),
             "callouts": ["White-Label Inflows", "Maintenance Annuities", "99% Operating Margin"],
             "cta_label": "Send Stakeholder Brief"
         },
         {
             "id": "ceo_18",
-            "title": "🤖 Autonomous Agent Swarm Coordination & Task Allocation",
+            "title": "ðŸ¤– Autonomous Agent Swarm Coordination & Task Allocation",
             "category": "Fleet Ops",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -2708,17 +2708,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Optimizes multi-agent task execution to ensure 100% synchronization across B2B outreach and billing pipelines.",
             "body": (
                 "Swarm Orchestration Status:\n"
-                "• Lead Finder Agent: Scanning Mauritius clinic and NGO registers\n"
-                "• Outreach Agent: Dispatched bilingual proposal drafts\n"
-                "• Finance Watchdog: Standing by for invoice reconciliation\n"
-                "• Status: Swarm operating at peak efficiency."
+                "â€¢ Lead Finder Agent: Scanning Mauritius clinic and NGO registers\n"
+                "â€¢ Outreach Agent: Dispatched bilingual proposal drafts\n"
+                "â€¢ Finance Watchdog: Standing by for invoice reconciliation\n"
+                "â€¢ Status: Swarm operating at peak efficiency."
             ),
             "callouts": ["Multi-Agent Sync", "Automated Prospecting", "Peak Efficiency"],
             "cta_label": "Coordinate Swarm"
         },
         {
             "id": "ceo_19",
-            "title": "📜 Data Sovereignty & Mauritius DPA 2017 Compliance Audit",
+            "title": "ðŸ“œ Data Sovereignty & Mauritius DPA 2017 Compliance Audit",
             "category": "Legal Compliance",
             "urgency": "High",
             "platform": "system_ops",
@@ -2730,17 +2730,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Verifies strict adherence to Mauritian data protection laws, suppression registries, and consent tracking.",
             "body": (
                 "Data Protection Audit (Mauritius DPA 2017):\n"
-                "• Local Storage: 100% SQLite WAL local persistence (zero third-party data hoarding)\n"
-                "• Consent Tracking: Active suppression registry operational\n"
-                "• Opt-Out Handling: Automatic 24-hour removal compliance\n"
-                "• Status: 100% Legally Compliant."
+                "â€¢ Local Storage: 100% SQLite WAL local persistence (zero third-party data hoarding)\n"
+                "â€¢ Consent Tracking: Active suppression registry operational\n"
+                "â€¢ Opt-Out Handling: Automatic 24-hour removal compliance\n"
+                "â€¢ Status: 100% Legally Compliant."
             ),
             "callouts": ["Maur Mauritius DPA 2017", "Local SQLite Persistence", "100% Compliant"],
             "cta_label": "Run Compliance Audit"
         },
         {
             "id": "ceo_20",
-            "title": "🚨 Emergency Master Kill Switch & Failsafe Simulation",
+            "title": "ðŸš¨ Emergency Master Kill Switch & Failsafe Simulation",
             "category": "Safety Ops",
             "urgency": "Urgent",
             "platform": "system_ops",
@@ -2752,17 +2752,17 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Simulates immediate system-wide agent suspension and state persistence under emergency conditions.",
             "body": (
                 "Emergency Kill Switch Test:\n"
-                "• Signal Received: Immediate agent pause\n"
-                "• Response Time: 35ms\n"
-                "• State Persistence: Saved to SQLite WAL\n"
-                "• Status: Failsafe verified."
+                "â€¢ Signal Received: Immediate agent pause\n"
+                "â€¢ Response Time: 35ms\n"
+                "â€¢ State Persistence: Saved to SQLite WAL\n"
+                "â€¢ Status: Failsafe verified."
             ),
             "callouts": ["35ms Instant Pause", "SQLite State Persistence", "Failsafe Verified"],
             "cta_label": "Test Kill Switch"
         },
         {
             "id": "ceo_21",
-            "title": "📦 White-Label Enterprise Handover Package Assembly",
+            "title": "ðŸ“¦ White-Label Enterprise Handover Package Assembly",
             "category": "Product Delivery",
             "urgency": "High",
             "platform": "system_ops",
@@ -2774,18 +2774,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Bundles frontend portal, backend admin engine, source code repository, and deployment documentation for client transfer.",
             "body": (
                 "White-Label Handover Package:\n"
-                "• Frontend Portal (Bait): Included\n"
-                "• Backend & Admin Engine (+33%): Included\n"
-                "• Source Code Repository & IP Docs: Included\n"
-                "• Annual Maintenance Contract (Rs 15,000/yr): Configured\n"
-                "• Status: Package ready for secure transfer."
+                "â€¢ Frontend Portal (Bait): Included\n"
+                "â€¢ Backend & Admin Engine (+33%): Included\n"
+                "â€¢ Source Code Repository & IP Docs: Included\n"
+                "â€¢ Annual Maintenance Contract (Rs 15,000/yr): Configured\n"
+                "â€¢ Status: Package ready for secure transfer."
             ),
             "callouts": ["Complete Source Code", "IP Transfer Docs", "Maintenance Setup"],
             "cta_label": "Assemble Handover Package"
         },
         {
             "id": "ceo_22",
-            "title": "🎥 Client Video Testimonial & Case Study Briefing",
+            "title": "ðŸŽ¥ Client Video Testimonial & Case Study Briefing",
             "category": "Case Study",
             "urgency": "Standard",
             "platform": "email_whatsapp",
@@ -2799,14 +2799,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Dear [Client Director],\n\n"
                 "Now that your white-label platform is fully operational, would you be open to recording a brief 60-second video sharing your experience with Nexus?\n\n"
                 "Your success story helps us showcaseMauritian technical excellence.\n\n"
-                "Warm regards,\nDeven Pawaray"
+                "Warm regards,\nKingsley Vance Maurya"
             ),
             "callouts": ["High-Value Social Proof", "Showcases Mauritian Innovation", "Polite Request"],
             "cta_label": "Request Testimonial"
         },
         {
             "id": "ceo_23",
-            "title": "📊 12-Month Financial Projections & Maintenance Annuity Forecast",
+            "title": "ðŸ“Š 12-Month Financial Projections & Maintenance Annuity Forecast",
             "category": "Financial Modeling",
             "urgency": "Standard",
             "platform": "system_ops",
@@ -2818,18 +2818,18 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Projects annual revenue combining upfront white-label IP fees (Rs 105k-117k) and recurring yearly maintenance packages (Rs 15k/yr).",
             "body": (
                 "12-Month Financial Projection Model:\n"
-                "• Upfront White-Label Sales (4 Clients): Rs 440,000 MUR\n"
-                "• Annual Maintenance Annuities (4 Clients x Rs 15,000): Rs 60,000 MUR / year recurring\n"
-                "• Operating Expenses: $135 total cloud/server cost\n"
-                "• Net Profit Margin: 98.8%\n"
-                "• Status: Highly scalable annuity model."
+                "â€¢ Upfront White-Label Sales (4 Clients): Rs 440,000 MUR\n"
+                "â€¢ Annual Maintenance Annuities (4 Clients x Rs 15,000): Rs 60,000 MUR / year recurring\n"
+                "â€¢ Operating Expenses: $135 total cloud/server cost\n"
+                "â€¢ Net Profit Margin: 98.8%\n"
+                "â€¢ Status: Highly scalable annuity model."
             ),
             "callouts": ["Upfront IP Fees", "Recurring Maintenance Annuities", "98.8% Net Margin"],
             "cta_label": "Generate Forecast"
         },
         {
             "id": "ceo_24",
-            "title": "🍽️ VIP Founder Networking & Mauritius Tech Leadership Dinner",
+            "title": "ðŸ½ï¸ VIP Founder Networking & Mauritius Tech Leadership Dinner",
             "category": "Networking",
             "urgency": "Low",
             "platform": "email_whatsapp",
@@ -2843,14 +2843,14 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
                 "Dear [Director Name],\n\n"
                 "You are cordially invited to an exclusive executive dinner in Cybercity next Wednesday to discuss the future of sovereign software automation in Mauritius.\n\n"
                 "RSVP: +230 58169420.\n\n"
-                "Warm regards,\nDeven Pawaray"
+                "Warm regards,\nKingsley Vance Maurya"
             ),
             "callouts": ["Exclusive Enterprise Invite", "Cybercity Venue", "High-Level Networking"],
             "cta_label": "Send Dinner Invite"
         },
         {
             "id": "ceo_25",
-            "title": "🧠 J.A.R.V.I.S. Neural Core Memory & Sales Heuristic Tuning",
+            "title": "ðŸ§  J.A.R.V.I.S. Neural Core Memory & Sales Heuristic Tuning",
             "category": "Cognitive Ops",
             "urgency": "High",
             "platform": "system_ops",
@@ -2862,11 +2862,11 @@ DAILY_SCENARIOS: Dict[str, List[Dict[str, Any]]] = {
             "description": "Fine-tunes J.A.R.V.I.S. cognitive weights to prioritize high-ticket white-label pitching and MCB Juice payment verification.",
             "body": (
                 "J.A.R.V.I.S. Neural Core Fine-Tuning:\n"
-                "• Objective: Maximize white-label turnkey closing efficiency\n"
-                "• Heuristics Updated: Frontend bait + 33% backend premium positioning\n"
-                "• Payment Rails: MCB Juice (+230 58169420) & Base L2 verified\n"
-                "• Latency: Sub-40ms response time.\n"
-                "• Status: Neural core fully optimized for revenue generation."
+                "â€¢ Objective: Maximize white-label turnkey closing efficiency\n"
+                "â€¢ Heuristics Updated: Frontend bait + 33% backend premium positioning\n"
+                "â€¢ Payment Rails: MCB Juice (+230 58169420) & Base L2 verified\n"
+                "â€¢ Latency: Sub-40ms response time.\n"
+                "â€¢ Status: Neural core fully optimized for revenue generation."
             ),
             "callouts": ["White-Label Closing Heuristics", "Sub-40ms Latency", "100% Revenue Optimized"],
             "cta_label": "Tune Neural Core"
@@ -2903,3 +2903,4 @@ def get_scenario_by_id(scenario_id: str) -> Optional[Dict[str, Any]]:
             if sc["id"] == scenario_id:
                 return {**sc, "user_type": user_type}
     return None
+

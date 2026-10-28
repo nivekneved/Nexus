@@ -35,43 +35,102 @@ SAFEGUARD_METADATA = [
     ("22_safe_json", "Safe JSON Serialization", "Defends against deserialization and recursion exploits"),
     ("23_fine_locks", "Thread-Safe Fine-Grained Locks", "Prevents race conditions on ledger and state files"),
     ("24_pii_masking", "Mauritius & Global PII Masking", "Masks credit card numbers and National ID cards in logs"),
-    ("25_circuit_breaker", "Subagent Circuit Breaker Sentinel", "Trips on 3 consecutive failures with 60s cooldown")
+    ("25_circuit_breaker", "Subagent Circuit Breaker Sentinel", "Trips on 3 consecutive failures with 60s cooldown"),
+    ("26_indirect_prompt_injection_shield", "Unicode Smuggling & Indirect Prompt Injection Shield", "Scrubs invisible Unicode Tags (U+E0000..U+E007F) and RAG delimiter breakouts"),
+    ("27_zero_trust_tool_policy_gate", "Zero-Trust Agentic Tool Policy Gate", "Blocks null-byte and dunder/prototype pollution and signs HMAC capability tokens"),
+    ("28_emergency_lockdown_ready", "Emergency Fleet Lockdown Protocol", "Drains token buckets and opens circuit breakers on containment trigger")
 ]
 
 class DomainProxyAgent(BaseAgent):
     """
     Lightweight proxy providing 100% backward compatibility for legacy agent IDs.
-    Routes execution, stats, and configurations directly into the consolidated Domain Controllers.
+    Routes execution, stats, and configurations into both the consolidated Domain Controllers
+    AND the standalone specialized agent instance (with all its subagents and custom methods).
     """
     def __init__(self, agent_id: str, name: str, domain_id: str, method_name: str, description: str, icon: str = "bot"):
         super().__init__(agent_id=agent_id, name=name, description=description, icon=icon)
         self.domain_id = domain_id
         self.method_name = method_name
+        self.real_agent: Optional[BaseAgent] = None
+
+    def __getattr__(self, item: str):
+        real = object.__getattribute__(self, "__dict__").get("real_agent")
+        if real is not None and hasattr(real, item):
+            return getattr(real, item)
+        raise AttributeError(f"'{type(self).__name__}' object (id='{self.agent_id}') has no attribute '{item}'")
 
     def run_cycle(self) -> Dict[str, Any]:
         from core.agent_manager import AgentManager
         domain = AgentManager().get_agent(self.domain_id)
-        if not domain:
-            raise ValueError(f"Domain controller '{self.domain_id}' not found.")
-        method = getattr(domain, self.method_name, domain.run_cycle)
-        return method()
+        domain_res: Dict[str, Any] = {}
+        if domain:
+            method = getattr(domain, self.method_name, domain.run_cycle)
+            res = method()
+            if isinstance(res, dict):
+                domain_res.update(res)
+
+        real_res: Dict[str, Any] = {}
+        if self.real_agent is not None:
+            try:
+                r = self.real_agent.run_cycle()
+                if isinstance(r, dict):
+                    real_res.update(r)
+                if self.agent_id == "lead_finder" and r.get("success") is False and hasattr(self.real_agent, "discover_leads"):
+                    leads = self.real_agent.discover_leads("mauritius_hospitality")
+                    real_res["leads_discovered"] = len(leads)
+                    real_res["leads_found"] = len(leads)
+                    real_res["status"] = f"Qualified {len(leads)} B2B Pipeline Leads"
+            except Exception as e:
+                real_res["standalone_notice"] = str(e)
+
+        merged = {**real_res, **domain_res}
+        if real_res and domain_res:
+            merged["standalone_agent"] = real_res
+            merged["domain_controller"] = domain_res
+        return merged
 
     def get_stats(self) -> List[Dict[str, Any]]:
+        if self.real_agent is not None:
+            try:
+                stats = self.real_agent.get_stats()
+                if stats:
+                    return stats
+            except Exception:
+                pass
         from core.agent_manager import AgentManager
         domain = AgentManager().get_agent(self.domain_id)
         return domain.get_stats() if domain else []
 
     def get_config_schema(self) -> List[Dict[str, Any]]:
+        if self.real_agent is not None:
+            try:
+                schema = self.real_agent.get_config_schema()
+                if schema:
+                    return schema
+            except Exception:
+                pass
         from core.agent_manager import AgentManager
         domain = AgentManager().get_agent(self.domain_id)
         return domain.get_config_schema() if domain else []
 
     def get_config(self) -> Dict[str, Any]:
+        if self.real_agent is not None:
+            try:
+                cfg = self.real_agent.get_config()
+                if cfg:
+                    return cfg
+            except Exception:
+                pass
         from core.agent_manager import AgentManager
         domain = AgentManager().get_agent(self.domain_id)
         return domain.get_config() if domain else {}
 
     def save_config(self, new_config: Dict[str, Any]) -> bool:
+        if self.real_agent is not None:
+            try:
+                self.real_agent.save_config(new_config)
+            except Exception:
+                pass
         from core.agent_manager import AgentManager
         domain = AgentManager().get_agent(self.domain_id)
         return domain.save_config(new_config) if domain else True
@@ -118,7 +177,7 @@ class AgentManager:
             )
 
     def _init_domain_controllers(self):
-        """Initializes and registers the 4 core Domain Controllers and 18 legacy proxy routes."""
+        """Initializes and registers the 4 core Domain Controllers and legacy/connect proxy routes."""
         from core.domains.comms import CommsDomainController
         from core.domains.operations import OperationsDomainController
         from core.domains.commerce import CommerceDomainController
@@ -135,14 +194,18 @@ class AgentManager:
             self.domain_controllers[domain.agent_id] = domain
             self.register_agent(domain)
 
-        # 2. Register All 26 Legacy Aliases / Proxies Mapped into the 4 Domain Controllers
+        # 2. Register All Legacy & Omnichannel Connect Proxies Mapped into the 4 Domain Controllers
         legacy_specs = [
-            # Comms Domain (5 Agents)
+            # Comms & Lead Engagement Domain
             ("email_hygiene", "Email Hygiene & Anti-Spam", "domain_comms", "run_email_hygiene", "Autonomous multi-inbox cleaner and spam shield", "mail"),
             ("customer_support", "Customer Support & Concierge", "domain_comms", "run_support_triage", "24/7 client triage and VIP escalation", "support"),
             ("ghost_unsubscriber", "Zombie Subscription Purger", "domain_comms", "run_ghost_unsub", "Newsletter unsubscription & daily digest", "checklist"),
             ("mobile_dispatcher", "Mobile Emergency Dispatcher", "domain_comms", "run_mobile_dispatcher", "WhatsApp/SMS urgent notifications", "phone"),
             ("bilingual_concierge", "Bilingual EN/FR Concierge", "domain_comms", "run_bilingual_concierge", "Multi-lingual communication assistant", "globe"),
+            ("proposal_drafter", "Commercial Proposal & Pitch Drafter", "domain_comms", "run_proposal_drafter", "Crafts bespoke B2B proposals and pitches with payment links", "edit"),
+            ("mass_email_outreach", "Mass Email & Cold Outreach Dispatcher", "domain_comms", "run_mass_email_outreach", "CSV campaign dispatch, MX verification, and CRM bounce sweeping", "send"),
+            ("mauritius_whatsapp_sales", "Mauritius WhatsApp Booking & Sales Concierge", "domain_comms", "run_mauritius_whatsapp_sales", "24/7 bilingual WhatsApp booking & sector pitch engine", "message-circle"),
+            ("social_seeding", "Community Seeding & Broadcaster", "domain_comms", "run_social_seeding", "Value-first Reddit/community seeding and webhook broadcaster", "radio"),
 
             # Operations Domain (5 Agents)
             ("chief_of_staff", "Chief of Staff & Coordinator", "domain_operations", "run_chief_of_staff", "Workforce coordination and morning standup", "briefcase"),
@@ -150,6 +213,7 @@ class AgentManager:
             ("infra_finance_sentinel", "Cloud Bills & Infra Sentinel", "domain_operations", "run_infra_sentinel", "Infrastructure cost burn rate and token caps", "trending-down"),
             ("regression_sentinel", "Regression & Invariant Sentinel", "domain_operations", "run_regression_sentinel", "Offline integrity tests and self-healing", "shield"),
             ("spec_auditor", "API Contract & Spec Auditor", "domain_operations", "run_spec_auditor", "OpenAPI schema and security compliance", "check-circle"),
+            ("zero_day_sentinel", "Zero-Day Sentinel & Immunization Agent", "domain_operations", "run_zero_day_sentinel", "Autonomous 6-hour zero-day vulnerability sweep, SSRF/RAG/Tool-Gate immunization & 28-safeguard audit", "shield"),
 
             # Commerce Domain (5 Agents)
             ("executive_partner", "Executive Revenue Partner", "domain_commerce", "run_store_audit", "Strategic monetization and pipeline analysis", "dollar-sign"),
@@ -158,13 +222,13 @@ class AgentManager:
             ("domain_arbitrage", "Digital Asset & Domain Arbitrage", "domain_commerce", "run_domain_arbitrage", "Expired domain valuation & asset flipping", "globe"),
             ("affiliate_harvester", "Affiliate & Sponsorship Harvester", "domain_commerce", "run_affiliate_harvester", "High-commission developer tool & SaaS referral loops", "dollar-sign"),
 
-            # Research Domain (11 Agents)
+            # Research & Outbound Engagement Domain
             ("tech_trend_curator", "Emerging Tech Trend Curator", "domain_research", "run_trend_curator", "AI & technology intelligence monitoring", "cpu"),
-            ("lead_finder", "Mauritius B2B Lead Scout", "domain_research", "run_lead_scout", "Corporate lead discovery and qualification", "target"),
+            ("lead_finder", "Mauritius B2B Lead Scout", "domain_research", "run_lead_scout", "Corporate lead discovery, ICP scoring, and pitch dispatch", "target"),
             ("repo_radar", "GitHub Repo Radar & Security", "domain_research", "run_repo_radar", "Dependency vulnerability audit", "github"),
-            ("executive_poster", "Executive Social Ghostwriter", "domain_research", "run_cycle", "Thought leadership and social drafting", "share-2"),
+            ("executive_poster", "Executive Social Ghostwriter", "domain_comms", "run_executive_poster", "Thought leadership and social drafting for LinkedIn, X, and WhatsApp", "share-2"),
             ("growth_hacker", "Organic Growth Hacker", "domain_research", "run_cycle", "Viral loop analysis and audience growth", "trending-up"),
-            ("influencer_usher", "Strategic Influencer Usher", "domain_research", "run_cycle", "Affiliate partnerships and outreach", "users"),
+            ("influencer_usher", "Strategic Influencer Usher", "domain_comms", "run_influencer_usher", "Influencer matching, viral copy, and 3-touch warm lead nurture", "users"),
             ("meeting_assistant", "Executive Meeting Assistant", "domain_research", "run_cycle", "Meeting notes and action item synthesis", "calendar"),
             ("bounty_hunter", "Bug Bounty & Exploit Harvester", "domain_research", "run_bounty_hunter", "Active bug bounty & vulnerability disclosure scout", "shield"),
             ("gig_matchmaker", "Freelance Gig & RFP Matchmaker", "domain_research", "run_gig_matchmaker", "High-ticket Python/AI contracts & winning proposals", "briefcase"),
@@ -175,6 +239,8 @@ class AgentManager:
 
         for aid, name, dom_id, meth, desc, icon in legacy_specs:
             proxy = DomainProxyAgent(aid, name, dom_id, meth, desc, icon)
+            if aid in ("zero_day_sentinel", "bounty_hunter"):
+                proxy.schedule_minutes = 360
             self.agents[aid] = proxy
             addon_registry.register_addon(
                 addon_id=aid,
@@ -186,8 +252,18 @@ class AgentManager:
             )
 
     def register_agent(self, agent: BaseAgent, override: bool = False):
-        """Registers an instantiated agent into the central hub and addon registry."""
+        """Registers an instantiated agent into the central hub and addon registry, binding real agents to DomainProxyAgents."""
         if agent.agent_id in self.agents and not override:
+            existing = self.agents[agent.agent_id]
+            if isinstance(existing, DomainProxyAgent) and not isinstance(agent, DomainProxyAgent):
+                existing.real_agent = agent
+                existing.schedule_minutes = agent.schedule_minutes
+                existing.subagents.update(agent.subagents)
+                try:
+                    from core.agent_internet_bridge import agent_internet_bridge
+                    agent_internet_bridge.inject_into_agent(agent)
+                except Exception:
+                    pass
             return
         self.agents[agent.agent_id] = agent
         try:
@@ -360,6 +436,8 @@ class AgentManager:
                 if agent.consecutive_idle_cycles >= 3:
                     effective_multiplier *= 1.5
 
+                if agent_id in ("zero_day_sentinel", "bounty_hunter"):
+                    effective_multiplier = 1.0  # Strictly enforce 6-hour (360m) zero-day sweep cadence
                 interval_sec = agent.schedule_minutes * 60 * effective_multiplier
                 last_time = last_checks.get(agent_id, 0)
 

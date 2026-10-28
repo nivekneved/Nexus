@@ -158,8 +158,9 @@ class SocialSeedingService:
             if live_posts:
                 all_threads.extend(live_posts)
 
-        # 2. Add verified fallback high-intent community threads
-        all_threads.extend(FALLBACK_REDDIT_THREADS)
+        # 2. Add verified fallback high-intent community threads if live API failed
+        if not all_threads:
+             all_threads.extend(FALLBACK_REDDIT_THREADS)
 
         queue = safe_load_json(SOCIAL_QUEUE_FILE, default=[])
         existing_urls = {q.get("thread_url") for q in queue}
@@ -174,6 +175,33 @@ class SocialSeedingService:
                 queue.insert(0, reply)
                 new_replies.append(reply)
                 existing_urls.add(thread.get("url"))
+
+                # ACTUALLY PUTTING WHEELS ON IT: Auto-posting to Reddit (if PRAW configured)
+                reddit_client_id = os.getenv("REDDIT_CLIENT_ID")
+                reddit_secret = os.getenv("REDDIT_SECRET")
+                reddit_username = os.getenv("REDDIT_USERNAME")
+                reddit_password = os.getenv("REDDIT_PASSWORD")
+
+                if reddit_client_id and reddit_secret and reddit_username and reddit_password:
+                    try:
+                        import praw
+                        reddit = praw.Reddit(
+                            client_id=reddit_client_id,
+                            client_secret=reddit_secret,
+                            password=reddit_password,
+                            user_agent="NexusAgent/4.0",
+                            username=reddit_username,
+                        )
+                        # Extract submission ID from URL
+                        match = re.search(r"comments/([a-z0-9]+)/", thread.get("url", ""))
+                        if match:
+                            submission_id = match.group(1)
+                            submission = reddit.submission(id=submission_id)
+                            submission.reply(reply["recommended_reply"])
+                            reply["status"] = "PUBLISHED_LIVE"
+                            logger.info(f"[SocialSeeding] Successfully posted live reply to Reddit: {submission_id}")
+                    except Exception as e:
+                        logger.error(f"[SocialSeeding] Failed to post live to Reddit API: {e}")
 
         # Keep latest 50 items
         atomic_save_json(SOCIAL_QUEUE_FILE, queue[:50])

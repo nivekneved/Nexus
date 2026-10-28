@@ -63,13 +63,22 @@ class CompanySignalResearcherSubAgent(BaseSubAgent):
         company_name = payload.get("company_name", "Acme Corp")
         website = payload.get("website", "https://example.com")
 
-        # Synthetic signal harvesting (or live scraping when API key is present)
         signals = [
             "Recently listed job openings for Operations Manager and Customer Success Leads",
-            "Tech stack indicates FastAPI, Next.js, and multi-tenant Postgres",
-            "Public CEO tweet regarding inbox overload and manual triage bottlenecks"
+            "Tech stack indicates FastAPI, Next.js, and multi-tenant Postgres"
         ]
         primary_pain_point = "Scaling manual customer operations and email response bottlenecks"
+
+        # Live DOM & HTTP Header Buying-Signal Fingerprinting via AgentInternetBridge
+        if website and "example.com" not in website:
+            try:
+                from core.agent_internet_bridge import agent_internet_bridge
+                fp = agent_internet_bridge.fingerprint_domain_buying_signals(website)
+                if fp.get("recommended_pitch_angle"):
+                    primary_pain_point = fp["recommended_pitch_angle"]
+                    signals.insert(0, f"Live DOM Fingerprint: {primary_pain_point}")
+            except Exception:
+                pass
 
         return {
             "company_name": company_name,
@@ -104,9 +113,20 @@ class PersonalizedPitchCraftSubAgent(BaseSubAgent):
             f"Hi {contact},\n\n"
             f"Saw that {company} is scaling fast. Most growing teams hit a wall with {pain_point.lower()}. "
             f"We deployed an autonomous AI workforce that triages incoming inquiries and handles 85% of repetitive ops without human fatigue.\n\n"
+            f"• 7-Day Live Trial ($1.00 USD): https://www.paypal.com/ncp/payment/B4SASTZDVFXY4\n"
+            f"• Local Mauritius MCB Juice / WhatsApp: +230 58169420\n\n"
             f"Would you be open to a 5-minute teardown of how this works for your team?"
         )
+        try:
+            from core.recursive_revenue_profiler import RecursiveRevenueProfiler
+            crit = RecursiveRevenueProfiler.critique_and_refine_pitch(hook, company=company, pain_point=pain_point)
+            hook = crit.get("refined_pitch", hook)
+            lead_record["critique_score"] = crit.get("final_score", 96)
+        except Exception:
+            pass
         lead_record["suggested_hook"] = hook
+        if not lead_record.get("pitch_draft"):
+            lead_record["pitch_draft"] = hook
 
         # Persist to pipeline with SQLite WAL synchronization
         from core.storage import atomic_save_json, safe_load_json

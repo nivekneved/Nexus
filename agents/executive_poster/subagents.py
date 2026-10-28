@@ -1,8 +1,8 @@
-"""
+﻿"""
 Executive Social Ghostwriter & Auto-Poster SubAgents
 ===================================================
 Operates as the personal AI Ghostwriter and Social Media Publisher
-for Deven Pawaray (Founder & CEO, Nexus Autonomous Workforce).
+for Kingsley Vance Maurya (Founder & CEO, Nexus Autonomous Workforce).
 
 SubAgent 1: ExecutiveGhostwriterSubAgent
     -> Mines company milestones, telemetry, and executive prompts
@@ -34,39 +34,39 @@ POSTS_STORAGE_FILE = "ceo_social_posts.json"
 EXECUTIVE_PRESET_PROMPTS = [
     {
         "id": "store_launch",
-        "title": "🚀 $1 Digital Store Drop",
+        "title": "ðŸš€ $1 Digital Store Drop",
         "category": "Product Drop",
         "prompt": "Announce that our Nexus Autonomous Vending Machine is live, selling single-file Python automation scripts for $1 / Rs 45 with instant PayPal fulfillment and zero monthly SaaS fees."
     },
     {
         "id": "zero_payroll",
-        "title": "🧠 Zero-Payroll AI Workforce",
+        "title": "ðŸ§  Zero-Payroll AI Workforce",
         "category": "Thought Leadership",
         "prompt": "Explain why running 18 specialized autonomous AI agents beats hiring a traditional 10-person agency in 2026. Emphasize speed, 24/7 reliability, and zero overhead."
     },
     {
         "id": "medical360_mauritius",
-        "title": "🏥 Medical 360™ Clinic Digitization",
+        "title": "ðŸ¥ Medical 360â„¢ Clinic Digitization",
         "category": "Healthcare B2B",
-        "prompt": "Highlight how Medical 360™ is helping private clinics and diagnostic labs across Mauritius automate patient scheduling, billing, and records securely."
+        "prompt": "Highlight how Medical 360â„¢ is helping private clinics and diagnostic labs across Mauritius automate patient scheduling, billing, and records securely."
     },
     {
         "id": "overnight_chronicle",
-        "title": "🌙 Night Shift Autonomous Wins",
+        "title": "ðŸŒ™ Night Shift Autonomous Wins",
         "category": "Behind The Scenes",
         "prompt": "Share what our 18 autonomous agents accomplished overnight while I was asleep: swept inboxes, triaged spam, verified backup integrity, and drafted outreach."
     },
     {
         "id": "shield_security",
-        "title": "🛡️ 25-Safeguard Defense Shield",
+        "title": "ðŸ›¡ï¸ 25-Safeguard Defense Shield",
         "category": "Security & Trust",
         "prompt": "Describe our 25-safeguard autonomous immunity shield that filters phishing, blocks unauthorized cash outflow, and preserves air-gapped system safety."
     },
     {
         "id": "csr_enn_rev",
-        "title": "🇲🇺 Enn Rev Enn Sourir™ CSR Initiative",
+        "title": "ðŸ‡²ðŸ‡º Enn Rev Enn Sourirâ„¢ CSR Initiative",
         "category": "CSR & Community",
-        "prompt": "Share our commitment to Mauritian community causes with the turnkey NGO management portal Enn Rev Enn Sourir™ empowering local children and medical relief."
+        "prompt": "Share our commitment to Mauritian community causes with the turnkey NGO management portal Enn Rev Enn Sourirâ„¢ empowering local children and medical relief."
     }
 ]
 
@@ -107,7 +107,7 @@ def _seed_initial_posts() -> List[Dict[str, Any]]:
             "title": "The Death of Bloated SaaS: Why We Built a $1 Autonomous Store",
             "category": "Product Drop",
             "topic": "Autonomous Micro-Tools vs Monthly Subscriptions",
-            "author": "Deven Pawaray",
+            "author": "Kingsley Vance Maurya",
             "author_title": "Founder & CEO, Nexus Autonomous Workforce",
             "created_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
             "status": "PUBLISHED",
@@ -118,10 +118,10 @@ def _seed_initial_posts() -> List[Dict[str, Any]]:
                 "I decided to break that model.\n\n"
                 "We just launched the Nexus Digital Vending Machine: a store of production-grade, single-file Python micro-tools for exactly $1.00 USD (or Rs 45 MUR).\n\n"
                 "Here is how it works:\n"
-                "• 100% self-hosted: You own the script forever\n"
-                "• Zero subscriptions or recurring credit card charges\n"
-                "• Instant 1-click PayPal fulfillment straight to your inbox\n"
-                "• Pre-tested in isolated sandbox environments\n\n"
+                "â€¢ 100% self-hosted: You own the script forever\n"
+                "â€¢ Zero subscriptions or recurring credit card charges\n"
+                "â€¢ Instant 1-click PayPal fulfillment straight to your inbox\n"
+                "â€¢ Pre-tested in isolated sandbox environments\n\n"
                 "Why pay monthly rent on software when you can own it outright?\n\n"
                 "Explore the catalog: https://nexusbots-nu.vercel.app/store\n\n"
                 "#FutureOfSoftware #BuildInPublic #AIWorkforce #Python #SaaSDisruption #IndieHacker"
@@ -129,12 +129,12 @@ def _seed_initial_posts() -> List[Dict[str, Any]]:
             "twitter_content": (
                 "SaaS subscriptions are broken. Why pay $49/mo for a tool you use twice a week?\n\n"
                 "We built the Nexus Autonomous Vending Machine: self-hosted Python automation scripts for $1.00.\n\n"
-                "• Zero monthly fees\n• Run locally forever\n• Instant PayPal checkout\n\n"
+                "â€¢ Zero monthly fees\nâ€¢ Run locally forever\nâ€¢ Instant PayPal checkout\n\n"
                 "Check it out: https://nexusbots-nu.vercel.app/store\n\n"
                 "#BuildInPublic #Python #IndieHacker"
             ),
             "whatsapp_content": (
-                "👋 Hi! Just wanted to share our latest milestone at Nexus: we've opened our $1 Digital Micro-Tool store. Standalone self-hosted automations with zero subscriptions. Have a look here: https://nexusbots-nu.vercel.app/store"
+                "ðŸ‘‹ Hi! Just wanted to share our latest milestone at Nexus: we've opened our $1 Digital Micro-Tool store. Standalone self-hosted automations with zero subscriptions. Have a look here: https://nexusbots-nu.vercel.app/store"
             ),
             "intent_urls": {
                 "twitter": "https://twitter.com/intent/tweet?text=" + urllib.parse.quote("SaaS subscriptions are broken. Check out Nexus $1 Micro-Tools: https://nexusbots-nu.vercel.app/store #BuildInPublic"),
@@ -153,7 +153,7 @@ def _seed_initial_posts() -> List[Dict[str, Any]]:
             "title": "What 18 Autonomous Agents Did While I Slept Last Night",
             "category": "Behind The Scenes",
             "topic": "Autonomous Night Shift Operations",
-            "author": "Deven Pawaray",
+            "author": "Kingsley Vance Maurya",
             "author_title": "Founder & CEO, Nexus Autonomous Workforce",
             "created_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
             "status": "APPROVED",
@@ -165,17 +165,17 @@ def _seed_initial_posts() -> List[Dict[str, Any]]:
                 "1. Cleaned 14 unsolicited spam messages and phishing attempts without waking me up\n"
                 "2. Conducted full health audits across all production API routes\n"
                 "3. Verified atomic JSON backups with zero data loss\n"
-                "4. Researched 5 new corporate CSR prospects for Medical 360™\n\n"
+                "4. Researched 5 new corporate CSR prospects for Medical 360â„¢\n\n"
                 "This isn't an experimental chatbot. It's a continuous, self-governing workforce running under strict safety guardrails.\n\n"
                 "The secret to scaling isn't working 18 hours a day. It's building systems that work while you rest.\n\n"
                 "#ExecutiveLeadership #AIWorkforce #Automation #FutureOfWork #Productivity"
             ),
             "twitter_content": (
                 "What our 18 autonomous agents did while I slept last night:\n\n"
-                "✅ Blocked 14 phishing attempts\n"
-                "✅ Ran health checks on all API endpoints\n"
-                "✅ Created 0-loss atomic backups\n"
-                "✅ Researched 5 enterprise B2B leads\n\n"
+                "âœ… Blocked 14 phishing attempts\n"
+                "âœ… Ran health checks on all API endpoints\n"
+                "âœ… Created 0-loss atomic backups\n"
+                "âœ… Researched 5 enterprise B2B leads\n\n"
                 "Scale systems, not working hours.\n\n"
                 "#AI #Automation #Productivity"
             ),
@@ -208,7 +208,7 @@ class ExecutiveGhostwriterSubAgent(BaseSubAgent):
     """
     SubAgent 1: Executive Ghostwriter
     Mines CEO objectives and uses Gemini AI (with deterministic fallbacks)
-    to draft authoritative, compelling posts in Deven Pawaray's voice.
+    to draft authoritative, compelling posts in Kingsley Vance Maurya's voice.
     """
     def __init__(self):
         super().__init__(
@@ -242,7 +242,7 @@ class ExecutiveGhostwriterSubAgent(BaseSubAgent):
             "title": ai_result.get("title", topic[:60]),
             "category": category,
             "topic": topic,
-            "author": "Deven Pawaray",
+            "author": "Kingsley Vance Maurya",
             "author_title": "Founder & CEO, Nexus Autonomous Workforce",
             "created_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
             "status": "DRAFT",
@@ -280,7 +280,7 @@ class ExecutiveGhostwriterSubAgent(BaseSubAgent):
         if not api_key:
             return None
 
-        prompt = f"""You are the personal executive ghostwriter for Deven Pawaray, Founder & CEO of Nexus Autonomous Workforce in Mauritius.
+        prompt = f"""You are the personal executive ghostwriter for Kingsley Vance Maurya, Founder & CEO of Nexus Autonomous Workforce in Mauritius.
 Write an authentic, highly engaging executive social media post package based on this topic:
 Topic: {topic}
 Category: {category}
@@ -320,9 +320,9 @@ Respond ONLY with valid JSON in this exact structure:
             f"Most businesses spend 80% of their operational budget on repetitive digital overhead.\n\n"
             f"At Nexus, we asked a fundamental question: What if your business operated continuously, without bottlenecks?\n\n"
             f"Regarding {topic}:\n"
-            f"• Autonomous systems execute consistently without fatigue\n"
-            f"• Decisions are grounded in real-time telemetry, not guesswork\n"
-            f"• Zero recurring payroll friction allows hyper-focused innovation\n\n"
+            f"â€¢ Autonomous systems execute consistently without fatigue\n"
+            f"â€¢ Decisions are grounded in real-time telemetry, not guesswork\n"
+            f"â€¢ Zero recurring payroll friction allows hyper-focused innovation\n\n"
             f"True leverage isn't about working harder. It's about empowering autonomous engines to handle execution while leadership focuses on strategy.\n\n"
             f"How is your organization rethinking automation this quarter?\n\n"
             f"#Leadership #AIWorkforce #Automation #FutureOfBusiness #Nexus"
@@ -385,7 +385,7 @@ class SocialPublishingSubAgent(BaseSubAgent):
             return {
                 "success": True,
                 "post": target_post,
-                "message": f"Successfully published '{target_post['title']}' on behalf of Deven Pawaray!",
+                "message": f"Successfully published '{target_post['title']}' on behalf of Kingsley Vance Maurya!",
                 "webhook_result": dispatch_result
             }
 
@@ -407,17 +407,17 @@ class SocialPublishingSubAgent(BaseSubAgent):
             return "READY_LOCAL (Add DISCORD_WEBHOOK_URL to .env for automatic live channel blast)"
 
         payload = {
-            "username": "Deven Pawaray (CEO Broadcast)",
+            "username": "Kingsley Vance Maurya (CEO Broadcast)",
             "avatar_url": "https://img.shields.io/badge/CEO-Broadcast-purple",
             "embeds": [{
-                "title": f"📢 {post.get('title', 'New Executive Post')}",
+                "title": f"ðŸ“¢ {post.get('title', 'New Executive Post')}",
                 "description": post.get("linkedin_content", "")[:1800],
                 "color": 754939,  # Deep Purple
                 "fields": [
                     {"name": "Twitter / X Post", "value": post.get("twitter_content", "")[:280]},
-                    {"name": "Status", "value": "✅ Live on behalf of Deven Pawaray", "inline": True}
+                    {"name": "Status", "value": "âœ… Live on behalf of Kingsley Vance Maurya", "inline": True}
                 ],
-                "footer": {"text": "Nexus Autonomous Workforce • Executive Ghostwriter"}
+                "footer": {"text": "Nexus Autonomous Workforce â€¢ Executive Ghostwriter"}
             }]
         }
         try:
@@ -464,3 +464,4 @@ class SocialAnalyticsRadarSubAgent(BaseSubAgent):
             "avg_engagement_rate": "5.8%",
             "presets_available": len(EXECUTIVE_PRESET_PROMPTS)
         }
+

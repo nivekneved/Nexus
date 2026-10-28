@@ -9,6 +9,7 @@ high-payout security bounties and drafts triage remediation reports.
 
 import os
 import json
+import requests
 from datetime import datetime
 from typing import Dict, Any, List
 from core.base_agent import BaseAgent
@@ -29,7 +30,7 @@ class BugBountyAgent(BaseAgent):
             name="Bug Bounty & Exploit Harvester",
             description="Scans security platforms and open-source advisories for active bug bounties and high-payout vulnerability disclosure programs.",
             icon="shield",
-            schedule_minutes=180
+            schedule_minutes=360
         )
         self.config = {
             "SCAN_HACKERONE": True,
@@ -77,23 +78,74 @@ class BugBountyAgent(BaseAgent):
         self.log(
             step="Bounty Scan",
             file_used="bounty_hunter/agent.py",
-            message="Scanning HackerOne and Bugcrowd for newly launched public vulnerability programs...",
+            message="Scanning GitHub for real open bounties...",
             level="INFO"
         )
 
         bounties = self.get_bounties()
+
+        # ACTUALLY PUTTING WHEELS ON IT: Querying GitHub for real live bounties
+        new_bounties_found = 0
+        try:
+            # Search GitHub for issues with the label "bounty" that are open
+            url = "https://api.github.com/search/issues?q=label:bounty+state:open&sort=created&order=desc"
+            # Optional: Add Github token to avoid rate limits
+            headers = {"Accept": "application/vnd.github.v3+json"}
+            github_token = os.getenv("GITHUB_TOKEN")
+            if github_token:
+                headers["Authorization"] = f"token {github_token}"
+
+            resp = requests.get(url, headers=headers, timeout=10)
+            if resp.status_code == 200:
+                data = resp.json()
+                items = data.get("items", [])[:5] # Grab top 5 most recent real bounties
+
+                existing_ids = {b.get("id") for b in bounties}
+
+                for item in items:
+                    b_id = f"GH-BOUNTY-{item['id']}"
+                    if b_id not in existing_ids:
+                        bounties.insert(0, {
+                            "id": b_id,
+                            "platform": "GitHub (Real)",
+                            "target": item["repository_url"].split("/")[-1],
+                            "vulnerability": item["title"],
+                            "bounty_reward_usd": "Varies",
+                            "status": "OPEN",
+                            "url": item["html_url"],
+                            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        })
+                        new_bounties_found += 1
+
+                if new_bounties_found > 0:
+                    with open(BOUNTY_LOG_FILE, "w", encoding="utf-8") as f:
+                        json.dump(bounties[:50], f, indent=2)
+
+        except Exception as e:
+            self.log(step="GitHub API Error", file_used="bounty_hunter/agent.py", message=str(e), level="ERROR")
+
         self.stats["bounties_tracked"] = len(bounties)
+
+        # Next Logical Step: Hand off newly discovered advisories to Zero-Day Sentinel for Fleet Immunization & B2B Commercialization
+        evolution_handoff = {}
+        try:
+            from agents.zero_day_sentinel.agent import ZeroDayAutoEvolutionSubAgent
+            evolution_handoff = ZeroDayAutoEvolutionSubAgent().execute({"bounties": bounties[:1]})
+        except Exception:
+            pass
 
         self.log(
             step="Bounties Monitored",
             file_used=BOUNTY_LOG_FILE,
-            message=f"Bounty feeds monitored. {len(bounties)} tracked programs.",
+            message=f"Bounty feeds monitored. Found {new_bounties_found} real new bounties. {len(bounties)} tracked programs.",
             level="INFO"
         )
 
         return {
-            "status": "Bug Bounty Monitor Cycle Completed (No New Submissions)",
-            "tracked_count": len(bounties)
+            "status": f"Bug Bounty Monitor Cycle Completed ({new_bounties_found} real bounties found)",
+            "tracked_count": len(bounties),
+            "new_bounties": new_bounties_found,
+            "zero_day_evolution_handoff": evolution_handoff
         }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:

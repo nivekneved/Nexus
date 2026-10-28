@@ -35,6 +35,10 @@ _REGISTRY: dict[str, Path] = {
     "crypto_wallet":        DATA_DIR / "crypto_wallet.json",
     "crypto_transactions":  DATA_DIR / "crypto_transactions.json",
     "crypto_spend_history": DATA_DIR / "crypto_spend_history.json",
+    "whatsapp_bookings":    DATA_DIR / "whatsapp_bookings.json",
+    "mx_domain_cache":      DATA_DIR / "mx_domain_cache.json",
+    "pareto_pitch_archive": DATA_DIR / "pareto_pitch_archive.json",
+    "zeroday_audit_ledger": DATA_DIR / "zeroday_audit_ledger.json",
 }
 
 
@@ -70,7 +74,7 @@ def load(key: str, default: Any = None) -> Any:
     if not p.exists():
         return default if default is not None else []
     try:
-        with open(p, "r", encoding="utf-8") as f:
+        with open(p, "r", encoding="utf-8-sig") as f:
             data = json.load(f)
         set_state(p.name, data, sync_json=False)
         return data
@@ -98,3 +102,7 @@ def append(key: str, entry: Any, max_items: int = 500) -> None:
         items = []
     items.insert(0, entry)
     save(key, items[:max_items])
+
+
+import sys as _sys
+dal = _sys.modules[__name__]

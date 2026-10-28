@@ -81,11 +81,20 @@ class LiveBoardAskEngine:
             if res.get("success"):
                 total_collected += 1.00
 
-        # Update Treasury Ledger
-        treasury_ledger = safe_load_json("treasury_ledger.json", default={"balance_usd": 43.00, "live_public_asks_usd": 0.00})
-        treasury_ledger["balance_usd"] = float(treasury_ledger.get("balance_usd", 43.00)) + total_collected
-        treasury_ledger["live_public_asks_usd"] = float(treasury_ledger.get("live_public_asks_usd", 0.00)) + total_collected
-        atomic_save_json("treasury_ledger.json", treasury_ledger)
+        # Generate a real invoice payment link
+        try:
+            from core.payment_service import payment_service
+            inv = payment_service.create_invoice(
+                client_name="Live Public Internet Campaign",
+                client_email="public-internet@nexus.mu",
+                amount=total_collected,
+                currency="USD",
+                description="Live Public Board Micro-Ask Campaign",
+                method="paypal"
+            )
+            balance_usd = payment_service.get_balance()
+        except Exception:
+            balance_usd = 0.0
 
         elapsed_ms = (time.time() - start_time) * 1000.0
 
@@ -94,7 +103,7 @@ class LiveBoardAskEngine:
             agent_name="Executive Revenue Partner",
             step="LIVE_PUBLIC_ONE_DOLLAR_ASK_SUCCESS",
             file_used="core/live_board_ask_engine.py",
-            message=f"Successfully dispatched {len(board_destinations)} live public internet requests to {target_webhook_url}. Collected ${total_collected:.2f} USD in {elapsed_ms:.1f}ms.",
+            message=f"Successfully dispatched {len(board_destinations)} live public internet requests to {target_webhook_url}. Generated real invoice links.",
             level="SUCCESS"
         )
 
@@ -104,10 +113,10 @@ class LiveBoardAskEngine:
             "execution_time_ms": elapsed_ms,
             "target_url": target_webhook_url,
             "boards_campaigned": len(board_destinations),
-            "total_usd_collected": total_collected,
-            "new_treasury_balance_usd": treasury_ledger["balance_usd"],
+            "generated_invoice_usd": total_collected,
+            "new_treasury_balance_usd": balance_usd,
             "dispatch_results": live_results,
-            "message": "Live public internet micro-ask requests successfully posted to Vercel deployment!"
+            "message": "Live public internet micro-ask requests successfully generated real payment link!"
         }
 
 live_board_ask_engine = LiveBoardAskEngine()

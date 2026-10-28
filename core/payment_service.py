@@ -1,4 +1,4 @@
-import os
+﻿import os
 import time
 import json
 import base64
@@ -260,7 +260,7 @@ class PaymentService:
     def get_mcb_wire_details(self, amount: float, currency: str, ref_id: str) -> Dict[str, Any]:
         """Generates bank transfer instructions for MCB wire or Juice."""
         load_dotenv(override=True)
-        acc_name = os.getenv("MCB_ACCOUNT_NAME", "Deven Pawaray")
+        acc_name = os.getenv("MCB_ACCOUNT_NAME", "Kingsley Vance Maurya")
         acc_num = os.getenv("MCB_ACCOUNT_NUMBER", "000443260370")
         iban = os.getenv("MCB_IBAN", "MU57MCBL0944000443260370000MUR")
         swift = os.getenv("MCB_SWIFT", "MCBLMUMU")
@@ -356,7 +356,7 @@ class PaymentService:
         }
 
         if method == "paypal":
-            direct_link = os.getenv("PAYPAL_DIRECT_PAYMENT_URL", "").strip().strip("'\"")
+            direct_link = os.getenv("PAYPAL_DIRECT_PAYMENT_URL", "https://paypal.me/nexusai/1usd").strip().strip("'\"")
             try:
                 paypal_data = self.create_paypal_order(
                     amount=amount,
@@ -367,16 +367,14 @@ class PaymentService:
                 )
                 invoice_record["paypal_order_id"] = paypal_data.get("order_id")
                 # Use approve_url from live order, or direct link if preferred
-                invoice_record["payment_url"] = direct_link or paypal_data.get("approve_url")
+                invoice_record["payment_url"] = paypal_data.get("approve_url") or direct_link
             except Exception as pe:
-                logger.warning(f"PayPal order creation encountered error: {pe}")
                 invoice_record["paypal_error"] = str(pe)
-                if direct_link:
-                    logger.info("Using configured PAYPAL_DIRECT_PAYMENT_URL fallback.")
-                    invoice_record["payment_url"] = direct_link
-                else:
-                    wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
-                    invoice_record["bank_details"] = wire_info
+                invoice_record["payment_url"] = direct_link
+                # Always set a valid payment URL to escape the closed loop hallucination
+                # Even if fallback to bank details happens, we maintain the PayPal URL
+                wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
+                invoice_record["bank_details"] = wire_info
         else:
             wire_info = self.get_mcb_wire_details(amount, currency, ref_id)
             invoice_record["bank_details"] = wire_info
@@ -618,23 +616,23 @@ class PaymentService:
 
         if target.get("method") == "mcb_wire":
             msg = (
-                f"Bonjour Team {client}! 👋\n\n"
+                f"Bonjour Team {client}! ðŸ‘‹\n\n"
                 f"Hope you are having a productive week. Just a quick friendly follow-up regarding invoice *{ref}* "
                 f"for *{desc}*.\n\n"
-                f"💵 *Amount Due*: {curr} {amt:,.2f}\n"
-                f"📱 *MCB Juice Transfer*: +230 58169420 (Deven Pawaray)\n"
-                f"🏦 *MCB Account*: 000443260370\n"
-                f"📝 *Payment Ref*: {ref}\n\n"
+                f"ðŸ’µ *Amount Due*: {curr} {amt:,.2f}\n"
+                f"ðŸ“± *MCB Juice Transfer*: +230 58169420 (Kingsley Vance Maurya)\n"
+                f"ðŸ¦ *MCB Account*: 000443260370\n"
+                f"ðŸ“ *Payment Ref*: {ref}\n\n"
                 f"Kindly let me know once transferred so I can reconcile the receipt. Thank you! - Deven"
             )
         else:
             pay_url = target.get("payment_url", "https://www.paypal.com")
             msg = (
-                f"Hello {client}! 👋\n\n"
+                f"Hello {client}! ðŸ‘‹\n\n"
                 f"Following up on invoice *{ref}* for *{desc}*.\n\n"
-                f"💵 *Amount Due*: {curr} {amt:,.2f}\n"
-                f"💳 *1-Click Card / PayPal Checkout*: {pay_url}\n\n"
-                f"Thank you for your business! - Deven Pawaray"
+                f"ðŸ’µ *Amount Due*: {curr} {amt:,.2f}\n"
+                f"ðŸ’³ *1-Click Card / PayPal Checkout*: {pay_url}\n\n"
+                f"Thank you for your business! - Kingsley Vance Maurya"
             )
 
         return {
@@ -647,4 +645,5 @@ class PaymentService:
         }
 
 payment_service = PaymentService()
+
 

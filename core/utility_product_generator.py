@@ -131,9 +131,20 @@ if __name__ == "__main__":
 
     def save_client_config(self, cfg: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Saves client utility settings configuration.
+        Saves client utility settings configuration and updates env variables.
         """
         atomic_save_json(CONFIG_LEDGER, cfg)
+
+        # Also sync PayPal link to .env for the system to use globally
+        if "paypal_direct_link" in cfg:
+            from dotenv import set_key
+            env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
+            try:
+                set_key(env_path, "PAYPAL_DIRECT_PAYMENT_URL", cfg["paypal_direct_link"])
+                os.environ["PAYPAL_DIRECT_PAYMENT_URL"] = cfg["paypal_direct_link"]
+            except Exception as e:
+                logger.warning(f"Failed to update .env with PayPal link: {e}")
+
         telemetry.emit(
             agent_id="domain_operations",
             agent_name="Operations & System Integrity Domain Controller",

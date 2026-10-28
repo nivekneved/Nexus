@@ -1,6 +1,6 @@
-"""
-Nexus Workforce Engine — Employee #16: Executive AI Managing Partner
-Operates the entire multi-agent suite as trusted co-managing partner on behalf of Deven Pawaray.
+﻿"""
+Nexus Workforce Engine â€” Employee #16: Executive AI Managing Partner
+Operates the entire multi-agent suite as trusted co-managing partner on behalf of Kingsley Vance Maurya.
 """
 
 from typing import Dict, Any, List, Optional
@@ -18,14 +18,14 @@ class ExecutivePartnerAgent(BaseAgent):
     Employee #16: Executive AI Managing Partner (Nexus)
     The overarching commander and co-managing partner of the Nexus Workforce.
     Assumes operational responsibility to coordinate all 15 primary agents,
-    drive revenue pipelines, safeguard finances, and report directly to Deven Pawaray.
+    drive revenue pipelines, safeguard finances, and report directly to Kingsley Vance Maurya.
     """
 
     def __init__(self):
         super().__init__(
             agent_id="executive_partner",
             name="Executive AI Managing Partner (Nexus)",
-            description="Autonomous Co-Managing Partner acting on behalf of Deven Pawaray. Directs all 15 agents, aligns strategic goals, and safeguards operations.",
+            description="Autonomous Co-Managing Partner acting on behalf of Kingsley Vance Maurya. Directs all 15 agents, aligns strategic goals, and safeguards operations.",
             icon="shield",
             schedule_minutes=60
         )
@@ -44,14 +44,14 @@ class ExecutivePartnerAgent(BaseAgent):
 
     def run_cycle(self) -> Dict[str, Any]:
         """Executes a single autonomous management and supervisory cycle."""
-        self.log("ORCHESTRATE", "partner_directives.json", "Nexus evaluating fleet readiness and strategic directives on behalf of Deven Pawaray.")
+        self.log("ORCHESTRATE", "partner_directives.json", "Nexus evaluating fleet readiness and strategic directives on behalf of Kingsley Vance Maurya.")
         directives = executive_partner.get_directives()
         decisions_count = len(executive_partner.get_recent_decisions(limit=100))
 
         return {
             "status": "active_stewardship",
             "partner": "Nexus AI",
-            "on_behalf_of": "Deven Pawaray",
+            "on_behalf_of": "Kingsley Vance Maurya",
             "primary_focus": directives.get("primary_focus", "Revenue Growth"),
             "decisions_executed": decisions_count,
             "active_directives": directives.get("active_directives", [])
@@ -61,7 +61,7 @@ class ExecutivePartnerAgent(BaseAgent):
         """Returns metric cards for dashboard display."""
         decisions = executive_partner.get_recent_decisions(limit=100)
         return [
-            {"title": "Partner Mandate", "value": "Deven Pawaray"},
+            {"title": "Partner Mandate", "value": "Kingsley Vance Maurya"},
             {"title": "Decisions Made", "value": str(len(decisions))},
             {"title": "Workforce Scale", "value": "16 Agents / 51 SubAgents"}
         ]
@@ -113,3 +113,4 @@ class ExecutivePartnerAgent(BaseAgent):
                 "description": "Maximum number of autonomous management decisions allowed per 24-hour cycle."
             }
         ]
+

@@ -1,0 +1,10 @@
+{
+  "name": "draftdraft-nexus-turnkey",
+  "version": "1.0.0",
+  "description": "Beer line cleaning log for breweries.",
+  "main": "App.tsx",
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.6"
+  }
+}

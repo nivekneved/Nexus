@@ -1,6 +1,6 @@
 import time
 from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Callable
 from core.telemetry import telemetry
 from core.addon_registry import addon_registry
 from core.subagent import BaseSubAgent
@@ -45,6 +45,24 @@ class BaseAgent(ABC):
             url=url, method=method, payload=payload, headers=headers, timeout=timeout
         )
 
+    # ==========================================
+    # NEXUS SEARCH, DIG, LOCATE UPGRADE
+    # ==========================================
+    def nexus_search(self, query: str, category: str = "web", max_results: int = 5) -> Dict[str, Any]:
+        """[SEARCH SKILL] Searches the live public internet, vector memory, or lead indices."""
+        from core.agent_search_dig_locate_skills import AgentSearchDigLocateSkills
+        return AgentSearchDigLocateSkills.agent_search(query=query, category=category, max_results=max_results)
+
+    def nexus_dig(self, target: str, dig_type: str = "web_dom", max_chars: int = 8000) -> Dict[str, Any]:
+        """[DIG SKILL] Deep reconnaissance, DOM/HTML scraping, HTTP inspection, DNS mining."""
+        from core.agent_search_dig_locate_skills import AgentSearchDigLocateSkills
+        return AgentSearchDigLocateSkills.agent_dig(target=target, dig_type=dig_type, max_chars=max_chars)
+
+    def nexus_locate(self, entity_query: str, locate_type: str = "registry") -> Dict[str, Any]:
+        """[LOCATE SKILL] Entity mapping, official company registry querying, asset discovery."""
+        from core.agent_search_dig_locate_skills import AgentSearchDigLocateSkills
+        return AgentSearchDigLocateSkills.agent_locate(entity_query=entity_query, locate_type=locate_type)
+
     def search_public_web(self, query: str, max_results: int = 5) -> Dict[str, Any]:
         """Searches the live public internet using multi-engine search aggregators."""
         from core.agent_internet_bridge import agent_internet_bridge
@@ -71,6 +89,21 @@ class BaseAgent(ABC):
         return agent_internet_bridge.broadcast_to_agent_network(
             message=message, channel=channel, metadata=metadata
         )
+
+    def discover_live_ct_domains(self, pattern: str = "%.mu", limit: int = 15) -> Dict[str, Any]:
+        """Queries live Certificate Transparency (crt.sh) JSON logs for newly issued SSL domains."""
+        from core.agent_internet_bridge import agent_internet_bridge
+        return agent_internet_bridge.discover_live_ct_domains(pattern=pattern, limit=limit)
+
+    def fingerprint_domain_buying_signals(self, url_or_domain: str) -> Dict[str, Any]:
+        """Inspects a live domain's DOM/headers for missing WhatsApp widgets, booking forms, or SaaS bloat."""
+        from core.agent_internet_bridge import agent_internet_bridge
+        return agent_internet_bridge.fingerprint_domain_buying_signals(url_or_domain=url_or_domain)
+
+    def critique_and_refine_pitch(self, pitch_text: str, company: str = "Partner", pain_point: str = "ops") -> Dict[str, Any]:
+        """Runs the Adversarial Self-Critique Gate (0-100) and rewrites any pitch scoring < 85."""
+        from core.recursive_revenue_profiler import RecursiveRevenueProfiler
+        return RecursiveRevenueProfiler.critique_and_refine_pitch(pitch_text=pitch_text, company=company, pain_point=pain_point)
 
     def execute_with_perseverance(
         self,
@@ -192,7 +225,25 @@ class BaseAgent(ABC):
             }
 
         from core.tool_registry import tool_registry
+        from security.shield import shield
+        policy_verdict = shield.verify_tool_invocation_policy(self.agent_id, tool_name, kwargs)
+        if not policy_verdict.get("allowed", True):
+            block_msg = policy_verdict.get("reason", f"Zero-trust policy blocked tool '{tool_name}'.")
+            self.log(
+                step="ZERO_DAY_POLICY_GATE_BLOCKED",
+                file_used="security/shield.py",
+                message=block_msg,
+                level="WARN"
+            )
+            return {
+                "success": False,
+                "tool": tool_name,
+                "error": block_msg,
+                "policy_blocked": True
+            }
         res = tool_registry.call_tool(tool_name, **kwargs)
+        if isinstance(res, dict) and policy_verdict.get("capability_token"):
+            res["capability_token"] = policy_verdict["capability_token"]
         self.log(
             step="TOOL_EXECUTION",
             file_used="tool_registry.py",
@@ -280,20 +331,25 @@ class BaseAgent(ABC):
     def self_evolve(self, cycle_output: Any):
         """
         Continuous Self-Evolution Protocol:
-        Analyses execution output, reflects on bottlenecks, optimizes parameters,
-        and records evolutionary milestones in persistent memory so the agent
-        grows permanently smarter with every cycle.
+        Analyses execution output via the Adversarial Critic Gate, reflects on bottlenecks,
+        optimizes parameters, and records evolutionary milestones in persistent memory.
         """
         try:
             from core.agent_memory_service import agent_memory_service
-            evolution_note = f"Evolutionary Upgrade (Run #{self.run_count}): Optimized execution parameters based on cycle output."
+            critique_summary = "Cycle telemetry verified."
+            if isinstance(cycle_output, dict):
+                candidate_pitch = cycle_output.get("pitch") or cycle_output.get("pitch_draft") or cycle_output.get("draft")
+                if isinstance(candidate_pitch, str) and len(candidate_pitch) > 20:
+                    crit = self.critique_and_refine_pitch(candidate_pitch)
+                    critique_summary = f"Adversarial Critic Score {crit['initial_score']} -> {crit['final_score']}/100 (Mutated: {crit['was_mutated']})."
+            evolution_note = f"Evolutionary Upgrade (Run #{self.run_count}): {critique_summary}"
             agent_memory_service.save_memory(
                 category=f"evolution_{self.agent_id}",
                 text=evolution_note,
                 metadata={"run_count": self.run_count, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
             )
-            self.log("SELF_EVOLUTION_UPGRADE", "core/base_agent.py", f"Continuous Self-Evolution executed: Agent {self.name} upgraded parameters for run #{self.run_count}", level="SUCCESS")
-        except Exception as e:
+            self.log("SELF_EVOLUTION_UPGRADE", "core/base_agent.py", f"Continuous Self-Evolution executed: {self.name} ({critique_summary})", level="SUCCESS")
+        except Exception:
             pass
 
     @abstractmethod
@@ -383,6 +439,60 @@ class BaseAgent(ABC):
         from core.euro_africa_boards_engine import euro_africa_boards_engine
         return euro_africa_boards_engine.ingest_euro_africa_directory(query)
 
+    def hack_01_compress_prompt(self, query: str) -> str:
+        """
+        SOTA Prompt Compression & Zero-Day Unicode Smuggling Stripper:
+        1. Neutralizes invisible Unicode Tag / Trojan-Source smuggling characters.
+        2. Strips low-entropy conversational filler while preserving entities, numbers, and operators.
+        """
+        if not isinstance(query, str) or not query:
+            return ""
+        import re
+        from security.shield import shield
+        sanitized = shield.sanitize_indirect_prompt_injection(query)["clean_text"]
+        filler_re = re.compile(
+            r"\b(please|kindly|could you|would you|i would like to|as soon as possible|basically|actually)\b",
+            re.I
+        )
+        compressed = filler_re.sub("", sanitized)
+        compressed = re.sub(r"\s+", " ", compressed).strip()
+        return compressed or sanitized.strip()
+
+    def verify_and_refine(self, res: Any) -> Any:
+        """
+        Post-Execution Zero-Day Output Sanitizer & Tamper-Evident Verifier:
+        1. Redacts any accidentally leaked API keys/secrets and PII.
+        2. Scrubs indirect prompt-injection payloads from scraped external content.
+        3. Attaches a SHA-256 tamper-evident audit hash.
+        """
+        if not isinstance(res, dict):
+            return res
+        from security.shield import shield
+        refined = dict(res)
+        threats_scrubbed = 0
+        for k, v in list(refined.items()):
+            if isinstance(v, str):
+                inj = shield.sanitize_indirect_prompt_injection(v)
+                threats_scrubbed += inj["threats_neutralized"]
+                clean_v = shield.redact_secrets(shield.mask_pii(inj["clean_text"]))
+                refined[k] = clean_v
+        refined["zero_day_verified"] = True
+        refined["threats_scrubbed"] = threats_scrubbed
+        refined["audit_hash"] = shield.generate_audit_hash(
+            {"agent": self.agent_id, "keys": sorted(list(refined.keys())), "threats": threats_scrubbed}
+        )[:16]
+        return refined
+
+    def wrap_reasoning(self, objective: str) -> str:
+        """Wraps agent reasoning in a structured 2026 SOTA XML scratchpad."""
+        return (
+            f"<thought agent='{self.agent_id}' posture='ZERO_TRUST_HARDENED'>\n"
+            f"  <objective>{objective}</objective>\n"
+            f"  <defenses>SSRF-Guard + Indirect-Injection-Shield + Capability-Token-HMAC</defenses>\n"
+            f"  <revenue_alignment>Pareto Critic Gate (>=85/100) + MCB Juice / $1.00 PayPal Rail</revenue_alignment>\n"
+            f"</thought>"
+        )
+
     def execute_with_hacks(self, tool_name: str, **kwargs) -> Dict[str, Any]:
         """
         Executes any tool invocation wrapped with all 75+ advanced hacks, bypasses,
@@ -390,7 +500,9 @@ class BaseAgent(ABC):
         """
         for k, v in list(kwargs.items()):
             if isinstance(v, str):
-                kwargs[k] = v.replace("<script>", "").replace("DROP TABLE", "")
+                from security.shield import shield
+                clean_v = v.replace("<script>", "").replace("DROP TABLE", "")
+                kwargs[k] = shield.sanitize_indirect_prompt_injection(clean_v)["clean_text"]
 
         if hasattr(self, "hack_01_compress_prompt") and "query" in kwargs:
             kwargs["query"] = self.hack_01_compress_prompt(kwargs["query"])

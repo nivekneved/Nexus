@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
-Nexus Workforce Engine — 125 Daily Operational Scenarios Task Launcher
+Nexus Workforce Engine â€” 125 Daily Operational Scenarios Task Launcher
 =============================================================================
 Powers the 1-Click "Start Task -> Vet Design Sample -> Approve & Execute/Post"
 workflow across 25 real-life daily business scenarios for EACH of the 5 user types:
@@ -28,11 +28,11 @@ from core.scenario_library import DAILY_SCENARIOS
 TASKS_HISTORY_FILE = resolve_data_path("vetted_tasks_history.json")
 
 CATEGORY_METADATA = {
-    "comms": {"label": "Communications Command", "icon": "📢"},
-    "operations": {"label": "Operations & SRE", "icon": "⚙️"},
-    "commerce": {"label": "Commerce & Treasury", "icon": "💰"},
-    "research": {"label": "Research & Intelligence", "icon": "🎯"},
-    "ceo": {"label": "CEO Cockpit", "icon": "👑"}
+    "comms": {"label": "Communications Command", "icon": "ðŸ“¢"},
+    "operations": {"label": "Operations & SRE", "icon": "âš™ï¸"},
+    "commerce": {"label": "Commerce & Treasury", "icon": "ðŸ’°"},
+    "research": {"label": "Research & Intelligence", "icon": "ðŸŽ¯"},
+    "ceo": {"label": "CEO Cockpit", "icon": "ðŸ‘‘"}
 }
 
 # Legacy ID aliases to support existing button clicks seamlessly
@@ -72,7 +72,7 @@ LEGACY_ALIASES = {
 def _build_full_catalog() -> List[Dict[str, Any]]:
     catalog = []
     for cat_key, items in DAILY_SCENARIOS.items():
-        meta = CATEGORY_METADATA.get(cat_key, {"label": cat_key.title(), "icon": "⚡"})
+        meta = CATEGORY_METADATA.get(cat_key, {"label": cat_key.title(), "icon": "âš¡"})
         for item in items:
             title = item.get("title", "")
             icon = meta["icon"]
@@ -198,9 +198,9 @@ class TaskLauncherEngine:
             "headline": headline,
             "badge": badge,
             "gradient": gradient,
-            "author_name": "Deven Pawaray",
+            "author_name": "Kingsley Vance Maurya",
             "author_title": "Founder & Sovereign Architect, Nexus AI",
-            "author_location": "Cybercity, Ebene • Mauritius 🇲🇺",
+            "author_location": "Cybercity, Ebene â€¢ Mauritius ðŸ‡²ðŸ‡º",
             "callouts": callouts,
             "cta_label": "Approve & Execute Task",
             "cta_url": "#"
@@ -304,3 +304,4 @@ class TaskLauncherEngine:
         }
 
 task_launcher = TaskLauncherEngine()
+

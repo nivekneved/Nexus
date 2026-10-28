@@ -1,5 +1,5 @@
-"""
-Nexus™ Autonomous Product Factory Engine (MetaGPT/ChatDev SOP Assembly Line)
+﻿"""
+Nexusâ„¢ Autonomous Product Factory Engine (MetaGPT/ChatDev SOP Assembly Line)
 =============================================================================
 Automates the full 5-stage digital product lifecycle:
 1. SCOUT: Queries video view volume and demand for a niche.
@@ -34,7 +34,7 @@ class ProductFactoryEngine:
         # -------------------------------------------------------------
         # STAGE 1: SCOUT (YouTube & Social View Volume)
         # -------------------------------------------------------------
-        print(f"[ProductFactory] 🔍 STAGE 1: Scouting niche views for '{niche_keyword}'...")
+        print(f"[ProductFactory] ðŸ” STAGE 1: Scouting niche views for '{niche_keyword}'...")
         scout_res = tool_registry.call_tool("scout_video_trends", niche_keyword=niche_keyword, max_results=5)
         scout_data = scout_res.get("data", {})
         total_views = scout_data.get("total_views_volume", 0)
@@ -50,11 +50,11 @@ class ProductFactoryEngine:
         # -------------------------------------------------------------
         # STAGE 2: SPEC (Product Architecture & Metadata)
         # -------------------------------------------------------------
-        print(f"[ProductFactory] 📐 STAGE 2: Architecting product specifications...")
+        print(f"[ProductFactory] ðŸ“ STAGE 2: Architecting product specifications...")
         product_id = f"nexus-{clean_slug.replace('_', '-')}"
         filename = f"nexus_{clean_slug}.py"
         file_path = os.path.join(PRODUCTS_DIR, filename)
-        product_name = f"Nexus™ {niche_keyword.title()}"
+        product_name = f"Nexusâ„¢ {niche_keyword.title()}"
         tagline = f"Self-Hosted {niche_keyword.title()} Automation Utility"
 
         features = [
@@ -67,7 +67,7 @@ class ProductFactoryEngine:
         # -------------------------------------------------------------
         # STAGE 3: BUILD (Code Synthesis)
         # -------------------------------------------------------------
-        print(f"[ProductFactory] 🔨 STAGE 3: Synthesizing standalone Python code for '{filename}'...")
+        print(f"[ProductFactory] ðŸ”¨ STAGE 3: Synthesizing standalone Python code for '{filename}'...")
         code_content = self._generate_script_code(niche_keyword, product_name)
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(code_content)
@@ -75,10 +75,10 @@ class ProductFactoryEngine:
         # -------------------------------------------------------------
         # STAGE 4: QA SANDBOX (Self-Correction & Compilation Assert)
         # -------------------------------------------------------------
-        print(f"[ProductFactory] 🧪 STAGE 4: Executing code in isolated Python sandbox...")
+        print(f"[ProductFactory] ðŸ§ª STAGE 4: Executing code in isolated Python sandbox...")
         qa_res = sandbox_executor.validate_and_test(file_path=file_path)
         if not qa_res.get("passed"):
-            print(f"[ProductFactory] ❌ QA Sandbox failed: {qa_res.get('error')}")
+            print(f"[ProductFactory] âŒ QA Sandbox failed: {qa_res.get('error')}")
             # Self-correct by adding fallback safe wrapper if needed
             safe_code = self._apply_safe_wrapper(code_content, qa_res.get("error", "Unknown error"))
             with open(file_path, "w", encoding="utf-8") as f:
@@ -92,7 +92,7 @@ class ProductFactoryEngine:
         # -------------------------------------------------------------
         checkout_info = {}
         if qa_passed:
-            print(f"[ProductFactory] 🚀 STAGE 5: Deploying product to catalog and updating bundle...")
+            print(f"[ProductFactory] ðŸš€ STAGE 5: Deploying product to catalog and updating bundle...")
             product_entry = {
                 "id": product_id,
                 "name": product_name,
@@ -116,7 +116,7 @@ class ProductFactoryEngine:
                 chk = digital_store_service.create_checkout_order(
                     product_id=product_id,
                     buyer_email="devenpawaray@gmail.com",
-                    buyer_name="Deven Pawaray",
+                    buyer_name="Kingsley Vance Maurya",
                     currency="USD"
                 )
                 checkout_info = {
@@ -220,3 +220,4 @@ if __name__ == "__main__":
         return f"# Auto-corrected by Nexus QA Sandbox\nimport sys\nif hasattr(sys.stdout, 'reconfigure'):\n    sys.stdout.reconfigure(encoding='utf-8', errors='replace')\n\n" + code
 
 product_factory = ProductFactoryEngine()
+

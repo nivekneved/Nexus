@@ -79,7 +79,7 @@ def safe_load_json(filepath: str | Path, default: Any = None) -> Any:
             return default if default is not None else []
 
         try:
-            with open(p, "r", encoding="utf-8") as f:
+            with open(p, "r", encoding="utf-8-sig") as f:
                 data = json.load(f)
                 if default is not None:
                     if isinstance(default, dict) and not isinstance(data, dict):

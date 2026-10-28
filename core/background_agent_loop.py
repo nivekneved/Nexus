@@ -33,7 +33,7 @@ class BackgroundAgentTaskRunner:
     def _load_persistence(self):
         try:
             if os.path.exists(BACKGROUND_TASKS_FILE):
-                with open(BACKGROUND_TASKS_FILE, "r", encoding="utf-8") as f:
+                with open(BACKGROUND_TASKS_FILE, "r", encoding="utf-8-sig") as f:
                     data = json.load(f)
                     for item in data:
                         if item.get("status") == "RUNNING":

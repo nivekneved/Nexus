@@ -152,20 +152,35 @@ class MassEmailService:
         sent_count = 0
         failed_count = 0
 
+        batch_messages = []
         for r in recipients:
-            try:
-                personalized_body = body.replace("{{name}}", r.get("name", "Partner")).replace("{{company}}", r.get("company", "Enterprise"))
-                res = inbox_feed_service.send_outbound_email(
-                    to_email=r["email"],
-                    subject=subject,
-                    body=personalized_body
-                )
-                if res.get("success"):
-                    sent_count += 1
-                else:
+            personalized_body = body.replace("{{name}}", r.get("name", "Partner")).replace("{{company}}", r.get("company", "Enterprise"))
+            batch_messages.append({
+                "to_email": r["email"],
+                "subject": subject,
+                "body": personalized_body,
+                "company": r.get("company", "Enterprise"),
+                "contact_name": r.get("name", "Partner")
+            })
+
+        if hasattr(inbox_feed_service, "send_outbound_batch"):
+            batch_res = inbox_feed_service.send_outbound_batch(batch_messages)
+            sent_count = batch_res.get("sent_count", 0)
+            failed_count = batch_res.get("failed_count", 0)
+        else:
+            for msg_item in batch_messages:
+                try:
+                    res = inbox_feed_service.send_outbound_email(
+                        to_email=msg_item["to_email"],
+                        subject=msg_item["subject"],
+                        body=msg_item["body"]
+                    )
+                    if res.get("success"):
+                        sent_count += 1
+                    else:
+                        failed_count += 1
+                except Exception:
                     failed_count += 1
-            except Exception:
-                failed_count += 1
 
         campaign_record = {
             "campaign_id": f"cmp_{int(time.time())}",

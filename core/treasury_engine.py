@@ -70,9 +70,10 @@ class TreasuryEngine:
 
     def consolidate_all_to_paypal(self) -> Dict[str, Any]:
         """Consolidates all revenue rails and treasury balances to route and settle directly into PayPal."""
-        from core.storage import safe_load_json, atomic_save_json
-        treasury_ledger = safe_load_json("treasury_ledger.json", default={"balance_usd": 143.50})
-        total_funds = float(treasury_ledger.get("balance_usd", 143.50))
+        try:
+            total_funds = self.fiat.get_balance()
+        except Exception:
+            total_funds = 0.0
 
         bank_cfg = safe_load_json("banking_config.json", default={})
         bank_cfg["preferred_settlement_rail"] = "paypal"

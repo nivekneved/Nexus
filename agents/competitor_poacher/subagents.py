@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Competitor Review Poacher Subagents
 =============================================================================
@@ -23,7 +23,7 @@ SAMPLE_COMPETITOR_COMPLAINTS = [
         "competitor": "Enterprise SaaS CRM Corp",
         "platform": "G2 Reviews",
         "rating": 2,
-        "reviewer_title": "Way too expensive for a solo founder — 300% price hike!",
+        "reviewer_title": "Way too expensive for a solo founder â€” 300% price hike!",
         "review_text": "We were paying $490/month and out of nowhere they bumped us to $1,400/month without notice. Their support is slow and we are trapped in their cloud ecosystem.",
         "author": "Marcus Vance (CTO at FinTech Startup)",
         "date": "2026-10-01",
@@ -115,12 +115,12 @@ class PoacherCampaignGeneratorSubAgent(BaseSubAgent):
                 f"I saw your review regarding {comp['competitor']} on {comp['platform']} ("
                 f"\"{comp['reviewer_title']}\").\n\n"
                 f"Paying recurring monthly cloud rent while facing price hikes and downtime is brutal for growing teams. "
-                f"That's why we built Nexus™ — a 100% self-hosted autonomous AI workforce with zero monthly subscription fees "
+                f"That's why we built Nexusâ„¢ â€” a 100% self-hosted autonomous AI workforce with zero monthly subscription fees "
                 f"and perpetual lifetime commercial licenses ($249 one-time buyout).\n\n"
                 f"Would you be open to a 5-minute local demo?\n\n"
                 f"Best regards,\n"
-                f"Deven Pawaray (Founder, Nexus Autonomous Systems)\n"
-                f"🔗 https://nexus-workforce.vercel.app"
+                f"Kingsley Vance Maurya (Founder, Nexus Autonomous Systems)\n"
+                f"ðŸ”— https://nexus-workforce.vercel.app"
             )
 
             new_lead = {
@@ -161,3 +161,4 @@ def load_poached_leads() -> List[Dict[str, Any]]:
             return json.load(f)
     except Exception:
         return []
+

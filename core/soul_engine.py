@@ -1,9 +1,9 @@
-"""
-Nexus™ Soul Engine & Dynamic Identity Evolution System
+﻿"""
+Nexusâ„¢ Soul Engine & Dynamic Identity Evolution System
 ======================================================
 Inspired by Conway Automaton's self-authoring sovereign identity model.
 Maintains, validates, and evolves SOUL.md over time.
-Computes alignment with founder (Deven Pawaray) directives and logs developmental milestones.
+Computes alignment with founder (Kingsley Vance Maurya) directives and logs developmental milestones.
 Zero external dependencies (uses standard library only).
 """
 
@@ -127,7 +127,7 @@ class SoulEngine:
     def compute_genesis_alignment(self) -> float:
         """
         Computes token overlap alignment between current active directives
-        from Deven Pawaray and the principles articulated in SOUL.md.
+        from Kingsley Vance Maurya and the principles articulated in SOUL.md.
         """
         soul_data = self.load_soul()
         body_text = soul_data.get("body", "").lower()
@@ -194,7 +194,7 @@ class SoulEngine:
 
         note = context_note or f"Routine executive reflection. Aligned with operational mandate: {recent_summary}"
         entry = (
-            f"\n- **[{now_iso} | Rev {rev}] — Self-Calibrated Reflection**\n"
+            f"\n- **[{now_iso} | Rev {rev}] â€” Self-Calibrated Reflection**\n"
             f"  - **Context**: {note}\n"
             f"  - **Alignment Score**: {alignment * 100:.0f}%\n"
             f"  - **Stewardship Commitment**: Preserved Deven's operational peace and verified defense shield integrity.\n"
@@ -243,7 +243,7 @@ class SoulEngine:
         return {
             "name": fm.get("name", "Nexus"),
             "archetype": fm.get("archetype", "Sovereign Digital Twin"),
-            "founder": fm.get("founder", "Deven Pawaray"),
+            "founder": fm.get("founder", "Kingsley Vance Maurya"),
             "sovereignty_tier": fm.get("sovereignty_tier", "normal"),
             "revision": fm.get("revision", 1),
             "genesis_alignment": fm.get("genesis_alignment", 1.0),
@@ -253,3 +253,4 @@ class SoulEngine:
 
 
 soul_engine = SoulEngine()
+

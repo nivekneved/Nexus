@@ -15,12 +15,16 @@ class MorningExecutiveBriefingService:
     @staticmethod
     def generate_briefing() -> Dict[str, Any]:
         # 1. Financial Telemetry
-        treasury_ledger = safe_load_json("treasury_ledger.json", default={"balance_usd": 142.50, "night_earnings_usd": 12.00})
+        try:
+            from core.payment_service import payment_service
+            total_balance = payment_service.get_balance()
+            night_earnings = 0.0 # Will require proper time filtering later
+        except Exception:
+            total_balance = 0.0
+            night_earnings = 0.0
+
         store_orders = safe_load_json("digital_store_inventory.json", default={})
         webhook_events = safe_load_json("webhook_events_log.json", default=[])
-
-        night_earnings = treasury_ledger.get("night_earnings_usd", 12.00)
-        total_balance = treasury_ledger.get("balance_usd", 154.50)
 
         # 2. Where We Left Off & What's Done
         leads = safe_load_json("leads_pipeline.json", default=[])

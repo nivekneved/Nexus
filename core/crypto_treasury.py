@@ -1,5 +1,5 @@
-"""
-Nexus™ Sovereign Crypto Treasury & Autonomous Spending System
+﻿"""
+Nexusâ„¢ Sovereign Crypto Treasury & Autonomous Spending System
 ============================================================
 Directly inspired by:
   - Tonyflam/agent00 (Official Coinbase x402 Agent Commerce Protocol & ERC-8004 Identity)
@@ -10,7 +10,7 @@ Equips Nexus with:
   2. Autonomous on-chain spending capability (send_crypto_payment) with Base RPC broadcast.
   3. Pre-flight safety guardrails via CryptoVerifier (rate limits & per-tx ceilings).
   4. Autonomous Coinbase x402 client (pay-as-you-go HTTP 402 API and peer agent consumption).
-  5. Off-ramp settlement to Deven Pawaray's Mauritius Commercial Bank (MCB) Account & PayPal.
+  5. Off-ramp settlement to Kingsley Vance Maurya's Mauritius Commercial Bank (MCB) Account & PayPal.
   6. Google A2A (Agent-to-Agent) capability card.
 """
 
@@ -142,7 +142,7 @@ class CryptoTreasury:
     def _ensure_wallet_file(self):
         """Ensures crypto_wallet.json reflects the real active address and banking config."""
         bank_cfg = self._get_linked_banking_config()
-        initial_balances = {"USDC": 125.50, "ETH": 0.042}
+        initial_balances = {"USDC": 0.0, "ETH": 0.0} # ACTUALLY PUTTING WHEELS ON IT: Start at 0, no simulated balance.
 
         if os.path.exists(self.wallet_path):
             try:
@@ -192,9 +192,9 @@ class CryptoTreasury:
             "status": "CONNECTED_AND_VERIFIED"
         }
 
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     #              LIVE ON-CHAIN RPC QUERIES
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     def query_onchain_eth_balance(self) -> float:
         """Fetches live native ETH balance from Base RPC."""
@@ -288,9 +288,9 @@ class CryptoTreasury:
             "wallet": w
         }
 
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     #       AUTONOMOUS SPENDING & TRANSACTION SIGNING
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     def send_crypto_payment(
         self,
@@ -479,9 +479,9 @@ class CryptoTreasury:
             "reason": reason
         }
 
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     #         COINBASE x402 AGENT COMMERCE PROTOCOL
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     def execute_x402_payment(
         self,
@@ -622,9 +622,9 @@ class CryptoTreasury:
         except Exception as e:
             return {"success": False, "error": f"Failed to retrieve unlocked content: {e}"}
 
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     #         GOOGLE A2A PROTOCOL (AGENT-TO-AGENT)
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     def get_agent_card(self) -> Dict[str, Any]:
         """
@@ -638,7 +638,7 @@ class CryptoTreasury:
                 "name": "Nexus Sovereign Autonomous Agent",
                 "id": f"nexus-agent-{self.address.lower()[:10]}",
                 "description": "High-leverage enterprise automation, strategic research, and autonomous commerce partner.",
-                "owner": "Deven Pawaray",
+                "owner": "Kingsley Vance Maurya",
                 "identity": {
                     "standard": "ERC-8004",
                     "chain": "Base L2 (8453)",
@@ -665,13 +665,13 @@ class CryptoTreasury:
             }
         }
 
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
     #           BANK OFF-RAMP & INVOICING
-    # ═══════════════════════════════════════════════════════
+    # â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
     def settle_crypto_to_bank(self, amount_usdc: float, notes: str = "") -> Dict[str, Any]:
         """
-        Off-ramps Base USDC treasury funds directly to Deven Pawaray's MCB Bank Account (000443260370).
+        Off-ramps Base USDC treasury funds directly to Kingsley Vance Maurya's MCB Bank Account (000443260370).
         Calculates exact MUR conversion at active settlement rate, records ledger transaction,
         and debits treasury USDC balance.
         """
@@ -735,7 +735,7 @@ class CryptoTreasury:
             agent_name="Crypto Treasury",
             step="SETTLED_TO_BANK",
             file_used="core/crypto_treasury.py",
-            message=f"Dispatched {amount_usdc} USDC (Rs {amount_mur:,.2f} MUR) to MCB Account {bank_cfg['account_number']} (Deven Pawaray)",
+            message=f"Dispatched {amount_usdc} USDC (Rs {amount_mur:,.2f} MUR) to MCB Account {bank_cfg['account_number']} (Kingsley Vance Maurya)",
             level="SUCCESS"
         )
 
@@ -911,3 +911,4 @@ class CryptoTreasury:
 
 
 crypto_treasury = CryptoTreasury()
+

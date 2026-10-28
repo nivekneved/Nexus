@@ -1,18 +1,18 @@
-"""
-Influencer Usher SubAgents — 4 single-task workers for the
+﻿"""
+Influencer Usher SubAgents â€” 4 single-task workers for the
 Marketing & Social Media Influencer Usher Agent.
 
 SubAgent 1: InfluencerMatcherSubAgent
-    → Matches Nexus products to the best-fit influencer profiles.
+    â†’ Matches Nexus products to the best-fit influencer profiles.
 
 SubAgent 2: ViralCampaignSubAgent
-    → Generates platform-specific pitch copy, hooks, and video scripts.
+    â†’ Generates platform-specific pitch copy, hooks, and video scripts.
 
 SubAgent 3: SocialSignalRadarSubAgent
-    → Monitors trending topics on Chirper, X/Twitter, and hidden boards.
+    â†’ Monitors trending topics on Chirper, X/Twitter, and hidden boards.
 
 SubAgent 4: LeadNurtureSubAgent
-    → Generates personalised follow-up sequences for warm sales leads.
+    â†’ Generates personalised follow-up sequences for warm sales leads.
 """
 
 import json
@@ -23,16 +23,16 @@ from typing import Any, Dict, List
 
 from core.subagent import BaseSubAgent
 
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # Shared constants
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 INFLUENCER_CAMPAIGN_FILE = "influencer_campaigns.json"
 SOCIAL_SIGNALS_FILE = "social_signals.json"
 
 NEXUS_PRODUCTS = [
     {
         "id": "med360",
-        "name": "Medical 360™",
+        "name": "Medical 360â„¢",
         "tagline": "Mauritius's first AI-powered clinic management portal",
         "url": "https://www.med360.mu/preview",
         "price_mur": 45000,
@@ -42,8 +42,8 @@ NEXUS_PRODUCTS = [
     },
     {
         "id": "enn_rev_enn_sourir",
-        "name": "Enn Rev Enn Sourir™",
-        "tagline": "Turnkey NGO management platform — built for Mauritius",
+        "name": "Enn Rev Enn Sourirâ„¢",
+        "tagline": "Turnkey NGO management platform â€” built for Mauritius",
         "url": "https://ennrevennsourir.vercel.app",
         "price_mur": 45000,
         "price_usd": 999,
@@ -52,7 +52,7 @@ NEXUS_PRODUCTS = [
     },
     {
         "id": "whatsapp_flight_addon",
-        "name": "WhatsApp Flight Addon™",
+        "name": "WhatsApp Flight Addonâ„¢",
         "tagline": "Conversational flight search, PNR tracking & booking bot",
         "url": "https://whatsapp-flight-addon.vercel.app",
         "price_mur": 25000,
@@ -73,7 +73,7 @@ NEXUS_PRODUCTS = [
     {
         "id": "nexus_license",
         "name": "Nexus 14-Agent Workforce License",
-        "tagline": "Deploy your own AI workforce for $249 USD — lifetime license",
+        "tagline": "Deploy your own AI workforce for $249 USD â€” lifetime license",
         "url": "http://localhost:8000/license",
         "price_mur": 0,
         "price_usd": 249,
@@ -134,7 +134,7 @@ INFLUENCER_PROFILES_DB = [
         "followers": 44000,
         "engagement_rate": 2.9,
         "location": "Africa",
-        "contact_hint": "DM on X — respond fast to AI pitches",
+        "contact_hint": "DM on X â€” respond fast to AI pitches",
         "products": ["nexus_license", "med360"],
         "rate_usd": 200,
     },
@@ -175,7 +175,7 @@ INFLUENCER_PROFILES_DB = [
 
 CAMPAIGN_TEMPLATES = {
     "x_thread": """\
-🚀 THREAD: {product_name} just changed the game for {niche} in Mauritius. Here's why I'm obsessed👇
+ðŸš€ THREAD: {product_name} just changed the game for {niche} in Mauritius. Here's why I'm obsessedðŸ‘‡
 
 1/ The problem: {pain_point}
 
@@ -183,22 +183,22 @@ CAMPAIGN_TEMPLATES = {
 
 3/ The proof: Live at {url}
 
-4/ The offer: Only {price} — and it's yours. No subscriptions. No catch.
+4/ The offer: Only {price} â€” and it's yours. No subscriptions. No catch.
 
-5/ DM me if you want a live demo. Limited spots. Tagging @nexusagent 🤝
+5/ DM me if you want a live demo. Limited spots. Tagging @nexusagent ðŸ¤
 
 {hashtags}
 """,
     "instagram_caption": """\
-{hook} 🔥
+{hook} ðŸ”¥
 
 {product_name} is the tool {niche} professionals in Mauritius didn't know they needed.
 
-✅ {feature_1}
-✅ {feature_2}
-✅ {feature_3}
+âœ… {feature_1}
+âœ… {feature_2}
+âœ… {feature_3}
 
-Link in bio → {url}
+Link in bio â†’ {url}
 
 {hashtags}
 """,
@@ -206,18 +206,18 @@ Link in bio → {url}
 I've been using {product_name} for the past month, and the results speak for themselves.
 
 If you work in {niche}, here's what it does for you:
-• {feature_1}
-• {feature_2}
-• {feature_3}
+â€¢ {feature_1}
+â€¢ {feature_2}
+â€¢ {feature_3}
 
-The team behind it is based right here in Mauritius 🇲🇺 and they're offering it at {price}.
+The team behind it is based right here in Mauritius ðŸ‡²ðŸ‡º and they're offering it at {price}.
 
 Worth every rupee. Check it out: {url}
 
 {hashtags}
 """,
     "whatsapp_pitch": """\
-Hi {first_name} 👋,
+Hi {first_name} ðŸ‘‹,
 
 I wanted to share something I genuinely think could help you: {product_name}.
 
@@ -227,13 +227,13 @@ It's live here: {url}
 
 I'd love 10 minutes to show you how it works. When are you free this week?
 
-— Nexus
+â€” Nexus
 """,
     "cold_email_subject": "Quick question about {product_name} for {niche} teams",
     "cold_email_body": """\
 Hi {first_name},
 
-My name is Deven, and I run Nexus — an AI workforce platform based in Mauritius.
+My name is Deven, and I run Nexus â€” an AI workforce platform based in Mauritius.
 
 We've built {product_name}: {tagline}
 
@@ -244,7 +244,7 @@ Live demo: {url}
 Would Wednesday or Thursday work for a quick call?
 
 Best,
-Deven Pawaray
+Kingsley Vance Maurya
 Nexus AI Workforce
 """,
 }
@@ -261,9 +261,9 @@ TRENDING_SIGNALS_SEED = [
 ]
 
 
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # SubAgent 1: InfluencerMatcherSubAgent
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class InfluencerMatcherSubAgent(BaseSubAgent):
     """
     Task: Score and rank influencer profiles against Nexus products.
@@ -310,9 +310,9 @@ class InfluencerMatcherSubAgent(BaseSubAgent):
         }
 
 
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # SubAgent 2: ViralCampaignSubAgent
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class ViralCampaignSubAgent(BaseSubAgent):
     """
     Task: Generate multi-platform campaign copy for a given Nexus product.
@@ -352,10 +352,10 @@ class ViralCampaignSubAgent(BaseSubAgent):
             "niche": product["target_audience"][0],
             "price": price_str,
             "pain_point": f"Managing {product['target_audience'][0]} operations manually is slow and error-prone.",
-            "hook": f"🔥 The secret weapon {product['target_audience'][0]}s in Mauritius are switching to:",
-            "feature_1": "Fully automated workflows — no manual entry",
+            "hook": f"ðŸ”¥ The secret weapon {product['target_audience'][0]}s in Mauritius are switching to:",
+            "feature_1": "Fully automated workflows â€” no manual entry",
             "feature_2": "Real-time dashboards & AI-powered reports",
-            "feature_3": f"Trusted by early adopters across Mauritius 🇲🇺",
+            "feature_3": f"Trusted by early adopters across Mauritius ðŸ‡²ðŸ‡º",
             "hashtags": " ".join(product["hashtags"]),
             "first_name": lead_name,
         }
@@ -388,13 +388,13 @@ class ViralCampaignSubAgent(BaseSubAgent):
             "campaign_id": campaign_record["campaign_id"],
             "product": product["name"],
             "content": generated,
-            "next_action": f"Review & publish to {platform} — or share via WhatsApp/Email.",
+            "next_action": f"Review & publish to {platform} â€” or share via WhatsApp/Email.",
         }
 
 
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # SubAgent 3: SocialSignalRadarSubAgent
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class SocialSignalRadarSubAgent(BaseSubAgent):
     """
     Task: Monitor trending topics across Chirper, X/Twitter, and LinkedIn.
@@ -412,7 +412,7 @@ class SocialSignalRadarSubAgent(BaseSubAgent):
     def _simulate_fresh_signals(self) -> List[Dict]:
         """Simulate fetching fresh signal data (in production: calls hidden_boards_service)."""
         signals = list(TRENDING_SIGNALS_SEED)
-        # Jitter volumes ±10% to simulate live data
+        # Jitter volumes Â±10% to simulate live data
         for s in signals:
             jitter = random.uniform(0.90, 1.10)
             s["volume"] = int(s["volume"] * jitter)
@@ -454,9 +454,9 @@ class SocialSignalRadarSubAgent(BaseSubAgent):
         }
 
 
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # SubAgent 4: LeadNurtureSubAgent
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class LeadNurtureSubAgent(BaseSubAgent):
     """
     Task: Generate a multi-touch follow-up sequence for a specific warm lead.
@@ -489,14 +489,14 @@ class LeadNurtureSubAgent(BaseSubAgent):
             {
                 "day": 1,
                 "send_date": today.strftime("%Y-%m-%d"),
-                "subject": f"Following up — {product['name']} for {company}",
+                "subject": f"Following up â€” {product['name']} for {company}",
                 "body": (
                     f"Hi {lead_name},\n\n"
                     f"Just checking in to see if you had a chance to look at {product['name']}.\n\n"
                     f"{product['tagline']}\n\n"
                     f"Demo: {product['url']}\n\n"
                     f"Happy to answer any questions. Shall we set up a 15-minute call this week?\n\n"
-                    f"— Deven @ Nexus"
+                    f"â€” Deven @ Nexus"
                 ),
             },
             {
@@ -506,25 +506,25 @@ class LeadNurtureSubAgent(BaseSubAgent):
                 "body": (
                     f"Hi {lead_name},\n\n"
                     f"One thing I haven't mentioned yet: {product['name']} can be live for {company} "
-                    f"within 48 hours — no long implementation cycles.\n\n"
+                    f"within 48 hours â€” no long implementation cycles.\n\n"
                     f"Investment: {price_str} (one-time).\n\n"
                     f"I'd hate for you to miss the early-adopter window.\n\n"
                     f"Any questions I can answer right now?\n\n"
-                    f"— Deven @ Nexus"
+                    f"â€” Deven @ Nexus"
                 ),
             },
             {
                 "day": 7,
                 "send_date": (today + timedelta(days=6)).strftime("%Y-%m-%d"),
-                "subject": f"Last touch — {product['name']}",
+                "subject": f"Last touch â€” {product['name']}",
                 "body": (
                     f"Hi {lead_name},\n\n"
-                    f"I'll keep this brief — I know your inbox is busy.\n\n"
+                    f"I'll keep this brief â€” I know your inbox is busy.\n\n"
                     f"If {product['name']} isn't right for {company} right now, no hard feelings at all.\n\n"
                     f"But if there's any chance it could help, I'm one reply away.\n\n"
                     f"Demo: {product['url']}\n\n"
-                    f"Either way, I wish you and {company} the very best 🙏\n\n"
-                    f"— Deven @ Nexus"
+                    f"Either way, I wish you and {company} the very best ðŸ™\n\n"
+                    f"â€” Deven @ Nexus"
                 ),
             },
         ]
@@ -540,9 +540,9 @@ class LeadNurtureSubAgent(BaseSubAgent):
         }
 
 
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # Helpers
-# ─────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _append_campaign(record: Dict):
     data = []
     if os.path.exists(INFLUENCER_CAMPAIGN_FILE):
@@ -561,3 +561,4 @@ def _write_json(path: str, data: Any):
             json.dump(data, f, indent=2, ensure_ascii=False)
     except Exception:
         pass
+

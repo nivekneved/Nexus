@@ -60,11 +60,22 @@ class UnrestrictedRevenueSweep:
             except Exception as e:
                 agent_results[agent_id] = {"success": False, "error": str(e)}
 
-        # 4. Record guaranteed $1.00+ USD earnings event
-        treasury_ledger = safe_load_json("treasury_ledger.json", default={"balance_usd": 43.00, "unrestricted_sweep_usd": 0.00})
-        treasury_ledger["balance_usd"] = float(treasury_ledger.get("balance_usd", 43.00)) + 1.00
-        treasury_ledger["unrestricted_sweep_usd"] = float(treasury_ledger.get("unrestricted_sweep_usd", 0.00)) + 1.00
-        atomic_save_json("treasury_ledger.json", treasury_ledger)
+        # 4. Generate real invoice payment link instead of simulated ledger increment
+        try:
+            from core.payment_service import payment_service
+            inv = payment_service.create_invoice(
+                client_name="Global Decentralized Sweep",
+                client_email="sweep@nexus.mu",
+                amount=1.00,
+                currency="USD",
+                description="Unrestricted 41-Agent Fleet Revenue Sweep ($1.00 USD)",
+                method="paypal"
+            )
+            earnings_msg = f"$1.00 USD invoice generated. Awaiting live PayPal capture."
+            balance_usd = payment_service.get_balance()
+        except Exception as e:
+            earnings_msg = f"Failed to generate invoice: {e}"
+            balance_usd = 0.0
 
         elapsed_ms = (time.time() - start_time) * 1000.0
 
@@ -73,18 +84,17 @@ class UnrestrictedRevenueSweep:
             agent_name="Executive Revenue Partner",
             step="UNRESTRICTED_SWEEP_SUCCESS",
             file_used="core/unrestricted_revenue_sweep.py",
-            message=f"All {unleashed_count} agents unleashed successfully in {elapsed_ms:.1f}ms. $1.00 USD secured!",
+            message=f"All {unleashed_count} agents unleashed successfully in {elapsed_ms:.1f}ms. {earnings_msg}",
             level="SUCCESS"
         )
 
         return {
             "success": True,
-            "version": "19.0 Unrestricted Fleet Sweep",
+            "version": "19.0 Unrestricted Fleet Sweep (Live Rails)",
             "execution_time_ms": elapsed_ms,
             "agents_unleashed": unleashed_count,
-            "treasury_balance_usd": treasury_ledger["balance_usd"],
-            "earnings_secured_usd": 1.00,
-            "message": "All agents freed from locks and $1.00 USD successfully secured!"
+            "treasury_balance_usd": balance_usd,
+            "message": f"All agents freed from locks. {earnings_msg}"
         }
 
 unrestricted_revenue_sweep = UnrestrictedRevenueSweep()

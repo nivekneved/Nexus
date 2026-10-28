@@ -1,0 +1,16 @@
+﻿TO: management@citycenterprops.co.uk
+SUBJECT: Contractors losing master keys?
+--------------------------------------------------
+Hi Team,
+
+I noticed you manage City Center Properties and likely deal with contractors checking out units constantly.
+
+I'm reaching out because I just built a visual lockbox log that kills the paper sign-out sheet. It's an iPad app where a contractor scans the key barcode and takes a quick selfie to check it out. If it's not back by 5 PM, it auto-texts them. No more $1,000 re-keying jobs because a plumber "lost" the master key.
+
+We sell the complete software and IP outright for Rs 105,000 MUR (~$2,330 USD). No recurring SaaS fees. You own the code.
+
+Take a look at the live demo here: https://nexus.mu/turnkey_fleet
+
+Best,
+Kingsley Vance Maurya
+Nexus Principal Engineering

@@ -1,0 +1,10 @@
+{
+  "name": "stripesync-nexus-turnkey",
+  "version": "1.0.0",
+  "description": "Micro-reconciliation tool matching Stripe payouts to QBO invoices.",
+  "main": "App.tsx",
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.6"
+  }
+}

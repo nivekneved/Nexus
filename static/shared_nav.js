@@ -103,7 +103,7 @@ function updateActiveNavLink() {
   } else if (path.startsWith("/seek")) {
     const el = document.getElementById("navItemSeek");
     if (el) el.classList.add("active");
-  } else if (path.startsWith("/connect")) {
+  } else if (path.startsWith("/connect") || path.startsWith("/emailing")) {
     const el = document.getElementById("navItemConnect");
     if (el) el.classList.add("active");
   } else if (path.startsWith("/operations") || path.startsWith("/propose")) {

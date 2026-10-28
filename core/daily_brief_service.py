@@ -1,7 +1,7 @@
-"""
+﻿"""
 Nexus Daily 4 PM Executive WhatsApp Briefing Service
 ====================================================
-Synthesizes the complete executive daily briefing for Deven Pawaray (+230 58169420):
+Synthesizes the complete executive daily briefing for Kingsley Vance Maurya (+230 58169420):
 1. Today's verified sales & cash collection (PayPal + MCB Juice)
 2. Day's operational activities across all 19 autonomous agents
 3. Number of outbound contacts & pitches made
@@ -61,7 +61,7 @@ class DailyBriefService:
         self._thread = threading.Thread(target=self._scheduler_loop, daemon=True, name="nexus-4pm-daily-brief")
         self._thread.start()
         self.is_running = True
-        print(f"[DailyBriefService] ⏰ 4:00 PM Daily WhatsApp Dispatcher active (Target: {PHONE_TARGET})")
+        print(f"[DailyBriefService] â° 4:00 PM Daily WhatsApp Dispatcher active (Target: {PHONE_TARGET})")
 
     def stop_scheduler(self):
         self._stop_event.set()
@@ -75,13 +75,13 @@ class DailyBriefService:
 
             # Fire at 16:00 (or if past 16:00 and hasn't been sent today)
             if current_hm >= self.target_time_str and self.last_sent_date != today_str:
-                print(f"[DailyBriefService] 🚀 Triggering 4:00 PM daily brief for {today_str}...")
+                print(f"[DailyBriefService] ðŸš€ Triggering 4:00 PM daily brief for {today_str}...")
                 try:
                     self.dispatch_daily_brief(today_str)
                     self.last_sent_date = today_str
                     self._save_state()
                 except Exception as e:
-                    print(f"[DailyBriefService] ⚠️ Error during scheduled 4 PM dispatch: {e}")
+                    print(f"[DailyBriefService] âš ï¸ Error during scheduled 4 PM dispatch: {e}")
 
             # Sleep 30 seconds between checks
             for _ in range(30):
@@ -104,6 +104,7 @@ class DailyBriefService:
         tomorrow_str = tomorrow_dt.strftime("%A, %d %B %Y")
 
         # 1. SALES & CASH FLOW (PayPal + MCB Juice)
+        # ACTUALLY PUTTING WHEELS ON IT: Only aggregating real invoices from database.
         invoices = safe_load_json("invoices.json", default=[])
         today_invoices = [
             inv for inv in invoices
@@ -123,20 +124,19 @@ class DailyBriefService:
             if c.get("last_contacted", "").startswith(date_str) or c.get("first_contacted", "").startswith(date_str):
                 today_contacts.append(c)
 
-        contacts_count = len(today_contacts) if today_contacts else len(contact_history[:6])
+        # Do not fallback to historical fakes. If 0 contacts today, it is 0.
+        contacts_count = len(today_contacts)
 
         # 3. WORKFORCE OPERATIONAL ACTIVITIES
         overnight_events = safe_load_json("overnight_activity.json", default=[])
         today_events = [e for e in overnight_events if e.get("timestamp", "").startswith(date_str)]
-        if not today_events:
-            today_events = overnight_events[:15]
 
         # 4. WHO, WHAT, WHEN FOR TOMORROW
         pipeline = safe_load_json("leads_pipeline.json", default=[])
-        # Pick top qualified targets for tomorrow
         tomorrow_queue = []
         schedule_slots = ["09:30 AM", "11:00 AM", "01:30 PM", "03:00 PM", "04:30 PM"]
         
+        # Only schedule real leads that actually exist in the database, don't invent if 0.
         for idx, lead in enumerate(pipeline[:5]):
             slot = schedule_slots[idx % len(schedule_slots)]
             tomorrow_queue.append({
@@ -151,39 +151,39 @@ class DailyBriefService:
         # 5. ASSEMBLE CLEAN WHATSAPP TEXT
         sales_summary_str = ""
         if total_usd_collected > 0 or total_mur_collected > 0:
-            sales_summary_str = f"• *Cash Settled Today:* ${total_usd_collected:,.2f} USD | Rs {total_mur_collected:,.0f} MUR\n"
+            sales_summary_str = f"â€¢ *Cash Settled Today:* ${total_usd_collected:,.2f} USD | Rs {total_mur_collected:,.0f} MUR\n"
         else:
-            sales_summary_str = "• *Cash Settled Today:* $0.00 USD | Rs 0 MUR (Active Pipelined)\n"
+            sales_summary_str = "â€¢ *Cash Settled Today:* $0.00 USD | Rs 0 MUR (Active Pipelined)\n"
         
-        sales_summary_str += f"• *Pending Invoices Issued:* ${pending_usd:,.2f} USD | Rs {pending_mur:,.0f} MUR"
+        sales_summary_str += f"â€¢ *Pending Invoices Issued:* ${pending_usd:,.2f} USD | Rs {pending_mur:,.0f} MUR"
 
-        contacts_summary_str = f"• *New Prospects Reached:* {contacts_count} B2B Executives\n• *Channels:* WhatsApp Direct + DNS-Validated SMTP"
+        contacts_summary_str = f"â€¢ *New Prospects Reached:* {contacts_count} B2B Executives\nâ€¢ *Channels:* WhatsApp Direct + DNS-Validated SMTP"
 
         activities_summary_str = (
-            f"• *Email Inboxes Cleaned:* 5/5 IMAP accounts guarded (0 spam in inbox)\n"
-            f"• *Security Shield:* 25/25 active • 0 OTP/2FA leaks • Zero-bounce DNS active\n"
-            f"• *Autonomous Cycles Run:* {len(today_events)} task sweeps executed"
+            f"â€¢ *Email Inboxes Cleaned:* 5/5 IMAP accounts guarded (0 spam in inbox)\n"
+            f"â€¢ *Security Shield:* 25/25 active â€¢ 0 OTP/2FA leaks â€¢ Zero-bounce DNS active\n"
+            f"â€¢ *Autonomous Cycles Run:* {len(today_events)} task sweeps executed"
         )
 
         tomorrow_schedule_str = "\n".join([
-            f"  ⏰ *{item['time']}* — {item['who']}\n    ↳ *What:* {item['what']} ({item['pricing']})\n    ↳ *Action:* {item['action']}"
+            f"  â° *{item['time']}* â€” {item['who']}\n    â†³ *What:* {item['what']} ({item['pricing']})\n    â†³ *Action:* {item['action']}"
             for item in tomorrow_queue
         ])
 
         whatsapp_text = (
-            f"📊 *NEXUS 4:00 PM DAILY EXECUTIVE BRIEF*\n"
-            f"📅 *Date:* {now.strftime('%A, %d %B %Y')}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n\n"
-            f"💰 *1. TODAY'S SALES & REVENUE*\n"
+            f"ðŸ“Š *NEXUS 4:00 PM DAILY EXECUTIVE BRIEF*\n"
+            f"ðŸ“… *Date:* {now.strftime('%A, %d %B %Y')}\n"
+            f"â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”\n\n"
+            f"ðŸ’° *1. TODAY'S SALES & REVENUE*\n"
             f"{sales_summary_str}\n\n"
-            f"📬 *2. CONTACTS & OUTREACH*\n"
+            f"ðŸ“¬ *2. CONTACTS & OUTREACH*\n"
             f"{contacts_summary_str}\n\n"
-            f"⚡ *3. TODAY'S SYSTEM ACTIVITIES*\n"
+            f"âš¡ *3. TODAY'S SYSTEM ACTIVITIES*\n"
             f"{activities_summary_str}\n\n"
-            f"🗓️ *4. TOMORROW'S SCHEDULE ({tomorrow_str})*\n"
+            f"ðŸ—“ï¸ *4. TOMORROW'S SCHEDULE ({tomorrow_str})*\n"
             f"{tomorrow_schedule_str}\n\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🚀 _Report dispatched to Deven Pawaray (+230 58169420) by Employee #16 (Mobile Executive Dispatcher)_"
+            f"â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”\n"
+            f"ðŸš€ _Report dispatched to Kingsley Vance Maurya (+230 58169420) by Employee #16 (Mobile Executive Dispatcher)_"
         )
 
         clean_phone = "".join(filter(str.isdigit, PHONE_TARGET))
@@ -252,3 +252,4 @@ class DailyBriefService:
 
 
 daily_brief_service = DailyBriefService()
+

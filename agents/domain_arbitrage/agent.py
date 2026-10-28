@@ -9,6 +9,7 @@ for undervalued assets ready for immediate traffic monetization or flipping.
 
 import os
 import json
+import requests
 from datetime import datetime
 from typing import Dict, Any, List
 from core.base_agent import BaseAgent
@@ -77,21 +78,59 @@ class DomainArbitrageAgent(BaseAgent):
         self.log(
             step="Auction Scanning",
             file_used="domain_arbitrage/agent.py",
-            message="Scanning GoDaddy and DropCatch auctions for high-authority expired domains...",
+            message="Scanning Certificate Transparency logs for newly established businesses (Cert Sniper)...",
             level="INFO"
         )
 
+        try:
+            import subprocess
+            import sys
+
+            script_path = os.path.join("scripts", "osint_cert_sniper.py")
+            if os.path.exists(script_path):
+                self.log(step="OSINT Module", file_used=script_path, message="Executing real OSINT Certificate Sniper...", level="INFO")
+                subprocess.run([sys.executable, script_path], cwd=os.getcwd(), capture_output=True, text=True, timeout=30)
+        except Exception as e:
+            self.log(step="OSINT Error", file_used="domain_arbitrage/agent.py", message=str(e), level="ERROR")
+
         domains = self.get_domains()
-        self.stats["auctions_scanned"] = len(domains) * 10
+
+        # ACTUALLY PUTTING WHEELS ON IT: Use real APIs (e.g., Datamuse for domain ideas or WHOIS check via RDAP)
+        # For MVP, we will just query a free API to check domain availability rather than faking a $3800 profit.
+        domain_to_check = "nexus-autonomous-ai.com"
+        is_available = False
+        try:
+             # Free RDAP API to check if a domain is registered
+             resp = requests.get(f"https://rdap.verisign.com/com/v1/domain/{domain_to_check}", timeout=5)
+             if resp.status_code == 404: # 404 in RDAP means available/not found
+                 is_available = True
+        except Exception as e:
+             self.log(step="RDAP Check Error", file_used="domain_arbitrage", message=str(e), level="WARNING")
+
+        if is_available:
+             new_id = f"DOM-{int(datetime.now().timestamp())}"
+             if not any(d.get("domain") == domain_to_check for d in domains):
+                 domains.insert(0, {
+                     "id": new_id,
+                     "domain": domain_to_check,
+                     "asking_price_usd": 12.0, # Standard .com reg fee
+                     "projected_value_usd": 0.0, # Real value until appraised
+                     "status": "AVAILABLE_FOR_REGISTRATION",
+                     "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                 })
+                 with open(DOMAINS_LOG_FILE, "w", encoding="utf-8") as f:
+                     json.dump(domains[:50], f, indent=2)
+
+        self.stats["auctions_scanned"] = len(domains)
         self.log(
             step="Auctions Checked",
             file_used=DOMAINS_LOG_FILE,
-            message=f"Checked domain registries. {len(domains)} tracked shortlisted assets.",
+            message=f"Checked domain registries. Found {1 if is_available else 0} real available targets.",
             level="INFO"
         )
 
         return {
-            "status": "Domain Arbitrage Cycle Completed (Monitoring Only)",
+            "status": "Domain Arbitrage Cycle Completed (Real check performed)",
             "tracked_domains_count": len(domains)
         }
 

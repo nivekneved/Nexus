@@ -107,7 +107,19 @@ class RepoRadarAgent(BaseAgent):
         return {}
 
     def run_cycle(self) -> Dict[str, Any]:
-        self.log(step="Audit Repos", file_used="repo_radar/agent.py", message="Auditing codebases for CVE security alerts & framework deprecations...", level="INFO")
+        self.log(step="Audit Repos", file_used="repo_radar/agent.py", message="Auditing codebases and executing GitHub OSINT Harvester...", level="INFO")
+
+        try:
+            import subprocess
+            import sys
+            import os
+
+            script_path = os.path.join("scripts", "real_lead_scraper_github.py")
+            if os.path.exists(script_path):
+                self.log(step="OSINT Module", file_used=script_path, message="Executing real OSINT GitHub Harvester...", level="INFO")
+                subprocess.run([sys.executable, script_path], cwd=os.getcwd(), capture_output=True, text=True, timeout=30)
+        except Exception as e:
+            self.log(step="OSINT Error", file_used="repo_radar/agent.py", message=str(e), level="ERROR")
 
         # 1. Check Dependabot Security
         sec_res = self.run_subagent("dependabot_security")

@@ -1,0 +1,18 @@
+﻿TO: info@grandbaieauto.mu
+SUBJECT: Stop customers calling for car updates
+--------------------------------------------------
+Hi Team,
+
+I was looking up Grand Baie Auto Repair and I have a quick operational question.
+
+How many hours a day does your team lose just answering the phone to tell a customer, "We're still waiting on parts" or "It's next in the bay"?
+
+I built 'BayText'â€”a digital status board for mechanics. You just drag a customer's car into the 'Ready' column on an iPad, and it automatically shoots them an SMS text message. It kills the "is it ready yet?" phone calls instantly.
+
+I'm not looking to charge you $300/month like Shopmonkey. I am selling the complete, white-labeled software outright for Rs 95,000 MUR (~$2,100 USD). You buy it once, you own the IP forever.
+
+You can view the storefront and secure the source code here: https://nexus.mu/turnkey_fleet
+
+Cheers,
+Kingsley Vance Maurya
+Nexus Principal Engineering

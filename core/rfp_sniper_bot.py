@@ -186,8 +186,16 @@ class RFPSniperBot:
         if live_rss:
             all_jobs.extend(live_rss)
 
-        # 2. Add verified high-probability live market RFPs
-        all_jobs.extend(FALLBACK_LIVE_RFPS)
+        # ACTUALLY PUTTING WHEELS ON IT: Do not use hardcoded fallback RFPs.
+        # Only use real RSS feed jobs.
+        if not all_jobs:
+            logger.warning("[RFPSniper] No live RFPs found from real RSS feeds. Not using mock fallback data.")
+            return {
+                "success": False,
+                "scanned_count": 0,
+                "new_proposals_count": 0,
+                "message": "No live jobs available."
+            }
 
         ledger = safe_load_json(SNIPER_LEDGER_FILE, default=[])
         existing_titles = {entry.get("job_title") for entry in ledger}

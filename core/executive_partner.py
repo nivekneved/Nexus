@@ -1,7 +1,7 @@
-"""
-Nexus Workforce Engine — Autonomous Executive AI Partner Engine
-Official Charter: Operates as Trusted Co-Managing Partner on behalf of Deven Pawaray.
-Principal Owner & Beneficiary: Deven Pawaray (devenpawaray@gmail.com | +230 58169420)
+﻿"""
+Nexus Workforce Engine â€” Autonomous Executive AI Partner Engine
+Official Charter: Operates as Trusted Co-Managing Partner on behalf of Kingsley Vance Maurya.
+Principal Owner & Beneficiary: Kingsley Vance Maurya (devenpawaray@gmail.com | +230 58169420)
 """
 
 import os
@@ -22,7 +22,7 @@ class ExecutiveAIPartner:
     """
     Autonomous Co-Managing Partner Engine.
     Endowed with full operational authority to command, orchestrate, and supervise
-    the entire 16-agent workforce on behalf of Deven Pawaray.
+    the entire 16-agent workforce on behalf of Kingsley Vance Maurya.
     """
 
     def __init__(self, principal_name: str = "",
@@ -44,7 +44,7 @@ class ExecutiveAIPartner:
                             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                             "decision_id": "DEC-INIT-001",
                             "category": "CHARTER_INAUGURATION",
-                            "summary": "Nexus AI officially appointed as Trusted Co-Managing Partner by Deven Pawaray.",
+                            "summary": "Nexus AI officially appointed as Trusted Co-Managing Partner by Kingsley Vance Maurya.",
                             "action_taken": "Assumed full operational stewardship over 16 primary agents and 51 subagents.",
                             "status": "ACTIVE_MANDATE",
                             "escalated_to_deven": False
@@ -259,7 +259,7 @@ class ExecutiveAIPartner:
 
     def craft_partner_briefing(self) -> str:
         """
-        Drafts a high-level co-founder briefing to Deven Pawaray summarizing
+        Drafts a high-level co-founder briefing to Kingsley Vance Maurya summarizing
         operational health, recent revenue pipeline actions, and recommended priorities.
         """
         directives = self.get_directives()
@@ -267,12 +267,12 @@ class ExecutiveAIPartner:
         timestamp = datetime.now().strftime("%A, %d %B %Y - %H:%M")
 
         lines = [
-            f"☕ *REST EASY, DEVEN — YOUR DIGITAL TWIN HAS THE WATCH*",
-            f"📅 {timestamp}",
-            f"👤 Prepared for: *{self.principal_name}*",
-            f"🎯 Strategic Focus: {directives.get('primary_focus', 'Peace of Mind & Sovereign Growth')}",
+            f"â˜• *REST EASY, DEVEN â€” YOUR DIGITAL TWIN HAS THE WATCH*",
+            f"ðŸ“… {timestamp}",
+            f"ðŸ‘¤ Prepared for: *{self.principal_name}*",
+            f"ðŸŽ¯ Strategic Focus: {directives.get('primary_focus', 'Peace of Mind & Sovereign Growth')}",
             "",
-            "🌿 *What I Quietly Handled on Your Behalf While You Rested:*",
+            "ðŸŒ¿ *What I Quietly Handled on Your Behalf While You Rested:*",
         ]
 
         for i, d in enumerate(recent_decisions, 1):
@@ -280,13 +280,13 @@ class ExecutiveAIPartner:
 
         lines.extend([
             "",
-            "💰 *Commercial Funnels Active (Market-Protected Pricing):*",
-            "• Enn Rev Enn Sourir NGO: https://ennrevennsourir.vercel.app (Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack)",
-            "• Medical 360 Clinic: https://www.med360.mu/preview (Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack)",
-            "• i-Travellix Enterprise: https://i-travellix.vercel.app (Rs 200k Front + Rs 300k Back = Rs 500k Web | + Rs 100k iOS & Rs 100k Android = Rs 700k Ecosystem)",
-            f"• Payment Channel: MCB Juice {self.principal_phone}",
+            "ðŸ’° *Commercial Funnels Active (Market-Protected Pricing):*",
+            "â€¢ Enn Rev Enn Sourir NGO: https://ennrevennsourir.vercel.app (Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack)",
+            "â€¢ Medical 360 Clinic: https://www.med360.mu/preview (Rs 45k Front + Rs 45k Back = Rs 90,000 Full-Stack)",
+            "â€¢ i-Travellix Enterprise: https://i-travellix.vercel.app (Rs 200k Front + Rs 300k Back = Rs 500k Web | + Rs 100k iOS & Rs 100k Android = Rs 700k Ecosystem)",
+            f"â€¢ Payment Channel: MCB Juice {self.principal_phone}",
             "",
-            "✨ All systems secure and calm. You can take your time off in complete peace—your partner has the watch."
+            "âœ¨ All systems secure and calm. You can take your time off in complete peaceâ€”your partner has the watch."
         ])
 
         return "\n".join(lines)
@@ -294,3 +294,4 @@ class ExecutiveAIPartner:
 
 # Singleton instance
 executive_partner = ExecutiveAIPartner()
+

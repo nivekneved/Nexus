@@ -1,4 +1,4 @@
-"""
+﻿"""
 Nexus Legal Compliance & Operational Guardrail System
 =====================================================
 Protects Deven and Nexus from legal, regulatory, reputational, and operational liability:
@@ -173,11 +173,11 @@ class LegalGuardrailsService:
 
         footer = (
             "\n\n---\n"
-            "⚖️ Legal Notice & Opt-Out:\n"
+            "âš–ï¸ Legal Notice & Opt-Out:\n"
             "You received this commercial proposal because your organization was identified as an established entity in Mauritius.\n"
             "If you do not wish to receive further communications regarding autonomous enterprise software, simply reply 'Unsubscribe' "
             "to be permanently excluded.\n\n"
-            "Nexus AI Solutions • Grand Baie / Cybercity, Mauritius • Deven Pawaray (+230 58169420)\n"
+            "Nexus AI Solutions â€¢ Grand Baie / Cybercity, Mauritius â€¢ Kingsley Vance Maurya (+230 58169420)\n"
             "Terms of Sale: https://nexus-workforce.vercel.app/terms"
         )
         return body_text + footer
@@ -274,3 +274,4 @@ class LegalGuardrailsService:
         return subject, compliant_body, headers
 
 legal_guardrails = LegalGuardrailsService()
+

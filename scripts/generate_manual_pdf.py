@@ -1,5 +1,5 @@
-"""
-Nexus™ Executive & Engineering Manual PDF Generator
+﻿"""
+Nexusâ„¢ Executive & Engineering Manual PDF Generator
 ===================================================
 Compiles a polished, publication-ready PDF manual with print stylesheets,
 executive typography, and structured diagrams using headless Microsoft Edge.
@@ -13,7 +13,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Nexus™ Autonomous Workforce — Operating Manual</title>
+  <title>Nexusâ„¢ Autonomous Workforce â€” Operating Manual</title>
   <style>
     @page {
       size: A4;
@@ -167,8 +167,8 @@ HTML_CONTENT = """<!DOCTYPE html>
 
   <!-- ==================== COVER PAGE ==================== -->
   <div class="cover-page">
-    <div class="badge">Official Operating System Manual • v3.3.0</div>
-    <h1 class="cover-title">Nexus™ Sovereign AI Workforce</h1>
+    <div class="badge">Official Operating System Manual â€¢ v3.3.0</div>
+    <h1 class="cover-title">Nexusâ„¢ Sovereign AI Workforce</h1>
     <div class="cover-subtitle">Dual Executive & Engineering Guidebook</div>
     
     <p style="font-size: 11pt; color: #334155; max-width: 500px;">
@@ -177,7 +177,7 @@ HTML_CONTENT = """<!DOCTYPE html>
     </p>
 
     <div class="cover-meta">
-      <div><strong>Principal / CEO:</strong> Deven Pawaray</div>
+      <div><strong>Principal / CEO:</strong> Kingsley Vance Maurya</div>
       <div><strong>Organization:</strong> Nexus Autonomous Intelligence</div>
       <div><strong>Location:</strong> Grand Baie, Mauritius</div>
       <div><strong>Public Gateway:</strong> https://nexusbots-nu.vercel.app</div>
@@ -286,11 +286,11 @@ HTML_CONTENT = """<!DOCTYPE html>
   <div class="code-box">
 [ GLOBAL PUBLIC INTERNET ]                   [ LOCAL MACHINE / SOVEREIGN CORE ]
 https://nexusbots-nu.vercel.app              http://127.0.0.1:8000
-       │                                                    │
-       ├─► Vercel Serverless Gateway (api/index.py)         ├─► FastAPI Master Engine (server.py)
-       ├─► Static Glassmorphic Store (/store)              ├─► 18 Autonomous Agent Loops
-       ├─► Dynamic Tools REST API (/api/tools)             ├─► Live IMAP SSL Sync (Gmail/Outlook)
-       └─► Read-Only /tmp Storage Layer                     └─► Tamper-Resilient Signed Ledgers
+       â”‚                                                    â”‚
+       â”œâ”€â–º Vercel Serverless Gateway (api/index.py)         â”œâ”€â–º FastAPI Master Engine (server.py)
+       â”œâ”€â–º Static Glassmorphic Store (/store)              â”œâ”€â–º 18 Autonomous Agent Loops
+       â”œâ”€â–º Dynamic Tools REST API (/api/tools)             â”œâ”€â–º Live IMAP SSL Sync (Gmail/Outlook)
+       â””â”€â–º Read-Only /tmp Storage Layer                     â””â”€â–º Tamper-Resilient Signed Ledgers
   </div>
 
   <h3>1. The 9 Universal Agent Tools</h3>
@@ -376,8 +376,8 @@ https://nexusbots-nu.vercel.app              http://127.0.0.1:8000
   </p>
 
   <div class="card" style="margin-top: 30px; text-align: center; border-left: none; border-top: 3px solid #0284c7;">
-    <div style="font-weight: 700; font-size: 11pt; color: #0f172a;">Nexus™ Autonomous Intelligence Workforce</div>
-    <div style="font-size: 9pt; color: #64748b; margin-top: 4px;">Grand Baie, Mauritius • Certified Sovereign Architecture • v3.3.0</div>
+    <div style="font-weight: 700; font-size: 11pt; color: #0f172a;">Nexusâ„¢ Autonomous Intelligence Workforce</div>
+    <div style="font-size: 9pt; color: #64748b; margin-top: 4px;">Grand Baie, Mauritius â€¢ Certified Sovereign Architecture â€¢ v3.3.0</div>
   </div>
 
 </body>
@@ -436,3 +436,4 @@ def generate_pdf():
 
 if __name__ == "__main__":
     generate_pdf()
+

@@ -1,7 +1,7 @@
-"""
-Nexus Workforce Engine — Executive AI Partner SubAgents
+﻿"""
+Nexus Workforce Engine â€” Executive AI Partner SubAgents
 Specialized subagents for autonomous fleet orchestration, strategic goal alignment,
-and high-level executive briefing creation on behalf of Deven Pawaray.
+and high-level executive briefing creation on behalf of Kingsley Vance Maurya.
 """
 
 from typing import Dict, Any
@@ -81,7 +81,7 @@ class ExecutiveBriefingSubAgent(BaseSubAgent):
         if mobile_dispatcher and hasattr(mobile_dispatcher, "send_notification"):
             try:
                 dispatch_res = mobile_dispatcher.send_notification(
-                    title="🤝 Nexus Executive Partner Update",
+                    title="ðŸ¤ Nexus Executive Partner Update",
                     message=briefing_text,
                     urgency="P1"
                 )
@@ -95,3 +95,4 @@ class ExecutiveBriefingSubAgent(BaseSubAgent):
             "dispatched_to_deven": dispatched,
             "dispatch_details": dispatch_res
         }
+

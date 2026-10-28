@@ -74,34 +74,31 @@ class AgentInternetBridge:
         if headers:
             merged_headers.update(headers)
 
-        # Try with httpx if available, fallback to urllib
+        # Try with pooled httpx client from core.http_pool first
         try:
-            import httpx
-            with httpx.Client(timeout=timeout, follow_redirects=True, headers=merged_headers) as client:
-                m = method.upper()
-                if m == "POST":
-                    resp = client.post(url, json=payload if payload is not None else {})
-                elif m == "PUT":
-                    resp = client.put(url, json=payload if payload is not None else {})
-                elif m == "DELETE":
-                    resp = client.delete(url)
-                elif m == "PATCH":
-                    resp = client.patch(url, json=payload if payload is not None else {})
-                else:
-                    resp = client.get(url)
-
+            from core.http_pool import cached_sync_request
+            pooled = cached_sync_request(
+                method=method,
+                url=url,
+                ttl_seconds=300 if method.upper() == "GET" else 0,
+                headers=merged_headers,
+                json_payload=payload,
+                timeout=timeout
+            )
+            pooled["mode"] = "LIVE_PUBLIC_INTERNET_POOLED"
+            return pooled
+        except Exception as e_httpx:
+            err_str = str(e_httpx)
+            if "11001" in err_str or "getaddrinfo failed" in err_str or "Name or service not known" in err_str:
                 elapsed_ms = (time.time() - t0) * 1000.0
                 return {
-                    "success": 200 <= resp.status_code < 400,
-                    "mode": "LIVE_PUBLIC_INTERNET",
-                    "status_code": resp.status_code,
-                    "url": str(resp.url),
-                    "execution_time_ms": round(elapsed_ms, 1),
-                    "content": resp.text[:10000],
-                    "headers": dict(resp.headers)
+                    "success": False,
+                    "mode": "DNS_UNRESOLVABLE_FAST_FAIL",
+                    "error": err_str,
+                    "url": url,
+                    "execution_time_ms": round(elapsed_ms, 1)
                 }
-        except Exception as e_httpx:
-            logger.warning(f"[InternetBridge] httpx failed ({e_httpx}), attempting urllib fallback...")
+            logger.warning(f"[InternetBridge] Pooled httpx failed ({e_httpx}), attempting urllib fallback...")
 
         # Urllib fallback
         try:
@@ -397,6 +394,91 @@ class AgentInternetBridge:
             return {"success": False, "error": str(e)}
 
     # =========================================================================
+    # 5.5 ARGON MAX PROTOCOL-LEVEL OSINT (CERTIFICATE TRANSPARENCY & TECH FINGERPRINTING)
+    # =========================================================================
+    def discover_live_ct_domains(self, pattern: str = "%.mu", limit: int = 15) -> Dict[str, Any]:
+        """
+        Queries Certificate Transparency (CT) logs via crt.sh JSON protocol to discover
+        newly issued SSL certificates and live commercial domains in real time.
+        """
+        t0 = time.time()
+        enc_q = urllib.parse.quote(pattern)
+        ct_url = f"https://crt.sh/?q={enc_q}&output=json"
+        domains = []
+        seen = set()
+        try:
+            res = self.fetch_public_url(ct_url, timeout=10.0)
+            if res.get("success") and res.get("content"):
+                entries = json.loads(res["content"])
+                for item in entries:
+                    name_val = (item.get("common_name") or item.get("name_value") or "").strip().lower()
+                    for line in name_val.splitlines():
+                        clean_d = line.lstrip("*.").strip()
+                        if clean_d and "." in clean_d and clean_d not in seen:
+                            seen.add(clean_d)
+                            domains.append({
+                                "domain": clean_d,
+                                "issuer": item.get("issuer_name", "")[:80],
+                                "logged_at": item.get("entry_timestamp", "")
+                            })
+                            if len(domains) >= limit:
+                                break
+                    if len(domains) >= limit:
+                        break
+        except Exception as e:
+            logger.debug(f"[InternetBridge] CT log query note: {e}")
+
+        return {
+            "success": len(domains) > 0,
+            "pattern": pattern,
+            "domains_discovered": len(domains),
+            "domains": domains,
+            "execution_time_ms": round((time.time() - t0) * 1000.0, 1)
+        }
+
+    def fingerprint_domain_buying_signals(self, url_or_domain: str) -> Dict[str, Any]:
+        """
+        Inspects a live prospect website's DOM and HTTP headers for B2B buying signals:
+        - Missing WhatsApp Concierge widget (wa.me / api.whatsapp.com)
+        - Missing instant booking / appointment widget
+        - Expensive legacy SaaS bloat (Intercom, HubSpot, Zendesk, Drift, Calendly)
+        - Exposed contact emails and phone numbers
+        """
+        target_url = url_or_domain.strip()
+        if not target_url.startswith("http"):
+            target_url = f"https://{target_url}"
+
+        res = self.fetch_public_url(target_url, timeout=10.0)
+        html = (res.get("content") or "").lower()
+        headers = res.get("headers") or {}
+
+        has_whatsapp = ("wa.me/" in html) or ("api.whatsapp.com" in html) or ("whatsapp" in html)
+        has_booking = any(k in html for k in ["calendly", "book-now", "reservation", "appointment", "booking"])
+        expensive_saas = [
+            saas for saas in ["intercom", "hubspot", "zendesk", "drift", "salesforce", "freshdesk", "mailchimp"]
+            if saas in html
+        ]
+        emails_found = list(set(re.findall(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", res.get("content") or "")))[:5]
+
+        recommended_pitch_angle = (
+            "Missing 24/7 WhatsApp AI Booking Concierge — high nocturnal lead leakage"
+            if not has_whatsapp else
+            (f"Replace expensive {', '.join(expensive_saas)} subscription with Sovereign Nexus AI"
+             if expensive_saas else "Upgrade static contact form to autonomous bilingual AI closing funnel")
+        )
+
+        return {
+            "success": res.get("success", False),
+            "url": target_url,
+            "server": headers.get("server", "Unknown"),
+            "has_whatsapp_widget": has_whatsapp,
+            "has_booking_engine": has_booking,
+            "legacy_saas_detected": expensive_saas,
+            "emails_extracted": emails_found,
+            "recommended_pitch_angle": recommended_pitch_angle
+        }
+
+    # =========================================================================
     # 6. UNIVERSAL AGENT INJECTION
     # =========================================================================
     def inject_into_agent(self, agent) -> bool:
@@ -408,6 +490,8 @@ class AgentInternetBridge:
         agent.scrape_webpage = self.scrape_webpage
         agent.execute_unsandboxed_code = self.execute_unsandboxed_code
         agent.broadcast_to_agent_network = self.broadcast_to_agent_network
+        agent.discover_live_ct_domains = self.discover_live_ct_domains
+        agent.fingerprint_domain_buying_signals = self.fingerprint_domain_buying_signals
         agent.is_sandbox_free = True
         agent.internet_access_enabled = True
         return True

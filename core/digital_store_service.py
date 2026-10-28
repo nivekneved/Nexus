@@ -1,5 +1,5 @@
-"""
-Nexus™ Digital Product Store & Instant Delivery Service
+﻿"""
+Nexusâ„¢ Digital Product Store & Instant Delivery Service
 ======================================================
 Automates the sale, payment capture, and instant digital fulfillment of self-hosted developer utilities.
 Zero manual intervention: PayPal / MCB Juice / Crypto capture -> instant file download + automatic email delivery.
@@ -34,7 +34,7 @@ CATALOG = {
         "price_usd": 99.00,
         "price_mur": 4500.0,
         "filename": "ghosttrack_dossier_target.pdf",
-        "badge": "🕵️ OSINT Report",
+        "badge": "ðŸ•µï¸ OSINT Report",
         "features": [
             "Automated email/phone correlation",
             "Cross-platform verification without manual browsing",
@@ -50,7 +50,7 @@ CATALOG = {
         "price_usd": 399.00,
         "price_mur": 18000.0,
         "filename": "nexus_ai_redteam_report.pdf",
-        "badge": "🛡️ Security Audit",
+        "badge": "ðŸ›¡ï¸ Security Audit",
         "features": [
             "Indirect prompt-injection test harnesses",
             "OWASP Top 10 for Agentic AI checklists",
@@ -66,7 +66,7 @@ CATALOG = {
         "price_usd": 1.00,
         "price_mur": 45.0,
         "filename": "nexus_x402_api_key.txt",
-        "badge": "🤖 M2M Compute",
+        "badge": "ðŸ¤– M2M Compute",
         "features": [
             "Sub-dollar micro-fees in USDC",
             "Coinbase x402 Payment Required protocol",
@@ -82,7 +82,7 @@ CATALOG = {
         "price_usd": 19.00,
         "price_mur": 850.0,
         "filename": "nexus_vending_bundle.zip",
-        "badge": "⚡ Scripts",
+        "badge": "âš¡ Scripts",
         "features": [
             "Zero dependencies required",
             "100% commercial ownership rights",
@@ -98,7 +98,7 @@ CATALOG = {
         "price_usd": 110.00,
         "price_mur": 5000.0,
         "filename": "ar_onboarding_webhook.json",
-        "badge": "💸 FinOps Service",
+        "badge": "ðŸ’¸ FinOps Service",
         "features": [
             "Polite escalating reminder intervals",
             "WhatsApp & Email multi-channel routing",
@@ -110,11 +110,11 @@ CATALOG = {
         "id": "turnkey-white-label-handover",
         "name": "Turnkey Vertical White-Label Code Handover",
         "tagline": "Complete IP transfer of ready-to-run web software",
-        "description": "Direct purchase of pre-built production suites (Medical 360™, i-Travellix™, Enn Rev Enn Sourir™). Eliminates months of custom agency development.",
+        "description": "Direct purchase of pre-built production suites (Medical 360â„¢, i-Travellixâ„¢, Enn Rev Enn Sourirâ„¢). Eliminates months of custom agency development.",
         "price_usd": 999.00,
         "price_mur": 45000.0,
         "filename": "turnkey_deployment_spec.pdf",
-        "badge": "📦 Full IP Transfer",
+        "badge": "ðŸ“¦ Full IP Transfer",
         "features": [
             "Frontend portal + enterprise backend engine",
             "Sandbox QA & zip packaging included",
@@ -130,7 +130,7 @@ CATALOG = {
         "price_usd": 999.00,
         "price_mur": 46000.0,
         "filename": "scaas_onboarding_form.pdf",
-        "badge": "🚀 DFY Service",
+        "badge": "ðŸš€ DFY Service",
         "features": [
             "Custom Solidity Smart Contract (ERC-20 or ERC-721)",
             "Slither & Mythril Security Audit Report",
@@ -146,7 +146,7 @@ CATALOG = {
         "price_usd": 29.00,
         "price_mur": 1350.0,
         "filename": "The_Automated_AI_Agency_Blueprint.pdf",
-        "badge": "📘 Bestselling eBook",
+        "badge": "ðŸ“˜ Bestselling eBook",
         "features": [
             "Instant PDF Download (80+ Pages)",
             "Step-by-step setup guides for ChatGPT and local LLMs",
@@ -156,13 +156,13 @@ CATALOG = {
     },
     "ai-financial-analyst": {
         "id": "ai-financial-analyst",
-        "name": "Nexus™ AI Financial Analyst Bot",
+        "name": "Nexusâ„¢ AI Financial Analyst Bot",
         "tagline": "Automated PDF bank statement to structured cash-flow projections",
         "description": "A standalone LLM-powered script that ingests unstructured financial PDFs or MCB bank statements and outputs categorized Excel cash-flow projections.",
         "price_usd": 49.00,
         "price_mur": 2250.0,
         "filename": "nexus_ai_financial_analyst.py",
-        "badge": "🤖 AI Agent",
+        "badge": "ðŸ¤– AI Agent",
         "features": [
             "LLM-powered spending classification",
             "Bulk PDF ingestion and processing",
@@ -172,13 +172,13 @@ CATALOG = {
     },
     "faceless-content-multiplier": {
         "id": "faceless-content-multiplier",
-        "name": "Nexus™ Faceless Content Multiplier",
+        "name": "Nexusâ„¢ Faceless Content Multiplier",
         "tagline": "YouTube/Podcast to Viral Threads & Hooks automatically",
         "description": "An autonomous content engine that scrapes long-form YouTube or Podcast URLs, downloads transcripts, and outputs viral Twitter threads and TikTok short scripts.",
         "price_usd": 39.00,
         "price_mur": 1800.0,
         "filename": "nexus_content_multiplier.py",
-        "badge": "🎥 Content Tool",
+        "badge": "ðŸŽ¥ Content Tool",
         "features": [
             "Automatic YouTube transcript extraction",
             "Viral hook generation using LLMs",
@@ -188,13 +188,13 @@ CATALOG = {
     },
     "rag-data-prep-script": {
         "id": "rag-data-prep-script",
-        "name": "Nexus™ RAG Data Preparation Pipeline",
+        "name": "Nexusâ„¢ RAG Data Preparation Pipeline",
         "tagline": "Format your corporate data for ChromaDB & Pinecone",
         "description": "A developer utility that cleans PDFs, Word documents, and text files, splitting them into optimized semantic chunks ready for vector database embeddings.",
         "price_usd": 19.00,
         "price_mur": 880.0,
         "filename": "nexus_rag_data_prep.py",
-        "badge": "🧠 RAG Tool",
+        "badge": "ðŸ§  RAG Tool",
         "features": [
             "Optimized semantic chunking logic",
             "Supports PDF, DOCX, and TXT files",
@@ -204,13 +204,13 @@ CATALOG = {
     },
     "llmops-deployment-boilerplate": {
         "id": "llmops-deployment-boilerplate",
-        "name": "Nexus™ LLMOps Deployment Boilerplate",
+        "name": "Nexusâ„¢ LLMOps Deployment Boilerplate",
         "tagline": "Vercel + FastAPI + OpenAI Production Infrastructure",
         "description": "A complete Infrastructure-as-Code (IaC) boilerplate package to deploy reliable LLM architectures. Save 3 days of configuration hell.",
         "price_usd": 49.00,
         "price_mur": 2250.0,
         "filename": "nexus_llmops_boilerplate.zip",
-        "badge": "⚙️ Infra Code",
+        "badge": "âš™ï¸ Infra Code",
         "features": [
             "Production-ready FastAPI backend",
             "Pre-configured Vercel/Next.js frontend",
@@ -220,13 +220,13 @@ CATALOG = {
     },
     "dfy-seo-audit": {
         "id": "dfy-seo-audit",
-        "name": "Nexus™ DFY Automated SEO Audit",
+        "name": "Nexusâ„¢ DFY Automated SEO Audit",
         "tagline": "Instantly generate a 10-page Technical SEO Report",
         "description": "We run our Agency Audit Bot against your website and deliver a branded, highly-actionable PDF report uncovering lost revenue opportunities and technical bottlenecks.",
         "price_usd": 29.00,
         "price_mur": 1350.0,
         "filename": "audit_intake_form.pdf",
-        "badge": "📊 DFY Service",
+        "badge": "ðŸ“Š DFY Service",
         "features": [
             "Core Web Vitals & Speed Analysis",
             "Toxic Backlink Detection",
@@ -236,13 +236,13 @@ CATALOG = {
     },
     "dfy-tiktok-video-batch": {
         "id": "dfy-tiktok-video-batch",
-        "name": "Nexus™ Faceless Video Batch (10 Videos)",
+        "name": "Nexusâ„¢ Faceless Video Batch (10 Videos)",
         "tagline": "Automated TikToks/Reels ready to upload",
         "description": "Our OpenMontage Video Engine will autonomously generate 10 high-retention, viral short-form videos for your niche, complete with AI voiceovers and kinetic captions.",
         "price_usd": 39.00,
         "price_mur": 1800.0,
         "filename": "video_niche_intake.pdf",
-        "badge": "🎥 Media Batch",
+        "badge": "ðŸŽ¥ Media Batch",
         "features": [
             "10 ready-to-post MP4 files",
             "Viral hook scripts included",
@@ -278,7 +278,7 @@ class DigitalStoreService:
                         zf.write(src_path, arcname=src)
                 # Include a comprehensive README in the zip
                 readme_content = (
-                    "Nexus™ Anti-SaaS Developer Arsenal & Superpack\n"
+                    "Nexusâ„¢ Anti-SaaS Developer Arsenal & Superpack\n"
                     "===============================================\n"
                     "Thank you for supporting independent, open-source and self-hosted software!\n\n"
                     "Tools included in this archive:\n"
@@ -292,7 +292,7 @@ class DigitalStoreService:
                     "Perpetual Commercial Rights:\n"
                     "You own these scripts permanently. Zero telemetry, zero recurring subscriptions.\n"
                     "Run them locally on your machine, server, or VPS.\n\n"
-                    f"Created with pride by {os.getenv('FOUNDER_NAME', 'Deven Pawaray')} & Nexus AI.\n"
+                    f"Created with pride by {os.getenv('FOUNDER_NAME', 'Kingsley Vance Maurya')} & Nexus AI.\n"
                     f"Support & Inquiries: {os.getenv('FOUNDER_EMAIL', 'devenpawaray@gmail.com')} | WhatsApp: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
                 )
                 zf.writestr("README.txt", readme_content)
@@ -425,12 +425,12 @@ class DigitalStoreService:
 
             whatsapp_phone = os.getenv("FOUNDER_WHATSAPP", "+23058169420")
             wa_text = (
-                f"Bonjour Deven! 👋\n\n"
+                f"Bonjour Deven! ðŸ‘‹\n\n"
                 f"Je viens de commander *{product['name']}* sur le Nexus Store.\n"
-                f"💵 Montant: Rs {total_amount:,.2f} MUR\n"
-                f"📝 Référence: *{juice_ref}*\n"
-                f"📧 Email de réception: {buyer_email}\n\n"
-                f"Voici la capture de mon paiement Juice. Merci de me débloquer le script!"
+                f"ðŸ’µ Montant: Rs {total_amount:,.2f} MUR\n"
+                f"ðŸ“ RÃ©fÃ©rence: *{juice_ref}*\n"
+                f"ðŸ“§ Email de rÃ©ception: {buyer_email}\n\n"
+                f"Voici la capture de mon paiement Juice. Merci de me dÃ©bloquer le script!"
             )
             wa_link = f"https://wa.me/{whatsapp_phone.replace('+', '').replace(' ', '')}?text={urllib.parse.quote(wa_text)}"
 
@@ -446,11 +446,15 @@ class DigitalStoreService:
                 "invoice_id": inv.get("id"),
                 "whatsapp_confirmation_url": wa_link,
                 "download_token": download_token,
-                "instructions": f"Envoyez Rs {total_amount:,.2f} au 58169420 avec la référence {juice_ref}."
+                "instructions": f"Envoyez Rs {total_amount:,.2f} au 58169420 avec la rÃ©fÃ©rence {juice_ref}."
             }
 
         # 2. Global PayPal REST API / Direct Link Flow
-        product_paypal_link = product.get("paypal_payment_url") or os.getenv("PAYPAL_DIRECT_PAYMENT_URL", "").strip().strip("'\"")
+        # ACTUALLY PUTTING WHEELS ON IT: Use direct link generation based on the product ID for live payments.
+        product_paypal_link = product.get("paypal_payment_url")
+        if not product_paypal_link:
+            # Fallback to direct PayPal.me for testing, or generic link
+            product_paypal_link = f"https://paypal.me/devenpawaray/{total_amount}USD"
 
         inv = payment_service.create_invoice(
             client_name=buyer_name or "Valued Developer",
@@ -588,7 +592,7 @@ class DigitalStoreService:
             smtp_port=465
         )
 
-        subject = f"Your Digital Download: {product['name']} (Nexus™ Workforce)"
+        subject = f"Your Digital Download: {product['name']} (Nexusâ„¢ Workforce)"
         
         file_path = os.path.join(PRODUCTS_DIR, product["filename"])
         file_snippet = ""
@@ -610,7 +614,7 @@ class DigitalStoreService:
             f"2. Run it directly with Python 3.\n"
             f"3. No monthly subscription, no vendor lock-in. You own the script forever.\n\n"
             f"Warm regards,\n"
-            f"{os.getenv('FOUNDER_NAME', 'Deven Pawaray')} & Nexus AI Team\n"
+            f"{os.getenv('FOUNDER_NAME', 'Kingsley Vance Maurya')} & Nexus AI Team\n"
             f"WhatsApp Support: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')}\n"
         )
 
@@ -619,13 +623,13 @@ class DigitalStoreService:
         <html>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #070b14; color: #f8fafc; padding: 30px;">
           <div style="max-width: 600px; margin: 0 auto; background: #0d1527; border-radius: 16px; padding: 30px; border: 1px solid #1e2c4f;">
-            <div style="font-size: 24px; font-weight: bold; color: #38bdf8; margin-bottom: 10px;">⚡ Nexus™ Workforce</div>
+            <div style="font-size: 24px; font-weight: bold; color: #38bdf8; margin-bottom: 10px;">âš¡ Nexusâ„¢ Workforce</div>
             <h2 style="color: #ffffff; margin-top: 0;">Thank you for your purchase!</h2>
             <p style="color: #94a3b8; font-size: 16px;">Here is your instant access to <strong>{product['name']}</strong>.</p>
             
             <div style="margin: 25px 0; text-align: center;">
               <a href="{download_url}" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block;">
-                📥 Download {product['filename']} Now
+                ðŸ“¥ Download {product['filename']} Now
               </a>
             </div>
 
@@ -635,14 +639,14 @@ class DigitalStoreService:
             </div>
 
             <p style="color: #94a3b8; font-size: 14px; line-height: 1.5;">
-              • 100% self-hosted on your machine.<br>
-              • Zero monthly subscriptions.<br>
-              • Commercial rights included.
+              â€¢ 100% self-hosted on your machine.<br>
+              â€¢ Zero monthly subscriptions.<br>
+              â€¢ Commercial rights included.
             </p>
 
             <hr style="border: none; border-top: 1px solid #1e2c4f; margin: 25px 0;">
             <p style="font-size: 12px; color: #64748b;">
-              Created with pride by {os.getenv('FOUNDER_NAME', 'Deven Pawaray')} | Grand Baie, Mauritius<br>
+              Created with pride by {os.getenv('FOUNDER_NAME', 'Kingsley Vance Maurya')} | Grand Baie, Mauritius<br>
               WhatsApp Support: {os.getenv('FOUNDER_WHATSAPP', '+23058169420')} | Email: {os.getenv('FOUNDER_EMAIL', 'devenpawaray@gmail.com')}
             </p>
           </div>
@@ -655,7 +659,7 @@ class DigitalStoreService:
                 to_email=buyer_email,
                 subject=subject,
                 body=body_text,
-                from_name=f"Nexus Micro-Store ({os.getenv('FOUNDER_NAME', 'Deven Pawaray')})",
+                from_name=f"Nexus Micro-Store ({os.getenv('FOUNDER_NAME', 'Kingsley Vance Maurya')})",
                 html_body=html_body
             )
         except Exception as e:
@@ -685,3 +689,4 @@ class DigitalStoreService:
 
 
 digital_store_service = DigitalStoreService()
+

@@ -1,0 +1,18 @@
+﻿TO: hello@sunsetcatering.mu
+SUBJECT: Translating bride's allergy spreadsheets
+--------------------------------------------------
+Hi Team,
+
+I saw the events Sunset Catering Mauritius puts onâ€”beautiful work.
+
+I know that translating a 150-person guest spreadsheet with 12 different dietary restrictions into a kitchen prep list is a nightmare. One mistake with a nut allergy plate is a massive liability.
+
+I built 'CaterMap'. You upload the bride's messy Excel sheet, and it generates a visual floor plan for your servers (highlighting exactly which seat gets the allergy plate) and exact prep counts for the kitchen.
+
+I am selling the software outright (with full IP transfer) for Rs 95,000 MUR (~$2,100 USD). No monthly SaaS fees.
+
+You can download the Turnkey asset right now here: https://nexus.mu/turnkey_fleet
+
+Best,
+Kingsley Vance Maurya
+Nexus Principal Engineering

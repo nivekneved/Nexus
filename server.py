@@ -306,7 +306,7 @@ class SendEmailRequest(BaseModel):
     subject: str
     body: str
     reply_to: Optional[str] = None
-    from_name: Optional[str] = "Deven Pawaray"
+    from_name: Optional[str] = "Kingsley Vance Maurya"
 
 class DispatchLeadEmailRequest(BaseModel):
     account_id: Optional[str] = None
@@ -495,7 +495,7 @@ def simulate_contract_settlement(req: SmartContractSettleRequest):
 
 @app.post("/api/sovereignty/treasury/settle-bank")
 def settle_crypto_to_bank_endpoint(payload: CryptoBankSettleRequest):
-    """Off-ramps Base USDC treasury funds to Deven Pawaray's MCB Bank Account (000443260370)."""
+    """Off-ramps Base USDC treasury funds to Kingsley Vance Maurya's MCB Bank Account (000443260370)."""
     from core.treasury_engine import treasury_engine
     return treasury_engine.crypto.settle_crypto_to_bank(
         amount_usdc=payload.amount_usdc,
@@ -1074,42 +1074,11 @@ def get_pillar1_opportunities():
         bounties = b_agent.get_bounties()
     except Exception:
         bounties = dal.load("actionable_bounties", default=[])
-    if not bounties:
-        bounties = [
-            {"id": "BOUNTY-01", "platform": "Algora", "target": "supabase/auth", "reward": "$650 USD", "bounty_reward_usd": 650.0, "ev_score": "+$487.50", "status": "OPEN", "vulnerability": "OAuth Callback Token Validation Bypass"},
-            {"id": "BOUNTY-02", "platform": "Polar.sh", "target": "pydantic/v2", "reward": "$350 USD", "bounty_reward_usd": 350.0, "ev_score": "+$262.50", "status": "OPEN", "vulnerability": "Type coercion heap crash on untyped unions"},
-            {"id": "BOUNTY-03", "platform": "HackerOne", "target": "crypto-rails/bridge", "reward": "$1,200 USD", "bounty_reward_usd": 1200.0, "ev_score": "+$900.00", "status": "OPEN", "vulnerability": "Signature replay on Base L2 micro-settlement"}
-        ]
 
     gigs = dal.load("matched_gigs", default=[])
-    if not gigs:
-        gigs = [
-            {"id": "GIG-01", "platform": "Contra", "title": "Autonomous Agent Developer for Multi-LLM Routing", "budget_usd": 4500, "budget": "$4,500 USD", "match_score": 96, "status": "QUALIFIED", "proposal_hook": "Senior Python & Agentic systems engineer with local LLM orchestration experience."},
-            {"id": "GIG-02", "platform": "Upwork Enterprise", "title": "Next.js 15 & Fastify Full-Stack Architecture", "budget_usd": 3200, "budget": "$3,200 USD", "match_score": 92, "status": "QUALIFIED", "proposal_hook": "Specialist in production-grade SSR, SQLite WAL, and high-concurrency event loops."},
-            {"id": "GIG-03", "platform": "Web3 Bounties", "title": "Base L2 Smart Contract Telemetry Dashboard", "budget_usd": 2800, "budget": "$2,800 USD", "match_score": 94, "status": "QUALIFIED", "proposal_hook": "Built decentralized telemetry systems and on-chain escrow listeners."}
-        ]
-
     grants = dal.load("evaluated_grants", default=[])
-    if not grants:
-        grants = [
-            {"id": "GRANT-01", "name": "MRIC National Innovation Research Grant", "organization": "Mauritius Research & Innovation Council", "funding_amount": "Rs 1,000,000 MUR", "deadline": "2026-11-30", "focus_area": "AI Automation & Digital Sovereignty", "match_confidence": 94, "status": "APPLYING"},
-            {"id": "GRANT-02", "name": "EU Horizon Digital Enterprise Grant", "organization": "European Commission", "funding_amount": "€50,000 EUR", "deadline": "2026-12-15", "focus_area": "Cross-Border Autonomous Workforces", "match_confidence": 89, "status": "SHORTLISTED"},
-            {"id": "GRANT-03", "name": "Base Ecosystem Builder Grant", "organization": "Coinbase / Base Foundation", "funding_amount": "$25,000 USD", "deadline": "Rolling", "focus_area": "Autonomous Agents on Base L2", "match_confidence": 97, "status": "APPLYING"}
-        ]
-
     poached = dal.load("poached_leads", default=[])
-    if not poached:
-        poached = [
-            {"id": "POACH-01", "platform": "G2 Review", "competitor": "HubSpot Service Hub", "user": "VP of Customer Ops", "complaint": "Price raised 40% annually with mandatory seats we don't need.", "pain_category": "Pricing & Bloat", "offer_angle": "Nexus 14-Agent Local Workforce — Zero Monthly Seat Tax", "status": "PITCH_DRAFTED", "pitch_draft": "Saw your feedback regarding seat tax inflation. Nexus runs fully locally with lifetime zero seat fees."},
-            {"id": "POACH-02", "platform": "Trustpilot", "competitor": "Zendesk Suite", "user": "Clinic Director", "complaint": "Support tickets take 4 days to resolve and custom workflows require expensive consultants.", "pain_category": "Sluggish Support & Setup", "offer_angle": "Medical 360 AI Triage & Clinic Suite", "status": "PITCH_DRAFTED", "pitch_draft": "Our clinic automation deploys in 48 hours with direct WhatsApp concierge triage."}
-        ]
-
     alerts = dal.load("repo_radar_alerts", default=[])
-    if not alerts:
-        alerts = [
-            {"id": "ALERT-01", "repo": "fastapi", "severity": "LOW", "cve": "CVE-2024-3651", "advisory": "Header sanitization recommendation in multi-part form parser", "status": "MONITORED"},
-            {"id": "ALERT-02", "repo": "cryptography", "severity": "NONE", "cve": "PASSED", "advisory": "OpenSSL 3.2.0 FIPS compliance verified", "status": "VERIFIED"}
-        ]
 
     return {
         "success": True,
@@ -1132,95 +1101,128 @@ def get_pillar1_opportunities():
 
 @app.get("/api/pillar2/communications")
 def get_pillar2_communications():
-    """Aggregates all communications, support tickets, mobile dispatches, and email hygiene data."""
+    """Aggregates all communications, support tickets, mobile dispatches, email hygiene, and omnichannel lead engagement data."""
     from core import dal
+    from core.contact_history_service import contact_history_service
+    from core.social_seeding_service import social_seeding_service
+
     tickets = dal.load("support_tickets", default=[])
     if not tickets:
-        tickets = [
-            {
-                "id": "TICKET-101",
-                "customer_name": "Patrick Laroche",
-                "company": "Mauritius Discovery Tours DMC",
-                "email": "p.laroche@mru-discovery.mu",
-                "subject": "Webhook delay on WhatsApp booking confirmation",
-                "body": "Bonjour Deven, our reservation desk noticed that flight booking confirmations take 45 seconds to arrive via WhatsApp instead of being instant. Can you verify the webhook latency?",
-                "priority": "P1",
-                "sentiment": "Urgent",
-                "status": "DRAFTED",
-                "received_at": "Today, 14:22",
-                "language": "FR",
-                "draft_preview": "Bonjour Patrick,\n\nMerci pour votre retour. Nous avons audité la passerelle webhook WhatsApp : la latence était liée à un délai de synchronisation PNR. Un correctif en direct a été déployé et la latence est redescendue sous les 1.2 seconde.\n\nN'hésitez pas à nous contacter si vous observez le moindre ralentissement.\n\nCordialement,\nDeven Pawaray — Nexus AI Solutions"
-            },
-            {
-                "id": "TICKET-102",
-                "customer_name": "Dr. Alain Wong",
-                "company": "Clinique du Nord",
-                "email": "direction@cliniquedunord.mu",
-                "subject": "Inquiry regarding Medical 360 patient triage compliance",
-                "body": "Hi Nexus team, we would like to confirm if the automated triage data complies with Mauritius Data Protection Act 2017 before connecting our patient WhatsApp channel.",
-                "priority": "P2",
-                "sentiment": "Neutral",
-                "status": "DRAFTED",
-                "received_at": "Today, 11:05",
-                "language": "EN",
-                "draft_preview": "Dear Dr. Wong,\n\nThank you for reaching out. Yes, the Medical 360 portal runs 100% locally with AES-256-GCM encrypted persistence in compliance with Section 28 of the Mauritius Data Protection Act 2017. No patient PII leaves your sovereign infrastructure.\n\nWe have prepared the compliance annex for your legal team.\n\nBest regards,\nNexus Support Team"
-            },
-            {
-                "id": "TICKET-103",
-                "customer_name": "Marcus Vance",
-                "company": "AuraFlow Growth Agency",
-                "email": "marcus@auraflow.io",
-                "subject": "Upgrading to 14-Agent Enterprise Workforce",
-                "body": "Hey Deven, tested the founder license on our primary inbox. Response triage is brilliant. How do we add the remaining 4 subagent licenses for our operations team?",
-                "priority": "P2",
-                "sentiment": "Positive",
-                "status": "DRAFTED",
-                "received_at": "Yesterday, 18:40",
-                "language": "EN",
-                "draft_preview": "Hi Marcus,\n\nGreat to hear the workforce is streamlining AuraFlow's inboxes. You can unlock the full 14-agent enterprise tier directly via your Command Center dashboard or with the multi-seat license link.\n\nI'll generate your team activation key right away.\n\nBest,\nDeven"
-            }
-        ]
-        dal.save("support_tickets", tickets)
+        try:
+            feed = inbox_feed_service.fetch_unified_feed(limit_per_account=5)
+            for em in feed.get("emails", []):
+                tickets.append({
+                    "id": em.get("id"),
+                    "sender": em.get("sender"),
+                    "customer_name": em.get("sender"),
+                    "subject": em.get("subject"),
+                    "body": em.get("body", em.get("preview", "")),
+                    "priority": "P1" if em.get("category") in ("urgent", "revenue") else "P2",
+                    "sentiment": em.get("category_label", "Priority"),
+                    "status": "READY",
+                    "timestamp": em.get("date", ""),
+                    "ai_draft": f"Hi {em.get('sender', 'there').split('<')[0].strip()},\n\nThank you for your message regarding '{em.get('subject')}'. We are ready to assist immediately.\n\nBest regards,\nKingsley Vance Maurya (+230 58169420)"
+                })
+        except Exception:
+            pass
 
     notifications = dal.load("mobile_notifications", default=[])
-    if not notifications:
-        notifications = [
-            {
-                "recipient": "+230 58169420",
-                "message": "🚨 [P1 TICKET ESCALATION] From: Patrick Laroche (Mauritius Discovery Tours) - Webhook delay",
-                "status": "DELIVERED",
-                "timestamp": "Today, 14:23",
-                "channel": "WhatsApp wa.me Gateway"
-            },
-            {
-                "recipient": "+230 58169420",
-                "message": "💰 [PAYMENT SETTLED] Received Rs 25,000 MUR via MCB Juice for VillaFlow setup.",
-                "status": "DELIVERED",
-                "timestamp": "Today, 09:15",
-                "channel": "WhatsApp wa.me Gateway"
-            },
-            {
-                "recipient": "+230 58169420",
-                "message": "🛡️ [SECURITY FORTRESS] 25-Safeguard Defense Shield verified. Zero integrity violations.",
-                "status": "DELIVERED",
-                "timestamp": "Yesterday, 22:00",
-                "channel": "WhatsApp wa.me Gateway"
-            }
-        ]
+    if not notifications and os.path.exists("mobile_notifications.json"):
+        try:
+            with open("mobile_notifications.json", "r", encoding="utf-8") as f:
+                notifications = json.load(f)
+        except Exception:
+            notifications = []
 
     subscriptions = dal.load("subscriptions", default=[])
     if not subscriptions:
-        subscriptions = [
-            {"sender": "marketing@saas-spam-weekly.com", "newsletter": "SaaS Growth Spammer", "status": "PURGED", "unsub_link": "mailto:unsub@saas-spam.com", "detected_at": "2026-10-01"},
-            {"sender": "news@daily-tech-bloat.net", "newsletter": "Tech Bloat Digest", "status": "PURGED", "unsub_link": "https://daily-tech-bloat.net/unsub", "detected_at": "2026-10-02"},
-            {"sender": "notifications@github.com", "newsletter": "GitHub Notifications", "status": "WHITELISTED", "unsub_link": "N/A", "detected_at": "Protected VIP"}
-        ]
+        unsub_agent = manager.get_agent("ghost_unsubscriber")
+        if unsub_agent and hasattr(unsub_agent, "get_subscriptions"):
+            try:
+                subscriptions = unsub_agent.get_subscriptions()
+            except Exception:
+                subscriptions = []
 
-    hygiene = [
-        {"sender": "phishing-attempt@suspicious-domain.xyz", "subject": "Urgent: Reset Your Password Now", "action": "BLOCKED & TRASHED", "category": "High Threat (Spam 0.98)", "timestamp": "Today, 15:30"},
-        {"sender": "cold-pitch@unsolicited-marketing.io", "subject": "We build websites for 50$", "action": "QUARANTINED", "category": "Cold Pitch (Spam 0.85)", "timestamp": "Today, 13:10"},
-        {"sender": "reservations@heritageresorts.mu", "subject": "Heritage Le Telfair Collaboration Inquiry", "action": "VIP INBOX PROTECTED", "category": "High Fit Client", "timestamp": "Today, 10:45"}
-    ]
+    hygiene = dal.load("hygiene_logs", default=[])
+    if not hygiene:
+        hygiene = dal.load("trash_ledger", default=[])
+
+    loc_raw = dal.load("localization", default={})
+    bilingual_items = []
+    if isinstance(loc_raw, dict) and loc_raw:
+        sample = loc_raw.get("sample_triaged", {})
+        locale_val = loc_raw.get("locale_validation", {})
+        parity = loc_raw.get("parity_audit", {})
+        bilingual_items.append({
+            "client_name": "Med360 & Travellounge Mauritius",
+            "detected_language": sample.get("detected_language", "FR / EN"),
+            "original_text": "Validation multilingue & Triage d'urgence (+230 / MUR)",
+            "localized_response": f"Parity Score: {parity.get('parity_score', 98)}% | Phone: {locale_val.get('formatted_phone', '+230 5816 9420')} | Currency: {locale_val.get('canonical_currency', 'MUR (Rs)')}",
+            "timestamp": loc_raw.get("timestamp", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        })
+    elif isinstance(loc_raw, list):
+        bilingual_items = loc_raw
+
+    leads = []
+    lf_agent = manager.get_agent("lead_finder")
+    if lf_agent and hasattr(lf_agent, "get_pipeline"):
+        try:
+            leads = lf_agent.get_pipeline()
+        except Exception:
+            leads = dal.load("leads", default=[])
+
+    outreach_history = []
+    outreach_stats = {}
+    try:
+        outreach_history = contact_history_service.get_all_contacts()
+        outreach_stats = contact_history_service.get_stats()
+    except Exception:
+        pass
+
+    mass_email_data = {}
+    try:
+        mass_email_data = mass_email_service.get_contacts(limit=50)
+    except Exception:
+        pass
+
+    influencer_campaigns = []
+    inf_agent = manager.get_agent("influencer_usher")
+    if inf_agent and hasattr(inf_agent, "get_campaigns"):
+        try:
+            influencer_campaigns = inf_agent.get_campaigns()
+        except Exception:
+            pass
+
+    poached_leads = []
+    poach_agent = manager.get_agent("competitor_poacher")
+    if poach_agent and hasattr(poach_agent, "get_poached_leads"):
+        try:
+            poached_leads = poach_agent.get_poached_leads()
+        except Exception:
+            pass
+
+    executive_posts = []
+    try:
+        from agents.executive_poster.subagents import load_posts_ledger
+        executive_posts = load_posts_ledger()
+    except Exception:
+        pass
+
+    social_queue = []
+    try:
+        social_queue = social_seeding_service.get_queue()
+    except Exception:
+        pass
+
+    mauritius_sectors = []
+    whatsapp_bookings = []
+    try:
+        mauritius_sectors = mauritius_sales_engine.get_sectors()
+        whatsapp_bookings = mauritius_sales_engine.get_bookings()
+    except Exception:
+        pass
+
+    pareto_archive = dal.load("pareto_pitch_archive", default=[])
 
     return {
         "success": True,
@@ -1229,160 +1231,58 @@ def get_pillar2_communications():
             "notifications": len(notifications),
             "subscriptions": len(subscriptions),
             "hygiene": len(hygiene),
-            "total": len(tickets) + len(notifications) + len(subscriptions) + len(hygiene)
+            "bilingual": len(bilingual_items),
+            "leads": len(leads),
+            "outreach_history": len(outreach_history),
+            "mass_email": mass_email_data.get("total_records", 0),
+            "influencer_campaigns": len(influencer_campaigns),
+            "poached_leads": len(poached_leads),
+            "executive_posts": len(executive_posts),
+            "social_queue": len(social_queue),
+            "mauritius_sectors": len(mauritius_sectors),
+            "whatsapp_bookings": len(whatsapp_bookings),
+            "pareto_archive": len(pareto_archive),
+            "total": (
+                len(tickets) + len(notifications) + len(subscriptions) + len(hygiene) +
+                len(leads) + len(outreach_history) + len(social_queue) + len(whatsapp_bookings)
+            )
         },
         "tickets": tickets,
         "notifications": notifications,
         "subscriptions": subscriptions,
-        "hygiene": hygiene
+        "hygiene": hygiene,
+        "bilingual": bilingual_items,
+        "leads": leads,
+        "outreach_history": outreach_history,
+        "outreach_stats": outreach_stats,
+        "mass_email": mass_email_data,
+        "influencer_campaigns": influencer_campaigns,
+        "poached_leads": poached_leads,
+        "executive_posts": executive_posts,
+        "social_queue": social_queue,
+        "mauritius_sectors": mauritius_sectors,
+        "whatsapp_bookings": whatsapp_bookings,
+        "pareto_archive": pareto_archive
     }
+
+@app.post("/api/connect/recursive-optimize")
+def api_run_recursive_connect_optimizer():
+    """Executes the Argon Max Recursive Goal-Seeking & Adversarial Critic Loop."""
+    from core.recursive_revenue_profiler import RecursiveRevenueProfiler
+    return RecursiveRevenueProfiler.profile_and_optimize()
 
 @app.get("/api/activity/feed")
 def get_activity_feed():
-    """Aggregates all system activity events into rich, human-friendly telemetry cards."""
+    """Aggregates real system activity events into telemetry cards."""
     from core.telemetry import telemetry
     from core import dal
     import time
     
-    # Base rich curated events
-    events = [
-        {
-            "id": "EVT-108",
-            "domain": "research",
-            "icon": "🎯",
-            "title": "B2B Lead Pipeline Scouted",
-            "agent": "Employee #17 (Lead Scout)",
-            "summary": "Scouted Mauritius Discovery Tours DMC (94% ICP Fit, Rs 117,000 package). Outreach pitch generated and stored in SQLite WAL.",
-            "status": "SUCCESS",
-            "time_ago": "Just now",
-            "meta": {"ICP Score": "94%", "Package": "Rs 117,000", "Decision Maker": "Patrick Laroche", "Storage": "SQLite WAL"},
-            "details": {
-                "Lead Company": "Mauritius Discovery Tours DMC",
-                "Contact Email": "p.laroche@mru-discovery.mu",
-                "Identified Friction": "Manual WhatsApp booking confirmation latency",
-                "Proposed Architecture": "Local WhatsApp AI Booking Engine & Direct MCB Juice Settlement"
-            }
-        },
-        {
-            "id": "EVT-107",
-            "domain": "comms",
-            "icon": "💬",
-            "title": "WhatsApp Client Dispatch Sent",
-            "agent": "Employee #05 (WhatsApp Dispatcher)",
-            "summary": "Urgent P1 booking confirmation alert pushed to Executive mobile (+230 58169420) via wa.me protocol.",
-            "status": "DELIVERED",
-            "time_ago": "2 mins ago",
-            "meta": {"Recipient": "+230 58169420", "Priority": "P1 Escalation", "Channel": "WhatsApp Direct"},
-            "details": {
-                "Recipient Number": "+230 58169420",
-                "Message Preview": "🚨 [P1 TICKET ESCALATION] Patrick Laroche (Mauritius Discovery Tours DMC) - Webhook latency",
-                "Gateway Status": "Delivered with zero intermediary fees"
-            }
-        },
-        {
-            "id": "EVT-106",
-            "domain": "operations",
-            "icon": "⚙️",
-            "title": "SOW Enterprise Proposal Generated",
-            "agent": "Employee #07 (SOW Architect)",
-            "summary": "Drafted 8-page legally binding SOW proposal for Clinique du Nord (Medical 360 AI Triage, Rs 105,000 MUR).",
-            "status": "APPROVED",
-            "time_ago": "12 mins ago",
-            "meta": {"Client": "Clinique du Nord", "Value": "Rs 105,000 MUR", "SOW ID": "SOW-2026-002"},
-            "details": {
-                "Client Name": "Clinique du Nord (Dr. Alain Wong)",
-                "Scope": "Automated Medical Patient Triage & Local WhatsApp Gateway",
-                "Compliance": "Mauritius Data Protection Act 2017 compliant",
-                "Payment Terms": "50% upfront, 50% upon deployment"
-            }
-        },
-        {
-            "id": "EVT-105",
-            "domain": "commerce",
-            "icon": "💳",
-            "title": "Base L2 DEX Arbitrage Checked",
-            "agent": "Employee #11 (DEX Arbitrageur)",
-            "summary": "Monitored Aerodrome & Uniswap V3 liquidity pools. Net profit spread nominal (+0.42% net of gas). Zero capital at risk.",
-            "status": "NOMINAL",
-            "time_ago": "25 mins ago",
-            "meta": {"Network": "Base L2", "Spread": "+0.42%", "Gas Cost": "$0.001", "Wallet": "0xEAE...b1F2"},
-            "details": {
-                "Target Pair": "ETH / USDC",
-                "Pool A": "Aerodrome Base",
-                "Pool B": "Uniswap V3 Base",
-                "Economic Gate": "Approved (Expected Value positive)"
-            }
-        },
-        {
-            "id": "EVT-104",
-            "domain": "security",
-            "icon": "🛡️",
-            "title": "Security Fortress Invariant Audit",
-            "agent": "Employee #01 (Fortress Sentinel)",
-            "summary": "14/14 Core Invariants validated. SQLite WAL concurrency active, HMAC hash chaining unbroken, negative EV gate armed.",
-            "status": "VERIFIED",
-            "time_ago": "38 mins ago",
-            "meta": {"Passed": "14/14", "Integrity": "100%", "Violations": "0", "Rate Limit": "120 req/min"},
-            "details": {
-                "HMAC Chaining": "Unbroken ledger block #412",
-                "Anti-Replay": "Nonce cache active (15m window)",
-                "Financial Cap": "Max single transaction $50.00 / Daily $50.00",
-                "Cloud Compute Burn": "$0.00 / $180.00 monthly cap"
-            }
-        },
-        {
-            "id": "EVT-103",
-            "domain": "comms",
-            "icon": "🧹",
-            "title": "Inbox Hygiene Sweep Executed",
-            "agent": "Employee #03 (Hygiene Sweeper)",
-            "summary": "Purged 2 malicious spam domains (.buzz, .xyz), quarantined cold pitches, and whitelisted verified clients.",
-            "status": "CLEARED",
-            "time_ago": "1 hour ago",
-            "meta": {"Purged": "2 Domains", "Quarantined": "1 Pitch", "VIPs Protected": "100%"},
-            "details": {
-                "Threats Quarantined": "vip@spin-bonus-winner.buzz",
-                "Cold Pitches Diverted": "john.sales@outreach-scale.com",
-                "Protected Inboxes": "deven@pawaray.mu, reservations@heritageresorts.mu"
-            }
-        },
-        {
-            "id": "EVT-102",
-            "domain": "operations",
-            "icon": "💾",
-            "title": "Atomic System Snapshot Saved",
-            "agent": "Employee #00 (Core Overseer)",
-            "summary": "Created SHA-256 verified system snapshot and SQLite backup in data/backups/.",
-            "status": "BACKED_UP",
-            "time_ago": "2 hours ago",
-            "meta": {"Backup": "nexus_snapshot_latest.tar.gz", "Hash": "sha256-verified", "Status": "Synced"},
-            "details": {
-                "Database State": "data/nexus_workforce.db (WAL checkpointed)",
-                "Artifacts Archived": "32 documents and contract SOWs",
-                "Integrity Status": "Restorable in <30 seconds"
-            }
-        },
-        {
-            "id": "EVT-101",
-            "domain": "commerce",
-            "icon": "🛍️",
-            "title": "Digital Store Inventory Synced",
-            "agent": "Employee #09 (Store Manager)",
-            "summary": "Storefront inventory verified: 3 premium turnkey enterprise software suites online and ready for automated delivery.",
-            "status": "ONLINE",
-            "time_ago": "3 hours ago",
-            "meta": {"Catalog": "3 Turnkey Suites", "Rails": "Stripe, Crypto & MCB Juice", "Delivery": "Instant"},
-            "details": {
-                "Suite 1": "Nexus Workforce Superpack ($249.00 USD)",
-                "Suite 2": "VillaFlow Hospitality Automation (Rs 25,000 MUR)",
-                "Suite 3": "Medical 360 Clinic Practice Manager (Rs 105,000 MUR)"
-            }
-        }
-    ]
+    events = []
 
-    # Incorporate any recent live telemetry events from in-memory bus
-    for te in reversed(telemetry.history[-10:]):
-        events.insert(0, {
+    # Incorporate recent live telemetry events from in-memory bus
+    for te in reversed(telemetry.history[-25:]):
+        events.append({
             "id": f"EVT-LIVE-{len(events)+1}",
             "domain": "operations",
             "icon": "⚡",
@@ -1639,7 +1539,7 @@ def test_whatsapp_gateway(payload: dict = Body(default={})):
     test_text = (
         f"⚡ Nexus Executive WhatsApp Link Confirmed ({provider.upper()})\n"
         f"Autonomous communication channel verified at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.\n"
-        f"Recipient: Deven Pawaray (+230 58169420) | All 18 agents armed."
+        f"Recipient: Kingsley Vance Maurya (+230 58169420) | All 18 agents armed."
     )
     result = send_whatsapp_message(text=test_text, phone=phone, title="Nexus Gateway Connection Test")
     return {"success": True, "result": result}
@@ -2263,7 +2163,7 @@ def send_email_outbound(req: SendEmailRequest):
             subject=req.subject,
             body=req.body,
             account_id=req.account_id,
-            from_name=req.from_name or "Deven Pawaray",
+            from_name=req.from_name or "Kingsley Vance Maurya",
             reply_to=req.reply_to
         )
         return res
@@ -2666,6 +2566,36 @@ def simulate_mauritius_demo_reply(req: MauritiusDemoReplyRequest):
         sector_id=req.sector_id or "villas_hospitality"
     )
 
+@app.post("/api/mauritius/simulate-reply")
+def simulate_mauritius_booking_reply(payload: Dict[str, Any]):
+    """Executes persistent SQLite WhatsApp slot-lock + Kreol/FR/EN AI Concierge reply."""
+    sector_id = payload.get("sector_id") or "clinics"
+    message = payload.get("message") or payload.get("guest_message") or "Bonzour, mo anvi book enn rendez-vous"
+    phone = payload.get("phone") or "+23058169420"
+    sim = mauritius_sales_engine.simulate_whatsapp_booking_reply(
+        sector_id=sector_id,
+        guest_message=message,
+        customer_phone=phone
+    )
+    return {"success": True, "simulation": sim, "reply": sim.get("ai_reply", "")}
+
+@app.get("/api/mauritius/pitch/{sector_id}")
+def get_mauritius_sector_pitch(sector_id: str):
+    """Returns B2B retainer pitch and wa.me link for a specific Mauritian sector."""
+    pitch = mauritius_sales_engine.generate_sector_pitch(sector_id)
+    return {"success": True, "pitch": pitch}
+
+@app.get("/api/mauritius/bookings")
+def get_mauritius_whatsapp_bookings(sector_id: Optional[str] = None):
+    """Returns all persistent SQLite WhatsApp appointment bookings and slot locks."""
+    bookings = mauritius_sales_engine.get_bookings(sector_id=sector_id)
+    return {"success": True, "count": len(bookings), "bookings": bookings}
+
+@app.post("/api/mauritius/reminders/dispatch")
+def dispatch_mauritius_whatsapp_reminders():
+    """Scans confirmed/pending WhatsApp bookings and dispatches due 24h/2h reminders."""
+    return mauritius_sales_engine.dispatch_due_reminders()
+
 
 
 # Tech Trend Curator Endpoints
@@ -2837,7 +2767,7 @@ def get_daily_brief_status():
 
 @app.get("/api/partner-ai/status")
 def get_partner_ai_status():
-    """Returns status of Nexus AI acting as Trusted Co-Managing Partner on behalf of Deven Pawaray."""
+    """Returns status of Nexus AI acting as Trusted Co-Managing Partner on behalf of Kingsley Vance Maurya."""
     return executive_partner.get_status()
 
 @app.post("/api/partner-ai/directive")
@@ -3791,6 +3721,41 @@ def api_get_pipeline_status():
 os.makedirs("static", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.get("/buy")
+def serve_real_checkout_page():
+    """Serves a real, public checkout page with an active PayPal link."""
+    html = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Nexus Email Guardian - Only $1.00</title>
+        <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #070b14; color: #f8fafc; padding: 40px; text-align: center; }
+            .card { background: #0d1527; max-width: 500px; margin: 0 auto; padding: 30px; border-radius: 16px; border: 1px solid #1e2c4f; }
+            h1 { color: #38bdf8; }
+            p { color: #94a3b8; font-size: 18px; }
+            .price { font-size: 32px; font-weight: bold; margin: 20px 0; color: #10b981; }
+            .buy-btn { display: inline-block; background: #3b82f6; color: white; text-decoration: none; padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 20px; transition: background 0.2s; }
+            .buy-btn:hover { background: #2563eb; }
+            .guarantee { margin-top: 20px; font-size: 12px; color: #64748b; }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h1>🛡️ Nexus Email Guardian</h1>
+            <p>A zero-dependency single-file IMAP spam cleaner & 2FA protector. Stop SaaS bloat. Run it locally forever.</p>
+            <div class="price">$1.00 USD</div>
+            <p style="font-size: 14px; margin-top: -10px;">Instant digital download + source code.</p>
+            <!-- ACTUALLY PUTTING WHEELS ON IT: A real, hardcoded PayPal.me link or configured PayPal hosted button -->
+            <a href="https://paypal.me/devenpawaray/1USD" class="buy-btn" target="_blank">Pay $1.00 via PayPal</a>
+            <div class="guarantee">Once paid, your download link will be emailed to your PayPal address.</div>
+        </div>
+    </body>
+    </html>
+    """
+    return HTMLResponse(content=html)
+
 @app.get("/")
 def serve_ui():
     index_path = os.path.join("static", "index.html")
@@ -4539,6 +4504,8 @@ def api_cyber_run(req: CyberAuditRequest):
     elif audit_type == "policy":
         sample_args = req.args or {"query": "security audit"}
         return cybersecurity_service.run_agentic_policy_gate(req.tool_name or "search_docs", sample_args)
+    elif audit_type in ("zeroday", "zeroday_defense"):
+        return cybersecurity_service.run_zero_day_defense_audit(target)
     else:
         raise HTTPException(status_code=400, detail=f"Unsupported audit type: {req.type}")
 
@@ -5008,6 +4975,28 @@ def trigger_seo_engine(data: dict):
 @app.post("/api/skills/dunning")
 def trigger_dunning_cycle():
     return treasury_engine.run_dunning_cycle()
+
+@app.get("/api/cybersecurity/zero-day-sentinel")
+def api_get_zero_day_sentinel_status():
+    """Returns the 6-hour Zero-Day Sentinel schedule, 28-safeguard status, and auto-evolution handoff ledger."""
+    from core import dal
+    from security.shield import shield
+    ledger = dal.load("zeroday_audit_ledger", default=[])
+    return {
+        "success": True,
+        "agent_id": "zero_day_sentinel",
+        "schedule_minutes": 360,
+        "cadence": "Every 6 Hours (360m)",
+        "safeguards": shield.verify_all_safeguards(),
+        "recent_audits": ledger[:10] if isinstance(ledger, list) else []
+    }
+
+@app.post("/api/cybersecurity/zero-day-sentinel")
+def api_run_zero_day_sentinel_cycle():
+    """Executes the 6-hour Zero-Day Sentinel, Fleet Auto-Immunization, and B2B Commercial Handoff cycle."""
+    from agents.zero_day_sentinel.agent import ZeroDaySentinelAgent
+    zd = ZeroDaySentinelAgent()
+    return zd.run_cycle()
 
 
 if __name__ == "__main__":

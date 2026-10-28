@@ -1,4 +1,4 @@
-import os
+﻿import os
 import re
 import json
 import time
@@ -216,9 +216,9 @@ class FinancialSecurityShield:
             pass
 
     def get_legal_disclaimer(self) -> Dict[str, str]:
-        """Returns standard commercial legal terms protecting Deven Pawaray and Nexus."""
+        """Returns standard commercial legal terms protecting Kingsley Vance Maurya and Nexus."""
         return {
-            "vendor_name": "Deven Pawaray (Nexus Autonomous Engineering)",
+            "vendor_name": "Kingsley Vance Maurya (Nexus Autonomous Engineering)",
             "jurisdiction": "Republic of Mauritius",
             "terms_summary": (
                 "1. Non-Refundable Digital Delivery: Software and turnkey licenses are non-refundable once deployed or transferred. "
@@ -229,3 +229,4 @@ class FinancialSecurityShield:
         }
 
 financial_shield = FinancialSecurityShield()
+

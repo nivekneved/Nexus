@@ -43,12 +43,16 @@ TIER_ALLOWED_AGENTS = {
         "infra_finance_sentinel",
         "lead_finder",
         "customer_support",
+        "zero_day_sentinel",
+        "bounty_hunter",
         "bilingual_concierge",
         "growth_hacker",
         "digital_store_service",
         "payment_service",
         "social_broadcaster",
-        "executive_poster"
+        "executive_poster",
+        "zero_day_sentinel",
+        "bounty_hunter"
     },
     SurvivalTier.CRITICAL: {
         # ONLY direct revenue, billing, and executive safety
@@ -57,7 +61,9 @@ TIER_ALLOWED_AGENTS = {
         "digital_store_service",
         "payment_service",
         "lead_finder",
-        "customer_support"
+        "customer_support",
+        "zero_day_sentinel",
+        "bounty_hunter"
     },
     SurvivalTier.DORMANT: set()  # No agents run autonomously
 }

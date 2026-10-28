@@ -1,5 +1,5 @@
-"""
-Nexus™ 3-Tiered Memory Engine (Inspired by MemGPT / Letta)
+﻿"""
+Nexusâ„¢ 3-Tiered Memory Engine (Inspired by MemGPT / Letta)
 =========================================================
 Provides structured, persistent memory across 3 distinct tiers:
 1. Working Memory (In-Memory RAM): Transient active task state and prompt context.
@@ -41,7 +41,7 @@ class TieredMemoryEngine:
                 self._save_json(RECALL_FILE, [])
             if not os.path.exists(ARCHIVAL_FILE):
                 self._save_json(ARCHIVAL_FILE, {
-                    "owner": "Deven Pawaray",
+                    "owner": "Kingsley Vance Maurya",
                     "brand": "Nexus AI Workforce",
                     "default_currency": "USD",
                     "mcb_juice": "+230 58169420",
@@ -117,3 +117,4 @@ class TieredMemoryEngine:
             self._save_json(ARCHIVAL_FILE, data)
 
 tiered_memory = TieredMemoryEngine()
+

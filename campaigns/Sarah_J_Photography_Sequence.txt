@@ -1,0 +1,18 @@
+﻿TO: sarah.j.photography@gmail.com
+SUBJECT: App-less guest photo collector for your weddings
+--------------------------------------------------
+Hi J,
+
+I love the portfolio for Sarah J Photography.
+
+I noticed a lot of photographers struggle to collect all the candid photos guests take at the reception because guests refuse to download random photo-sharing apps.
+
+I just built 'GuestLens'â€”an app-less, frictionless web app. You put a QR code on the tables, guests scan it, and upload straight from their browser to a gallery you control. No app store downloads.
+
+I'm selling the complete software package and IP for Rs 85,000 MUR (~$1,888 USD). You can white-label it and offer it as a premium add-on to your wedding packages. It pays for itself in two weddings.
+
+Secure the source code here: https://nexus.mu/turnkey_fleet
+
+Cheers,
+Kingsley Vance Maurya
+Nexus Principal Engineering

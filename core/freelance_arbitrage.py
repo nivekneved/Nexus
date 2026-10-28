@@ -27,7 +27,19 @@ class FreelanceArbitrageEngine:
     def scan_and_bid(self) -> Dict[str, Any]:
         """Runs the active RFP sniper bot sweep across live feeds and records bids."""
         logger.info("[FreelanceArbitrage] Initiating live freelance radar scan...")
+
+        # ACTUALLY PUTTING WHEELS ON IT: Only return real results, do not fabricate success
         sniper_result = rfp_sniper_bot.snipe_rfps(auto_dispatch_alert=True)
+
+        if sniper_result.get("scanned_count", 0) == 0:
+             logger.warning("[FreelanceArbitrage] No live RFPs found on public RSS feeds. Awaiting live data.")
+             return {
+                 "success": False,
+                 "error": "No live jobs found on Upwork public RSS. Adjust search terms or await new postings.",
+                 "jobs_scanned": 0,
+                 "bids_placed": 0,
+                 "total_active_bids": 0
+             }
 
         # Synchronize ledger
         ledger = rfp_sniper_bot.get_ledger()

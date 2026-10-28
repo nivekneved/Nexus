@@ -1,0 +1,10 @@
+{
+  "name": "wrapcheck-nexus-turnkey",
+  "version": "1.0.0",
+  "description": "Brutal, high-speed QR gear scanner for indie film crews.",
+  "main": "App.tsx",
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.6"
+  }
+}

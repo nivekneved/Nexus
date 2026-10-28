@@ -1,4 +1,4 @@
-import os
+﻿import os
 import json
 from typing import Dict, Any
 
@@ -38,7 +38,7 @@ def generate_invoice_receipt_html(invoice: Dict[str, Any], logo_path: str = "sta
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice &amp; Receipt — {inv_id} | Nexus Commercial</title>
+  <title>Invoice &amp; Receipt â€” {inv_id} | Nexus Commercial</title>
   <style>
     @media print {{
       body {{ background: #fff !important; margin: 0; padding: 0; font-size: 12pt; }}
@@ -207,7 +207,7 @@ def generate_invoice_receipt_html(invoice: Dict[str, Any], logo_path: str = "sta
     <div class="details-grid">
       <div class="meta-box">
         <h4>Issued By (Vendor):</h4>
-        <p><strong>Deven Pawaray</strong><br>
+        <p><strong>Kingsley Vance Maurya</strong><br>
         Nexus Autonomous Engineering<br>
         Port Louis / Cybercity, Mauritius<br>
         WhatsApp / Juice: +230 58169420<br>
@@ -264,11 +264,11 @@ def generate_invoice_receipt_html(invoice: Dict[str, Any], logo_path: str = "sta
     </div>
 
     <div class="crypto-stamp">
-      <strong>🛡️ CRYPTOGRAPHIC INTEGRITY &amp; LEGAL VERIFICATION STAMP</strong><br>
-      • <strong>HMAC-SHA256 Signature:</strong> {sig}<br>
-      • <strong>Audit Block Hash:</strong> {bhash or "NEXUS-GENESIS-CHAIN"}<br>
-      {f'• <strong>MCB Juice Reconciliation Token:</strong> {juice_token}<br>' if juice_token else ''}
-      • <strong>Vendor Verification:</strong> Registered to Deven Pawaray (+230 58169420). Tamper-evident ledger record.
+      <strong>ðŸ›¡ï¸ CRYPTOGRAPHIC INTEGRITY &amp; LEGAL VERIFICATION STAMP</strong><br>
+      â€¢ <strong>HMAC-SHA256 Signature:</strong> {sig}<br>
+      â€¢ <strong>Audit Block Hash:</strong> {bhash or "NEXUS-GENESIS-CHAIN"}<br>
+      {f'â€¢ <strong>MCB Juice Reconciliation Token:</strong> {juice_token}<br>' if juice_token else ''}
+      â€¢ <strong>Vendor Verification:</strong> Registered to Kingsley Vance Maurya (+230 58169420). Tamper-evident ledger record.
     </div>
 
     <div class="legal-footer">
@@ -281,11 +281,12 @@ def generate_invoice_receipt_html(invoice: Dict[str, Any], logo_path: str = "sta
   </div>
 
   <div class="action-bar no-print">
-    <button class="btn btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
-    <a href="/" class="btn btn-back">⬅ Return to Command Center</a>
+    <button class="btn btn-print" onclick="window.print()">ðŸ–¨ï¸ Print / Save as PDF</button>
+    <a href="/" class="btn btn-back">â¬… Return to Command Center</a>
   </div>
 
 </body>
 </html>
 """
     return html
+

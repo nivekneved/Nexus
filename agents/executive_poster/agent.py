@@ -1,7 +1,7 @@
-"""
-Nexus Autonomous Workforce — Employee #19: Executive Social Ghostwriter & Auto-Poster
+﻿"""
+Nexus Autonomous Workforce â€” Employee #19: Executive Social Ghostwriter & Auto-Poster
 Official Role: Crafts, reviews, and publishes authoritative social media content
-               on behalf of Deven Pawaray (Founder & CEO).
+               on behalf of Kingsley Vance Maurya (Founder & CEO).
 Channels: LinkedIn, X (Twitter), Instagram, and WhatsApp VIP Broadcasts.
 """
 
@@ -24,21 +24,21 @@ class ExecutivePosterAgent(BaseAgent):
     Employee #19: Executive Social Ghostwriter & Auto-Poster
     Autonomous content creation and multi-channel publishing agent.
     Mines company telemetry and strategic wins to author high-converting
-    founder posts in Deven Pawaray's voice, providing 1-click visual approval
+    founder posts in Kingsley Vance Maurya's voice, providing 1-click visual approval
     and instant browser intent dispatch.
     """
     def __init__(self):
         super().__init__(
             agent_id="executive_poster",
             name="Executive Social Ghostwriter & Auto-Poster",
-            description="Autonomous personal ghostwriter for Deven Pawaray. Drafts viral thought leadership, launches, and updates for LinkedIn, X, and WhatsApp with 1-click publishing.",
+            description="Autonomous personal ghostwriter for Kingsley Vance Maurya. Drafts viral thought leadership, launches, and updates for LinkedIn, X, and WhatsApp with 1-click publishing.",
             icon="feather",
             schedule_minutes=240  # Runs every 4 hours
         )
         self.config = {
             "AUTO_PILOT_ENABLED": True,
             "CHANNELS": ["linkedin", "twitter_x", "whatsapp"],
-            "VOICE_PERSONA": "Visionary Founder & CEO (Deven Pawaray)",
+            "VOICE_PERSONA": "Visionary Founder & CEO (Kingsley Vance Maurya)",
             "MIN_ENGAGEMENT_TARGET": "5.0%"
         }
 
@@ -103,7 +103,7 @@ class ExecutivePosterAgent(BaseAgent):
                 "key": "VOICE_PERSONA",
                 "label": "Executive Persona",
                 "type": "string",
-                "default": "Visionary Founder & CEO (Deven Pawaray)",
+                "default": "Visionary Founder & CEO (Kingsley Vance Maurya)",
                 "description": "Voice used when crafting social media thought leadership"
             }
         ]
@@ -115,3 +115,4 @@ class ExecutivePosterAgent(BaseAgent):
         self.config.update(new_config)
         self.log(step="Config Update", file_used="executive_poster/agent.py", message="Executive Ghostwriter settings updated", level="SUCCESS")
         return True
+

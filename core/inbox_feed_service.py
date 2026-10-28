@@ -32,6 +32,9 @@ class InboxFeedService:
     """
     def __init__(self):
         self._gemini_client = None
+        self._cached_feed: Optional[Dict[str, Any]] = None
+        self._cached_feed_ts: float = 0.0
+        self._feed_ttl_seconds: float = 60.0
         self._init_gemini()
 
     def _init_gemini(self):
@@ -61,7 +64,7 @@ class InboxFeedService:
         if rev_matches:
             return {
                 "category": "revenue",
-                "label": "💰 Revenue / Client",
+                "label": "ðŸ’° Revenue / Client",
                 "badge_color": "emerald",
                 "matched_keyword": rev_matches[0],
                 "priority_score": 90
@@ -72,7 +75,7 @@ class InboxFeedService:
         if urg_matches:
             return {
                 "category": "urgent",
-                "label": "🚨 Urgent Action",
+                "label": "ðŸš¨ Urgent Action",
                 "badge_color": "rose",
                 "matched_keyword": urg_matches[0],
                 "priority_score": 95
@@ -80,17 +83,22 @@ class InboxFeedService:
         
         return {
             "category": "general",
-            "label": "👥 General Business",
+            "label": "ðŸ‘¥ General Business",
             "badge_color": "slate",
             "matched_keyword": None,
             "priority_score": 50
         }
 
-    def fetch_unified_feed(self, limit_per_account: int = 5) -> Dict[str, Any]:
+    def fetch_unified_feed(self, limit_per_account: int = 5, force_refresh: bool = False) -> Dict[str, Any]:
         """
-        Polls configured accounts. Returns categorized priority emails
-        with fallback demo items if accounts are empty or offline.
+        Polls configured accounts with a 60-second shared snapshot cache so multiple
+        agents (Support Triage, Hygiene, Unsubscriber, Bounce Sweeper) share 1 IMAP poll.
         """
+        import time
+        now = time.time()
+        if not force_refresh and self._cached_feed is not None and (now - self._cached_feed_ts) < self._feed_ttl_seconds:
+            return self._cached_feed
+
         accounts = self.load_accounts()
         all_emails: List[Dict[str, Any]] = []
         account_statuses: List[Dict[str, Any]] = []
@@ -188,7 +196,7 @@ class InboxFeedService:
                     "body": "Hi Deven,\n\nWe saw your automated hospitality booking solution and would love to get a quote for Le Morne Villas (18 luxury beachfront suites). We need instant WhatsApp replies for guest bookings and room service inquiries.\n\nCould you send over pricing and timeline for deployment?\n\nBest regards,\nClaire Fontaine\nGeneral Manager, Le Morne Villas",
                     "preview": "We saw your automated hospitality booking solution and would love to get a quote for Le Morne Villas (18 luxury beachfront suites)...",
                     "category": "revenue",
-                    "category_label": "💰 Revenue / Client",
+                    "category_label": "ðŸ’° Revenue / Client",
                     "badge_color": "emerald",
                     "priority_score": 95
                 },
@@ -204,7 +212,7 @@ class InboxFeedService:
                     "body": "Notice: The automated SSL renewal check for eco-travellounge.mu succeeded, but your Cloudflare API token is scheduled for quarterly key rotation within 7 days. Please review token permissions in your dashboard.",
                     "preview": "Notice: The automated SSL renewal check for eco-travellounge.mu succeeded, but your Cloudflare API token is scheduled for rotation...",
                     "category": "urgent",
-                    "category_label": "🚨 Urgent Action",
+                    "category_label": "ðŸš¨ Urgent Action",
                     "badge_color": "rose",
                     "priority_score": 88
                 },
@@ -220,7 +228,7 @@ class InboxFeedService:
                     "body": "Hey Kevin & Deven,\n\nCame across your autonomous multi-agent email triage and dispatch repo. Does the $249 Founder license include lifetime updates or is it a monthly maintenance model? We want to deploy this for 3 agency clients next week.\n\nThanks!\nNate Williams",
                     "preview": "Came across your autonomous multi-agent email triage and dispatch repo. Does the $249 Founder license include lifetime updates...?",
                     "category": "revenue",
-                    "category_label": "💰 Revenue / Client",
+                    "category_label": "ðŸ’° Revenue / Client",
                     "badge_color": "emerald",
                     "priority_score": 92
                 }
@@ -230,7 +238,7 @@ class InboxFeedService:
         # Sort by priority score descending
         all_emails.sort(key=lambda x: x.get("priority_score", 0), reverse=True)
 
-        return {
+        result_payload = {
             "total": len(all_emails),
             "revenue_count": sum(1 for e in all_emails if e.get("category") == "revenue"),
             "urgent_count": sum(1 for e in all_emails if e.get("category") == "urgent"),
@@ -238,6 +246,9 @@ class InboxFeedService:
             "accounts_status": account_statuses,
             "emails": all_emails
         }
+        self._cached_feed = result_payload
+        self._cached_feed_ts = time.time()
+        return result_payload
 
     def generate_ai_reply(
         self,
@@ -256,7 +267,7 @@ class InboxFeedService:
             try:
                 from google.genai import types
                 prompt = f"""
-You are the executive AI communications assistant for Deven Pawaray (Founder of Nexus AI & Software Solutions, Mauritius).
+You are the executive AI communications assistant for Kingsley Vance Maurya (Founder of Nexus AI & Software Solutions, Mauritius).
 Draft a concise, highly effective, professional email response to the incoming email below.
 
 Parameters:
@@ -278,7 +289,7 @@ Guidelines:
 3. Address all key questions directly and suggest clear next steps (e.g., call link or payment/invoice details if applicable).
 4. Sign off with:
    Best regards,
-   Deven Pawaray
+   Kingsley Vance Maurya
    Nexus AI Solutions | WhatsApp: +230 58169420
 
 Respond ONLY with valid JSON matching:
@@ -315,7 +326,7 @@ Respond ONLY with valid JSON matching:
             f"I have reviewed your message and would be glad to help move this forward. "
             f"{user_notes if user_notes else 'I will prepare the necessary details and follow up with you shortly.'}\n\n"
             f"If you'd like to discuss directly or have an urgent query, feel free to WhatsApp me on +230 58169420.\n\n"
-            f"Best regards,\nDeven Pawaray\nNexus AI Solutions"
+            f"Best regards,\nKingsley Vance Maurya\nNexus AI Solutions"
         )
         return {
             "success": True,
@@ -331,7 +342,7 @@ Respond ONLY with valid JSON matching:
         subject: str,
         body: str,
         account_id: Optional[str] = None,
-        from_name: str = "Deven Pawaray",
+        from_name: str = "Kingsley Vance Maurya",
         reply_to: Optional[str] = None,
         html_body: Optional[str] = None,
         bypass_guardrails: bool = False,
@@ -391,6 +402,10 @@ Respond ONLY with valid JSON matching:
         if not selected_acc:
             raise ValueError("No active email account with credentials found in email_accounts.json")
 
+        # ACTUALLY PUTTING WHEELS ON IT: Don't pretend to send if missing real passwords
+        if not selected_acc.get("password") or selected_acc.get("password").startswith("your_"):
+            raise ValueError("Cannot send real email. Real SMTP password not configured in .env for this account.")
+
         client = EmailClient(
             host=selected_acc.get("imap_server", "imap.gmail.com"),
             port=int(selected_acc.get("imap_port", 993)),
@@ -410,23 +425,116 @@ Respond ONLY with valid JSON matching:
             headers=headers
         )
 
-        # 4. Record successful dispatch in Quota & Contact History CRM
-        legal_guardrails.record_dispatch_quota()
-        contact_history_service.record_outreach(
-            recipient_email=to_email,
-            company=company or to_email.split("@")[-1],
-            contact_name=contact_name or to_email.split("@")[0],
-            channel="email",
-            subject=subject,
-            body=compliant_body,
-            sender=selected_acc.get("email", "devenpawaray@gmail.com"),
-            status="SENT",
-            lead_id=lead_id,
-            metadata={"message_id": res.get("message_id")}
-        )
+        # ACTUALLY PUTTING WHEELS ON IT: Only log it if the SMTP dispatch actually succeeded
+        if res.get("success"):
+            # 4. Record successful dispatch in Quota & Contact History CRM
+            legal_guardrails.record_dispatch_quota()
+            contact_history_service.record_outreach(
+                recipient_email=to_email,
+                company=company or to_email.split("@")[-1],
+                contact_name=contact_name or to_email.split("@")[0],
+                channel="email",
+                subject=subject,
+                body=compliant_body,
+                sender=selected_acc.get("email", "devenpawaray@gmail.com"),
+                status="SENT",
+                lead_id=lead_id,
+                metadata={"message_id": res.get("message_id")}
+            )
+            logger.info(f"Real SMTP email successfully dispatched to {to_email}")
+        else:
+            logger.error(f"Real SMTP email failed to dispatch to {to_email}: {res.get('error')}")
 
         return res
 
+    def send_outbound_batch(self, messages: List[Dict[str, Any]], account_id: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Dispatches a batch of outbound emails over a single pooled SMTP_SSL / STARTTLS session,
+        eliminating repeated TCP + TLS + AUTH handshakes per recipient.
+        """
+        import smtplib
+        from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
+        from email.header import Header
+        from email.utils import formataddr, formatdate, make_msgid
+        from core.legal_guardrails import legal_guardrails
+        from core.contact_history_service import contact_history_service
+
+        accounts = self.load_accounts()
+        selected_acc = next(
+            (a for a in accounts if (account_id and (a.get("id") == account_id or a.get("email") == account_id)) or (a.get("is_enabled", True) and a.get("password"))),
+            None
+        )
+        if not selected_acc or not selected_acc.get("password") or str(selected_acc.get("password")).startswith("your_"):
+            return {"success": False, "sent_count": 0, "failed_count": len(messages), "error": "No active SMTP credentials configured"}
+
+        sender_email = selected_acc.get("email", "").strip()
+        clean_pwd = str(selected_acc.get("password", "")).replace(" ", "").strip()
+        host = selected_acc.get("smtp_server", "smtp.gmail.com")
+        port = int(selected_acc.get("smtp_port", 465))
+        domain = sender_email.split("@")[-1] if "@" in sender_email else "nexus.ai"
+
+        sent_count = 0
+        failed_count = 0
+        server = None
+
+        try:
+            if port == 465:
+                server = smtplib.SMTP_SSL(host, port, timeout=15)
+            else:
+                server = smtplib.SMTP(host, port, timeout=15)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+            server.login(sender_email, clean_pwd)
+
+            for item in messages:
+                to_email = item.get("to_email", "").strip()
+                raw_subject = item.get("subject", "")
+                raw_body = item.get("body", "")
+                company = item.get("company", "")
+                contact_name = item.get("contact_name", "")
+                try:
+                    subj, compliant_body, hdrs = legal_guardrails.prepare_outbound_email(to_email, raw_subject, raw_body)
+                    msg = MIMEMultipart("alternative")
+                    msg["Subject"] = Header(subj, "utf-8")
+                    msg["From"] = formataddr((str(Header("Kingsley Vance Maurya", "utf-8")), sender_email))
+                    msg["To"] = to_email
+                    msg["Date"] = formatdate(localtime=True)
+                    msg["Message-ID"] = make_msgid(domain=domain)
+                    for hk, hv in hdrs.items():
+                        msg[hk] = hv
+                    msg.attach(MIMEText(compliant_body, "plain", "utf-8"))
+                    server.sendmail(sender_email, [to_email], msg.as_string())
+                    legal_guardrails.record_dispatch_quota()
+                    contact_history_service.record_outreach(
+                        recipient_email=to_email,
+                        company=company or to_email.split("@")[-1],
+                        contact_name=contact_name or to_email.split("@")[0],
+                        channel="email",
+                        subject=subj,
+                        body=compliant_body,
+                        sender=sender_email,
+                        status="SENT",
+                        metadata={"message_id": msg["Message-ID"], "pooled_batch": True}
+                    )
+                    sent_count += 1
+                except Exception as item_err:
+                    logger.warning(f"[PooledSMTP] Failed for {to_email}: {item_err}")
+                    failed_count += 1
+        except Exception as conn_err:
+            logger.error(f"[PooledSMTP] Session error: {conn_err}")
+            failed_count += (len(messages) - sent_count)
+        finally:
+            if server:
+                try:
+                    server.quit()
+                except Exception:
+                    pass
+
+        return {"success": sent_count > 0, "sent_count": sent_count, "failed_count": failed_count}
+
 inbox_feed_service = InboxFeedService()
+
 
 

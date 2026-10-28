@@ -83,37 +83,17 @@ class CryptoArbitrageAgent(BaseAgent):
             level="INFO"
         )
 
-        logs = self.get_logs()
-        new_entry = {
-            "id": f"ARB-{int(datetime.now().timestamp())}",
-            "pair": "USDC/cbBTC",
-            "dex_buy": "Aerodrome",
-            "dex_sell": "Uniswap V3 (Base)",
-            "spread_pct": 0.12,
-            "estimated_profit_usd": 0.0,
-            "status": "MONITORING_NO_ACTION",
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        logs.insert(0, new_entry)
-
-        try:
-            with open(ARBITRAGE_LOG_FILE, "w", encoding="utf-8") as f:
-                json.dump(logs[:50], f, indent=2)
-        except Exception:
-            pass
-
-        self.stats["opportunities_detected"] = len(logs)
-
+        # Removed synthetic log generator - Waiting for Real Web3 RPC integration
         self.log(
             step="Liquidity Scanned",
-            file_used=ARBITRAGE_LOG_FILE,
-            message="Base L2 pools scanned. Spreads below auto-execution threshold. No funds committed.",
-            level="INFO"
+            file_used="web3_provider",
+            message="Simulation disabled. Waiting for real Web3 RPC integration to scan live liquidity pools.",
+            level="WARNING"
         )
 
         return {
-            "status": "Crypto Arbitrage Monitor Cycle Completed (No Action Taken)",
-            "latest_scan": new_entry
+            "status": "Crypto Arbitrage Monitor Cycle Paused (Awaiting Web3 RPC Integration)",
+            "latest_scan": {}
         }
 
     def get_config_schema(self) -> List[Dict[str, Any]]:
